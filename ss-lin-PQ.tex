@@ -1,0 +1,47 @@
+\section{Step-by-Step Linearizability of Priority Queues}
+\label{sec:step-by-step linearizability of priority queues}
+
+In this section we shows that, with the help of a property called step-by-step linearizability, we can partition the concurrent executions which are not linearizable with respect to $\textit{PQueue}$ into a finite number of classes. Intuitively, each such class represents a set of sequential execution that violate one rule of priority queue. Here step-by-step linearizability enables us to build a linearization for an execution $e$ incrementally, using linearizations of projections of $e$. The proof of lemmas in this section can be found in Appendix \ref{sec:appendix in section step-by-step linearizability of priority queues}.
+
+The projection $e \vert{\mathcal{D}}$ of a sequential execution $e$ into a subset $\mathcal{D} \subseteq \mathbb{D}$ of items is obtained from $e$ by erasing all method events with a data value not in $\mathcal{D}$. The set of projections of $e$ is denoted $\textit{proj}(e)$. We write $e \setminus x$ for the projection $e \vert_{ \mathbb{D} \setminus \{ x \} }$. This extends naturally to histories. A set $S$ of sequential executions is closed under projection, if for all $\mathcal{D} \subseteq \mathbb{D}$ and $e \in S$, we have $e \vert_{ \mathcal{D} } \in S$. The following lemma states that $\textit{PQueue}$ is closed under projection, since the predicates used in rules of priority queue are ``closed under projection''.
+
+\begin{restatable}{lemma}{PQisClosedUnderProjection}
+\label{lemma:PQ is closed under projection}
+$\textit{PQueue}$ is closed under projection.
+\end{restatable}
+
+A sequential execution $e$ matches a rule $R$ of priority queue, if $e=\textit{Expr}(l_1, \ldots, l_k,a,b)$, and $\textit{Guard}(l_1, \ldots, l_k,a,b)$ holds. Here $\textit{Guard}$ and $\textit{Expr}$ are of rule $R$, and we call $a$ (if exists) the witness of $e$. We denote by $\textit{MS}(R)$ the set of sequential executions which match $R$. Note that sequences in $\textit{MS}(R)$ only respect rule $R$ and may be not in $\textit{PQueue}$. $e$ is linearizable with respect to $\textit{MS}(R)$ with witness $x$, if $e$ is linearizable with respect to $u \in \textit{MS}(R)$ and $x$ is witness of $u$.
+
+\begin{example}\label{example:match set of R}
+$e = \textit{rm}(b) \cdot \textit{put}(b,2) \cdot \textit{put}(a,4) \cdot \textit{rm}(a)$ is in $\textit{MS}(\textit{PQ}_1^{>} )$, but it is obvious that $e \notin \textit{PQueue}$.
+\end{example}
+
+The following lemma states that checking inclusion into $\textit{PQueue}$ of a data-differentiated sequence is equivalent to checking inclusion into $\textit{MS}(R)$ for everyone of its projections.
+
+\begin{restatable}{lemma}{PQasMultiInMRpriforSequence}
+\label{lemma:PQ as multi in MRpri for sequence}
+Given a data-differentiated sequential execution $e$, $e \in \textit{PQueue}$, if and only if, $\forall e' \in \textit{proj}(e)$, $e' \in \textit{MS}(R)$, where $R = \textit{last}(e)$.
+\end{restatable}
+
+Lemma \ref{lemma:PQ as multi in MRpri for sequence} simplifies checking inclusion into $\textit{PQueue}$, since checking $\textit{MS}(R)$ only concerns information of one rule, while checking $\textit{PQueue}$ need to consider every method events. We want a similar lemma for checking linearizability with respect to $\textit{PQueue}$. To enable such equivalent characterization, we introduce the notion of step-by-step linearizability for priority queue. The projection $e \vert{O}$ of a concurrent execution $e$ into a set $O$ of operations is obtained from $e$ by erasing all call and return actions of operations not in $O$.  We write $e \setminus o$ for the projection $e \vert_{ O_h \setminus \{ o \} }$, where $O_h$ is the set of operations of $e$. This extends naturally to histories.
+
+\begin{definition}\label{def:step-by-step linearizability of priority queue}
+A set $S$ of sequential executions of priority queue is step-by-step linearizable, if for any data-differentiated execution $e$,
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] if $e$ is linearizable w.r.t. $\textit{MS}(R)$ ($R \in \{ \textit{PQ}_1^{>}, \textit{PQ}_1^{=}, \textit{PQ}_2^{>},\textit{PQ}_2^{=} \}$) with witness $x$, we have: $e \setminus x \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
+
+\item[-] if $e$ is linearizable w.r.t. $\textit{MS}(\textit{PQ}_3)$ and $o$ is a $\textit{rm}(\textit{empty})$ event, we have:
+
+$e \setminus o \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
+\end{itemize}
+\end{definition}
+
+The following lemma states that $\textit{PQueue}$ is step-by-step linearizability.
+
+\begin{restatable}{lemma}{PQueueisStepByStepLinearizability}
+\label{lemma:PQueue is step-by-step linearizability}
+
+$\textit{PQueue}$ is step-by-step linearizability.
+
+\end{restatable}
