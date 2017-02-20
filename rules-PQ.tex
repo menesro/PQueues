@@ -60,7 +60,7 @@ For $\textit{PQ}_2$, we also need to distinguish two cases: (1) no matched pair 
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] $\textit{PQ}_2^{>} \equiv (u \cdot v \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v) \wedge (\textit{pri} \geq \textit{maxPri}(u \cdot v)) \wedge (\textit{pri} > \textit{maxMPri}(u \cdot v)) \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{PQueue})$.
+\item[-] $\textit{PQ}_2^{>} \equiv (u \cdot v \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v) \wedge (\textit{pri} \geq \textit{maxPri}(u \cdot v)) \wedge (\textit{pri} > \textit{maxMPri}(u \cdot v)) \wedge (\textit{putInSeq}(u \cdot v,u,\textit{pri})) \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{PQueue})$.
 
 \item[-] $\textit{PQ}_2^{=} \equiv (u \cdot v \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v) \wedge (\textit{pri} \geq \textit{maxPri}(u \cdot v)) \wedge (\textit{pri} = \textit{maxMPri}(u \cdot v)) \wedge (\textit{putInSeq}(u \cdot v,u,\textit{pri})) \wedge \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{PQueue})$.
 \end{itemize}
