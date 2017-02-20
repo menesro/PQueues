@@ -1,6 +1,8 @@
 \section{Inductive Rules of Priority Queue}
 \label{sec:inductive rules of priority queue}
 
+A priority queue contains two method: $\textit{put}$ and $\textit{rm}$. A $\textit{put}$ method has two arguments, while the first argument is an item and the second argument is priority. A $\textit{put}$ method is used to put an item into the priority queue with certain priority. Here we assume that the item is chosen from a specific (possibly infinite) data domain $\mathbb{D}$ and priority is chosen from the set $\mathbb{N}$ of natural number. A $\textit{rm}$ method intends to remove the item with maximal priority in priority queue and then returns it. If the priority queue is empty, then $\textit{rm}$ returns $\textit{empty}$. If there are multiple items in priority queue with a same maximal priority, then $\textit{rm}$ will return the item that is putted earliest among such items. We say that $\textit{put}(a,p)$ matches $\textit{rm}(b)$, if $a = b$.
+
 Similar as \cite{Bouajjani:2015}, we use four inductive rules to define the set of sequential executions of priority queue. Each rule is of the form $l_1 \cdot \ldots \cdot l_k \in \textit{PQueue} \wedge \textit{Guard}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \Rightarrow \textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \in \textit{PQueue}$. Here $\textit{PQueue}$ is the set of sequential executions of priority queue. Here $\textit{itm}$ and $\textit{pri}$ are two variables, and represent an arbitrary item and priority, respectively. $\textit{Guard}(l_1,\ldots,l_k,\textit{itm},\textit{pri})$ is a conjunction of conditions with the following notations:
 
 \begin{itemize}

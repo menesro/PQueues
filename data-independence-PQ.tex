@@ -1,9 +1,7 @@
 \section{Data-Independence of Priority Queue}
 \label{sec:data-independence of priority queue}
 
-A priority queue contains two method: $\textit{put}$ and $\textit{rm}$. A $\textit{put}$ method has two arguments, while the first argument is an item and the second argument is priority. A $\textit{put}$ method is used to put an item into the priority queue with certain priority. Here we assume that the item is chosen from a specific (possibly infinite) data domain $\mathbb{D}$ and priority is chosen from the set $\mathbb{N}$ of natural number. A $\textit{rm}$ method intends to remove the item with maximal priority in priority queue and then returns it. If the priority queue is empty, then $\textit{rm}$ returns $\textit{empty}$. If there are multiple items in priority queue with a same maximal priority, then $\textit{rm}$ will return the item that is putted earliest among such items. We say that $\textit{put}(a,p)$ matches $\textit{rm}(b)$, if $a = b$.
-
-Let us slightly modify the notion of differentiated and data-independence in \cite{Wolper:1986} and propose data-differentiated sequence and data-independence for priority queues.
+Data-independence \cite{Wolper:1986} can be used to effectively handle unbounded data domain. In this section, we slightly modify the notion of data-independence in \cite{Wolper:1986} and propose data-differentiated sequences and data-independence for priority queues.
 
 Let $\_$ denote an element, of which the value is irrelevant. A sequential execution $e$ of priority is said to be data-differentiated if, for all $d \in \mathbb{D}$, there is at most one method event $\textit{put}(d,\_)$ in $e$. Note that a data-differentiated sequential execution $e$ may contains more than one items with a same priority. The subset of data-differentiated sequential executions of a set $S$ is denoted by $S_{\neq}$. The definition extends to (sets of) executions and histories. For instance, an execution is data-differentiated if, for all $d \in \mathbb{D}$, there is at most one $\textit{cal}_{\_}(\textit{put},d,\_)$.
 
