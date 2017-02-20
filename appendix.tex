@@ -1,0 +1,14 @@
+\section{Proof in Section \ref{sec:data-independence of priority queue}}
+\label{sec:appendix in section data-independence of PQ}
+
+
+\DataDifferentiatedisEnoughforPQ
+
+\begin {proof} 
+
+To prove the $\textit{only if}$ direction, given a data-differentiated execution $e \in \mathcal{I}_{\neq}$. By assumption, it is linearizable with respect to a sequential execution $l \in S$, and the bijection between the operations of $e$ and the method events of $l$, ensures that $l$ is differentiated and belongs to $S_{\neq}$. 
+
+To prove the $\textit{if}$ direction, given an execution $e \in \mathcal{I}$. By data independence of $\mathcal{I}$, we know that there exists $e' \in \mathcal{I}_{\neq}$ and a renaming function $r$, such that $r(e') = e$. By assumption, $e'$ is linearizable with respect to a sequential execution $l' \in S_{\neq}$. Let $l=r(l')$. By data independence of $S$ it is easy to see that $l \in S$, and it is easy to see that $e \sqsubseteq l$  using the same bijection used for $e' \sqsubseteq l'$. \qed
+\end {proof}
+
+

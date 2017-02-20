@@ -1,0 +1,32 @@
+\section{Data-Independence of Priority Queue}
+\label{sec:data-independence of priority queue}
+
+A priority queue contains two method: $\textit{put}$ and $\textit{rm}$. A $\textit{put}$ method has two arguments, while the first argument is an item and the second argument is priority. A $\textit{put}$ method is used to put an item into the priority queue with certain priority. Here we assume that the item is chosen from a specific (possibly infinite) data domain $\mathbb{D}$ and priority is chosen from the set $\mathbb{N}$ of natural number. A $\textit{rm}$ method intends to remove the item with maximal priority in priority queue and then returns it. If the priority queue is empty, then $\textit{rm}$ returns $\textit{empty}$. If there are multiple items in priority queue with a same maximal priority, then $\textit{rm}$ will return the item that is putted earliest among such items. We say that $\textit{put}(a,p)$ matches $\textit{rm}(b)$, if $a = b$.
+
+Let us slightly modify the notion of differentiated and data-independence in \cite{Wolper:1986} and propose data-differentiated sequence and data-independence for priority queues.
+
+Let $\_$ denote an element, of which the value is irrelevant. A sequential execution $e$ of priority is said to be data-differentiated if, for all $d \in \mathbb{D}$, there is at most one method event $\textit{put}(d,\_)$ in $e$. Note that a data-differentiated sequential execution $e$ may contains more than one items with a same priority. The subset of data-differentiated sequential executions of a set $S$ is denoted by $S_{\neq}$. The definition extends to (sets of) executions and histories. For instance, an execution is data-differentiated if, for all $d \in \mathbb{D}$, there is at most one $\textit{cal}_{\_}(\textit{put},d,\_)$.
+
+\begin{example}\label{example:data-differentiated}
+$\textit{cal}_{o_1}(\textit{put},a,7) \cdot \textit{ret}_{o_1}(\textit{put},a) \cdot \textit{cal}_{o_2}(\textit{put},a,8) \cdot \textit{ret}_{o_2}(\textit{put},a)$ is not data-differentiated, since there are two $\textit{put}$ methods with the same item.
+\end{example}
+
+A renaming function $r$ for priority queue is a function from $\mathbb{D}$ to $\mathbb{D}$. Given a sequential execution (resp., execution or history) $e$, we denote by $r(e)$ the sequential execution (resp., execution or history) obtained from $e$ by replacing every item $x$ by $r(x)$. Note that here the renaming functions rename only the items and keep the priorities unchanged.
+
+%\vspace{-6pt}
+\begin{definition}\label{def:priority-value data-independence}
+The set of sequential executions (resp., executions or histories) $S$ is data-independent, if:
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] for all $e \in S$, there exists $e' \in S'$, and a renaming function $r$, such that $e=r(e')$,
+
+\item[-] for all $e \in S$ and for all renaming $r$, $r(e) \in S$.
+\end{itemize}
+\end{definition}
+
+The following lemma states that, when checking that a data-independent implementation $\mathcal{I}$ is linearizable with respect to a data-independent specification, it is enough to do so for data-differentiated executions, similar as that in \cite{Abdulla:2013}, where the notion of data-independence and differentiated in \cite{Wolper:1986} is used. Thus, in the remainder of the paper, we focus on characterizing linearizability for data-differentiated executions, rather than arbitrary ones. The proof of this lemma can be found in Appendix \ref{sec:appendix in section data-independence of PQ}.
+
+\begin{restatable}{lemma}{DataDifferentiatedisEnoughforPQ}
+\label{lemma:data differentiated is enough for PQ}
+A data-independent implementation $\mathcal{I}$ is linearizable with respect to a data-independent specification $S$, if and only if $\mathcal{I}_{\neq}$ is linearizable with respect to $S_{\neq}$.
+\end{restatable}

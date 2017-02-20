@@ -1,0 +1,84 @@
+\section{Inductive Rules of Priority Queue}
+\label{sec:inductive rules of priority queue}
+
+Similar as \cite{Bouajjani:2015}, we use four inductive rules to define the set of sequential executions of priority queue. Each rule is of the form $l_1 \cdot \ldots \cdot l_k \in \textit{PQueue} \wedge \textit{Guard}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \Rightarrow \textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \in \textit{PQueue}$. Here $\textit{PQueue}$ is the set of sequential executions of priority queue. Here $\textit{itm}$ and $\textit{pri}$ are two variables, and represent an arbitrary item and priority, respectively. $\textit{Guard}(l_1,\ldots,l_k,\textit{itm},\textit{pri})$ is a conjunction of conditions with the following notations:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] Given sequential execution $l$, $\textit{rm}(\textit{empty}) \notin l$ is satisfied when each method event of $l$ is not $\textit{rm}(\textit{empty})$.
+
+\item[-] Given sequential execution $l$, $\textit{maxPri}(l)$, $\textit{maxUPri}(l)$ and $\textit{maxMPri}(l)$ returns the maximal priority of all $\textit{put}$ in $l$, all $\textit{put}$ without matched $\textit{rm}$ in $l$, and all $\textit{put}$ with matched $\textit{rm}$ in $l$.
+
+\item[-] Given sequential execution $l$, its sub-sequence $l'$ and a priority $p$, $\textit{putInSeq}(l,l',p)$ is satisfied when all the $\textit{put}$ with priority $p$ of $l$ (if exists) is in $l'$.
+
+\item[-] Given sequential execution $l$, $\textit{matched}(l)$ is satisfied, if (1) for each $a \in \mathbb{D}$, if $\textit{put}(a,\_)$ is in $l$, then $\textit{rm}(a)$ is in $l$, and (2) for each $a \in \mathbb{D}$, if $\textit{rm}(a)$ is in $l$, then $\textit{put}(a,\_)$ is in $l$.
+\end{itemize}
+
+$\textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri})$ is a expression $l'_1 \cdot \ldots \cdot l'_m$, where each $l'_i$ is chosen from (1) $l_j$ for some $j$, (2) method event with item $\textit{itm}$ and priority $\textit{pri}$ and (3) method event $\textit{rm}(\textit{empty})$.
+
+Given $l'_1,\ldots,l'_k$ and expression $e=\textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri})$, we define $\llbracket e \rrbracket$ as the set of sequential executions which can be obtained from $e$ by replacing $l_i$ with $l'_i$ for each $i$, and replacing $\textit{itm}$ and $\textit{pri}$ with some values in $\mathbb{D}$ and $\mathbb{N}$, respectively. Given a rule $R \equiv l_1 \cdot \ldots \cdot l_k \in \textit{PQueue} \wedge \textit{Guard}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \Rightarrow \textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \in \textit{PQueue}$ and a sequential execution $w$, if $w=l'_1 \cdot \ldots \cdot l'_k$, and $\textit{Guard}(l'_1,\ldots,l'_k,a,p)$ holds for some $a \in \mathbb{D}$ and $p \in \mathbb{N}$, then we use $w \xrightarrow{R} w'$ to denote that we can obtain $w'$ from $w$ according to rule $R$, where $w' = \textit{Expr}(l'_1,\ldots,l'_k,a,p)$. Let $\llbracket \textit{PQueue} \rrbracket$ be the set of sequential executions $w$ which can be derived from the empty word: $$\epsilon = w_0 \xrightarrow{R_1} w_1 \ldots \xrightarrow{R_k} w$$ where each $R_i$ is one rules of priority queue. When clear from context, we abuse $\llbracket \textit{PQueue} \rrbracket$ by $\textit{PQueue}$.
+
+\begin{definition}\label{def:inductive rules of priority queue}
+$\textit{PQueue}$ is defined by the following rules:
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{PQ}_0 \equiv \epsilon \in \textit{PQueue}$.
+
+\item[-] $\textit{PQ}_1 \equiv (u \cdot v \cdot w \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v \cdot w) \wedge (\textit{pri} \geq \textit{maxPri}(u \cdot v \cdot w)) \wedge (\textit{pri} > \textit{maxUPri}(u \cdot v \cdot w)) \wedge (\textit{matched}(u \cdot v) ) \wedge (\textit{putInSeq}(u \cdot v \cdot w,u,\textit{pri})) \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \cdot \textit{rm}(\textit{itm}) \cdot w \in \textit{PQueue})$.
+
+\item[-] $\textit{PQ}_2 \equiv (u \cdot v \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v) \wedge (\textit{pri} \geq \textit{maxPri}(u \cdot v)) \wedge (\textit{putInSeq}(u \cdot v,u,\textit{pri})) \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{PQueue})$.
+
+\item[-] $\textit{PQ}_3 \equiv (u \cdot v \in \textit{PQueue}) \wedge (\textit{matched}(u) ) \Rightarrow (u \cdot \textit{rm}(\textit{empty}) \cdot v \in \textit{PQueue})$.
+\end{itemize}
+\end{definition}
+
+\begin{example}\label{example:generate priority queue executions}
+One sequential execution of $\textit{PQueue}$ is generated as follows:
+
+$\epsilon$ $\xrightarrow{\textit{PQ}_1}$ $\textit{put}(c,2) \cdot \textit{rm}(c)$
+
+$\xrightarrow{\textit{PQ}_1}$ $\textit{put}(a,4) \cdot \textit{rm}(a) \cdot \textit{put}(c,2) \cdot \textit{rm}(c)$
+
+$\xrightarrow{\textit{PQ}_1}$ $\textit{put}(a,4) \cdot \textit{rm}(a) \cdot \textit{put}(b,4) \cdot \textit{put}(c,2) \cdot \textit{rm}(c) \cdot \textit{rm}(b)$
+
+$\xrightarrow{\textit{PQ}_1}$ $\textit{put}(a,4) \cdot \textit{rm}(a) \cdot \textit{rm}(\textit{empty}) \cdot \textit{put}(b,4) \cdot \textit{put}(c,2) \cdot \textit{rm}(c) \cdot \textit{rm}(b)$
+\end{example}
+
+To facilitate our proof of latter sections, for $\textit{PQ}_1$ we need to distinguish two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$.  Therefore, we separate $\textit{PQ}_1$ into two rules:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{PQ}_1^{>} \equiv (u \cdot v \cdot w \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v \cdot w) \wedge (\textit{pri} > \textit{maxPri}(u \cdot v \cdot w)) \wedge (\textit{pri} > \textit{maxUPri}(u \cdot v \cdot w)) \wedge (\textit{matched}(u \cdot v) ) \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \cdot \textit{rm}(\textit{itm}) \cdot w \in \textit{PQueue})$.
+
+\item[-] $\textit{PQ}_1^{=} \equiv (u \cdot v \cdot w \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v \cdot w) \wedge (\textit{pri} = \textit{maxPri}(u \cdot v \cdot w)) \wedge (\textit{pri} > \textit{maxUPri}(u \cdot v \cdot w)) \wedge (\textit{matched}(u \cdot v) ) \wedge (\textit{putInSeq}(u \cdot v \cdot w,u,\textit{pri})) \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \cdot \textit{rm}(\textit{itm}) \cdot w \in \textit{PQueue})$.
+\end{itemize}
+
+
+For $\textit{PQ}_2$, we also need to distinguish two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$. Therefore, we separate $\textit{PQ}_2$ into two rules:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{PQ}_2^{>} \equiv (u \cdot v \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v) \wedge (\textit{pri} \geq \textit{maxPri}(u \cdot v)) \wedge (\textit{pri} > \textit{maxMPri}(u \cdot v)) \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{PQueue})$.
+
+\item[-] $\textit{PQ}_2^{=} \equiv (u \cdot v \in \textit{PQueue}) \wedge (\textit{rm}(\textit{empty}) \notin u \cdot v) \wedge (\textit{pri} \geq \textit{maxPri}(u \cdot v)) \wedge (\textit{pri} = \textit{maxMPri}(u \cdot v)) \wedge (\textit{putInSeq}(u \cdot v,u,\textit{pri})) \wedge \Rightarrow (u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{PQueue})$.
+\end{itemize}
+
+
+Given a sequential execution $w \in \textit{PQueue}$ and let $\{p_1,\ldots,p_k\}$ be the set of priorities in $w$, and assume that $\forall i<j$, we have $p_i < p_j$. According to above example, $w$ is generated from $\epsilon$ by work with the following order: (1) Adding pairs of matched $\textit{put}$ and $\textit{rm}$ with priority $p_1$ by using $\textit{PQ}_1^{>}$ and then several times of $\textit{PQ}_1^{=}$, (2) adding unmatched $\textit{put}$ with priority $p_1$ by using $\textit{PQ}_2^{>}$ and then several times of $\textit{PQ}_2^{=}$, (3) Similarly work with $p_2,\ldots,p_k$, and (4) adding $\textit{rm}(\textit{empty})$.
+
+Thus, given $w$, we define $\textit{last}(w)$ as the last possible rule to generate $w$ according to the rules of priority queues:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If $l$ contains $\textit{rm}(\textit{empty})$, then $\textit{last}(l) = \textit{PQ}_3$.
+
+\item[-] Else, if the maximal priority of $l$ is unmatched $\textit{put}$ and matched $\textit{put}$ in $l$, then $\textit{last}(l) = \textit{PQ}_2^{=}$.
+
+\item[-] Else, if the maximal priority of $l$ is unmatched $\textit{put}$ in $l$, then $\textit{last}(l) = \textit{PQ}_2^{>}$.
+
+\item[-] Else, if the maximal priority of $l$ is more than one matched $\textit{put}$, then $\textit{last}(l) = \textit{PQ}_1^{=}$.
+
+\item[-] Else, if the maximal priority of $l$ is one matched $\textit{put}$ in $l$, then $\textit{last}(l) = \textit{PQ}_1^{>}$.
+
+\item[-] Else ($l = \epsilon$), $\textit{last}(l) = \textit{PQ}_0$.
+\end{itemize}
