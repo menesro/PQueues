@@ -18,6 +18,9 @@ To prove the $\textit{if}$ direction, given an execution $e \in \mathcal{I}$. By
 \section{Proofs in Section \ref{sec:step-by-step linearizability of priority queues}}
 \label{sec:appendix in section step-by-step linearizability of priority queues}
 
+
+\subsection{Proof of Lemma \ref{lemma:PQ is closed under projection}}
+
 \PQisClosedUnderProjection*
 
 \begin {proof}
@@ -25,6 +28,8 @@ To prove the $\textit{if}$ direction, given an execution $e \in \mathcal{I}$. By
 This is obvious, since for each conditions in the $\textit{Guard}$ part of the rules of priority queue, if a sequence of sequential executions satisfy it, then its sub-sequence also satisfy it. For example, if $\textit{rm}(\textit{empty}) \notin l = u \cdot v \cdot w$ and let $D_l$ be the set of items of $l$, then for each subset $D' \subseteq D$, it is obvious that $\textit{rm}(\textit{empty}) \notin l \vert_{ D' }$. Similar cases hold for $\textit{pri} \geq \textit{maxPri}(l)$, $\textit{pri} > \textit{maxUPri}(l)$, $\textit{matched}(l)$, $\textit{putInSeq}(l,l_1,\textit{pri})$ (let $l_1$ be sub-sequence of $l$). This completes the proof of this lemma. \qed
 \end {proof}
 
+
+\subsection{Proof of Lemma \ref{lemma:PQ as multi in MRpri for sequence}}
 
 \PQasMultiInMRpriforSequence*
 
@@ -40,7 +45,7 @@ To prove the $\textit{if}$ direction. The $\textit{if}$ direction holds triviall
 
 \item[-] Else, if $\textit{last}(e) = \textit{PQ}_2^{=}$, and the maximal priority of $e$ is unmatched $\textit{put}$ with items in $S$ and matched $\textit{put}$: $e_1$ is generated from $e$ by erasing one unmatched $\textit{put}$ which use the item last putted in $S$.
 
-\item[-] Else, if $\textit{last}(e) = \textit{PQ}_2^{>}$, and the maximal priority in $s$ is unmatched $\textit{put}$ with items in $S$: $e_1$ is generated from $e$ by erasing one unmatched $\textit{put}$ which use the item last putted in $S$.
+\item[-] Else, if $\textit{last}(e) = \textit{PQ}_2^{>}$, and the maximal priority in $e$ is unmatched $\textit{put}$ with items in $S$: $e_1$ is generated from $e$ by erasing one unmatched $\textit{put}$ which use the item last putted in $S$.
 
 \item[-] Else, if $\textit{last}(e) = \textit{PQ}_1^{=}$, and the maximal priority in $e$ is of more than one pair of matched $\textit{put}$ with items in $S$: $e_1$ is generated from $e$ by erasing matched $\textit{put}$ and $\textit{rm}$ of the item which is last putted in $S$.
 
@@ -59,12 +64,19 @@ Similarly, we obtain $e_2$ from $e_1$, obtain $e_3$ from $e_2$, $\ldots$, until 
 Therefore, we know that $e_{\textit{m-1}} \in \textit{PQueue}$. Similarly, we can prove that $e_{\textit{m-2}},\ldots,e_0 = e \in \textit{PQueue}$. \qed
 \end {proof}
 
+
+
+\subsection{Proof of Lemma \ref{lemma:PQueue is step-by-step linearizability}}
+
+
 The prove that $\textit{PQueue}$ is step-by-step linearizability, we investigate each rules individually.
 
 Given a data-differentiated execution and its history, we can abuse notation and mix labels and method events with operations themselves, since items are unique in a data-differentiated execution. For instance, we will reference an operation labeled by $\textit{put}(p,a)$ as $\textit{put}(p,a)$.
 
 
 Given an operation $o$ with call action $\textit{cal}_o (\textit{put},a,p)$ and return actions $\textit{ret}_o (\textit{put})$, its method event is $\textit{put}(a,p)$. Given an operation $o$ with call action $\textit{cal}_o (\textit{rm})$ and return actions $\textit{ret}_o (\textit{rm},a)$, its method event is $\textit{rm}(a)$.
+
+Given a data-differentiated execution $e$ and its history $h$, we can obtain a sequence $h'$ from $h$ by adding $\textit{put}(a,p)$ (resp., $\textit{rm}(a)$) between each pair of $\textit{cal}(\textit{put},a)$ and $\textit{ret}(\textit{put},a)$ (resp., $\textit{cal}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},a)$). The projection of $h'$ into method events is called linearization of $e$ and $h$, and each method event we add in $h'$ can be considered as a linearization point of the corresponding method event.
 
 \begin{restatable}{lemma}{PQ1LarisStepByStepLinearizability}
 \label{lemma:PQ1Lar is step-by-step linearizability}
@@ -75,7 +87,7 @@ If concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{PQ}_1^{>
 
 Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{PQ}_1^{>}$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{PQueue}$.
 
-According to $\textit{MS}(\textit{PQ}_1^{>})$, there exist sequences $u$, $v$, and $w$, such that $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v \cdot \textit{rm}(x) \cdot w$, where the $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ are matched, and $\textit{pri}_x$ is larger than priority of any method event in $u \cdot v \cdot w$. Let $D_L$ be the set of items in $u \cdot v$, let $D_R$ be the set of items in $w$. Since $u \cdot v$ contain only matched $\textit{put}$ and $\textit{rm}$, we can see that $D_L \cap D_R = \emptyset$. Let $l'_L = l' \vert_{D_L}$ and $l'_R = l' \vert_{D_R}$. Let $S_1$ be the set of method events of operations of $h$ that happen before $\textit{put}(x,\textit{pri}_x)$, let $l'_{L1}$ be the shortest prefix of $l'_L$ that contains all method events in $S_1$, and let $l'_{L2}$ be the sequence such that $l'_L = l'_{L1} \cdot l'_{L2}$. It is obvious that if $\textit{put}(x,\textit{pri}_x)$ happens before an operation $o$ in $h$, then $o$ is in $l'_{L2}$. Let sequence $l'' = l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \cdot L'_R$.
+According to $\textit{MS}(\textit{PQ}_1^{>})$, there exist sequences $u$, $v$, and $w$, such that $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v \cdot \textit{rm}(x) \cdot w$, where the $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ are matched, and $\textit{pri}_x$ is larger than priority of any method event in $u \cdot v \cdot w$. Let $D_L$ be the set of items in $u \cdot v$, let $D_R$ be the set of items in $w$. Since $u \cdot v$ contain only matched $\textit{put}$ and $\textit{rm}$, we can see that $D_L \cap D_R = \emptyset$. Let $l'_L = l' \vert_{D_L}$ and $l'_R = l' \vert_{D_R}$. Let $S_1$ be the set of operations of $h$ that happen before $\textit{put}(x,\textit{pri}_x)$, let $l'_{L1}$ be the shortest prefix of $l'_L$ that contains all method events of operations in $S_1$, and let $l'_{L2}$ be the sequence such that $l'_L = l'_{L1} \cdot l'_{L2}$. It is obvious that if $\textit{put}(x,\textit{pri}_x)$ happens before an operation $o$ in $h$, then $o$ is in $l'_{L2}$. Let sequence $l'' = l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \cdot L'_R$.
 
 Since priority queue is closed under projection (Lemma \ref{lemma:PQ is closed under projection}) and $u \cdot v$ contain matched $\textit{put}$ and $\textit{rm}$, we know that $l'_{L1} \cdot l'_{L2} \in \textit{PQueue}$ and $l'_R \in \textit{PQueue}$. Since $\textit{pri}_x$ is larger than any priority in $h$, it is easy to see that $l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \in \textit{PQueue}$. Since the priority queue is empty after executing $l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \in \textit{PQueue}$, we know that $l'' = l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \cdot L'_R \in \textit{PQueue}$.
 
@@ -96,26 +108,197 @@ Assume there is a cycle in $G$. According the the property of interval order and
 
 \item[-] If $o_1 = \textit{put}(x,\textit{pri}_x) \wedge o_2 \in l'_{L1}$, then since $\textit{put}(x,\textit{pri}_x)$ happens before $o_2$, we know that $o_2 \in l'_{L2}$, which contradicts that $o_2 \in l'_{L1}$.
 
-\item[-] If $o_1 = \textit{rm}(x) \wedge o_2 \in l'_{L1}$, or $o_1 \in L'_R \wedge o_2 \in l'_{L1}$, or $o_1 = \textit{rm}(x) \wedge o_2 = \textit{put}(x,\textit{pri}_x)$, or $o_1 \in L'_R \wedge o_2 = \textit{put}(x,\textit{pri}_x)$, or $o_1 = \textit{rm}(x) \wedge o_2 \in l'_{L2}$, or $o_1 \in L'_R \wedge o_2 \in l'_{L2}$, or $o_1 \in L'_R \wedge o_2 = \textit{rm}(x)$, then $l$ contradicts with happen before relation of $h$.
+\item[-] If $o_1 = \textit{rm}(x) \wedge (o_2 \in  l'_{L1} \vee o_2 = \textit{put}(x,\textit{pri}_x) \vee o_2 \in l'_{L2})$, or $o_1 \in L'_R \wedge ( o_2 \in l'_{L1} \vee o_2 = \textit{put}(x,\textit{pri}_x) \vee o_2 \in l'_{L2} \vee o_2 = \textit{rm}(x) )$, then $l$ contradicts with happen before relation of $h$.
 
 \item[-] If $o_1 \in l'_{L2} \wedge o_2 = \textit{put}(x,\textit{pri}_x)$, then since $o_1$ happens before $\textit{put}(x,\textit{pri}_x)$, we know that $o_1 \in S_1$ and then $o_1 \in l'_{L1}$, which contradicts that $o_1 \in l'_{L2}$.
 \end{itemize}
 
-Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$. \qed
-
+Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \textit{PQueue}$. \qed
 \end {proof}
+
+
+\begin{restatable}{lemma}{PQ1EqualisStepByStepLinearizability}
+\label{lemma:PQ1Equal is step-by-step linearizability}
+If concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{PQ}_1^{=})$ with witness $x$, then $e \setminus x \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
+\end{restatable}
+
+\begin {proof}
+
+Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{PQ}_1^{=}$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{PQueue}$.
+
+Since $h' \sqsubseteq l'$, there exists a sequence $e_{l'}$ generated from $e$ by adding method events of $e \setminus x$, and $e_{l'}$ satisfies that (1) the projection of $e_{l'}$ into call and return action is $e$, (2) the projection of $e_{l'}$ into method events is $l'$, and (3) for each matched pair of call action $c$ and return action $r$ of $e$ (if their item is not $x$), there exists a method event $o$, such that $c$ before $o$ in $h'_{l'}$, $o$ before $r$ in $h'_{l'}$, and $o$ is the method event of $c$ and $r$. Intuitively, $e_{l'}$ is obtained from $h$ by adding linearization points according to $l'$.
+
+According to $\textit{PQ}_1^{=}$, there exist sequences $u$, $v$, and $w$, such that $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v \cdot \textit{rm}(x) \cdot w$, where (1) the $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ are matched, (2) $\textit{pri}_x$ is the maximal priority in $u \cdot v \cdot w$, (3) there exists matched $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ that has priority $\textit{pri}_x$, (4) $\textit{pri}_x$ is larger than priorities of any unmatched put in $u \cdot v \cdot w$, and (5) all $\textit{put}$ with priority $\textit{pri}_x$ is in $u$. Let $D_L$ be the set of items in $u \cdot v$, let $D_R$ be the set of items in $w$. Since $u \cdot v$ contain only matched $\textit{put}$ and $\textit{rm}$, we can see that $D_L \cap D_R = \emptyset$. Let $l'_L = l' \vert_{D_L}$ and $l'_R = l' \vert_{D_R}$.
+
+Let $l'_{\textit{L0}}$ be the shortest prefix of $l'$, such that the linearization point of every method event in  $l'_{\textit{L0}}$ is before the return action of $\textit{put}(x,\textit{pri}_x)$ in $e_{l'}$. Let $E_{px}$ be the set of $\textit{put}$ with priority $\textit{pri}_x$ in $e \setminus x$. Let $l'_{\textit{L1}} = l'_{\textit{L0}} \cdot l_t$, where $l_t$ is the projection of $l'$ into method events of $E_{px}$ that are not in $l'_{\textit{L0}}$. Let $E_{l_t}$ be the set of method events in $l_t$. Let $l'_{\textit{L2}}$ be the projection of $l'_L$ into method events of $l'_L$ that are not in $l'_{\textit{L1}}$. Let sequence $l'' = l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \cdot L'_R$.
+
+As in Lemma \ref{lemma:PQ1Lar is step-by-step linearizability}, we know that $l'_L \in \textit{PQueue}$ and $l'_R \in \textit{PQueue}$. It is obvious that $l'_{\textit{L0}} \in \textit{PQueue}$, and then $l'_{\textit{L1}} = l'_{\textit{L0}} \cdot l_t \in \textit{PQueue}$. Since there is no $\textit{rm}(\textit{Empty})$ in $h$ and $\textit{pri}_x$ is the maximal priority of $h$, $l'_{L1} \cdot l'_{L2} \in \textit{PQueue}$. Since all $\textit{put}$ operations with priority $\textit{pri}_x$ is in $l'_{L1}$, we know that $l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \in \textit{PQueue}$. Since the priority queue is empty after executing $l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \in \textit{PQueue}$, we know that $l'' \in \textit{PQueue}$.
+
+To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:PQ1Lar is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we can see
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] if $e$ is linearizable w.r.t. $\textit{MS}_{\textit{PQ}_1^{>}}$ ($R \in \{ \textit{PQ}_1^{>}, \textit{PQ}_1^{=}, \textit{PQ}_2^{>},\textit{PQ}_2^{=} \}$) with witness $x$, we have: $e \setminus x \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
 
-\item[-] if $e$ is linearizable w.r.t. $\textit{MS}(\textit{PQ}_3)$ and $o$ is a $\textit{rm}(\textit{empty})$ event, we have:
+\item[-] $o_1 \in L'_R \wedge (o_2 \in l'_{L1} \vee o_2 = \textit{put}(x,\textit{pri}_x) \vee o_2 \in l'_{L2} \vee o_2 = \textit{rm}(x))$, or $o_1 = \textit{rm}(x) \wedge (o_2 \in l'_{L1} \vee o_2 = \textit{put}(x,\textit{pri}_x) \vee o_2 \in l'_{L2})$: Then $l$ contradicts with happen before relation of $h$.
 
-$e \setminus o \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
+\item[-] $o_1, o_2 \in l'_R$ or $o_1, o_2 \in l'_{L2}$: Then $l'$ contradicts with happen before relation of $h$.
+
+\item[-] $o_1, o_2 \in l'_{L1}$: If $(o_1, o_2 \in l'_{L0}) \vee (o_1,o_2 \in l_t)$, then $l'$ contradicts with happen before relation of $h$.
+
+    Else, it is the case that $o_1 \in l_t \wedge o_2 \in l'_{L0}$. We can see that $o_1$ interleaves with $\textit{put}(x,\textit{pri}_x)$ and the linearization point of $o_1$ is after the return action of $\textit{put}(x,\textit{pri}_x)$ in $e_{l'}$. Since $o_1 <_{\textit{hb}} o_2$, it is easy to see that $\textit{put}(x,\textit{pri}_x) <_{\textit{hb}} o_2$, then $o_2 \notin l'_{L0}$, which contradicts that $o_2 \in l'_{L0}$.
+
+\item[-] $o_1 = \textit{put}(x,\textit{pri}_x) \wedge o_2 \in l'_{L1}$: Since $o_1 <_{\textit{hb}} o_2$, it is obvious that $o_2 \notin l'_{L1}$, contradicts that $o_2 \in l'_{L1}$.
+
+\item[-] $o_1 \in l'_{L2} \wedge o_2 \in l'_{L1}$: If $o_2 \in l'_{L0}$, then $l'$ contradicts with happen before relation of $h$.
+
+    Else, it is the case that $o_2 \in l_t$. Since $o_2$ interleaves with $\textit{put}(x,\textit{pri}_x)$ and $o_1 <_{\textit{hb}} o_2$, the return action of $o_1$ is before the return action of $\textit{put}(x,\textit{pri}_x)$ in $e$. Then it is easy to see that $o_1 \in l'_{L0}$, contradicts that $o_1 \in l'_{L2}$.
+
+\item[-] $o_1 \in l'_{L2} \wedge o_2 = \textit{put}(x,\textit{pri}_x)$: Then $o_1 \in l'_{L0}$, contradicts that $o_1 \in l'_{L2}$.
 \end{itemize}
+
+Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \textit{PQueue}$. \qed
+\end {proof}
+
+
+
+\begin{restatable}{lemma}{PQ2LarisStepByStepLinearizability}
+\label{lemma:PQ2Lar is step-by-step linearizability}
+If concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{PQ}_2^{>})$ with witness $x$, then $e \setminus x \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
+\end{restatable}
+
+\begin {proof}
+
+Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{PQ}_1^{>}$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{PQueue}$.
+
+According to $\textit{PQ}_2^{>}$, there exist sequences $u$ and $v$, such that $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v$, where $\textit{pri}_x$ is the maximal priority in $u \cdot v$, $\textit{pri}_x$ is larger than priority of any matched $\textit{put}$ in $u \cdot v$ (may equal priority of some unmatched $\textit{put}$ operations in $u \cdot v$), and all other $\textit{put}$ with priority $\textit{pri}_x$ is in $u$. Let $S_1$ be the set of operations of $e$ that happen before $\textit{put}(x,\textit{pri}_x)$, let $l'_1$ be the shortest prefix of $l'$ that contains all method events of operations of $S_1$, and let $l'_2$ be the sequence such that $l' = l'_1 \cdot l'_2$. Let sequence $l'' = l'_1 \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_2$.
+
+Since $\textit{pri}_x$ is larger than priority of any matched $\textit{put}$ operations in $u \cdot v$, it is easy to see that $l'' \in \textit{PQueue}$. It remains to prove that $h \sqsubseteq l''$. To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:PQ1Lar is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we can see
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $o_1,o_2 \in l'_1$, or $o_1,o_2 \in l'_2$, or $o_1 \in l'_2 \wedge o_2 \in l'_1$: Then $l'$ contradicts with happen before relation of $h$.
+
+\item[-] $o_1 \in l'_2 \wedge o_2 = \textit{put}(x,\textit{pri}_x)$: $o_1 \in S_1$, and then $o_1 \in l'_1$, which contradicts that $o_1 \in l'_2$.
+
+\item[-] $o_1 = \textit{put}(x,\textit{pri}_x) \wedge o_2 \in l'_1$: We can see that in $l'$, $o_2$ must after every operation in $S_1$, and then $o_2 \notin l'_1$, contradicts that $o_2 \in l'_1$.
+\end{itemize}
+
+Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \textit{PQueue}$. \qed
+\end {proof}
+
+
+\begin{restatable}{lemma}{PQ2EqualisStepByStepLinearizability}
+\label{lemma:PQ2Equal is step-by-step linearizability}
+If concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{PQ}_2^{=})$ with witness $x$, then $e \setminus x \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
+\end{restatable}
+
+\begin {proof}
+Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{PQ}_1^{>}$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{PQueue}$.
+
+According to $\textit{PQ}_2^{=}$, there exist sequences $u$ and $v$, such that (1) $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v$, (2) $\textit{pri}_x$ is the maximal priority in $u \cdot v$, (3) $\textit{pri}_x$ equals the maximal priority of matched $\textit{put}$ in $u \cdot v$, (4) all matched $\textit{put}$ with priority $\textit{pri}_x$ is in $u$ and (5) all the other unmatched $\textit{put}$ operations with priority $\textit{pri}_x$ is in $u$.
+
+Similarly as in Lemma \ref{lemma:PQ1Equal is step-by-step linearizability}, we can obtain a sequence $e_{l'}$ from $e$ by adding linearization points according to $l'$. Let $l'_1$ be the shortest prefix of $l'$, such that the linearization point of every method event in $l'_1$ is before the return action of $\textit{put}(x,\textit{pri}_x)$ in $e_{l'}$. Let $E_{px}$ be the set of $\textit{put}$ with priority $\textit{pri}_x$ in $e \setminus x$. Let $l'_2$ be the projection of $l'$ into method events of $E_{px}$ that are not in $l'_1$. Let $l_x' = l'_1 \cdot l'_2 \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_3$, where $l'_3$ is the projection of $l'$ into method events that are not in $l'_1 \cdot l'_2$.
+
+Let $l_x$ be generated from $l'_x$ by erasing $\textit{put}(x,\textit{pri}_x)$. Since (1) $l_x$ can be obtained from $l'$ by making some $\textit{put}$ happen earlier, (2) for each $\textit{rm}(a)$ in $l'$, its corresponding $\textit{put}(a,\_)$ must before it in $l'$, and (3) there are no $\textit{rm}(\textit{empty})$ in $l'$, we can see that $l_x \in \textit{PQueue}$. Since $\textit{pri}_x$ is the maximal priority in $l$ and there are no $\textit{rm}(\textit{empty})$ in $l$, we can see that $l'_x \in \textit{PQueue}$.
+
+Let us prove that $h \sqsubseteq l'_x$ by contradiction. Assume that there exists operations $o_1,o_2$, such that $o_1$ happens before $o_2$ in $h$, and $o_2$ is before $o_1$ in $l'_x$. Then, we can see
+
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $o_1, o_2 \in l'_1$, or $o_1, o_2 \in l'_2$, or $o_1, o_2 \in l'_3$: Then $l'$ contradicts with happen before relation of $h$.
+
+\item[-] $o_2 \in l'_1 \wedge o_1 \in l'_2$: Then by construction of $l'_1$, it is easy to see that $o_1 \in l'_1$, which contradicts that $o_1 \in l'_2$.
+
+\item[-] $o_2 \in l'_1 \wedge o_1 = \textit{put}(x,\textit{pri}_x)$: Then by construction of $l'_1$, it is easy to see that $o_2 \notin l'_1$, which contradicts that $o_2 \in l'_2$.
+
+\item[-] $o_2 \in l'_1 \wedge o_1 \in l'_3$: Then by construction of $l'_1$, it is easy to see that $o_1 \in l'_1$, which contradicts that $o_1 \in l'_3$.
+
+\item[-] $o_2 \in l'_2 \wedge o_1 = \textit{pt}(x,\textit{pri}_x)$: It is easy to see that each method event in $l'_2$ is a $\textit{put}$ with priority $\textit{pri}$. By $l'$ we know that $\textit{pt}(x,\textit{pri}_x)$ does not happen before any of them.
+
+\item[-] $o_2 \in l'_2 \wedge o_1 \in l'_3$: It is easy to see that each method event in $l'_2$ is a $\textit{put}$ $o$ with priority $\textit{pri}$ and $o$ interleaves with $\textit{put}(x,\textit{pri}_x)$. Since $o_1$ happens before $o_2$, it is obviou that the return action of $o_1$ is before the return action of $\textit{put}(x,\textit{pri}_x)$ in $e$, and then $o_1 \in l'_1$, which contradicts that $o_1 \in l'_3$.
+
+\item[-] $o_2 = \textit{put}(x,\textit{pri}_x) \wedge o_1 \in l'_3$: It is not hard to see that $o_1 \in l'_1$, which contradicts that $o_1 \in l'_3$.
+\end{itemize}
+
+Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq l'_x$. \qed
+\end {proof}
+
+
+\begin{restatable}{lemma}{PQ3isStepByStepLinearizability}
+\label{lemma:PQ3 is step-by-step linearizability}
+If concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{PQ}_3)$ and $o$ is a $\textit{rm}(\textit{empty})$ event, then $e \setminus o \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
+\end{restatable}
+
+\begin {proof}
+Let $h$ be the data-differentiated history of $e$, $l$ be an sequential execution such that $h \sqsubseteq l$, $l$ matches $\textit{PQ}_3$ and $o$ is a $\textit{rm}$ method event in $h$. Let $h'=h \setminus o$ and assume that $h' \sqsubseteq l' \in \textit{PQueue}$.
+
+According to $\textit{PQ}_3$, there exist sequences $u$ and $v$, such that $l=u \cdot \textit{rm}(\textit{empty}) \cdot v$, where the $\textit{put}$ operations and $\textit{rm}$ in $u$ are matched.
+
+Let $E_L$ be the set of method events in $u$ and $E_R$ be the set of method events in $v$. Let $l'_L = l' \vert_{E_L}$ and $l'_R = l' \vert_{E_R}$. Let sequence $l'' = l'_L \cdot o \cdot L'_R$. Since priority queue is closed under projection (Lemma \ref{lemma:PQ is closed under projection}) and $u$ contains matched $\textit{put}$ and $\textit{rm}$, we know that $l'_L \in \textit{PQueue}$ and the the priority queue is empty after executing $l'_L$. Then we know that $l'_L \cdot o \in \textit{PQueue}$. Since $l'_R$ is obtained from $l'$ by discarding pairs of matched $\textit{put}$ and $\textit{rm}$ operations, it is easy to see that $L'_R \in \textit{PQueue}$, and then we know that $l'' = l'_L \cdot o \cdot L'_R \in \textit{PQueue}$.
+
+It remains to prove that $h \sqsubseteq l''$. To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:PQ1Lar is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we can see
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $o_1,o_2 \in l'_L$, or $o_1,o_2 \in l'_R$: Then $l'$ contradicts with happen before relation of $h$.
+
+\item[-] If $o_1=o \wedge o_2 \in l'_L$, or $o_1 \in l'_R \wedge o_2 \in l'_L$, or $o_1 \in l'_R \wedge o_2 = 0$, then $l$ contradicts with happen before relation of $h$.
+\end{itemize}
+
+Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \textit{PQueue}$. \qed
+\end {proof}
+
+The following lemma states that $\textit{PQueue}$ is step-by-step linearizability, it is a direct consequence of Lemma \ref{lemma:PQ1Lar is step-by-step linearizability}, Lemma \ref{lemma:PQ1Equal is step-by-step linearizability}, Lemma \ref{lemma:PQ2Lar is step-by-step linearizability}, Lemma \ref{lemma:PQ2Equal is step-by-step linearizability} and Lemma \ref{lemma:PQ3 is step-by-step linearizability}.
 
 
 \PQueueisStepByStepLinearizability*
+
+\begin {proof}
+This is a direct consequence of Lemma \ref{lemma:PQ1Lar is step-by-step linearizability}, Lemma \ref{lemma:PQ1Equal is step-by-step linearizability}, Lemma \ref{lemma:PQ2Lar is step-by-step linearizability}, Lemma \ref{lemma:PQ2Equal is step-by-step linearizability} and Lemma \ref{lemma:PQ3 is step-by-step linearizability}. \qed
+\end {proof}
+
+
+\subsection{Proof of Lemma \ref{lemma:PQ as multi in MRpri for history}}
+
+\PQasMultiInMRpriforHistory*
+
+\begin {proof}
+
+To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l \in \textit{PQueue}$. Given $e' = e \vert_{D}$, by Lemma \ref{lemma:PQ is closed under projection}, it is obvious that $e' \sqsubseteq l' = l \vert_{D} \in \textit{PQueue}$. Then by Lemma \ref{lemma:PQ as multi in MRpri for sequence} we know that $l' \in \textit{MS}(R)$ where $R = \textit{last}(e')$.
+
+To prove the $\textit{if}$ direction. The $\textit{if}$ direction holds trivially if $e = \epsilon$. When $e \neq \epsilon$, we generate concurrent execution $e_1$ from $e$ as follows:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If $\textit{last}(e) = \textit{PQ}_3$: $e_1$ is generated from $e$ by erasing call and return of one $\textit{rm}(\textit{empty})$.
+
+\item[-] Else, if $\textit{last}(e) = \textit{PQ}_2^{=}$, and the maximal priority of $e$ is unmatched $\textit{put}$ with items in $S$ and matched $\textit{put}$: $e_1$ is generated from $e$ by erasing call and return of one unmatched $\textit{put}$, which is maximal respect to $<_{\textit{hb}}$ among $\textit{put}$ with items in $S$.
+
+\item[-] Else, if $\textit{last}(e) = \textit{PQ}_2^{>}$, and the maximal priority in $s$ is unmatched $\textit{put}$ with items in $S$: $e_1$ is generated from $e$ by erasing call and return of one unmatched $\textit{put}$, which is maximal respect to $<_{\textit{hb}}$ among $\textit{put}$ with items in $S$.
+
+\item[-] Else, if $\textit{last}(e) = \textit{PQ}_1^{=}$, and the maximal priority in $e$ is of more than one pair of matched $\textit{put}$ and $\textit{rm}$ with items in $S$: $e_1$ is generated from $e$ by erasing call and return of one pair of matched $\textit{put}$ and $\textit{rm}$, where such $\textit{put}$ is maximal respect to $<_{\textit{hb}}$ among $\textit{put}$ with items in $S$, and such $\textit{rm}$ is maximal respect to $<_{\textit{hb}}$ among $\textit{rm}$ with items in $S$.
+
+\item[-] Else, if $\textit{last}(e) = \textit{PQ}_1^{>}$: $e_1$ is generated from $e$ by erasing call and return of one pair of matched $\textit{put}$ and $\textit{rm}$ with maximal priority in $e$.
+\end{itemize}
+
+Similarly, we obtain $e_2$ from $e_1$, obtain $e_3$ from $e_2$, $\ldots$, until we obtain some $e_m = \epsilon$. Let $e_0=e$. It is obvious that $e_m \sqsubseteq \textit{PQueue}$. For $e_{\textit{m-1}}$, since
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $e_m \sqsubseteq \textit{PQueue}$,
+
+\item[-] If $\textit{last}(e_{\textit{m-1}}) = R_{\textit{m-1}} \in \{ \textit{PQ}_1^{>}, \textit{PQ}_1^{=}, \textit{PQ}_2^{>}, \textit{PQ}_2^{=} \}$ and $e$ matches $R_{\textit{m-1}}$ with witness $x$: We already know that $e_{\textit{m-1}} \sqsubseteq \textit{MS}(R_{\textit{m-1}})$, $e_{\textit{m-1}} \setminus x \sqsubseteq \textit{PQueue}$, and by step-by-step linearizability of $\textit{PQueue}$, we can see that $e_{\textit{m-1}} \sqsubseteq \textit{PQueue}$.
+
+
+\item[-] If $\textit{last}(e_{\textit{m-1}}) = R_{\textit{m-1}} = \textit{PQ}_3$ and $o$ is a $\textit{rm}(\textit{empty})$ in $e_{\textit{m-1}}$: We already know that $e_{\textit{m-1}} \sqsubseteq \textit{MS}(R_{\textit{m-1}})$, $e_{\textit{m-1}} \setminus o \sqsubseteq \textit{PQueue}$, and by step-by-step linearizability of $\textit{PQueue}$, we can see that $e_{\textit{m-1}} \sqsubseteq \textit{PQueue}$.
+\end{itemize}
+
+Therefore, we know that $e_{\textit{m-1}} \in \textit{PQueue}$. Similarly, we can prove that $e_{\textit{m-2}},\ldots,e_0 = e \in \textit{PQueue}$. \qed
+\end {proof}
+
+
+
 
 
 \section{Inductive Rules for Priority Queues}
@@ -170,8 +353,6 @@ Therefore, from now on, we can safely assume that there are no unmatched $\texti
 
 
 
-\section{Step-by-Step Linearizability of Priority Queues}
-\label{sec:step-by-step linearizability of priority queues}
 
 
 
@@ -183,229 +364,24 @@ Therefore, from now on, we can safely assume that there are no unmatched $\texti
 
 
 
-\begin{restatable}{lemma}{PQasMultiInMRpriforHistory}
-\label{lemma:PQ as multi in MRpri for history}
-Given a data-differentiated history $h$, assume that $\textit{PQueue}$ is step-by-step linearizability. $h \sqsubseteq \textit{PQueue}$, if and only if, $\forall h'$, if $h' \in \textit{proj}(h)$, then $h' \sqsubseteq \textit{MR}_{\textit{pri}}$, where $i = \textit{last}(h')$.
-\end{restatable}
 
-\begin {proof}
 
-The \textit{only if} direction is a direct consequence of Lemma \ref{lemma:PQ is closed under projection}.
 
-To prove the $\textit{if}$ direction. Since $h \sqsubseteq \textit{PQueue}$, we can see that $h \sqsubseteq l \in \textit{PQueue}$. Each projection $h'$ of $h$ can be linearizable to some projection $l'$ of $l$. By Lemma \ref{lemma:PQ as multi in MRpri for sequence}, $l' \in \textit{MR}_{\textit{prj}}$ for some $0 \leq j \leq 5$. Since $\textit{last}$ of a sequence is uniquely determined, we can see that $l' \in \textit{MR}_{\textit{pri}}$, where $i = \textit{last}(h')$.
 
 
-The $\textit{if}$ direction holds trivially when $h = \epsilon$. When $h \neq \epsilon$. since $h \in \textit{proj}(h)$, we generate sequence $h_1$ from $h$ as follows:
 
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] If $h$ has $\textit{rm}(\textit{empty})$ operations: Then $\textit{last}(h) = R_{\textit{pr5}}$, and $h \sqsubseteq \textit{MR}_{\textit{pr5}}$. $h_1$ is generated from $h$ by erasing some $\textit{rm}(\textit{empty})$ operation.
 
-\item[-] If the maximal priority in $h$ is of matched $\textit{put}$ and $\textit{rm}$ operations of some items in $S_1$ and unmatched $\textit{put}$ operations of some items in $S_2$: Then $\textit{last}(h) = R_{\textit{pr4}}$, and $h \sqsubseteq \textit{MR}_{\textit{pr4}}$. $h_1$ is generated from $h$ by erasing a unmatched $\textit{put}(x,\_)$, such that $\textit{put}(x,\_)$ does not happen before $\textit{put}(y,\_)$ for each $y \in S_2$.
 
-\item[-] If the maximal priority in $s$ is unmatched $\textit{put}$ operations of some items in $S_2$ and $\vert S_2 \vert =1$: Then $\textit{last}(h) = R_{\textit{pr3}}$, and $h \sqsubseteq \textit{MR}_{\textit{pr3}}$. $h_1$ is generated from $h$ by erasing this unmatched $\textit{put}$ operation.
 
-\item[-] If the maximal priority in $s$ is of matched $\textit{put}$ and $\textit{rm}$ operations of some items in set $S$ and $\vert S \vert \geq 2$: Then $\textit{last}(h) = R_{\textit{pr2}}$, and $h \sqsubseteq \textit{MR}_{\textit{pr2}}$. $h_1$ is generated from $h$ by erasing $\textit{put}(x,\_)$ and $\textit{rm}(x)$, such that for each $y \in S$, $\textit{put}(x,\_)$ does not happen before $\textit{put}(y,\_)$, and $\textit{rm}(x)$ does not happen before $\textit{rm}(y)$.
 
-\item[-] If the maximal priority in $s$ is of matched $\textit{put}$ and $\textit{rm}$ operations of some items in set $S$ and $\vert S \vert = 1$: Then $\textit{last}(h) = R_{\textit{pr1}}$, and $h \sqsubseteq \textit{MR}_{\textit{pr1}}$. $h_1$ is generated from $h$ by erasing matched $\textit{put}$ and $\textit{rm}$ operations of the item in $S$.
-\end{itemize}
 
-Similarly, we obtain $h_2$ from $h_1$, obtain $h_3$ from $h_2$, $\ldots$, until we obtain some $h_m = \epsilon$. Assume that for each $i$, when generating $h_i$ from $h_{\textit{i-1}}$, we erase operations of item $d_i$. It is obvious that $h_m = h_{\textit{m-1}} \setminus d_m \sqsubseteq \textit{PQueue}$, and since $h_{\textit{m-1}} \sqsubseteq \textit{MR}_{\textit{prj}_{\textit{m-1}}}$, where $\textit{last}(h_{\textit{m-1}}) = R_{\textit{prj}_{\textit{m-1}}}$, we can see that $h_{\textit{m-1}} \sqsubseteq \textit{PQueue}$. Similarly, we can prove that $h_{\textit{m-1}},\ldots,h_1,h \sqsubseteq \textit{PQueue}$. This completes the proof of the $\textit{if}$ direction. \qed
-\end {proof}
 
 
-To prove that $\textit{PQueue}$ is step-by-step linearizability, we use five lemmas for five rules of $\textit{PQueue}$.
 
 
 
 
-\begin{restatable}{lemma}{Rpr2isStepByStepLinearizability}
-\label{lemma:Rpr2 is step-by-step linearizability}
 
-$R_{\textit{pr2}}$ is step-by-step linearizability.
-
-\end{restatable}
-
-\begin {proof}
-
-Assume that $l$ matches $R_{\textit{pr2}}$ with witness $x$. Let $h$ be a data-differentiated history, and $l$ be an operation sequence such that $h \sqsubseteq l$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq \llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$. Let $l'$ be a sequence in $\llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$ such that $h' \sqsubseteq l'$.
-
-Since $h' \sqsubseteq l'$, there exists a sequence $h_{l'}$ of call, return and operations, such that (1) the projection of $h_{l'}$ into call and return action is $h$, (2) the projection of $h_{l'}$ into operations is $l'$, and (3) for each matched pair of call action $c$ and return action $r$ of $h$, there exists an operation $o$, such that $a$ before $o$, $o$ before $r$, and $o$ is the operation of $c$ and $r$. Intuitively, $h_{l'}$ is obtained from $h$ by adding linearization points.
-
-According to $R_{\textit{pr2}}$, there exist sequences $u$, $v$, and $w$, such that $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v \cdot \textit{rm}(x) \cdot w$, where (1) the $\textit{put}$ operations and $\textit{rm}$ operations in $u \cdot v$ are matched, (2) $\textit{pri}_x$ is the maximal priority in $u \cdot v \cdot w$, (3) there exists matched $\textit{put}$ and $\textit{rm}$ operations in $u \cdot v \cdot w$ that has priority $\textit{pri}_x$, (4) $\textit{pri}_x$ is larger than priorities of any unmatched put in $u \cdot v \cdot w$, and (5) all $\textit{put}$ operation with priority $\textit{pri}_x$ is in $u$. Let $D_L$ be the set of items in $u \cdot v$, let $D_R$ be the set of items in $w$. Since $u \cdot v$ contain only matched $\textit{put}$ and $\textit{rm}$ operations, we can see that $D_L \cap D_R = \emptyset$. Let $l'_L = l' \vert_{D_L}$ and $l'_R = l' \vert_{D_R}$.
-
-Let $l'_{\textit{L0}}$ be the shortest prefix of $l'_L$, such that every operation in $l'_{\textit{L0}}$ is before the return action of $\textit{put}(x,\textit{pri}_x)$ in $h_{l'}$. Let $\textit{OP}_x = \{ \textit{put}(d,\textit{pri}_x) \vert \textit{put}(d,\textit{pri}_x)$ is an operation of $h\}$. Let $l'_{\textit{L1}} = l'_{\textit{L0}} \cdot l_t$, where $l_t$ is the projection of $l'$ into operations of $\textit{OP}_x$ that are not in $l'_{\textit{L0}}$. Let $\textit{OP}'_x$ be the set of operations in $l_t$. Let $l'_{\textit{L2}}$ be the projection of $l'_L$ into operations of $l'_L$ that are not in $l'_{\textit{L1}}$. Let sequence $l'' = l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \cdot L'_R$.
-
-As in Lemma \ref{lemma:Rpr1 is step-by-step linearizability}, we know that $l'_L \in \textit{PQueue}$ and $l'_R \in \textit{PQueue}$. It is obvious that $l'_{\textit{L0}} \in \textit{PQueue}$, and then $l'_{\textit{L1}} = l'_{\textit{L0}} \cdot l_t \in \textit{PQueue}$. Since there is no $\textit{rm}(\textit{Empty})$ in $h$ and $\textit{pri}_x$ is the maximal priority of $h$, $l'_{L1} \cdot l'_{L2} \in \textit{PQueue}$. Since all $\textit{put}$ operations with priority $\textit{pri}$ is in $l'_{L1}$, we know that $l'_{L1} \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_{L2} \cdot \textit{rm}(x) \in \textit{PQueue}$. As in Lemma \ref{lemma:Rpr1 is step-by-step linearizability}, we know that $l'' \in \textit{PQueue}$.
-
-To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:Rpr1 is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we can see
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-
-\item[-] $o_1 \in L'_R \wedge (o_2 \in l'_{L1} \vee o_2 = \textit{put}(x,\textit{pri}_x) \vee o_2 \in l'_{L2} \vee o_2 = \textit{rm}(x))$, or $o_1 = \textit{rm}(x) \wedge (o_2 \in l'_{L1} \vee o_2 = \textit{put}(x,\textit{pri}_x) \vee o_2 \in l'_{L2})$: Then $l$ contradicts with happen before relation of $h$.
-
-\item[-] $o_1, o_2 \in l'_R$ or $o_1, o_2 \in l'_{L2}$: Then $l'$ contradicts with happen before relation of $h$.
-
-\item[-] $o_1, o_2 \in l'_{L1}$: If $(o_1, o_2 \in l'_{L0}) \vee (o_1,o_2 \in \textit{OP}'_x)$, then $l'$ contradicts with happen before relation of $h$.
-
-    Else, it is the case that $o_1 \in \textit{OP}'_x \wedge o_2 \in l'_{L0}$. We can see that $o_1$ interleaves with $\textit{put}(x,\textit{pri}_x)$ and the linearization point of $o_1$ is after the return action of $\textit{put}(x,\textit{pri}_x)$. Since $o_1 <_{\textit{hb}} o_2$, it is easy to see that $\textit{put}(x,\textit{pri}_x) <_{\textit{hb}} o_2$, and then $o_2 \notin l'_{L0}$, which contradicts that $o_2 \in l'_{L0}$.
-
-\item[-] $o_1 = \textit{put}(x,\textit{pri}_x) \wedge o_2 \in l'_{L1}$: Since $o_1 <_{\textit{hb}} o_2$, it is obvious that $o_2 \notin l'_{L1}$, contradicts that $o_2 \in l'_{L1}$.
-
-\item[-] $o_1 \in l'_{L2} \wedge o_2 \in l'_{L1}$: If $o_2 \in l'_{L0}$, then $l'$ contradicts with happen before relation of $h$.
-
-    Else, it is the case that $o_2 \in \textit{OP}'_x$. $o_2$ interleaves with $\textit{put}(x,\textit{pri}_x)$ and the linearization point of $o_2$ is after the return action of $\textit{put}(x,\textit{pri}_x)$. Since $o_1 <_{\textit{hb}} o_2$, the return action of $o_1$ is before the return action of $\textit{put}(x,\textit{pri}_x)$. Then it is easy to see that $o_1 \in l'_{L0}$, contradicts that $o_1 \in l'_{L2}$.
-
-\item[-] $o_1 \in l'_{L2} \wedge o_2 = \textit{put}(x,\textit{pri}_x)$: Then $o_1 \in l'_{L0}$, contradicts that $o_1 \in l'_{L2}$.
-\end{itemize}
-
-Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$. \qed
-\end {proof}
-
-
-
-\begin{restatable}{lemma}{Rpr3isStepByStepLinearizability}
-\label{lemma:Rpr3 is step-by-step linearizability}
-
-$R_{\textit{pr3}}$ is step-by-step linearizability.
-
-\end{restatable}
-
-\begin {proof}
-
-Assume that $l$ matches $R_{\textit{pr3}}$ with witness $x$. Assume that  Let $h$ be a data-differentiated history, and $l$ be an operation sequence such that $h \sqsubseteq l$. Then, let $h'=h \setminus x$ and assume that $h' \sqsubseteq \llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$. Let $l'$ be a sequence in $\llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$ such that $h' \sqsubseteq l'$.
-
-According to $R_{\textit{pr3}}$, there exist sequences $u$ and $v$, such that $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v$, where $\textit{pri}_x$ is the maximal priority in $u \cdot v$, and $\textit{pri}_x$ is larger than priority of any matched $\textit{put}$ operations in $u \cdot v$ (may equal priority of some unmatched $\textit{put}$ operations in $u \cdot v$). Let $S_1$ be the set of all operations of $h$ that happen before $\textit{put}(x,\textit{pri}_x)$, let $l'_1$ be the shortest prefix of $l'$ that contains all operations of $S_1$, and let $l'_2$ be the sequence such that $l' = l'_1 \cdot l'_2$. Let sequence $l'' = l'_1 \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_2$.
-
-Since $\textit{pri}_x$ is larger than priority of any matched $\textit{put}$ operations in $u \cdot v$, it is easy to see that $l'' \in \textit{PQueue}$. It remains to prove that $h \sqsubseteq l''$. To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:Rpr1 is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we can see
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $o_1,o_2 \in l'_1$, or $o_1,o_2 \in l'_2$, or $o_1 \in l'_2 \wedge o_2 \in l'_1$: Then $l'$ contradicts with happen before relation of $h$.
-
-\item[-] $o_1 \in l'_2 \wedge o_2 = \textit{put}(x,\textit{pri}_x)$: $o_1 \in S_1$, and then $o_1 \in l'_1$, which contradicts that $o_1 \in l'_2$.
-
-\item[-] $o_1 = \textit{put}(x,\textit{pri}_x) \wedge o_2 \in l'_1$: We can see that in $l'$, $o_2$ must after every operation in $S_1$, and then $o_2 \notin l'_1$, contradicts that $o_2 \in l'_1$.
-\end{itemize}
-
-Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$. \qed
-\end {proof}
-
-
-The following lemma states that, from linearization of sub-histories, we can merge them and obtain a linearization (regardless of whether it belongs to sequential specification) of the whole history.
-
-\begin{restatable}{lemma}{MergeTwoLinearization}
-\label{lemma:merge two linearization}
-
-Given a history $h$ and operation set $S_1$, $S_2$, let $h_1 = h \vert{S_1}$ and $h_2 = h \vert{S_2}$. Assume that $h_1 \sqsubseteq l_1$, $h_2 \sqsubseteq l_2$, and $S_1 \cup S_2$ contains all operations of $h$. Then, there exists a sequence $l$, such that $h \sqsubseteq l$, $l \vert{S_1} = l_1$ and $l \vert{S_2} = l_2$.
-\end{restatable}
-
-\begin {proof}
-
-Given a history $h$ and a operation $o \in S_2$, let $\textit{MB}(o) = \{ o' \vert o' \in S_1$ and $o'$ happens before $o$ in $h \}$, let $\textit{SBI}(o) = \textit{min}\{ i \vert l_1[0,i]$ contains all elements of $\textit{MB}(o) \}$.
-
-Let $l = s_1 \cdot l_2[1] \cdot \ldots \cdot l_2[n] \cdot s_{\textit{n+1}}$ be generated as follows, where $n = \vert l_2 \vert$:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $s_1 = l_1[0, \textit{SBI}(l_2[1])]$,
-
-\item[-] If $s_1 \cdot l_2[1] \cdot \ldots \cdot l_2[i]$ already contains $l_1(\textit{SBI}(l_2[\textit{i+1}]))$, then $s_{\textit{i+1}} = \epsilon$. Otherwise, $s_{\textit{i+1}}$ is a subsequence of $l_1$, which starts from the next of last elements of $s_1 \cdot l_2[1] \cdot \ldots \cdot l_2[i]$ in $l_1$ and ends in $l_1(\textit{SBI}(l_2[\textit{i+1}]))$.
-\end{itemize}
-
-It is obvious that $l \vert{S_1} = l_1$ and $l \vert{S_2} = l_2$, and it remains to prove that $h \sqsubseteq l$. We prove this by contradiction. Assume that $h$ is not linearizable with respect to $l$. Then there must be two operations of $h$, such that $o_1 <_{hb} o_2$ in $h$ but $o_2$ before $0_1$ in $l$. Since $l \vert{S_1} = l_1$, $l \vert{S_2} = l_2$, and $h_1 \sqsubseteq l_1$, $h_2 \sqsubseteq l_2$, it is easy to see that it is impossible that $o_1,o_2 \in S_1$ or $o_1,o_2 \in S_2$. There are only two possibilities:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $o_1 \in S_1 \wedge o_2 \in S_2$. Then we can see that $o_2=l_2[i]$ and $o_1 \in s_j$ for some $i < j$. Since $o_1 <_{hb} o_2$, we know that $o_1 \in \textit{SBI}(o_2)$. By the construction of $l$, we know that $o_1$ must be in $s_k$ for some $k \leq i$, contradicts that $o_1 \in s_j$ with $i < j$.
-
-\item[-] $o_1 \in S_2 \wedge o_2 \in S_1$. Then we can see that $o_2 \in s_i$ and $o_1 = l_2[j]$ for some $i \leq j$. It is easy to see that this leads to contradiction when $i = j$. For the case of $i \neq j$, we need to satisfy the following requirements: (1) $o_1$ ($l_2[j]$) does not happen before $l_2[i]$, (2) $l_2[i]$ does not happen before $o_2$, (3) $o_2$ is either overlap or happens before $o' \in \textit{MB}(l_2[i])$, and (4) $o' <_{hb} l_2[i]$. By enumeration we can see that it is impossible that above four conditions be satisfied while $o_1 <_{hb} o_2$.
-\end{itemize}
-
-This completes the proof of this lemma. \qed
-\end {proof}
-
-
-
-
-
-\begin{restatable}{lemma}{Rpr4isStepByStepLinearizability}
-\label{lemma:Rpr4 is step-by-step linearizability}
-
-$R_{\textit{pr4}}$ is step-by-step linearizability.
-
-\end{restatable}
-
-\begin {proof}
-
-Assume that $l$ matches $R_{\textit{pr4}}$ with witness $x$. Let $h$ be a data-differentiated history, and $l$ be an operation sequence such that $h \sqsubseteq l$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq \llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$. Let $l'$ be a sequence in $\llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr4}} \rrbracket$ such that $h' \sqsubseteq l'$.
-
-According to $R_{\textit{pr4}}$, there exist sequences $u$ and $v$, such that (1) $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v$, (2) $\textit{pri}_x$ is the maximal priority in $u \cdot v$, (3) $\textit{pri}_x$ equals the maximal priority of matched $\textit{put}$ operations in $u \cdot v$, (4) all matched $\textit{put}$ operations with priority $\textit{pri}_x$ is in $u$ and (5) all the other unmatched $\textit{put}$ operations with priority $\textit{pri}_x$ is in $u$.
-
-Since $h' \sqsubseteq l'$, there exists a sequence $h_{l'}$ of call, return and operations, such that (1) the projection of $h$ into call and return action is $h$, (2) the projection of $h_{l'}$ into operations is $l'$, and (3) for each matched pair of call action $c$ and return action $r$ of $h$, there exists an operation $o$, such that $a$ before $o$, $o$ before $r$, and $o$ is the operation of $c$ and $r$. Intuitively, $h_{l'}$ is obtained from $h$ by adding linearization points.
-
-According to $R_{\textit{pr4}}$, there exist sequences $u$ and $v$, such that (1) $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v$, (2) $\textit{pri}_x$ is the maximal priority in $u \cdot v$, (3) $\textit{pri}_x$ equals the maximal priority of matched $\textit{put}$ operations in $u \cdot v$, (4) all matched $\textit{put}$ operations with priority $\textit{pri}_x$ is in $u$ and (5) all the other unmatched $\textit{put}$ operations with priority $\textit{pri}_x$ is in $u$.
-
-Let $l'_1$ be the shortest prefix of $l'$, such that every operation in $l'_1$ is before the return action of $\textit{put}(x,\textit{pri}_x)$ in $h_{l'}$. Let $\textit{OP}_x$ be the set of $\textit{put}$ operations with priority $\textit{pri}_x$ and their matched $\textit{rm}$ operations in $h$, let $\textit{OP}'_x$ be the set of $\textit{put}$ operations in $\textit{OP}_x$ that do not appear in $l'_1$, and let $\textit{OP}''_x$ be the set of $\textit{rm}$ operations in $\textit{OP}_x$ that do not appear in $l'_1$. Let $l_x''=l'_1 \cdot l'_2 \cdot \textit{put}(x,\textit{pri}_x) \cdot l'_3$, where $l'_2$ is the projection of $l'$ into operations of $\textit{OP}'_x$, and $l'_3$ is the projection of $l'$ into operations of $\textit{OP}''_x$.
-
-Let $h_x$ be the projection of $h$ into $\textit{OP}_x$. Let us prove that $h_x \sqsubseteq l''_x$ by contradiction. Assume that there exists operations $o_1,o_2$, such that $o_1$ happens before $o_2$ in $h_x$, and $o_2$ is before $o_1$ in $l''_x$. Then, we can see
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $(o_1 \in l'_3) \wedge (o_2 \in l'_1 \vee o_2 \in l'_2 \vee o'_2 \in l'_3)$, or $(o_1 \in l'_2) \wedge (o_2 \in l'_1 \vee o_2 \in l'_2)$, or $o_1,o_2 \in l'_1$: Then $l'$ contradicts with happen before relation of $h$.
-
-\item[-] $o_1 = \textit{put}(x,\textit{pri}_x) \wedge o_2 \in l'_1$: Since the linearization point of $o_2$ is before return action of $o_1$, $o_2$ either overlaps with $o_1$, or happens before $o_1$, which contradicts that $o_1$ happens before $o_2$.
-
-\item[-] $o_1 = \textit{put}(x,\textit{pri}_x) \wedge o_2 \in l'_2$: Since $l'_2$ only contains $\textit{put}$ operations with priority $\textit{pri}_x$ and are in $\textit{OP}'_x$, it is not hard to see that each operation in $l'_2$ must overlap with $\textit{put}(x,\textit{pri}_x)$, which contradicts that $o_1$ happens before $o_2$.
-
-\item[-] $o_1 \in l'_3 \wedge o_2 = \textit{put}(x,\textit{pri}_x)$: According to the construction of $l''$, we can see that $1_2 \in l'_1$, which contradicts that $1_2 \in l'_3$.
-\end{itemize}
-
-Therefore, we know that $G$ is acyclic, and then we know that $h_x \sqsubseteq l''_x$.
-
-Let $\textit{OP}_{\textit{-x}}$ be the set of $\textit{put}$ operations with non-$\textit{pri}_x$ priority, and their matched $\textit{rm}$ operations. Let $h_{\textit{-x}}$ be the projection of $h$ into $\textit{OP}_{\textit{-x}}$. Let $l''_{\textit{-x}}$ be the projection of $l'$ into$\textit{OP}_{\textit{-x}}$. It is obvious that $h_{\textit{-x}} \sqsubseteq l''_{\textit{-x}}$. By Lemma \ref{lemma:merge two linearization}, there exists a sequence $l'''$, such that $h \sqsubseteq l'''$, $l''' \vert{\textit{OP}_x} = l_x''$ and $l''' \vert{\textit{OP}_{\textit{-x}}} = l''_{\textit{-x}}$.
-
-It is obvious that $l''_{\textit{-x}} \in \textit{PQueue}$. Let $l'_x$ be the projection of $l'$ into $\textit{OP}_x - \{ \textit{put}(x,\textit{pri}_x) \}$. It is obvious that $l'_x \in \textit{PQueue}$ and $l'_1 \in \textit{PQueue}$. Since (1) $l'_1 \cdot l'_2 \cdot l'_3$ is obtained from $l'_x$ by making $\textit{put}$ operations in $l'_2$ to happen earlier, and (2) $l'_3$ contains only $\textit{rm}$ operations, we can see that $l'_1 \cdot l'_2 \cdot l'_3 \in \textit{PQueue}$. Since $l'_3$ contains only $\textit{rm}$ operations, it is easy to see that $l_x'' \in \textit{PQueue}$. Since $\textit{pri}_x$ is the maximal priority of $h$ and $h$ does not contain $\textit{rm}(\textit{Empty})$ operations, the operations in $l_x''$ does not influence the correctness of $l''_{\textit{-x}} \in \textit{PQueue}$. Therefore, we can see that $l''' \in \textit{PQueue}$. \qed
-\end {proof}
-
-
-
-
-\begin{restatable}{lemma}{Rpr5isStepByStepLinearizability}
-\label{lemma:Rpr5 is step-by-step linearizability}
-
-$R_{\textit{pr5}}$ is step-by-step linearizability.
-
-\end{restatable}
-
-\begin {proof}
-
-Assume that $l$ matches $R_{\textit{pr5}}$ with operation $o=\textit{rmEmpty}$. Let $h$ be a data-differentiated history, and $l$ be an operation sequence such that $h \sqsubseteq l$. Let $h'=h \setminus o$ and assume that $h' \sqsubseteq \llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr5}} \rrbracket$. Let $l'$ be a sequence in $\llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr5}} \rrbracket$ such that $h' \sqsubseteq l'$.
-
-
-
-
-According to $R_{\textit{pr5}}$, there exist sequences $u$ and $v$, such that $l=u \cdot \textit{rmEmpty} \cdot v$, where the $\textit{put}$ operations and $\textit{rm}$ operations in $u$ are matched.
-
-Let $D_L$ be the set of items in $u$ and $D_R$ be the set of items in $v$. Let $l'_L = l' \vert_{D_L}$ and $l'_R = l' \vert_{D_R}$. Let sequence $l'' = l'_L \cdot o \cdot L'_R$. Since priority queue is closed under projection (Lemma \ref{lemma:PQ is closed under projection}) and $u$ contains matched $\textit{put}$ and $\textit{rm}$ operations, we know that $l'_L \in \textit{PQueue}$ and the the priority queue is empty after executing $l'_L$. Then we know that $l'_L \cdot o \in \textit{PQueue}$. Since $l'_R$ is obtained from $l'$ by discarding pairs of matched $\textit{put}$ and $\textit{rm}$ operations, it is easy to see that $L'_R \in \textit{PQueue}$, and then we know that $l'' = l'_L \cdot o \cdot L'_R \in \textit{PQueue}$.
-
-It remains to prove that $h \sqsubseteq l''$. To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:Rpr1 is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we can see
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $o_1,o_2 \in l'_L$, or $o_1,o_2 \in l'_R$: Then $l'$ contradicts with happen before relation of $h$.
-
-\item[-] If $o_1=o \wedge o_2 \in l'_L$, or $o_1 \in l'_R \wedge o_2 \in l'_L$, or $o_1 \in l'_R \wedge o_2 = 0$, then $l$ contradicts with happen before relation of $h$.
-\end{itemize}
-
-Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \llbracket R_{\textit{pr0}},\ldots,R_{\textit{pr5}} \rrbracket$. \qed
-\end {proof}
-
-
-
-
-The following lemma states that $\textit{PQueue}$ is step-by-step linearizability, it is a direct consequence of Lemma \ref{lemma:Rpr1 is step-by-step linearizability}, Lemma \ref{lemma:Rpr2 is step-by-step linearizability}, Lemma \ref{lemma:Rpr3 is step-by-step linearizability}, Lemma \ref{lemma:Rpr4 is step-by-step linearizability} and Lemma \ref{lemma:Rpr5 is step-by-step linearizability}.
 
 
 
