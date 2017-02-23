@@ -307,7 +307,7 @@ Therefore, we know that $e_{\textit{m-1}} \in \textit{PQueue}$. Similarly, we ca
 
 \cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are are no $\textit{enq}(b)$ and least one $\textit{deq}(b)$, (3) there are are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists.
 
-For each such case, we construct a witness automata. Recall that in Section \ref{subsec:definition of co-regular}, we generate witness automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri})$, $\textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},b),\textit{rm}(\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$.
+For each such case, we construct a witness automata. We generate witness automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri})$, $\textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},b),\textit{rm}(\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$.
 
 
 \begin{figure}[htbp]
@@ -375,10 +375,319 @@ Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by som
 
 
 
+\subsection{Proofs and Definitions in Subsection \ref{subsec:co-regular of PQ1Lar}}
+\label{sec:appendix proof and definition in section co-regular of PQ1Lar}
+
+We can see that $\textit{UVSet}_i(e,x) \cap \textit{UVSet}_j(e,x) = \emptyset$ for any $i \neq j$.
+
+The following lemma states that $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
+
+\begin{restatable}{lemma}{UVSetHasMatchedPutandRm}
+\label{lemma:UVSet has matched put and rm}
+Given a data-differentiated execution $e$ with $\textit{last}(e) = \textit{PQ}_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
+\end{restatable}
+\begin {proof}
+
+We prove this lemma by contradiction. Assume that there exists a value, such that $\textit{UVSet}(e,x)$ contains only its $\textit{put}$ and does not contain its $\textit{rm}$. Then we can see that there exists $d_1,\ldots,d_j$. Intuitively, $d_1,\ldots,d_j$ are elements in $\textit{UVSet}_1(e,x), \ldots, \textit{UVSet}_i(e,x)$, respectively. $\textit{UVSet}(e,x)$ contains $\textit{put}(d_j,\_)$ and does not contain $\textit{rm}(d_j)$. And each $d_i$ is the reason of $d_{\textit{i+1}} \in \textit{UVSet}_{\textit{i+1}}(e,x)$. Formally, we require that
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] For each $1 \leq i \leq j$, method events of $d_i$ belongs to $\textit{UVSet}_i(e,x)$.
+
+\item[-] For each $i \neq j$, $\textit{put}(d_i,\_),\textit{rm}(d_i) \in \textit{UVSet}_i(e,x)$. $\textit{put}(d_j,\_) \in \textit{UVSet}_j(e,x)$, and $e$ does not contain $\textit{rm}(d_j)$.
+
+\item[-] An operation of $d_1$ happens before an operations of $x$. For each $1 < i \leq j$, an operation of $d_i$ happens an operation of $d_{\textit{i-1}}$.
+
+\item[-] For each $k$ and $\textit{ind}$, if $k > \textit{ind+1}$, then no operation of $d_k$ happens before operation of $d_{\textit{ind}}$.
+\end{itemize}
+
+According to the definition of $\textit{UVSet}(e,x)$, it is easy to see that such $d_1,\ldots,d_j$ exists. Let us prove the following fact:
+
+\noindent {\bf $\textit{fact}_1$}: Given $1 \leq i < j$, it can not be the case that $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap.
+
+Proof of $\textit{fact}_1$: We prove $\textit{fact}_1$ by contradiction. Assume that for some $i \neq j$, $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap. Since $\textit{put}(d_i,\_), \textit{rm}(d_i) \in \textit{UVSet}_i(h,x)$, we know that an operation $o_i$ of $d_i$ happens before operation $o_{\textit{i-1}}$ of $d_{\textit{i-1}}$. Moreover, since $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap, it is not hard to see that the call action of $\textit{put}(d_i,\_)$ and the call action of $\textit{rm}(d_i)$ is before the call action of $o_{\textit{i-1}}$. Since method events of $d_{\textit{i+1}}$ is in $\textit{UVSet}_{\textit{i+1}}(e,x)$, we know that an operation $o'_{\textit{i+1}}$ of $d_{\textit{i+1}}$ happens before operation $o'_i$ of $d_i$. Then, it is not hard to see that $o'_{\textit{i+1}}$ also happens before $o_{\textit{i-1}}$, which contradicts that for each $k > \textit{ind+1}$, no operation of $d_k$ happens before operation of $d_{\textit{ind}}$.
+
+We already know that an operation of $d_1$ happens before an operation of $x$. By $\textit{fact}_1$, we can ensure that $\textit{put}(d_1,\_)$ happens before an operation of $x$, and then $d_1 \rightarrow x$ in $G$. For each $1 < i \leq j$, we know that an operation $o_i$ of $d_i$ happens before an operation $o_{\textit{i-1}}$ of $d_{\textit{i-1}}$. By $\textit{fact}_1$, we can ensure that $o_i=\textit{put}(d_i,\_)$ and $o_{\textit{i-1}}=\textit{rm}(d_{\textit{i-1}})$, and then $d_i \rightarrow d_{\textit{i-1}}$ in $G$. Since $h$ contains $\textit{put}(d_j,\_)$ and does not contain $\textit{rm}(d_j)$, we know that $x \rightarrow d_j$ in $G$. Then $G$ has a cycle going through $x$, contradicts that $G$ has no cycle going through $x$. \qed
+\end {proof}
 
 
+The following lemma states that $\textit{UVSet}(e,x)$ does not happen before $\textit{rm}(x)$ when the left-right constraint has no cycle going through $x$.
+
+\begin{restatable}{lemma}{RmxDoesNotHappenBeforeUVSetForPQ1Lar}
+\label{lemma:Rmx does not happen before UVSet for PQ1Lar}
+
+Given a data-differentiated execution $e$ with $\textit{last}(e) = \textit{PQ}_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}(e,x)$.
+\end{restatable}
+
+\begin {proof}
+
+We prove this lemma by induction, and prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x)$, in $\textit{UVSet}_2(e,x)$, $\ldots$. Note that, by Lemma \ref{lemma:UVSet has matched put and rm}, $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that for each $i$, $\textit{UVSet}_i(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
+
+\noindent (1) Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_1(e,x)$ is an operation of item $d$. %(according to the definition of $\textit{UVSet}_1(h,x)$, the priority of $d$ does not equals $\textit{pri}_x$).
+
+We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ method event or a $\textit{rm}$ method event. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_1(e,x)$: $o \in \textit{UVSet}_1(e,x)$, since an operation (of kind $t_2$) of $d$ happens before an operation (of kind $t_3$) of $x$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $(\textit{put},\textit{put},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d,\_) <_{hb} \textit{put}(x,\textit{pri}_x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{put}(x,\textit{pri}_x)$.
+
+\item[-] $(\textit{put},\textit{put},\textit{rm})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d,\_) <_{hb} \textit{rm}(x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{rm}(x)$.
+
+\item[-] $(\textit{put},\textit{rm},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d,\_) ) \wedge ( \textit{rm}(d) <_{hb} \textit{put}(x,\textit{pri}_x) )$. By interval order, we know that $( \textit{rm}(x) <_{hb} \textit{put}(x,\textit{pri}_x) ) \vee ( \textit{rm}(d) <_{hb} \textit{put}(d,\_) )$, which is impossible.
+
+\item[-] $(\textit{put},\textit{rm},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d,\_) ) \wedge ( \textit{rm}(d) <_{hb} \textit{rm}(x) )$. We can see that $\textit{rm}(d) <_{hb} \textit{rm}(x) <_{hb} \textit{put}(d,\_)$, which contradicts that $\textit{rm}(d)$ does not happen before $\textit{put}(d,\_)$.
+
+\item[-] $(\textit{rm},\textit{put},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d) ) \wedge ( \textit{put}(d,\_) <_{hb} \textit{put}(x,\textit{pri}_x) )$. We can see that $x$ and $d$ has circle in $G$, contradicts that $G$ has no cycle going through $x$.
+
+\item[-] $(\textit{rm},\textit{put},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d) ) \wedge ( \textit{put}(d,\_) <_{hb} \textit{rm}(x) )$. We can see that $x$ and $d$ has circle in $G$, contradicts that $G$ has no cycle going through $x$.
+
+\item[-] $(\textit{rm},\textit{rm},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{rm}(d) <_{hb} \textit{put}(x,\textit{pri}_x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{put}(x,\textit{pri}_x)$.
+
+\item[-] $(\textit{rm},\textit{rm},\textit{rm})$: Then $\textit{rm}(x) <_{hb} \textit{rm}(d) <_{hb} \textit{rm}(x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{rm}(x)$.
+\end{itemize}
+
+This completes the proof for $\textit{UVSet}_1(e,x)$.
+
+\noindent (2) Assume we already prove that for some $j \geq 1$, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$. Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_{\textit{j+1}}(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$ is an operation of item $d_{\textit{j+1}}$. We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ method event or a $\textit{rm}$ method event. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$: $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$, since an operation (of kind $t_2$) of $d_{\textit{j+1}}$ happens before an operation (of kind $t_3$) of $d_j$, where $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{UVSet}_j(e,x)$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $(\textit{put},\textit{put},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_)$. We can see that $( \textit{rm}(x) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{put}(d_j,\_) \in \textit{UVSet}_j(e,x) )$, which contradicts that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$.
+
+\item[-] $(\textit{put},\textit{put},\textit{rm})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{rm}(d_j,\_)$. We can see that $( \textit{rm}(x) <_{hb} \textit{rm}(d_j,\_) ) \wedge ( \textit{rm}(d_j) \in \textit{UVSet}_j(e,x) )$, which contradicts that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$.
+
+\item[-] $(\textit{put},\textit{rm},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d_{\textit{j+1}},\_) ) \wedge ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{put}(d_j,\_) )$. By interval order, we know that $( \textit{rm}(x) <_{hb} \textit{put}(d_j,\_) ) \vee ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{put}(d_{\textit{j+1}},\_) )$, which is impossible.
+
+\item[-] $(\textit{put},\textit{rm},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d_{\textit{j+1}},\_) ) \wedge ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{rm}(d_j) )$. By interval order, we know that $( \textit{rm}(x) <_{hb} \textit{rm}(d_j) ) \vee ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{put}(d_{\textit{j+1}},\_) )$, which is impossible.
+
+\item[-] $(\textit{rm},\textit{put},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}) ) \wedge ( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) )$. Let us consider the reason of $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{UVSet}_j(e,x)$:
+    \begin{itemize}
+    \setlength{\itemsep}{0.5pt}
+    \item[-] If $( j > 1 ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, where $o''$ is an operation of item $d_{\textit{j-1}}$ and $\textit{put}(d_{\textit{j-1}},\_), \textit{rm}(d_{\textit{j-1}}) \in \textit{UVSet}_{\textit{j-1}}(e,x)$: Then since $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, we can see that $\textit{put}(d_{\textit{j+1}},\_) <_{hb} o''$, and then operations of $d_{\textit{j+1}}$ is in $\textit{UVSet}_j(e,x)$, contradicts that operations of $d_{\textit{j+1}}$ is in $\textit{UVSet}_{\textit{j+1}}(e,x)$.
+
+    \item[-] If $( j = 1 ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, where $o''$ is an operation of $x$: Similar to above case.
+
+    \item[-] If $( j > 1 ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, where $o''$ is an operation of item $d_{\textit{j-1}}$ and $\textit{put}(d_{\textit{j-1}},\_), \textit{rm}(d_{\textit{j-1}}) \in \textit{UVSet}_{\textit{j-1}}(e,x)$: Then since $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, we can see that $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} o'' ) \vee ( \textit{rm}(d_j) <_{hb} \textit{put}(d_j,\_) )$, which is impossible.
+
+    \item[-] If $( j > 1 ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, where $o''$ is an operation of $x$: Similar to above case.
+    \end{itemize}
+
+\item[-] $(\textit{rm},\textit{put},\textit{rm})$: Let $T_{\textit{ind}}$ be the set of sentences $\{ \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}), \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{rm}(d_j),\ldots, \textit{put}(d_{\textit{ind+1}},\_) <_{hb} \textit{rm}(d_{\textit{ind}}) \}$. Here each $d_i$ is a item of some operation in $\textit{UVSet}_i(e,x)$. Let us prove that from $T_j$ we can obtain contradiction by induction:
+
+    {\bf Base case $1$}: From $T_1$ we can obtain contradiction.
+
+    Let us prove base case $1$:
+
+    \begin{itemize}
+    \setlength{\itemsep}{0.5pt}
+    \item[-] If $\textit{put}(d_1,\_)$ happens $o$, and $o$ is an operation of $x$. Then there is a cycle $x \rightarrow d_{\textit{j+1}} \rightarrow \ldots \rightarrow d_1 \rightarrow x$ in $G$, contradicts that $G$ has no cycle going through $x$.
+
+    \item[-] If $\textit{rm}(d_1)$ happens before $o$, and $o$ is an operation of $x$. Then since $\textit{put}(d_2,\_) <_{hb} \textit{rm}(d_1)$ and $\textit{rm}(d_1) <_{hb} o$, we can see that $\textit{put}(d_2,\_) <_{hb} o$, and then $\textit{put}(d_2,\_) \in \textit{UVSet}_1(e,x)$, contradicts that $\textit{put}(d_2,\_) \in \textit{UVSet}_2(e,x)$.
+    \end{itemize}
+
+    {\bf Base case $2$}: From $T_2$ we can obtain contradiction.
+
+    Let us prove base case $2$: If $\textit{rm}(d_2) <_{hb} o$, and $o$ is an operation of $d_1$, then since $( \textit{put}(d_3,\_) <_{hb} \textit{rm}(d_2) ) \wedge ( \textit{rm}(d_2) <_{hb} o )$, we know that $\textit{put}(d_3,\_) <_{hb} o$. This implies that $\textit{put}(d_3,\_) \in \textit{UVSet}_2(e,x)$, contradicts that $\textit{rm}(d_3,\_) \in \textit{UVSet}_3(e,x)$. Therefore, it is only possible that $\textit{put}(d_2,\_)$ happens before an operation of $d_1$.
+
+    \begin{itemize}
+    \setlength{\itemsep}{0.5pt}
+    \item[-] If $\textit{put}(d_2,\_) <_{hb} \textit{put}(d_1,\_)$ and $\textit{put}(d_1,\_)$ happens before operations of $x$, then we know that $\textit{put}(d_2,\_)$ happens before operation of $x$, which is impossible.
+
+    \item[-] If $\textit{put}(d_2,\_) <_{hb} \textit{put}(d_1,\_)$ and $\textit{rm}(d_1)$ happens before operations of $x$, then by interval order, we know that $\textit{put}(d_2,\_)$ happens before operation of $x$, or $\textit{rm}(d_1) <_{hb} \textit{put}(d_1,\_)$, which is impossible.
+
+    \item[-] If $\textit{put}(d_2,\_) <_{hb} \textit{rm}(d_1)$ and $\textit{put}(d_1,\_)$ happens before operations of $x$, then $x \rightarrow d_{\textit{j+1}} \rightarrow \ldots \rightarrow d_1 \rightarrow x$ in $G$, contradicts that $G$ has no cycle going through $x$.
+
+    \item[-] If $\textit{put}(d_2,\_) <_{hb} \textit{rm}(d_1)$ and $\textit{rm}(d_1)$ happens before operations of $x$, then we know that $\textit{put}(d_2,\_)$ happens before operation of $x$, which is impossible.
+    \end{itemize}
+
+    {\bf induction step}: Given $\textit{ind} \geq 3$, if from $T_{\textit{ind-1}}$ we can obtain contradiction, then from $T_{\textit{ind}}$ we can also contain contradiction.
 
 
+    Prove of the induction step: Similarly as base case $2$, we can prove that it is only possible that $\textit{put}(d_{\textit{ind}},\_)$ happens before operations of $d_{\textit{ind-1}}$.
+
+    \begin{itemize}
+    \setlength{\itemsep}{0.5pt}
+    \item[-] If $\textit{put}(d_{\textit{ind}},\_) <_{hb} \textit{put}(d_{\textit{ind-1}},\_)$ and $\textit{put}(d_{\textit{ind-1}},\_)$ happens before operations of $d_{\textit{ind-2}}$, then we know that $\textit{put}(d_{\textit{ind}})$ happens before operation of $d_{\textit{ind-2}}$, which is impossible.
+
+    \item[-] If $\textit{put}(d_{\textit{ind}},\_) <_{hb} \textit{put}(d_{\textit{ind-1}},\_)$ and $\textit{rm}(d_{\textit{ind-1}})$ happens before operations of $d_{\textit{ind-2}}$, then by interval order, we know that $\textit{put}(d_{\textit{ind}},\_)$ happens before operation of $d_{\textit{ind-2}}$, or $\textit{rm}(d_{\textit{ind-1}}) <_{hb} \textit{put}(d_{\textit{ind-1}},\_)$, which is impossible.
+
+    \item[-] If $\textit{put}(d_{\textit{ind}},\_) <_{hb} \textit{rm}(d_{\textit{ind-1}})$, then we obtain $T_{\textit{ind-1}}$, which already contain contradiction.
+    \end{itemize}
+
+    By base case $1$, base case $2$ and the induction step, it is easy to see that for each $i$, $T_i$ contains contradiction. Therefore, $T_j$, the case of $(\textit{rm},\textit{put},\textit{rm})$, contains contradiction.
+
+\item[-] $(\textit{rm},\textit{rm},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}) ) \wedge ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{put}(d_j,\_) )$. We can see that $( \textit{rm}(x) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{put}(d_j,\_) \in \textit{UVSet}_j(e,x) )$, which contradicts that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$.
+
+\item[-] $(\textit{rm},\textit{rm},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}) ) \wedge ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{rm}(d_j) )$. We can see that $( \textit{rm}(x) <_{hb} \textit{rm}(d_j) ) \wedge ( \textit{rm}(d_j) \in \textit{UVSet}_j(e,x) )$, which contradicts that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$.
+\end{itemize}
+
+This completes the proof for $\textit{UVSet}_{\textit{j+1}}(e,x)$. Therefore, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}(e,x) = \textit{UVSet}_1(e,x) \cup \textit{UVSet}_2(e,x) \cup \ldots$. \qed
+\end {proof}
+
+With Lemma \ref{lemma:UVSet has matched put and rm} and Lemma \ref{lemma:Rmx does not happen before UVSet for PQ1Lar}, we can now prove Lemma \ref{lemma:Lin Equals Constraint for PQ1Lar}.
+
+\LinEqualsConstraintforPQOneLar*
+
+\begin {proof}
+
+To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq \textit{MS}(\textit{PQ}_1^{>})$. Let $u$, $v$ and $w$ be the sequences of method events in $\textit{PQ}_1^{>}$, and let $U$, $V$ and $W$ be the set of method events of $u$, $v$ and $w$, respectively. Assume by contradiction that, there is a cycle $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ in $G$. It is obvious that the priority of each $d_i$ is less than $\textit{pri}_x$. Then our proof proceeds as follows:
+
+According to the definition of left-right constraint, there are two possibilities. The first possibility is that, $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$. It is obvious that $\textit{rm}(d_1) \in W$, and then since $U \cup V$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that $\textit{put}(d_1),\textit{rm}(d_1) \in W$. Then,
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] Since $d_1 \rightarrow d_2$, by definition of $G$, we know that $\textit{put}(d_1)$ happens before $\textit{rm}(d_2)$. Since $\textit{put}(d_1) \in W$ and $U \cup V$ contains matched $\textit{put}$ and $\textit{rm}$, we know that $\textit{put}(d_2),\textit{rm}(d_2) \in W$. Similarly, for each $1 \leq i \leq m$, we know that $\textit{put}(d_i),\textit{rm}(d_i) \in W$.
+
+\item[-] Since $d_m \rightarrow x$,
+    \begin{itemize}
+    \setlength{\itemsep}{0.5pt}
+    \item[-] if $\textit{put}(d_m)$ happens before $\textit{put}(x)$, then we can see that $\textit{put}(d_m) \in U$, which contradicts that $\textit{put}(d_m) \in W$.
+
+    \item[-] if $\textit{put}(d_m)$ happens before $\textit{rm}(x)$, then we can see that $\textit{put}(d_m) \in U \cup V$, which contradicts that $\textit{put}(d_m) \in W$.
+    \end{itemize}
+\end{itemize}
+
+The second possibility is that, $e$ contains one $\textit{put}(d_1,\_)$ and no $\textit{rm}(d_1)$. Note that for each $j > 1$, $e$ contains $\textit{put}(d_j,\_)$ and $\textit{rm}(d_j)$. Since $d_m \rightarrow x$, is is obvious that $\textit{put}(d_m) \in U \cup V$. Since $U \cup V$ contains matched $\textit{put}$ and $\textit{rm}$, we know that $\textit{put}(d_m),\textit{rm}(d_m) \in U \cup V$. Then, since $d_{\textit{m-1}} \rightarrow d_m$, by definition of $G$, we know that $\textit{put}(d_{\textit{m-1}})$ happens before $\textit{rm}(d_m)$. Since $\textit{rm}(d_m) \in U \cup V$ and $U \cup V$ contains matched $\textit{put}$ and $\textit{rm}$, we know that $\textit{put}(d_{\textit{m-1}}),\textit{rm}(d_{\textit{m-1}}) \in U \cup V$. Similarly, for each $1 < i \leq m$, we know that $\textit{put}(d_i),\textit{rm}(d_i) \in U \cup V$, and also $\textit{put}(d_1)\in U \cup V$. However, there is one $\textit{put}(d_1,\_)$ and no $\textit{rm}(d_1)$ in $e$, contradicts that $U \cup V$ contains matched $\textit{put}$ and $\textit{rm}$.
+
+This completes the proof of the $\textit{only if}$ direction.
+
+To prove the $\textit{if}$ direction, assume that $G$ has no cycle going through $x$. Let $E_u$ be the set of operations that happen before $\textit{put}(x)$ in $e$. It is easy to see that $E_u \subseteq \textit{UVSet}(e,x)$. Let $E_v = \textit{UVSet}(e,x) \setminus E_u$. Let $E_e$ be the set of operations of $e$, and let $E_w = E_e \setminus \textit{UVSet}(e,x)$.
+
+By Lemma \ref{lemma:UVSet has matched put and rm}, we can see that $E_u \cup E_v$ contains matched $\textit{put}$ and $\textit{rm}$ operations. It remains to prove that for $E_u$, $\{ \textit{put}(x,\textit{pri}_x) \}$, $E_v$, $\{ \textit{rm}(x) \}$, $E_w$, no elements of the latter set happens before elements of the former set. We prove this by showing that all the following cases are impossible:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] Case $1$: Some operation $o_w \in E_w$ happens before $\textit{rm}(x)$. Then we know that $o_w \in \textit{UVSet}(e,x) = E_u \cup E_v$, which contradicts that $o_w \in E_w$.
+
+\item[-] Case $2$: Some operation $o_w \in E_w$ happens before some operation $o_{\textit{uv}} \in E_u \cup E_v$. Then we know that $o_w \in \textit{UVSet}(e,x) = E_u \cup E_v$, which contradicts that $o_w \in E_w$.
+
+\item[-] Case $3$: Some operation $o_w \in E_w$ happens before $\textit{put}(x)$. Then we know that $o_w \in \textit{UVSet}(e,x) = E_u \cup E_v$, which contradicts that $o_w \in E_w$.
+
+\item[-] Case $4$: $\textit{rm}(x)$ happens before some $o_{\textit{uv}} \in \textit{UVSet}(e,x) = E_u \cup E_v$. By Lemma \ref{lemma:Rmx does not happen before UVSet for PQ1Lar} we know that this is impossible.
+
+\item[-] Case $5$: $\textit{rm}(x)$ happens before $\textit{put}(x)$. This contradicts that each single-priority projection satisfy the FIFO property.
+
+\item[-] Case $6$: Some operation $o_v \in E_v$ happens before $\textit{put}(x)$. Then we know that $o_v \in E_u$, which contradicts that $o_v \in E_v$.
+
+\item[-] Case $7$: Some operation $o_v \in E_v$ happens before some operation $o_u \in E_u$. Then we know that $o_v \in E_u$, which contradicts that $o_v \in E_v$.
+
+\item[-] Case $8$: $\textit{put}(x)$ happens before some operation $o_u \in E_u$. This is impossible.
+\end{itemize}
+
+This completes the proof of the $\textit{if}$ direction.
+
+\qed
+\end {proof}
+
+
+Let us begin to represent witness automata that is used for capture the existence of a data-differentiated execution $e$, it has a projection $e'$, $\textit{last}(e') = \textit{PQ}_1^{>}$, and there exists a cycle going through the item with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such item to be $b$, maps items that cover it to be $a$, and maps other items into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b)$ and $\textit{rm}(b)$. For each of them, we generate a witness automaton.
+
+For the case when $e_r \vert_{b} = \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{cal}(\textit{rm}) \cdot \textit{ret}(\textit{rm},b)$, we generate witness automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $c_1 = c + \textit{ret}(\textit{rm},a)$, $c_2 = c + \textit{cal}(\textit{put},a,\textit{les}_p)$, $c_3 = c_2 + \textit{ret}(\textit{rm},a)$, where $c = \textit{cal}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{cal}(\textit{rm},d), \textit{ret}(\textit{rm},d)$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1 \textwidth]{figures/PIC_AUTO_PQ1Lar-pprr.pdf}
+%\vspace{-10pt}
+  \caption{Automaton $\mathcal{A}_{\textit{l-lar}}^1$}
+  \label{fig:automata APQ1Lar-1}
+\end{figure}
+
+$\mathcal{A}_{\textit{l-lar}}^1$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-1}. Here for simplicity, we only draw operation of $b$, and the return action of the first call of $\textit{ret}(\textit{put},a)$.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1 \textwidth]{figures/PIC_HIS_PQ1Lar-pprr.pdf}
+%\vspace{-10pt}
+  \caption{Conditions recognized by $\mathcal{A}_{\textit{l-lar}}^1$}
+  \label{fig:his for APQ1Lar-1}
+\end{figure}
+
+
+For the case when $e_r \vert_{b} = \textit{cal}(\textit{put},b,p) \cdot \textit{cal}(\textit{rm}) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$, we generate witness automaton $\mathcal{A}_{\textit{l-lar}}^2$, as shown in \figurename~\ref{fig:automata APQ1Lar-2}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^2$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1 \textwidth]{figures/PIC_AUTO_PQ1Lar-prpr.pdf}
+%\vspace{-10pt}
+  \caption{Automaton $\mathcal{A}_{\textit{l-lar}}^2$}
+  \label{fig:automata APQ1Lar-2}
+\end{figure}
+
+
+$\mathcal{A}_{\textit{l-lar}}^2$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-2}. Here for simplicity, we only draw operation of $b$, and the return action of the first call of $\textit{ret}(\textit{put},a)$.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7 \textwidth]{figures/PIC_HIS_PQ1Lar-prpr.pdf}
+%\vspace{-10pt}
+  \caption{Conditions recognized by $\mathcal{A}_{\textit{l-lar}}^2$}
+  \label{fig:his for APQ1Lar-2}
+\end{figure}
+
+For the case when $e_r \vert_{b} = \textit{cal}(\textit{rm}) \cdot \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$, we generate witness automaton $\mathcal{A}_{\textit{l-lar}}^3$, as shown in \figurename~\ref{fig:automata APQ1Lar-3}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^3$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1 \textwidth]{figures/PIC_AUTO_PQ1Lar-rppr.pdf}
+%\vspace{-10pt}
+  \caption{Automaton $\mathcal{A}_{\textit{l-lar}}^3$}
+  \label{fig:automata APQ1Lar-3}
+\end{figure}
+
+
+$\mathcal{A}_{\textit{l-lar}}^3$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-3}. Here for simplicity, we only draw operation of $b$, and the return action of the first call of $\textit{ret}(\textit{put},a)$.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7 \textwidth]{figures/PIC_HIS_PQ1Lar-rppr.pdf}
+%\vspace{-10pt}
+  \caption{Conditions recognized by $\mathcal{A}_{\textit{l-lar}}^3$}
+  \label{fig:his for APQ1Lar-3}
+\end{figure}
+
+
+For the case when $e_r \vert_{b} = \textit{cal}(\textit{rm}) \cdot \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b) \cdot \textit{ret}(\textit{put})$, we generate witness automaton $\mathcal{A}_{\textit{l-lar}}^4$, as shown in \figurename~\ref{fig:automata APQ1Lar-4}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^4$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9 \textwidth]{figures/PIC_AUTO_PQ1Lar-rprp.pdf}
+%\vspace{-10pt}
+  \caption{Automaton $\mathcal{A}_{\textit{l-lar}}^4$}
+  \label{fig:automata APQ1Lar-4}
+\end{figure}
+
+
+$\mathcal{A}_{\textit{l-lar}}^4$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-4}. Here for simplicity, we only draw operation of $b$, and the return action of the first call of $\textit{ret}(\textit{put},a)$.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7 \textwidth]{figures/PIC_HIS_PQ1Lar-rprp.pdf}
+%\vspace{-10pt}
+  \caption{Conditions recognized by $\mathcal{A}_{\textit{l-lar}}^4$}
+  \label{fig:his for APQ1Lar-4}
+\end{figure}
+
+Let $\textit{Auts}_{\textit{1-lar}} = \{ \mathcal{A}_{\textit{l-lar}}^1, \mathcal{A}_{\textit{l-lar}}^2, \mathcal{A}_{\textit{l-lar}}^3, \mathcal{A}_{\textit{l-lar}}^4 \}$. The following lemma states that $\textit{PQ}_1^{>}$ is co-regular.
+
+
+\PQOneLarisCoRegular*
+
+\begin {proof}
+
+We need to prove that, given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-lar}} \cap \mathcal{I} = \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=\textit{PQ}_1^{>} \wedge e$ does not linearizable w.r.t. $\textit{MS}(\textit{PQ}_1^{>})$.
+
+By Lemma \ref{lemma:Lin Equals Constraint for PQ1Lar}, we need to prove the following fact:
+
+\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-lar}} \cap \mathcal{I} = \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=\textit{PQ}_1^{>} \wedge$ there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $e'$, and $x$ is the item with maximal priority in $e'$.
+
+\noindent The $\textit{only if}$ direction: Let us consider the case of $\mathcal{A}_{\textit{l-lar}}^1$. Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$. By data-independence, there exists data-differentiated execution $e \in \mathcal{I}$ and renaming function $r_1$, such that $e_1 = r_1(e)$. Assume that $r_1$ maps $d$ into $b$ and maps $f_1,\ldots,f_m$ into $a$. Let $e'$ be obtained from $e$ by projection into $\{ d, f_1,\ldots,f_m \}$. It is easy to see that $\textit{last}(\textit{PQ}_1^{>})$, and there is a cycle going through $d$ in $G$, where $G$ is the left-right constraint of $e'$. The case of $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$ is similar.
+
+\noindent The $\textit{if}$ direction: Given such $e$, $e'$ and $x$. Let renaming function $r$ maps $x$ into $b$, maps items cover $x$ into $a$, and maps other items into $d$. By data-independence, $r(e) \in \mathcal{I}$. Then depending on the case of $r(e) \vert_{b}$, we can see that $r(e)$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$, $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ or $\mathcal{A}_{\textit{l-lar}}^4$. \qed
+\end {proof}
 
 
 
@@ -426,419 +735,7 @@ Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by som
 
 
 
-\subsection{Co-Regular of $R_{\textit{pr1}}$}
-\label{subsec:co-regular of Rpr1}
 
-Let us introduce the notion of gap for matched $\textit{put}$ and $\textit{rm}$ operations.
-
-\begin{definition}[gap for matched $\textit{put}$ and $\textit{rm}$ operations]\label{def:gap for matched put and rm operations}
-
-Let $h$ be a data-differentiated history and $o_1 = \textit{put}(x,\textit{pri}_x)$, $o_2 = \textit{rm}(x)$ be a pair of matched $\textit{put}$ and $\textit{rm}$ operation of $h$. We say that $h$ has a gap on operations $o_1$ and $o_2$, if there is a partition of the operations of $h$ into $L$, $M$ and $R$ satisfying:
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $L \cup M$ has matched $\textit{put}$ and $\textit{rm}$ operations.
-
-\item[-] no operation of $R$ happens before an operation of $L$, $o_1$, $M$ or $o_2$.
-
-\item[-] no operation of $o_2$ happens before an operation of $L$, $o_1$ or $M$.
-
-\item[-] no operation of $M$ happens before an operation of $L$ or $o_1$.
-
-\item[-] no operation of $o_1$ happens before an operation of $L$.
-
-\item[-] no operation in $L \cup M \cup R$ has priority $\textit{pri}_x$.
-\end{itemize}
-\end{definition}
-
-Given a history $h$ and set $O$ of some operations in $h$. It is easy to see that there exists a sequence $l$ of operations of $O$, such that $l$ does not contradicts the happen before relation of $h$. Therefore, from now on, we can use this fact to directly generate such sequence from such $O$.
-
-
-The following lemma reduce linearizable with respect to $\textit{MR}_{\textit{pr1}}$ into gap of matched $\textit{put}$ and $\textit{rm}$ operations.
-
-\begin{restatable}{lemma}{GapEqualsLinforRpr1}
-\label{lemma:Gap Equals Lin for Rpr1}
-A data-differentiated history $h$ has a projection $h'$, such that $\textit{last}(h') = R_{\textit{pr1}}$ and $h'$ does not linearizable to $\textit{MR}_{\textit{pr1}}$, if and only if there exists a projection $h''$ of $h$, such that $\textit{last}(h'') = R_{\textit{pr1}}$, $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ is in $h''$, $\textit{pri}_x$ is the maximal priority of $h''$, and one the the following case holds:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] case $1$: $\textit{rm}(x)$ happens before $\textit{put}(x,\textit{pri}_x)$,
-\item[-] case $2$: there is no gap on $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$.
-\end{itemize}
-\end{restatable}
-
-\begin {proof}
-
-Let us prove the $\textit{only if}$ direction by contradiction. Assume that there exists such $h'$, while case $1$ and case $2$ do not hold for any projection of $h$. Since case $1$ does not hold for any projection of $h$, we know that $\forall y \in D$, $\textit{rm}(y)$ does not happens before $\textit{put}(y,\_)$ in $h$. Since case $2$ does not hold for any projection of $h$ and $\textit{last}(h') = R_{\textit{pr1}}$, we can see that $h'$ has gap on $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$, while $\textit{pri}_x$ is the maximal priority in $h'$. Since $\textit{last}(h') = R_{\textit{pr1}}$, we can see that $\textit{pri}_x$ is larger than priority of all other $\textit{put}$ operations of $h$.
-
-By the properties of the gap, there is partitions $L$, $M$ and $R$. Let $u$, $v$ and $w$ contain the operations of $L$, $M$ and $R$, respectively. It is easy to see that $h'$ is linearizable with respect to $l''=u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$ and $l'' \in \textit{MR}_{\textit{pr1}}$. This contradicts the fact that $h'$ does not linearizable to $\textit{MR}_{\textit{pr1}}$.
-
-Let us begin to prove the $\textit{if}$ direction.
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] If case $1$ holds for $h''$, then $h \vert_{ \{ x \} }$ is the $h'$ as required.
-
-\item[-] If case $2$ holds, assume by contradiction that, for every projection $h'$ of $h$, if $\textit{last}(h') = R_{\textit{pr1}}$, then $h' \sqsubseteq \textit{MR}_{\textit{pr1}}$. Since $h''$ is also a projection of $h$, we know that there exist sequences $u$, $v$ and $w$, such that $h'' \sqsubseteq u \cdot \textit{put}(x,\textit{pri}_x) \cdot v \cdot \textit{rm}(x) \cdot w$, $u \cdot v$ contains matched $\textit{put}$ and $\textit{rm}$ operations, and $\textit{pri}_x$ is larger than priority of $u \cdot v \cdot w$. Let $L$, $M$ and $R$ be the operations of $u$, $v$ and $w$, respectively. Then, the partitions $L$, $M$ and $R$ form a gap on operation $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. This contradicts the fact that there is no gap on $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$.
-\end{itemize}
-
-This completes the proof of this lemma. \qed
-\end {proof}
-
-\begin{definition}[left-right constraint for matched $\textit{put}$ and $\textit{rm}$ operations]\label{def:left-right constraint for matched put and rm operations}
-Given a data-differentiated history $h$, and two operations $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ of $h$. The left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ is the graph $G$ where:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] the nodes are the items of $h$, to which we add a node,
-
-\item[-] there is an edge from item $d_1$ to $x$, if $\textit{put}(d_1,\textit{pri}_1)$ happens before $\textit{put}(x,\textit{pri}_x)$ or $\textit{rm}(x)$ and $\textit{pri}_1 \neq \textit{pri}_x$,
-
-\item[-] there is an edge from $x$ to item $d_1$, if $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$ or $\textit{rm}(d_1)$ does not exists in $h$, and the priority of $d_1$ is not $\textit{pri}_x$,
-
-\item[-] there is an edge from item $d_1$ to item $d_2$, if $\textit{put}(d_1,\textit{pri}_1)$ happens before $\textit{rm}(d_2,\textit{pri}_2)$, $\textit{pri}_1 \neq \textit{pri}_x$, and $\textit{pri}_2 \neq \textit{pri}_x$.
-\end{itemize}
-\end{definition}
-
-Given a data-differentiated history $h$ and two operations $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ of $h$. Let $\textit{LMSet}_1(h,x) = \{ o \vert$ $o$ is not an operation of $x$, the priority of $o$ does not equal the priority of $x$, and either it happens before $\textit{put}(x)$ or $\textit{rm}(x)$ in $h$, or there is an operation $o'$ with the same item of $o$, such that $o'$ happens before $\textit{put}(x)$ or $\textit{rm}(x)$ in $h$ $\}$. For each $i \geq 1$, let $\textit{LMSet}_{\textit{i+1}}(h,x) = \{ o \vert$ $o$ is not an operation of $x$ or items in $\textit{LMSet}_k(h,x)$ for each $k \leq i$, the priority of $o$ does not equal the priority of $x$, and either it happens before some operation $o' \in \textit{LMSet}_i(h,x)$ in $h$, or there is an operation $o''$ with the same item of $o$ and $o''$ happens before some operation $o' \in \textit{LMSet}_i(h,x)$ in $h$ $\}$. %We can see that for each $i$, $\textit{LMSet}_i(h,x)$ contains matched $\textit{put}$ and $\textit{rm}$ operations, and
-We can see that $\textit{LMSet}_i(h,x) \cap \textit{LMSet}_j(h,x) = \emptyset$ for any $i \neq j$. Let $\textit{LMSet}(h,x) = \textit{LMSet}_1(h,x) \cup \textit{LMSet}_2(h,x) \cup \ldots$. %{\color {red} We say that a history $h$ of priority queue is matched before $x$, if (1) $h$ contains no $\textit{rmEmpty}$ operations, (2) $ h \sqsubseteq l_1 \cdot \textit{put}(x,\_) \cdot l_2 \cdot \textit{rm}(x) \cdot l_3$ for some $l_1,l_2,l_3$, and $l_1 \cdot l_2$ contains matched $\textit{put}$ and $\textit{rm}$ operations.}
-
-The following is an example that shows that, given a data-differentiated history $h$, the set $\textit{LMSet}_i(h,x)$ can be non-empty for each $1 \leq i \leq 3$. In \figurename~\ref{fig:his nobound of LMSet} , $\textit{LMSet}_1(h,x) = \{ \textit{put}(a,1),\textit{rm}(a) \}$, $\textit{LMSet}_2(h,x) = \{ \textit{put}(b,1),\textit{rm}(b) \}$ and $\textit{LMSet}_3(h,x) = \{ \textit{put}(a,c),\textit{rm}(c) \}$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.5 \textwidth]{PIC_HIS_NOBOUNDOF_LMSET.pdf}
-%\vspace{-10pt}
-  \caption{An example for non-emptiness of $\textit{LMSet}_1(h,x)$, $\textit{LMSet}_2(h,x)$ and $\textit{LMSet}_3(h,x)$}
-  \label{fig:his nobound of LMSet}
-\end{figure}
-
-
-\begin{restatable}{lemma}{RmxDoesNotHappenBeforeLMSetForRpr1}
-\label{lemma:Rmx does not happen before LMSet for Rpr1}
-Given a data-differentiated history $h$ and two operations $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ of $h$. %, such that $\textit{pri}_x$ is the maximal priority of $h$, and $\textit{last}(h) = R_{\textit{pr1}}$.
-Assume that $\textit{rm}(y)$ does not happen before $\textit{put}(y,\_)$ for each item $y$ in $h$. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}(h,x)$.
-\end{restatable}
-
-\begin {proof}
-
-We prove this lemma by induction, and prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}_1(h,x)$, in $\textit{LMSet}_2(h,x)$, $\ldots$. Note that, according to the definition of $\textit{LMSet}(h,x)$, $\textit{pri}_x$ is different to priority of all items in $\textit{LMSet}(h,x)$.
-
-\noindent (1) Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}_1(h,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{LMSet}_1(h,x)$ is an operation of item $d$ (according to the definition of $\textit{LMSet}_1(h,x)$, the priority of $d$ does not equals $\textit{pri}_x$).
-
-We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ operation or a $\textit{rm}$ operation. $t_2$ and $t_3$ is used for the reason of $o \in \textit{LMSet}_1(h,x)$: $o \in \textit{LMSet}_1(h,x)$, since an operation (of kind $t_2$) of $d$ happens before an operation (of kind $t_3$) of $x$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $(\textit{put},\textit{put},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d,\_) <_{hb} \textit{put}(x,\textit{pri}_x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{put}(x,\textit{pri}_x)$.
-
-\item[-] $(\textit{put},\textit{put},\textit{rm})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d,\_) <_{hb} \textit{rm}(x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{rm}(x)$.
-
-\item[-] $(\textit{put},\textit{rm},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d,\_) ) \wedge ( \textit{rm}(d) <_{hb} \textit{put}(x,\textit{pri}_x) )$. By interval order, we know that $( \textit{rm}(x) <_{hb} \textit{put}(x,\textit{pri}_x) ) \vee ( \textit{rm}(d) <_{hb} \textit{put}(d,\_) )$, which is impossible.
-
-\item[-] $(\textit{put},\textit{rm},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d,\_) ) \wedge ( \textit{rm}(d) <_{hb} \textit{rm}(x) )$. We can see that $\textit{rm}(d) <_{hb} \textit{rm}(x) <_{hb} \textit{put}(d,\_)$, which contradicts that $\textit{rm}(d)$ does not happen before $\textit{put}(d,\_)$.
-
-\item[-] $(\textit{rm},\textit{put},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d) ) \wedge ( \textit{put}(d,\_) <_{hb} \textit{put}(x,\textit{pri}_x) )$. We can see that $x$ and $d$ has circle in $G$, contradicts that $G$ has no cycle going through $x$.
-
-\item[-] $(\textit{rm},\textit{put},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d) ) \wedge ( \textit{put}(d,\_) <_{hb} \textit{rm}(x) )$. We can see that $x$ and $d$ has circle in $G$, contradicts that $G$ has no cycle going through $x$.
-
-\item[-] $(\textit{rm},\textit{rm},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{rm}(d) <_{hb} \textit{put}(x,\textit{pri}_x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{put}(x,\textit{pri}_x)$.
-
-\item[-] $(\textit{rm},\textit{rm},\textit{rm})$: Then $\textit{rm}(x) <_{hb} \textit{rm}(d) <_{hb} \textit{rm}(x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{rm}(x)$.
-\end{itemize}
-
-This completes the proof for $\textit{LMSet}_1(h,x)$.
-
-\noindent (2) Assume we already prove that for some $j \geq 1$, $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}_1(h,x) \cup \ldots \cup \textit{LMSet}_j(h,x)$. Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}_{\textit{j+1}}(h,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{LMSet}_{\textit{j+1}}(h,x)$ is an operation of item $d_{\textit{j+1}}$ (according to the definition of $\textit{LMSet}_1(h,x)$, the priority of $d_{\textit{j+1}}$ does not equals $\textit{pri}_x$). We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ operation or a $\textit{rm}$ operation. $t_2$ and $t_3$ is used for the reason of $o \in \textit{LMSet}_{\textit{j+1}}(h,x)$: $o \in \textit{LMSet}_{\textit{j+1}}(h,x)$, since an operation (of kind $t_2$) of $d_{\textit{j+1}}$ happens before an operation (of kind $t_3$) of $d_j$, where $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{LMSet}_j(h,x)$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $(\textit{put},\textit{put},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_)$. We can see that $( \textit{rm}(x) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{put}(d_j,\_) \in \textit{LMSet}_j(h,x) )$, which contradicts that $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}_1(h,x) \cup \ldots \cup \textit{LMSet}_j(h,x)$.
-
-\item[-] $(\textit{put},\textit{put},\textit{rm})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{rm}(d_j,\_)$. We can see that $( \textit{rm}(x) <_{hb} \textit{rm}(d_j,\_) ) \wedge ( \textit{rm}(d_j) \in \textit{LMSet}_j(h,x) )$, which contradicts that $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}_1(h,x) \cup \ldots \cup \textit{LMSet}_j(h,x)$.
-
-\item[-] $(\textit{put},\textit{rm},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d_{\textit{j+1}},\_) ) \wedge ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{put}(d_j,\_) )$. By interval order, we know that $( \textit{rm}(x) <_{hb} \textit{put}(d_j,\_) ) \vee ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{put}(d_{\textit{j+1}},\_) )$, which is impossible.
-
-\item[-] $(\textit{put},\textit{rm},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d_{\textit{j+1}},\_) ) \wedge ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{rm}(d_j) )$. By interval order, we know that $( \textit{rm}(x) <_{hb} \textit{rm}(d_j) ) \vee ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{put}(d_{\textit{j+1}},\_) )$, which is impossible.
-
-\item[-] $(\textit{rm},\textit{put},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}) ) \wedge ( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) )$. Let us consider the reason of $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{LMSet}_j(h,x)$:
-    \begin{itemize}
-    \setlength{\itemsep}{0.5pt}
-    \item[-] If $( j > 1 ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, where $o''$ is an operation of item $d_{\textit{j-1}}$ and $\textit{put}(_{\textit{j-1}},\_), \textit{rm}(_{\textit{j-1}}) \in \textit{LMSet}_{\textit{j-1}}(h,x)$: Then since $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, we can see that $\textit{put}(d_{\textit{j+1}},\_) <_{hb} o''$, and then operations of $d_{\textit{j+1}}$ is in $\textit{LMSet}_j(h,x)$, contradicts that operations of $d_{\textit{j+1}}$ is in $\textit{LMSet}_{\textit{j+1}}(h,x)$.
-
-    \item[-] If $( j = 1 ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, where $o''$ is an operation of $x$: Similar to above case.
-
-    \item[-] If $( j > 1 ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, where $o''$ is an operation of item $d_{\textit{j-1}}$ and $\textit{put}(d_{\textit{j-1}},\_), \textit{rm}(d_{\textit{j-1}}) \in \textit{LMSet}_{\textit{j-1}}(h,x)$: Then since $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, we can see that $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} o'' ) \vee ( \textit{rm}(d_j) <_{hb} \textit{put}(d_j,\_) )$, which is impossible.
-
-    \item[-] If $( j > 1 ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, where $o''$ is an operation of $x$: Similar to above case.
-    \end{itemize}
-
-\item[-] $(\textit{rm},\textit{put},\textit{rm})$: Let $T_{\textit{ind}}$ be the set of sentences $\{ \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}), \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{rm}(d_j),\ldots, \textit{put}(d_{\textit{ind+1}},\_) <_{hb} \textit{rm}(d_{\textit{ind}}) \}$. Here each $d_i$ is a item of some operation in $\textit{LMSet}_i(h,x)$ (according to the definition of $\textit{LMSet}_1(h,x)$, the priority of $d_i$ does not equals $\textit{pri}_x$ for each $i$). Let us prove that from $T_j$ we can obtain contradiction by induction:
-
-    {\bf Base case $1$}: From $T_1$ we can obtain contradiction.
-
-    Let us prove base case $1$:
-
-    \begin{itemize}
-    \setlength{\itemsep}{0.5pt}
-    \item[-] If $\textit{put}(d_1,\_)$ happens $o$, and $o$ is an operation of $x$. Then there is a cycle $x \rightarrow d_{\textit{j+1}} \rightarrow \ldots \rightarrow d_1 \rightarrow x$ in $G$, contradicts that $G$ has no cycle going through $x$.
-
-    \item[-] If $\textit{rm}(d_1)$ happens before $o$, and $o$ is an operation of $x$. Then since $\textit{put}(d_2,\_) <_{hb} \textit{rm}(d_1)$ and $\textit{rm}(d_1) <_{hb} o$, we can see that $\textit{put}(d_2,\_) <_{hb} o$, and then $\textit{put}(d_2,\_) \in \textit{LMSet}_1(h,x)$, contradicts that $\textit{put}(d_2,\_) \in \textit{LMSet}_2(h,x)$.
-    \end{itemize}
-
-    {\bf Base case $2$}: From $T_2$ we can obtain contradiction.
-
-    Let us prove base case $2$: If $\textit{rm}(d_2) <_{hb} o$, and $o$ is an operation of $d_1$, then since $( \textit{put}(d_3,\_) <_{hb} \textit{rm}(d_2) ) \wedge ( \textit{rm}(d_2) <_{hb} o )$, we know that $\textit{put}(d_3,\_) <_{hb} o$. This implies that $\textit{put}(d_3,\_) \in \textit{LMSet}_2(h,x)$, contradicts that $\textit{rm}(d_3,\_) \in \textit{LMSet}_3(h,x)$. Therefore, it is only possible that $\textit{put}(d_2,\_)$ happens before an operation of $d_1$.
-
-    \begin{itemize}
-    \setlength{\itemsep}{0.5pt}
-    \item[-] If $\textit{put}(d_2,\_) <_{hb} \textit{put}(d_1,\_)$ and $\textit{put}(d_1,\_)$ happens before operations of $x$, then we know that $\textit{put}(d_2,\_)$ happens before operation of $x$, which is impossible.
-
-    \item[-] If $\textit{put}(d_2,\_) <_{hb} \textit{put}(d_1,\_)$ and $\textit{rm}(d_1)$ happens before operations of $x$, then by interval order, we know that $\textit{put}(d_2,\_)$ happens before operation of $x$, or $\textit{rm}(d_1) <_{hb} \textit{put}(d_1,\_)$, which is impossible.
-
-    \item[-] If $\textit{put}(d_2,\_) <_{hb} \textit{rm}(d_1)$ and $\textit{put}(d_1,\_)$ happens before operations of $x$, then $x \rightarrow d_{\textit{j+1}} \rightarrow \ldots \rightarrow d_1 \rightarrow x$ in $G$, contradicts that $G$ has no cycle going through $x$.
-
-    \item[-] If $\textit{put}(d_2,\_) <_{hb} \textit{rm}(d_1)$ and $\textit{rm}(d_1)$ happens before operations of $x$, then we know that $\textit{put}(d_2,\_)$ happens before operation of $x$, which is impossible.
-    \end{itemize}
-
-    {\bf induction step}: Given $\textit{ind} \geq 3$, if from $T_{\textit{ind-1}}$ we can obtain contradiction, then from $T_{\textit{ind}}$ we can also contain contradiction.
-
-
-    Prove of the induction step: Similarly as base case $2$, we can prove that it is only possible that $\textit{put}(d_{\textit{ind}},\_)$ happens before operations of $d_{\textit{ind-1}}$.
-
-    \begin{itemize}
-    \setlength{\itemsep}{0.5pt}
-    \item[-] If $\textit{put}(d_{\textit{ind}},\_) <_{hb} \textit{put}(d_{\textit{ind-1}},\_)$ and $\textit{put}(d_{\textit{ind-1}},\_)$ happens before operations of $d_{\textit{ind-2}}$, then we know that $\textit{put}(d_{\textit{ind}})$ happens before operation of $d_{\textit{ind-2}}$, which is impossible.
-
-    \item[-] If $\textit{put}(d_{\textit{ind}},\_) <_{hb} \textit{put}(d_{\textit{ind-1}},\_)$ and $\textit{rm}(d_{\textit{ind-1}})$ happens before operations of $d_{\textit{ind-2}}$, then by interval order, we know that $\textit{put}(d_{\textit{ind}},\_)$ happens before operation of $d_{\textit{ind-2}}$, or $\textit{rm}(d_{\textit{ind-1}}) <_{hb} \textit{put}(d_{\textit{ind-1}},\_)$, which is impossible.
-
-    \item[-] If $\textit{put}(d_{\textit{ind}},\_) <_{hb} \textit{rm}(d_{\textit{ind-1}})$, then we obtain $T_{\textit{ind-1}}$, which already contain contradiction.
-    \end{itemize}
-
-    By base case $1$, base case $2$ and the induction step, it is easy to see that $T_j$ contains contradiction.
-
-\item[-] $(\textit{rm},\textit{rm},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}) ) \wedge ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{put}(d_j,\_) )$. We can see that $( \textit{rm}(x) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{put}(d_j,\_) \in \textit{LMSet}_j(h,x) )$, which contradicts that $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}_1(h,x) \cup \ldots \cup \textit{LMSet}_j(h,x)$.
-
-\item[-] $(\textit{rm},\textit{rm},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}) ) \wedge ( \textit{rm}(d_{\textit{j+1}}) <_{hb} \textit{rm}(d_j) )$. We can see that $( \textit{rm}(x) <_{hb} \textit{rm}(d_j) ) \wedge ( \textit{rm}(d_j) \in \textit{LMSet}_j(h,x) )$, which contradicts that $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}_1(h,x) \cup \ldots \cup \textit{LMSet}_j(h,x)$.
-\end{itemize}
-
-This completes the proof for $\textit{LMSet}_{\textit{j+1}}(h,x)$. Therefore, $\textit{rm}(x)$ does not happen before any operation in $\textit{LMSet}(h,x) = \textit{LMSet}_1(h,x) \cup \textit{LMSet}_2(h,x) \cup \ldots$. \qed
-\end {proof}
-
-
-\begin{restatable}{lemma}{LMSetHasMatchedPutandRmOperations}
-\label{lemma:LMSet has matched put and rm operations}
-Given a data-differentiated history $h$ and two operations $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ of $h$. Assume that $\textit{rm}(y)$ does not happen before $\textit{put}(y,\_)$ for each item $y$ in $h$. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{LMSet}(h,x)$ contains only matched $\textit{put}$ and $\textit{rm}$ operations.
-\end{restatable}
-\begin {proof}
-
-We prove this lemma by contradiction. Assume that there exists a value, such that $\textit{LMSet}(h,x)$ contains only its $\textit{put}$ operation and does not contain its $\textit{rm}$ operation. Then we can see that there exists $d_1,\ldots,d_j$. Intuitively, $d_1,\ldots,d_j$ are items in $\textit{LMSet}_1(h,x), \ldots, \textit{LMSet}_i(h,x)$, respectively. $\textit{LMSet}(h,x)$ contains $\textit{put}(d_j,\_)$ and does not contain $\textit{rm}(d_j)$. And each $d_i$ is the reason of $d_{\textit{i+1}} \in \textit{LMSet}_{\textit{i+1}}(h,x)$. Formally, we require that
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] For each $1 \leq i \leq j$, operations of $d_i$ belongs to $\textit{LMSet}_i(h,x)$. %For each $1 \leq i \leq j$, the priority of $d_i$ is not $\textit{pri}_x$.
-
-\item[-] For each $i \neq j$, $\textit{put}(d_i,\_),\textit{rm}(d_i) \in \textit{LMSet}_i(h,x)$. $\textit{put}(d_j,\_) \in \textit{LMSet}_j(h,x)$, and $h$ does not contain $\textit{rm}(d_j)$.
-
-\item[-] An operation of $d_1$ happens before an operation of $x$. For each $1 < i \leq j$, an operation of $d_j$ happens an operation of $d_{\textit{i-1}}$.
-
-\item[-] For each $k$ and $\textit{ind}$, if $k > \textit{ind+1}$, then no operation of $d_k$ happens before operation of $d_{\textit{ind}}$.
-\end{itemize}
-
-According to the definition of $\textit{LMSet}(h,x)$, it is easy to see that such $d_1,\ldots,d_j$ exists. Let us prove the following fact:
-
-\noindent {\bf $\textit{fact}_1$}: Given $1 \leq i < j$, it can not be the case that $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap.
-
-Proof of $\textit{fact}_1$: We prove $\textit{fact}_1$ by contradiction. Assume that for some $i \neq j$, $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap. Since $\textit{put}(d_i,\_), \textit{rm}(d_i) \in \textit{LMSet}_i(h,x)$, we know that an operation $o_i$ of $d_i$ happens before operation $o_{\textit{i-1}}$ of $d_{\textit{i-1}}$. Moreover, since $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap, it is not hard to see that the call action of $\textit{put}(d_i,\_)$ and the call action of $\textit{rm}(d_i)$ is before the call action of $o_{\textit{i-1}}$. Since $\textit{put}(d_{\textit{i+1}},\_), \textit{rm}(d_{\textit{i+1}}) \in \textit{LMSet}_{\textit{i+1}}(h,x)$, we know that an operation $o'_{\textit{i+1}}$ of $d_{\textit{i+1}}$ happens before operation $o'_i$ of $d_i$. Then, it is not hard to see that $o'_{\textit{i+1}}$ also happens before $o_{\textit{i-1}}$, which contradicts that For each $k > \textit{ind+1}$, no operation of $d_k$ happens before operation of $d_{\textit{ind}}$.
-
-We already know that an operation of $d_1$ happens before an operation of $x$. By $\textit{fact}_1$, we can ensure that $\textit{put}(d_1,\_)$ happens before an operation of $x$, and then $d_1 \rightarrow x$ in $G$. For each $1 < i < j$, we know that an operation $o_i$ of $d_i$ happens before an operation $o_{\textit{i-1}}$ of $d_{\textit{i-1}}$. By $\textit{fact}_1$, we can ensure that $o_i=\textit{put}(d_i,\_)$ and $o_{\textit{i-1}}=\textit{rm}(d_{\textit{i-1}})$, and then $d_i \rightarrow d_{\textit{i-1}}$ in $G$. Since $h$ contains $\textit{put}(d_j)$ and does not contain $\textit{rm}(d_j)$, we know that $x \rightarrow d_j$ in $G$. Then $G$ has a cycle going through $x$, contradicts that $G$ has no cycle going through $x$. \qed
-\end {proof}
-
-
-
-\begin{restatable}{lemma}{GapEqualsConstraintforRpr1}
-\label{lemma:Gap Equals Constraint for Rpr1}
-Given a data-differentiated history $h$ and two operations $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ of $h$. %, where $\textit{pri}_x$ has the maximal priority of $h$, and $\textit{last}(h) = R_{\textit{pr1}}$.
-Assume that for each item in $h$, its $\textit{rm}$ operation does not happen before its $\textit{put}$ operation. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x)$ and $\textit{rm}(x)$. There is a gap on $\textit{put}(x)$ and $\textit{rm}(x)$, if and only if $G$ has no cycle going through $x$.
-\end{restatable}
-
-\begin {proof}
-
-To prove the $\textit{only if}$ direction, assume that there is a gap on $\textit{put}(x)$ and $\textit{rm}(x)$, and let it be $L$, $M$ and $R$. Assume by contradiction that, there is a cycle $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ in $G$. It is obvious that the priority of each $d_i$ is not $\textit{pri}_x$. Then our proof proceeds as follows:
-
-According to the definition of left-right constraint, there are two possibilities. The first possibility is that, $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$. It is obvious that $\textit{rm}(d_1) \in R$, and then since $L \cup M$ contains matched $\textit{put}$ and $\textit{rm}$ operations, we know that $\textit{put}(d_1),\textit{rm}(d_1) \in R$. Then,
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] Since $d_1 \rightarrow d_2$, by definition of $G$, we know that $\textit{put}(d_1)$ happens before $\textit{rm}(d_2)$. Since $\textit{put}(d_1) \in R$ and $L \cup M$ contains matched $\textit{put}$ and $\textit{rm}$ operations, we know that $\textit{put}(d_2),\textit{rm}(d_2) \in R$. Similarly, for each $1 \leq i \leq m$, we know that $\textit{put}(d_i),\textit{rm}(d_i) \in R$.
-
-\item[-] Since $d_m \rightarrow x$,
-    \begin{itemize}
-    \setlength{\itemsep}{0.5pt}
-    \item[-] if $\textit{put}(d_m)$ happens before $\textit{put}(x)$, then we can see that $\textit{put}(d_m) \in L$, which contradicts that $\textit{put}(d_m) \in R$.
-
-    \item[-] if $\textit{put}(d_m)$ happens before $\textit{rm}(x)$, then we can see that $\textit{put}(d_m) \in L \cup M$, which contradicts that $\textit{put}(d_m) \in R$.
-    \end{itemize}
-\end{itemize}
-
-The second possibility is that, $h$ contains one $\textit{put}(d_1,\_)$ operation and no $\textit{rm}(d_1)$ operation. Note that for each $j > 1$, $h$ contains $\textit{put}(d_j,\_)$ and $\textit{rm}(d_j)$. Since $d_m \rightarrow x$, is is obvious that $\textit{put}(d_m) \in L \cup M$. Since $L \cup M$ contains matched $\textit{put}$ and $\textit{rm}$ operations, we know that $\textit{put}(d_m),\textit{rm}(d_m) \in R$. Then,
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] Since $d_{\textit{m-1}} \rightarrow d_m$, by definition of $G$, we know that $\textit{put}(d_{\textit{m-1}})$ happens before $\textit{rm}(d_m)$. Since $\textit{rm}(d_m) \in L \cup M$ and $L \cup M$ contains matched $\textit{put}$ and $\textit{rm}$ operations, we know that $\textit{put}(d_{\textit{m-1}}),\textit{rm}(d_{\textit{m-1}}) \in L \cup M$. Similarly, for each $1 < i \leq m$, we know that $\textit{put}(d_i),\textit{rm}(d_i) \in L \cup M$, and $\textit{put}(d_1)\in L \cup M$.
-
-\item[-] Since $d_1 \rightarrow d_2$ in $G$, $\textit{put}(d_1,\_)$ happens before $\textit{rm}(d_2)$. Since $\textit{put}(d_2),\textit{rm}(d_2) \in L \cup M$, we can see that $\textit{put}(d_1) \in L \cup M$. However, there is one $\textit{put}(d_1,\_)$ operation and no $\textit{rm}(d_1)$ operation in $h$, contradicts that $L \cup M$ contains matched $\textit{put}$ and $\textit{rm}$ operations.
-\end{itemize}
-
-
-This completes the proof of the $\textit{only if}$ direction.
-
-To prove the $\textit{if}$ direction, assume that $G$ has no cycle going through $x$. Let $O_L$ be the set of operations that happen before $\textit{put}(x)$ in $h$. It is easy to see that $O_L \subseteq \textit{LMSet}(h,x)$. Let $O_M = \textit{LMSet}(h,x) \setminus O_L$. Let $O_h$ be the set of operations of $h$, and let $O_R = O_h \setminus \textit{LMSet}(h,x)$. Let $L$, $M$ and $R$ be $O_L$, $O_M$ and $O_R$, respectively.
-
-By Lemma \ref{lemma:LMSet has matched put and rm operations}, we can see that $L \cup M$ contains matched $\textit{put}$ and $\textit{rm}$ operations. It remains to prove that $L$, $M$ and $R$ is a gap of $\textit{put}(x)$ and $\textit{rm}(x)$. We prove this by showing that all the following cases are impossible:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] Case $1$: Some operation $o_r \in R$ happens before $\textit{rm}(x)$. Then we know that $o_r \in \textit{LMSet}(h,x)$, which contradicts that $o_r \in R$.
-
-\item[-] Case $2$: Some operation $o_r \in R$ happens before some operation $o_{lm} \in L \cup M$. Then we know that $o_r \in \textit{LMSet}(h,x)$, which contradicts that $o_r \in R$.
-
-\item[-] Case $3$: Some operation $o_r \in R$ happens before $\textit{put}(x)$. Then we know that $o_r \in \textit{LMSet}(h,x)$, which contradicts that $o_r \in R$.
-
-\item[-] Case $4$: $\textit{rm}(x)$ happens before some $o_{lm} \in \textit{LMSet}(h,x) = L \cup M$. By Lemma \ref{lemma:Rmx does not happen before LMSet for Rpr1} we know that this is impossible.
-
-\item[-] Case $5$: $\textit{rm}(x)$ happens before $\textit{put}(x)$. This contradicts that for each item in $h$, its $\textit{rm}$ operation does not happen before its $\textit{put}$ operation.
-
-\item[-] Case $6$: Some operation $o_m \in M$ happens before $\textit{put}(x)$. Then we know that $o_m \in L$, which contradicts that $o_m \in M$.
-
-\item[-] Case $7$: Some operation $o_m \in M$ happens before some operation $o_l \in L$. Then we know that $o_m \in L$, which contradicts that $o_m \in M$.
-
-\item[-] Case $8$: $\textit{put}(x)$ happens before some operation $o_l \in L$. This is impossible.
-\end{itemize}
-
-This completes the proof of the $\textit{if}$ direction.
-
-\qed
-\end {proof}
-
-
-
-A automaton $\mathcal{A}_{\textit{Rpr1-1}}$ is given in \figurename~\ref{fig:automata for Rpro-1}, where $c=\textit{cal}(\textit{put},a,\textit{anyPri}),\textit{cal}(rm,a),$ $\textit{ret}(\textit{put}),\textit{ret}(\textit{rm},a)$. $\mathcal{A}_{\textit{Rpr1-1}}$ is used to detect the existence of a item whose $\textit{rm}$ happens before its $\textit{put}$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.5 \textwidth]{PIC_AUTO_UNMATCHED_Rpr1-1.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{Rpr1-1}}$}
-  \label{fig:automata for Rpro-1}
-\end{figure}
-
-Let us begin to represent several automata that is used for capture the case that, in a sub-history $h'$ of a history $h$, $\textit{last}(h')=R_{\textit{pr1}}$, $h'$ does not linearizable to $\textit{MR}_{\textit{pr1}}$, and the reason is that there is no gap on $\textit{put}(y,\textit{pri}_y)$ and $\textit{rm}(y)$ in $h'$, where $y$ is the item that has maximal priority in $h'$. Such case is dealt with by four automata, since there are four possibilities of $h' \vert_{y}$.
-
-The first automaton is $\mathcal{A}_{\textit{Rpr1-pprr}}$, which is given in \figurename~\ref{fig:automata for Rpro-pprr}. In \figurename~\ref{fig:automata for Rpro-pprr}, $c_1= \textit{cal}(\textit{put},c,$ $\textit{anyPri}),\textit{ret}(\textit{put},c), \textit{cal}(\textit{rm},c), \textit{ret}(\textit{rm},c)$, $c_2 = c_1 + \textit{cal}(\textit{put},a,\textit{les}_p)$, and $c_3 = c_2 + \textit{ret}(\textit{rm},a)$. Here $p$ is a variable for priority, and $\textit{les}_p$ is a predicate that accepts all priorities that are less than the value of $p$. Here $\textit{pprr}$ represents that, $h' \vert_{b} = \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{cal}(\textit{rm}) \cdot \textit{ret}(\textit{rm},b)$ (we consider $b$ as $y$ and $p$ as $\textit{pri}_y$). In \figurename~\ref{fig:automata for Rpro-pprr}, the three paths that (1) from $q_{\textit{init}}$ to $q_2$ to $q_3$, (2) from $q_{\textit{init}}$ to $q_2$ to $q_{11}$, and (3) from $q_{\textit{init}}$ to $q_{10}$ to $q_{11}$ represents three possible positions of $\textit{ret}(\textit{put},a)$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=1 \textwidth]{PIC_AUTO_UNMATCHED_Rpr1-pprr.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{Rpr1-pprr}}$}
-  \label{fig:automata for Rpro-pprr}
-\end{figure}
-
-
-The second automaton is $\mathcal{A}_{\textit{Rpr1-prpr}}$, which is given in \figurename~\ref{fig:automata for Rpro-prpr}. In $\mathcal{A}_{\textit{Rpr1-prpr}}$, $c_1, c_2, c_3$ is same as that in $\mathcal{A}_{\textit{Rpr1-pprr}}$. Here $\textit{pprr}$ represents that, $h' \vert_{2} = \textit{cal}(\textit{put},b,p) \cdot \textit{cal}(\textit{rm}) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=1 \textwidth]{PIC_AUTO_UNMATCHED_Rpr1-prpr.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{Rpr1-prpr}}$}
-  \label{fig:automata for Rpro-prpr}
-\end{figure}
-
-
-
-The third automaton is $\mathcal{A}_{\textit{Rpr1-rppr}}$, which is given in \figurename~\ref{fig:automata for Rpro-rppr}. In $\mathcal{A}_{\textit{Rpr1-rppr}}$, $c_1, c_2, c_3$ is same as that in $\mathcal{A}_{\textit{Rpr1-pprr}}$. Here $\textit{rppr}$ represents that, $h' \vert_{2} = \textit{cal}(\textit{rm}) \cdot \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=1 \textwidth]{PIC_AUTO_UNMATCHED_Rpr1-rppr.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{Rpr1-rppr}}$}
-  \label{fig:automata for Rpro-rppr}
-\end{figure}
-
-
-The forth automaton is $\mathcal{A}_{\textit{Rpr1-rprp}}$, which is given in \figurename~\ref{fig:automata for Rpro-rprp}. In $\mathcal{A}_{\textit{Rpr1-rprp}}$, $c_2, c_3$ is same as that in $\mathcal{A}_{\textit{Rpr1-pprr}}$, and $c_4=c_1 + \textit{ret}(put,b)$. Here $\textit{rprp}$ represents that, $h' \vert_{2} = \textit{cal}(\textit{rm}) \cdot \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b) \cdot \textit{ret}(\textit{put})$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=1 \textwidth]{PIC_AUTO_UNMATCHED_Rpr1-rprp.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{Rpr1-rprp}}$}
-  \label{fig:automata for Rpro-rprp}
-\end{figure}
-
-
-
-Given a data-differentiated history $h$, we say that a item $x$ with priority $\textit{pri}_x$ in $h$ is covered by items $d_1,\ldots,d_m$ in $h$, if the priorities of $d_1,\ldots,d_m$ is not $\textit{pri}_x$, and
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $\textit{put}(d_m,\_)$ happens before $\textit{put}(x,\textit{pri}_x)$ or $\textit{rm}(x)$,
-
-\item[-] For each $i < 1 \leq m$,$\textit{put}(d_{\textit{i-1}},\_)$ happens before $\textit{rm}(d_i)$,
-
-\item[-] $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$, or $\textit{rm}(d_1)$ does not exists in $h$
-\end{itemize}
-
-According to the definition of left-right constraint, in a data-differentiated history $h$, there is a cycle going through $x$, if and only if there exists items $d_1,\ldots,d_m$, such that $x$ is covered by $d_1,\ldots,d_m$.
-
-
-
-\begin{restatable}{lemma}{Rpr1IsCoRegular}
-\label{lemma:Rpr1 is co-regular}
-$R_{\textit{pr1}}$ is co-regular.
-\end{restatable}
-
-\begin {proof}
-
-Let $\textit{AutS-R}_{\textit{pr1}} = \{ \mathcal{A}_{\textit{Rpr1-1}} , \mathcal{A}_{\textit{Rpr1-pprr}}, \mathcal{A}_{\textit{Rpr1-prpr}}, \mathcal{A}_{\textit{Rpr1-rppr}}, \mathcal{A}_{\textit{Rpr1-rprp}} \}$. We need to prove that:
-
-\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$, $\textit{AutS-R}_{\textit{pr1}} \cap \mathcal{I} \neq \emptyset$, if and only if there exists data-differentiated history $h \in \mathcal{I}$, $h'$ is a projection of $h$, $\textit{last}(h') = R_{\textit{pr1}}$ and $h$ does not linearizable to $\textit{MR}_{\textit{pr1}}$.
-
-By Lemma \ref{lemma:Gap Equals Lin for Rpr1} and Lemma \ref{lemma:Gap Equals Constraint for Rpr1}, $\textit{fact}_1$ is equivalent to $\textit{fact}_2$:
-
-\noindent {\bf $\textit{fact}_2$}: Given a data-independent implementation $\mathcal{I}$, $\textit{AutS-R}_{\textit{pr1}} \cap \mathcal{I} \neq \emptyset$, if and only if there exists data-differentiated history $h \in \mathcal{I}$, $h''$ is a projection of $h$, such that $\textit{last}(h'') = R_{\textit{pr1}}$, $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ is in $h''$, $\textit{pri}_x$ is the maximal priority of $h''$, and one the the following case holds:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] case $1$: $\textit{rm}(x)$ happens before $\textit{put}(x,\textit{pri}_x)$,
-\item[-] case $2$: $x$ is covered by some items $d_1,\ldots,d_m$ in $h''$.
-\end{itemize}
-
-\noindent The $\textit{only if}$ direction: Assume that $h_1 \in \mathcal{I}$ is accepted by $\textit{AutS-R}_{\textit{pr1}}$. By data-independence, there exists data-differentiated sequence $h_2 \in \mathcal{I}$ and a renaming function $r$, such that $h_1=r(h_2)$.
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] If $h_1$ is accepted by $\mathcal{A}_{\textit{Rpr1-1}}$: Let $d_1$ a item in $h_2$ such that $r(d_1)=b$ and let $h'' = h_2 \vert_{ \{ d_1 \} }$. $d_1$ is the item with maximal priority in $h''$. It is obvious that $\textit{last}(h'') = R_{\textit{pr1}}$ and $\textit{rm}(d_1)$ happens before $\textit{put}(d_1,\_)$ in $h''$.
-
-\item[-] If $h_1$ is accepted by $\mathcal{A}_{\textit{Rpr1-pprr}}$, $\mathcal{A}_{\textit{Rpr1-prpr}}$, $\mathcal{A}_{\textit{Rpr1-rppr}}$, or $\mathcal{A}_{\textit{Rpr1-rprp}}$: Let $d_0$ be a item in $h_2$ such that $r(d_0)=b$, let $d_1,\ldots,d_m$ be the items in $h_2$ such that $r(d_i)=a$ for each $1 \leq i \leq m$. Let $h'' = h_1 \vert_{ \{ d_0, d_1, \ldots, d_m \} }$. It is obvious that the priority of $d_0$ is larger than the priorities of other operations in $h''$, and then $\textit{last}(h'') = R_{\textit{pr1}}$. It is easy to see that $d_0$ is covered by $d_1,\ldots,d_m$.
-\end{itemize}
-
-\noindent The $\textit{if}$ direction: Assume that there exists such $h$, $h''$, $x$ and $\textit{pri}_x$. Since $\textit{last}(h'') = R_{\textit{pr1}}$, $\textit{pri}_x$ is larger than the priorities of other operations in $h''$. Then,
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] If case $1$ holds: Then, $\textit{rm}(x)$ happens before $\textit{put}(x,\textit{pri}_x)$ in $h''$. Let $h_1$ be obtained from $h$ by renaming $x$ to $b$ and renaming all other items to $a$. By data-independence, $h_1 \in \mathcal{I}$, and it is easy to see that $h_1$ is accepted by $\mathcal{A}_{\textit{Rpr1-1}}$.
-\item[-] case $2$: Then, $x$ is covered by some items $d_1,\ldots,d_m$ in $h''$. There are four possibilities of $h'' \vert_{ \{ x \} }$: (1) $\textit{call}(\textit{put},x,\textit{pri}_x) \cdot \textit{ret}(\textit{put}) \cdot \textit{call}(\textit{rm}) \cdot \textit{ret}(\textit{rm},x)$, (2) $\textit{call}(\textit{put},x,\textit{pri}_x) \cdot \textit{call}(\textit{rm}) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},x)$, (3) $\textit{call}(\textit{rm}) \cdot \textit{call}(\textit{put},x,\textit{pri}_x) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},x)$ and (4) $\textit{call}(\textit{rm}) \cdot \textit{call}(\textit{put},x,\textit{pri}_x) \cdot \textit{ret}(\textit{rm},x) \cdot \textit{ret}(\textit{put})$.
-
-    Let $h_1$ be obtained from $h$ by renaming $x$ into $b$, renaming $d_1,\ldots,d_m$ into $a$ and renaming other items into $c$. We can prove that $h_1$ is accepted by $\mathcal{A}_{\textit{Rpr1-pprr}}$, $\mathcal{A}_{\textit{Rpr1-prpr}}$, $\mathcal{A}_{\textit{Rpr1-rppr}}$ or $\mathcal{A}_{\textit{Rpr1-rprp}}$.
-
-    For example, if $h'' \vert_{ \{ x \} } = \textit{call}(\textit{put},x,\textit{pri}_x) \cdot \textit{ret}(\textit{put}) \cdot \textit{call}(\textit{rm}) \cdot \textit{ret}(\textit{rm},x)$, and $\textit{ret}(\textit{rm},d_m)$ is before $\textit{call}(\textit{put},x,\textit{pri}_x)$ and is after $\textit{ret}(\textit{put},x)$ in $h''$. Then in  $\mathcal{A}_{\textit{Rpr1-pprr}}$, $h_1$ is accepted by transitions from $q_{\textit{init}}$ to $q_2$ to $q_{11}$ and finally to $q_7$ (if $\textit{rm}(d_1)$ does not exists in $h''$) or $q_9$ (if $\textit{rm}(d_1)$ exists in $h''$).
-\end{itemize}
-
-This completes the proof of this lemma. \qed
-\end {proof}
 
 
 
