@@ -298,54 +298,85 @@ Therefore, we know that $e_{\textit{m-1}} \in \textit{PQueue}$. Similarly, we ca
 \end {proof}
 
 
+\section{Proofs and Definitions in Section \ref{sec:co-regular of priority queues}}
+\label{sec:appendix proof and definition in section co-regular of priority queues}
 
 
+\subsection{Proofs and Definitions in Subsection \ref{subsec:definition of co-regular}}
+\label{sec:appendix proof and definition in section definition of co-regular}
 
-\section{Inductive Rules for Priority Queues}
-\label{sec:inductive rules for priority queues}
+\cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are are no $\textit{enq}(b)$ and least one $\textit{deq}(b)$, (3) there are are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists.
 
+For each such case, we construct a witness automata. Recall that in Section \ref{subsec:definition of co-regular}, we generate witness automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri})$, $\textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},b),\textit{rm}(\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$.
 
-
-Given a sequence $l$ of possibly $\textit{put}$, $\textit{rm}$ and $\textit{rmEmpty}$ operations, we say that $l$ contains unmatched $\textit{rm}$ operations, if the number of $\textit{rm}(d)$ operations is larger than the number of $\textit{put}(d,\_)$ operations for some $d$ in $l$. By data-independence, we can detect the existence of unmatched $\textit{rm}$ operations by automata. A automaton $\mathcal{A}_{\textit{unmRm1}}$ is given in \figurename~\ref{fig:automata for unmatched rm1}, where $c_1=\textit{cal}(\textit{put},a,\textit{anyPri}),\textit{cal}(rm),\textit{ret}(\textit{put}),\textit{ret}(\textit{rm},a)$, $c_2=c_1 + \textit{ret}(\textit{rm},b)$, and $c_3 = c_1 + \textit{cal}(\textit{put},b,\textit{anyPri}) + \textit{ret}(\textit{rm},b)$. Here $\textit{anyPri}$ is a specific predicates that is satisfied by any priority. $\mathcal{A}_{\textit{unmRm1}}$ is used to detect the existence of a item that has been removed but has never been inserted.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.5 \textwidth]{PIC_AUTO_UNMATCHED_RM1.pdf}
+  \includegraphics[width=0.6 \textwidth]{figures/PIC_AUTO_FIFO_1.pdf}
 %\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{unmRm1}}$}
-  \label{fig:automata for unmatched rm1}
+  \caption{Automaton $\mathcal{A}_{\textit{SinPri}}^1$}
+  \label{fig:automata for FIFO-1 in appendix}
 \end{figure}
 
-An automaton $\mathcal{A}_{\textit{unmRm2}}$ is given in \figurename~\ref{fig:automata for unmatched rm2}, where $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri}),\textit{cal}(rm),$ $\textit{ret}(\textit{put}),\textit{ret}(\textit{rm},a)$, and $c_1 = c_1 + \textit{ret}(\textit{rm},b)$.  $\mathcal{A}_{\textit{unmRm1}}$ is used to detect the existence of a item that has been removed more than once but has been inserted once.
+
+We generate witness automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri}),\textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{rm}(\textit{empty})$, $c_2 = c_1 + \textit{cal}(\textit{rm},b) + \textit{ret}(\textit{rm},b)$.
+
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.5 \textwidth]{PIC_AUTO_UNMATCHED_RM2.pdf}
+  \includegraphics[width=0.3 \textwidth]{figures/PIC_AUTO_FIFO_2.pdf}
 %\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{unmRm2}}$}
-  \label{fig:automata for unmatched rm2}
+  \caption{Automaton $\mathcal{A}_{\textit{SinPri}}^2$}
+  \label{fig:automata for FIFO-2}
 \end{figure}
 
+We generate witness automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri}),\textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{rm}(\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{ret}(\textit{rm},b)$, $c_4 = c_3 + \textit{cal}(\textit{rm},b)$, $c_5 = c_1 + \textit{ret}(\textit{rm},b)$, $c_6 = c_5 + \textit{cal}(\textit{rm},b)$.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7 \textwidth]{figures/PIC_AUTO_FIFO_3.pdf}
+%\vspace{-10pt}
+  \caption{Automaton $\mathcal{A}_{\textit{SinPri}}^3$}
+  \label{fig:automata for FIFO-3}
+\end{figure}
 
-The following lemma states that we can detect the existence of unmatched $\textit{rm}$ by $\mathcal{A}_{\textit{unmRm1}}$ and $\mathcal{A}_{\textit{unmRm2}}$.
+We generate witness automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $c_1 = c + \textit{cal}(\textit{rm},b)$, and $c_2 = c + \textit{ret}(\textit{put},b) + \textit{cal}(\textit{rm},a) + \textit{ret}(\textit{rm},a)$, where $c = \textit{cal}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{cal}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{rm}(\textit{empty})$.
 
-\begin{restatable}{lemma}{DetectUnmatchedRmByAutomata}
-\label{lemma:detect unmatched rm by automata}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9 \textwidth]{figures/PIC_AUTO_FIFO_4.pdf}
+%\vspace{-10pt}
+  \caption{Automaton $\mathcal{A}_{\textit{SinPri}}^4$}
+  \label{fig:automata for FIFO-4}
+\end{figure}
 
-Given a data-independent $\mathcal{I}$, there is some unmatched $\textit{rm}$ in some sequence of $\mathcal{I}$, if and only if $( \mathcal{I} \cap \mathcal{A}_{\textit{unmRm1}} \neq \emptyset) \vee ( \mathcal{I} \cap \mathcal{A}_{\textit{unmRm2}} \neq \emptyset )$.
-\end{restatable}
+Let $\textit{Auts}_{\textit{sinPri}} = \{ \mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3, \mathcal{A}_{\textit{SinPri}}^4 \}$. Let us prove Lemma \ref{lemma:automata for priority queue with single priority}.
+
+\AutoForPQwithSignlePri*
 
 \begin {proof}
 
-For the $\textit{if}$ direction, assume that $( \mathcal{I} \cap \mathcal{A}_{\textit{unmRm1}} \neq \emptyset) \vee ( \mathcal{I} \cap \mathcal{A}_{\textit{unmRm2}} \neq \emptyset )$. Then, there exists a sequence $l \in \mathcal{I}$ and $l$ is accepted by $\mathcal{A}_{\textit{unmRm1}}$ or $\mathcal{A}_{\textit{unmRm2}}$. If $l$ is accepted by $\mathcal{A}_{\textit{unmRm1}}$, then $l$ contains at least one $\textit{rm}(b)$ operation and no $\textit{put}(b,\_)$ operation; Else, if $l$ is accepted by $\mathcal{A}_{\textit{unmRm2}}$, then $l$ contains at least two $\textit{rm}(b)$ operations and one $\textit{put}(b,\_)$ operation. In both cases, $l$ contains unmatched $\textit{rm}$ operations.
+\cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $v_a,v_b$: (1) $\textit{deq}(v_b) <_{hb} \textit{enq}(v_b)$, (2) there are are no $\textit{enq}(v_b)$ and least one $\textit{deq}(v_b)$, (3) there are are one $\textit{enq}(v_b)$ and more than one $\textit{deq}(v_b)$, and (4) $\textit{enq}(v_a) <_{\textit{hb}} \textit{enq}(v_b)$, and $\textit{deq}(v_b) <_{\textit{hb}} \textit{deq}(v_a)$, or $\textit{deq}(v_a)$ does not exists.
 
-To prove the $\textit{only if}$ direction assume that there exists a sequence $l \in \mathcal{I}$ that contains unmatched $\textit{rm}$ operations. By data-independence, there exists data-differentiated sequence $l'$ and renaming function $r$, such that $l=r(l')$. We need to prove that in $l'$, one of the following cases holds: (1) $l'$ contains $\textit{rm}(d_1)$ for some $d_1$ and does not contain any $\textit{put}(d_1,\_)$, and (2) $l'$ contains one $\textit{put}(d_1,\_)$ operation and more than one $\textit{rm}(d_1)$ operations. We prove this by contradiction. Assume by contradiction that both cases do not hold. Then, for each value $d$ of $l'$, there is either one $\textit{put}(d,\_)$ and one $\textit{rm}(d)$ in $l'$, or one $\textit{put}(d,\_)$ and no $\textit{rm}(d)$ in $l'$. It is obvious that such $l'$ does not contain unmatched $\textit{rm}$ operation, and renaming a sequence that does not contain unmatched $\textit{rm}$ we can only obtain another sequence that does not contain unmatched $\textit{rm}$. This contradicts that $l=r(l')$ has unmatched $\textit{rm}$.
+Let us prove the $\textit{only if}$ direction. Assume that there exists execution $e_0 \in \mathcal{I}$ and $e_0$ is accepted by an automaton in $\textit{Auts}_{\textit{sinPri}}$. By data-independence, we can see that there exists a data-differentiated $e \in \mathcal{I}$ and renaming function, such that $e_0=r(e)$. Let $e'$ be obtained from $e$ by erasing $\textit{rm}(\textit{empty})$ and it is obvious that $e' \in \textit{proj}(e)$. It is easy to see that $e'$ satisfies one of above conditions, and then $e'$ is not linearizable w.r.t queue.
 
-Let $l''$ be obtained from $ll$ by renaming $d_1$ to $b$ and renaming other value to $a$. If the first case holds, $l''$ is accepted by $\mathcal{A}_{\textit{unmRm1}}$; Otherwise, the second case holds, and $l''$ is accepted by $\mathcal{A}_{\textit{unmRm2}}$. \qed
+Let us prove the $\textit{if}$ direction. Assume that exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{transToQueue}(e')$ does not linearizable to queue. Then we construct a renaming function $r$ as follows:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If this is because case $1$, case $2$ or case $3$: $r$ maps $v_b$ into $b$ and maps all other values into $a$.
+
+\item[-] If this is because case $4$: $r$ maps $v_a$ and $v_b$ into $a$ and $b$, respectively, and maps all other values into $d$.
+\end{itemize}
+
+Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by some automaton in $\textit{Auts}_{\textit{sinPri}}$. This completes the proof of this lemma. \qed
 \end {proof}
 
-Therefore, from now on, we can safely assume that there are no unmatched $\textit{rm}$ operations.
+
+
+
+
+
 
 
 
@@ -815,41 +846,7 @@ This completes the proof of this lemma. \qed
 \subsection{Co-Regular of $R_{\textit{pr2}}$}
 \label{subsec:co-regular of Rpr2}
 
-An automaton $\mathcal{A}_{\textit{FIFO-Sig-Pri}}$ is given in \figurename~\ref{fig:automata for FIFO of single priority}. In \figurename~\ref{fig:automata for FIFO of single priority}, let $c_1= \textit{cal}(\textit{put},c,\textit{anyPri}),\textit{ret}(\textit{put},c)$, $\textit{cal}(\textit{rm},c),\textit{ret}(\textit{rm},c)$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, and $c_3 = c_2 + \textit{cal}(\textit{rm},a) + \textit{ret}(\textit{rm},a)$.
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.8 \textwidth]{PIC_AUTO_QUEUE_FOR_SINGLE_PRI.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{FIFO-Sig-Pri}}$}
-  \label{fig:automata for FIFO of single priority}
-\end{figure}
-
-According to \cite{Bouajjani:2015}, given a data-independent set $S$ of queue executions, whether every sequence $s$ in $S$ is linearizable to queue can be reduced into checking emptiness of intersection of $S$ and several finite automata. Let $\textit{transToQueue}(h)$ be a sequence $h'$ that is generated from $h$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. A priority queue history is called single-priority, if all of its items has only one priority. The following lemma states that we can also use finite automata to check ``first in first out property'' for single-priority sub-sequence of priority queue history.
-
-\begin{restatable}{lemma}{AutoForPQwithSignlePri}
-\label{lemma:automata for priority queue with single priority}
-
-Given a data-independent implementations $\mathcal{I}$ of priority queue, let $\mathcal{A} = \{ \mathcal{A}_{\textit{unmRm1}}, \mathcal{A}_{\textit{Rpr0-1}}, \mathcal{A}_{\textit{unmRm2}}, \mathcal{A}_{\textit{FIFO-Sig-Pri}} \}$, then,
-
-$\mathcal{I} \cap \mathcal{A} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority, and $\textit{transToQueue}(e')$ does not linearizable to queue.
-\end{restatable}
-
-\begin {proof}
-
-According to \cite{Bouajjani:2015}, checking linearizable with respect to queue can be reduced into checking the following three conditions for data-differentiated histories:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $\textit{deq}(a)$ happens before $\textit{enq}(a)$ (or $\textit{enq}(a)$ does not exist) for some item $a$,
-
-\item[-] there are two or more $\textit{deq}(a)$ for some item $a$,
-
-\item[-] $\textit{enq}(a)$ happens before $\textit{enq}(b)$, and $\textit{deq}(b)$ happens before $\textit{deq}(a)$ (or $\textit{deq}(a)$ does not exists) for some items $a,b$.
-\end{itemize}
-
-It is not hard to see that (1) the first condition is dealt with by $\mathcal{A}_{\textit{unmRm1}}$ (if $\textit{put}(a,\_)$ does not exist) and $\mathcal{A}_{\textit{Rpr0-1}}$ (if $\textit{put}(a,\_)$ exists), (2) the second condition is dealt with by $\mathcal{A}_{\textit{unmRm2}}$, and (3) the third condition is dealt with by $\mathcal{A}_{\textit{FIFO-Sig-Pri}}$. \qed
-\end {proof}
 
 By Lemma \ref{lemma:automata for priority queue with single priority}, from now on, it is safe for us to assume that, for each data-differentiated priority queue history $h$ and each $h'$ of projection of $h$, if $h'$ is single-priority, then $\textit{transToQueue}(h')$ is linearizable to queue. One consequence of this assumption is that, in $h'$, there does not exists an item $a$, such that $\textit{rm}(a)$ happens before $\textit{put}(a)$.
 
