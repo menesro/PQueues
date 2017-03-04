@@ -1,4 +1,4 @@
-\section{Co-Regular of Priority Queues}
+\section{Reducing Linearizability of Priority Queues into State Reachability}
 \label{sec:co-regular of priority queues}
 
 A rule $R$ of priority queue is co-regular, if checking linearizability with respect to $\textit{MS}(R)$ of a data-independent implementation $\mathcal{I}$ can be reduced to checking the emptiness of intersection between $\mathcal{I}$ and a set of witness automata. In this section, we propose the definition of witness automata and co-regular. Then we prove that all five rules of priority queues are co-regular, and roughly introduce the proof idea. With the help of step-by-step linearizability and co-regular, we finally reduce the linearizability problem of $\textit{PQueue}$ into emptiness problem of intersection with automata.
@@ -8,7 +8,7 @@ A rule $R$ of priority queue is co-regular, if checking linearizability with res
 \subsection{Definition of Co-Regular}
 \label{subsec:definition of co-regular}
 
-A witness automaton is a finite automaton with alphabet $\{ \textit{cal}(\textit{put},d,\textit{pre}), \textit{ret}(\textit{put}d),$ $\textit{cal}(\textit{rm},d),\textit{ret}(\textit{rm},d) \vert d \in \mathbb{D},\textit{red} \in \textit{preWA} \}$. Here $\textit{preWA}$ is the set of predicate of priorities, and it contains
+A witness automaton is a finite automaton with alphabet $\{ \textit{cal}(\textit{put},d,\textit{pred}), \textit{ret}(\textit{put},d),$ $\textit{cal}(\textit{rm},d),\textit{ret}(\textit{rm},d) \vert d \in \mathbb{D},\textit{pred} \in \textit{predWA} \}$. Here $\textit{predWA}$ is the set of predicate of priorities, and it contains
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -27,7 +27,7 @@ Given a execution $e = \alpha_1 \cdots \alpha_k$ of priority queue and a witness
 
 \item[-] For each $i$, if $\alpha_i = \textit{cal}(\textit{put},a,q)$, then either (1) $\beta_i = \textit{cal}(\textit{put},a,p)$ and $q = d_p$, or (2) $\beta_i = \textit{cal}(\textit{put},a,\textit{les}_p)$ and $q < d_p$, or (3) $beta_i = \textit{cal}(\textit{put},a,\textit{anyPri})$.
 
-\item[-] For each $i$, if $\alpha_i = \textit{ret}(\textit{put},a)$, or $\alpha_i = \textit{cal}(\textit{rm},a)$, or $\alpha_i = \textit{ret}(\textit{rm},a)$, then $\beta_i = \alpha_i$.
+\item[-] For each $i$, if $\alpha_i = \textit{ret}(\textit{put},a)$, $\textit{cal}(\textit{rm},a)$, $\textit{ret}(\textit{rm},a)$, $\textit{cal}(\textit{rm},\textit{empty})$ or $\textit{ret}(\textit{rm},\textit{empty})$, then $\beta_i = \alpha_i$.
 \end{itemize}
 
 Note that witness automata does not read operations, since the domains of operations is infinite.
@@ -38,14 +38,14 @@ Let us introduce the notion of co-regular:
 \begin{definition}\label{def:co-regular of rules of priority queues}
 A rule $R$ of priority queue is co-regular, if there are a finite set $\textit{Auts}_{R}$ of witness automata such that, for each data-independence implementation $\mathcal{I}$, we have that
 
-$$ \textit{Auts}_{R} \cap \mathcal{I} = \emptyset \Leftrightarrow \exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=R \wedge e \ does \ not \ linearizable \ w.r.t. \ \textit{MS}(R)$$
+$$ \textit{Auts}_{R} \cap \mathcal{I} \neq \emptyset \Leftrightarrow \exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=R \wedge e' \ does \ not \ linearizable \ w.r.t. \ \textit{MS}(R)$$
 
 We say that $\textit{PQueue}$ is regular, if each of its rule is co-regular.
 \end{definition}
 
 Before we go to investigate co-regular of each rules, we use the results in \cite{Bouajjani:2015} to simplify our work. \cite{Bouajjani:2015} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of items that does not use priority $i$. We call a priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \textit{PQueue}$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property.
 
-Given an execution of queue, we say that it is differentiated \cite{Wolper:1986}, if each item is enqueued at most once. \cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are are no $\textit{enq}(b)$ and least one $\textit{deq}(b)$, (3) there are are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a witness automata for priority queue. For example, for the first case, we generate witness automata $\mathcal{A}_{\textit{SinPri}}^1$ in \figurename~\ref{fig:automata for FIFO-1}, here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri}), \textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a)$, $\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},b)$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$.
+Given an execution of queue, we say that it is differentiated \cite{Wolper:1986}, if each item is enqueued at most once. \cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a witness automata for priority queue. For example, for the first case, we generate witness automata $\mathcal{A}_{\textit{SinPri}}^1$ in \figurename~\ref{fig:automata for FIFO-1}, here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri}), \textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a)$, $\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},b),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$.
 
 
 \begin{figure}[htbp]
@@ -75,7 +75,7 @@ In this subsection, we introduce the idea for proving co-regular of $\textit{PQ}
 
 Given a data-differentiated execution $e$ such that $\textit{last}(e) = \textit{PQ}_1^{>}$, although Lemma \ref{lemma:automata for priority queue with single priority} ensures that each single-priority projection of $e$ satisfy the FIFO property, this is still not enough for ensuring that $e \sqsubseteq \textit{MS}(\textit{PQ}_1^{>})$. Since it is possible that $e$ does not linearizable w.r.t $\textit{MS}(\textit{PQ}_1^{>})$ because of interaction between actions of multiple priorities.
 
-We give an example of such execution $e$ in \figurename~\ref{fig:introduce gap for PQ1Lar}. We call the time interval from $\textit{ret}(\textit{put},x)$ to $\textit{cal}(rm,x)$, or from $\textit{ret}(\textit{put},x)$ when $\textit{cal}(rm,x)$ does not exist, the interval of item $x$. In \figurename~\ref{fig:introduce gap for PQ1Lar}, we draw the interval of each item by dashed line. The reason of why $e$ does not linearizable w.r.t $\textit{MS}(\textit{PQ}_1^{>})$ is that, each time point from $\textit{cal}(\textit{rm},b)$ to $\textit{ret}(\textit{rm},b)$ is in interval of some item with less priority than priority of $a$.
+We give an example of such execution $e$ in \figurename~\ref{fig:introduce gap for PQ1Lar}. We call the time interval from $\textit{ret}(\textit{put},x)$ to $\textit{cal}(rm,x)$, or from $\textit{ret}(\textit{put},x)$ when $\textit{cal}(rm,x)$ does not exist, the interval of item $x$. In \figurename~\ref{fig:introduce gap for PQ1Lar}, we draw the interval of each item by dashed line. The reason of why $e$ does not linearizable w.r.t $\textit{MS}(\textit{PQ}_1^{>})$ is that, each time point from $\textit{cal}(\textit{rm},b)$ to $\textit{ret}(\textit{rm},b)$ is in interval of some item with smaller priority than priority of $a$.
 
 \begin{figure}[htbp]
   \centering
@@ -115,7 +115,7 @@ Given a data-differentiated execution $e$ with $\textit{last}(e) = \textit{PQ}_1
 
 The $\textit{only if}$ direction can be easily proved by contradiction and is omitted here. To prove the $\textit{if}$ direction, we need to explicitly construct the linearization of $e$, or we can say, we need construct the $u$, $v$ and $w$ in $\textit{PQ}_1^{>}$. Let $u$ to be the sequence of all operations that happens before $\textit{put}(x)$. The difficulties is how to generate proper $v$.
 
-To generate $v$, we introduce $\textit{UVSet}(e,x)$, which intuitively contains all pairs of method events that should be putted before $\textit{rm}(x)$. Let $\textit{UVSet}_1(e,x)= \{ o \vert$ either $o <_{\textit{hb}} \textit{put}(x)$ or $\textit{rm}(x)$, or $\exists o'$ with the same item of $o$, such that $o' <_{\textit{hb}} \textit{put}(x)$ or $\textit{rm}(x)\}$. For each $i \geq 1$, let $\textit{LMSet}_{\textit{i+1}}(e,x) = \{ o \vert$ $o \notin \textit{UVSet}_k(e,x)$ for each $k \leq i$, and either $o$ happens before some operation $o' \in \textit{UVSet}_i(e,x)$, or $\exists o''$ with the same item of $o$ and $o''$ happens before some operation $o' \in \textit{UVSet}_i(e,x)\}$. Let $\textit{UVSet}(e,x) = \textit{UVSet}_1(e,x) \cup \textit{UVSet}_2(e,x) \cup \ldots$. For example, in \figurename~\ref{fig:his nobound of LMSet}, $\textit{UVSet}_1(e,x) = \{ \textit{put}(a,1),\textit{rm}(a) \}$, $\textit{USSet}_2(e,x) = \{ \textit{put}(b,1),\textit{rm}(b) \}$ and $\textit{UVSet}_3(e,x) = \{ \textit{put}(a,c),\textit{rm}(c) \}$. Similarly, we can generate execution $e'$ such that, for each $i$, $\textit{UVSet}(e',x) \neq \emptyset$.
+To generate $v$, we introduce $\textit{UVSet}(e,x)$, which intuitively contains all pairs of method events that should be putted before $\textit{rm}(x)$. Let $\textit{UVSet}_1(e,x)= \{ o \vert$ either $o <_{\textit{hb}} \textit{put}(x)$ or $\textit{rm}(x)$, or $\exists o'$ with the same item of $o$, such that $o' <_{\textit{hb}} \textit{put}(x)$ or $\textit{rm}(x)\}$. For each $i \geq 1$, let $\textit{LMSet}_{\textit{i+1}}(e,x) = \{ o \vert$ $o \notin \textit{UVSet}_k(e,x)$ for each $k \leq i$, and either $o$ happens before some operation $o' \in \textit{UVSet}_i(e,x)$, or $\exists o''$ with the same item of $o$ and $o''$ happens before some operation $o' \in \textit{UVSet}_i(e,x)\}$. Let $\textit{UVSet}(e,x) = \textit{UVSet}_1(e,x) \cup \textit{UVSet}_2(e,x) \cup \ldots$. For example, in \figurename~\ref{fig:his nobound of LMSet}, $\textit{UVSet}_1(e,x) = \{ \textit{put}(a,1),\textit{rm}(a) \}$, $\textit{USSet}_2(e,x) = \{ \textit{put}(b,1),\textit{rm}(b) \}$ and $\textit{UVSet}_3(e,x) = \{ \textit{put}(c,1),\textit{rm}(c) \}$. Similarly, we can generate execution $e'$ such that, for each $i$, $\textit{UVSet}(e',x) \neq \emptyset$.
 
 
 \begin{figure}[htbp]
@@ -153,9 +153,153 @@ $\textit{PQ}_1^{>}$ is co-regular.
 
 
 
+\subsection{Co-Regular of $\textit{PQ}_1^{=}$}
+\label{subsec:co-regular of PQ1Equal}
+
+In this subsection, we introduce the idea for proving co-regular of $\textit{PQ}_1^{=}$. The proof of this subsection can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of PQ1Equal}.
+
+Given a data-differentiated execution $e$ such that $\textit{last}(e) = \textit{PQ}_1^{=}$. Lemma \ref{lemma:automata for priority queue with single priority} ensures that each single-priority projection of $e$ satisfy the FIFO property, and with the help of Lemma \ref{lemma:PQ1Lar is co-regular} and $\textit{Auts}_{\textit{1-lar}}$, we can ensure that each item in $e$ can not be covered by items with smaller priority. However, these are sill not enough for ensure that $e \sqsubseteq \textit{MS}(\textit{PQ}_1^{=})$. This is because that there are multiple matched $\textit{put}$ (assume they use items in $S$), and all the possible linearization point of $\textit{rm}(b)$ may be disabled by $\textit{rm}(b)$ for some $a,b \in S$.
+
+We give an example of such execution $e$ in \figurename~\ref{fig:introduce pb order}. The execution $e$ of \figurename~\ref{fig:introduce pb order} is not linearizable, even if $h \vert_{1}$ and $h \vert_{4}$ are both linearizable, and either $a$ or $b$ is covered by other items. To explain this, me need to observe the following three points:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] Since $\textit{put}(a,1)$ happens before $\textit{put}(b,1)$, we know that $a$ is ``putted earlier'' than $b$, and therefore, the linearization points of $\textit{rm}(a)$ should before the linearization point of $\textit{rm}(b)$.
+
+\item[-] The time intervals satisfy the following conditions (we identify them with dotted lines in \figurename~\ref{fig:introduce pb order}) are possible position to locate the linearization point of $\textit{rm}(b)$ according to Lemma \ref{lemma:Lin Equals Constraint for PQ1Lar} (Here we temporarily forget the existence of $a$): (1) between from $\textit{cal}(\textit{rm},b)$ and $\textit{ret}(\textit{rm},b)$, (2) does not in interval of any item with smaller priority.
+
+\item[-] To satisfy requirement of the second condition, the linearization points of $\textit{rm}(b)$ should be in the time interval of dotted line. However, all time point in dotted line is before $\textit{cal}(\textit{rm},a)$ and is thus disabled by $\textit{cal}(\textit{rm},a)$.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6 \textwidth]{figures/PIC-HIS-INTRO-PB-ORDER.pdf}
+%\vspace{-10pt}
+  \caption{An execution that does not linearizable w.r.t $\textit{MS}(\textit{PQ}_1^{=})$}
+  \label{fig:introduce pb order}
+\end{figure}
+
+In this subsection, intuitively we will prove that, as long as we can get rid of the case in \figurename~\ref{fig:introduce pb order}, we can ensure $\textit{last}(e) = \textit{PQ}_1^{=} \Rightarrow e \sqsubseteq \textit{MS}(\textit{PQ}_1^{=})$.
+
+Let us introduce $<_{\textit{pb}}$ (represents put-before) order to formally state that ``an item is putted before another''. Given a data-differentiated execution $e$ and two items $a,b$ with maximal priority in $e$,  we say that $a <_{\textit{pb}} b$, if one of the following cases holds:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{put}(a,\_)$ happens before $\textit{put}(b,\_)$ in $e$,
+
+\item[-] $\textit{rm}(a)$ happens before $\textit{rm}(b)$ in $e$,
+
+\item[-] $\textit{rm}(a)$ happens before $\textit{put}(b,\_)$ in $e$,
+\end{itemize}
+
+Sometimes we use $a <_{\textit{pb}}^A b$, $a <_{\textit{pb}}^B b$ and $a <_{\textit{pb}}^C b$ to explicitly distinguish above three cases. Let $<_{\textit{pb}}^*$ be the transitive closure of $<_{\textit{pb}}$. Intuitively, $a <_{\textit{pb}}^* b$ means that we can infer that $a$ should be inserted earlier than $b$ with the help of possibly other items.
+
+Let us introduce gap-point to formally define the time point in dotted line of \figurename~\ref{fig:introduce pb order}.
 
 
+\begin{definition}\label{def:gap-point for matched put and rm operations}
+Given a data-differentiated execution $e$ and two method events $\textit{put}(x,\textit{pri}_x),\textit{rm}(x)$ of $e$, where $\textit{pri}_x$ is the maximal priority in $e$. We say that a time-point $o$ is a gap-point of $x$, if
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $o$ is after $\textit{call}(\textit{put},x,\textit{pri}_x)$ and $\textit{call}(\textit{rm},x)$, and is before $\textit{ret}(\textit{rm},x)$.
+
+\item[-] $o$ is not in interval of any items with smaller priority.
+\end{itemize}
+\end{definition}
+
+Going back to \figurename~\ref{fig:introduce pb order}, we can effectively characterize it using $<_{\textit{pb}}$ order and gap-point as follows: $a <_{\textit{pb}} b$, while the right-most gap-point of $b$ is before $\textit{cal}(\textit{rm},a)$. We need to prove that getting rid of such case is enough fo ensure linearizable w.r.t $\textit{MS}(\textit{PQ}_1^{=})$, as stated by the following lemma. Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$.
 
 
+\begin{restatable}{lemma}{PQOneEqualAsPBandGP}
+\label{lemma:PQ1Equal as pb order and gap-point}
+Given a data-differentiated execution $e$  with $\textit{last}(e) = \textit{PQ}_1^{=}$. $e$ does not linearizable w.r.t $\textit{MS}(\textit{PQ}_1^{=})$, if and only if there exists $x$ and $y$ with maximal priority in $e$, such that $y <_{\textit{pb}}^* x$ in $e$, and the rightmost gap-point of $x$ is before $\textit{cal}(\textit{put},y,\_)$ or $\textit{cal}(\textit{rm},y)$ in $e$.
+\end{restatable}
+
+\begin {proof} (Sketch)
+
+We have already intuitively explain the proof of the $\textit{if}$ direction.
+
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{cal}(\textit{put},y,\_)$ and $\textit{cal}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\textit{PQ}_1^{=})$. Or we can say, we need to explicitly construct linearization of $e$. Let $\textit{pri}$ be the maximal priority of $e$.
+
+We introduce another lemma (Lemma \ref{lemma:maximal in pb and gap-point make a candidate of PQ1Equal}), which states that: If $\exists g_1 \in \textit{Items}(e,\textit{pri})$, such that $\forall g_2 \in \textit{Items}(e,\textit{pri})$, (1) $g_1$ does not $<_{\textit{pb}}$ to $g_2$, and (2) the right-most gap-point of $g_1$ is after $\textit{cal}(\textit{put},g_2,\_)$ and $\textit{cal}(\textit{rm},g_2)$. Then $e \sqsubseteq \textit{MS}(\textit{PQ}_1^{=})$. The proof of this lemma also tell us how to construct linearization in such case.
+
+Since every single-priority projection has FIFO property, let $l_{\textit{pri}}$ be the linearization of projection of $e$ into actions of priority $\textit{pri}$. Then our proof proceeds as follows:
 
 
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] We start with $a_1$, the last inserted item of $l_{\textit{pri}}$.
+
+\item[-] Step $1$: check if $a_1$ satisfy the conditions of \ref{lemma:maximal in pb and gap-point make a candidate of PQ1Equal}.
+
+    It is obvious that $a_1$ satisfy the first condition. If the second condition is also satisfied, by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of PQ1Equal}, we can obtain that $e \sqsubseteq \textit{MS}(\textit{PQ}_1^{=})$.
+
+\item[-] Otherwise, $\exists a_2 \in \textit{Items}(e,\textit{pri})$, such that the rightmost gap-point of $a_1$ is before $\textit{cal}(\textit{put},a_2,\textit{pri})$ or $\textit{cal}(\textit{rm},a_2)$ in $e$. We can see that each gap-point of $a_2$ is after the rightmost gap-point of $a_1$. By assumption, we know that $a_2$ does not $<_{\textit{pb}}$ to $a_1$.
+
+    \begin{itemize}
+    \setlength{\itemsep}{0.5pt}
+    \item[-] If $\forall b \in \textit{Items}(e,\textit{pri})$, $a_2$ does not $<_{\textit{pb}}$ to $b$. Then we go to step $1$ and treat $a_2$ similarly as $a_1$.
+    \item[-] Otherwise, there exists $a_3$ with priority $\textit{pri}$ such that $a_2 <_{\textit{pb}}^* a_3$.
+
+    Since $l_{\textit{pri}}$ has FIFO property, it is easy to see that there is no cycle in $<_{\textit{pb}}$ order. It is safe to assume that $a_3$ is maximal in the sense of $<_{\textit{pb}}^*$. Or we can say, there does not exists $a_4$, such that $a_3 <_{\textit{pb}}^* a_4$.
+
+    By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{cal}(\textit{put},a_2,\textit{pri})$ and $\textit{cal}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to step $1$ and treat $a_3$ similarly as $a_1$.
+    \end{itemize}
+\end{itemize}
+
+Let $a^i$ be the $a_1$ in the $\textit{i-th}$ loop of our proof. It is not hard to see that, given $i<j$, the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$. Therefore, the loop finally stop at some $a^f$. $a^f$ satisfies the check of Step $1$. By Lemma \ref{lemma:maximal in pb and gap-point make a candidate of PQ1Equal}, this implies that $e \sqsubseteq \textit{MS}(\textit{PQ}_1^{=})$. This completes the proof of $\textit{if}$ direction. \qed
+\end {proof}
+
+The result of Lemma \ref{lemma:PQ1Equal as pb order and gap-point} is not quite suitable for verificaion with automata. The reason is that we need to ensure $y <_{\textit{pb}}^* x$, while according to definition of $<_{\textit{pb}}^*$, there may be arbitrary intermediate items $a_1,\ldots,a_m$, such that $a <_{\textit{pb}} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}} a_m <_{\textit{pb}} b$. It is hard to store unbounded $a_i$ by automata. Fortunately, we find that the number of intermediate items $a_i$ is in fact bounded, as stated by the following lemma.
+
+
+\begin{restatable}{lemma}{OBOrderHasBoundedLength}
+\label{lemma:ob order has bounded length}
+Given a data-differentiated execution $h$. Assume that $a <_{\textit{pb}} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}} a_m <_{\textit{pb}} b$, then one of the following cases holds:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $a <_{\textit{pb}}^A b$, $a <_{\textit{pb}}^B b$ or $a <_{\textit{pb}}^C b$,
+
+\item[-] $a <_{\textit{pb}}^A a_i <_{\textit{pb}}^B b$, or $a <_{\textit{pb}}^B a_i <_{\textit{pb}}^A b$, for some $i$.
+%\item[-] $a <_{\textit{pb}}^B a_i <_{\textit{pb}}^A a_j <_{\textit{pb}}^B b$, for some $i$ and $j$,
+\end{itemize}
+\end{restatable}
+
+With Lemma \ref{lemma:ob order has bounded length}, now we can use witness automata to detect $a <_{\textit{pb}}^* b$ by enumerating all possible enumerations of $a$, $b$ and an intermediate item $a_1$, and then check if it satisfy one cases of \ref{lemma:ob order has bounded length}.
+
+The number of potential enumerations can be further reduced. The reason is that Lemma \ref{lemma:PQ1Equal as pb order and gap-point} requires both $<_{\textit{pb}}^*$ and gap-point, while some combination of $<_{\textit{pb}}^*$ and gap-points are conflict. For example, if $a <_{\textit{pb}}^B b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\_)$ or $\textit{cal}(\textit{rm},a)$, then since (1) $\textit{rm}(a) <_{\textit{hb}} \textit{rm}(b)$, (2) each gap-point of $b$ is after $\textit{cal}(\textit{rm},b)$ (also $\textit{ret}(\textit{rm},a)$), we can see that the right-most gap-point of $b$ is before $\textit{cal}(\textit{put},a,\_)$ and after $\textit{ret}(\textit{rm},a)$, which implies $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a,\_)$ and is impossible. Therefore, we finally reduce the number of potential enumeration into only five, as shown by the following lemma:
+
+\begin{restatable}{lemma}{FiveEnmuerationisEnoughForPQOneEqual}
+\label{lemma:five enumeration is enough for PQ1Equal}
+Given a data-differentiated execution $e$ with $\textit{last}(e) = \textit{PQ}_1^{=}$. Let $a$ and $b$ be items with maximal priority in $e$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\_)$ or $\textit{cal}(\textit{rm},a)$. Then, there are five possible enumeration of method events of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
+\end{restatable}
+
+The five enumerations is shown in \figurename~\ref{fig:five enumerations}, where we use $o$ to explicitly denote the right-most gap-point of $b$. In this figure, $e_1$ and $e_2$ comes from $a <_{\textit{pb}}^A b$, $e_3,e_4,e_5$ comes from $a <_{\textit{pb}}^A a_1 <_{\textit{pb}}^B b$, while other reasons of $a <_{\textit{pb}}^* b$ turns out to be either redundant or impossible.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1 \textwidth]{figures/PIC-HIS-FiveEnumerations.pdf}
+%\vspace{-10pt}
+  \caption{Five possible enumerations}
+  \label{fig:five enumerations}
+\end{figure}
+
+For each enumeration in \figurename~\ref{fig:five enumerations}, we can generate several automata to capture it. For example, to capture the first enumeration, we generate witness automaton $\mathcal{A}_{\textit{l-eq}}^1$, as shown in \figurename~\ref{fig:automata for first enumeration of PQ1Equal not in appendix}. Here we rename the items that ``covers the time interval from $\textit{cal}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$'' into $d$ (see Appendix \ref{sec:appendix proof and definition in section co-regular of PQ1Equal}), and rename the renaming items into $e$. In this figure, $c = \textit{cal}(\textit{put},e,\textit{anyPri}),\textit{ret}(\textit{put},e)$, $\textit{cal}(\textit{rm},e), \textit{ret}(\textit{rm},e)$, $c_1 = c + \textit{cal}(\textit{put},d,\textit{les}_p)$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{rm},d)$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8 \textwidth]{figures/PIC_AUTO_PQ1Equ-1.pdf}
+%\vspace{-10pt}
+  \caption{Automaton $\mathcal{A}_{\textit{l-eq}}^1$}
+  \label{fig:automata for first enumeration of PQ1Equal not in appendix}
+\end{figure}
+
+In Appendix \ref{sec:appendix proof and definition in section co-regular of PQ1Equal}, we construct a set $\textit{Auts}_{\textit{1-eq}}$ of witness automata ($\mathcal{A}_{\textit{l-eq}}^1$ is in it), and use $\textit{Auts}_{\textit{1-eq}}$ to prove that $\textit{PQ}_1^{=}$ is co-regular, as stated by the following lemma.
+
+
+\begin{restatable}{lemma}{PQOneEqualIsCoRegular}
+\label{lemma:Rpr2 is co-regular}
+$\textit{PQ}_1^{=}$ is co-regular.
+\end{restatable}

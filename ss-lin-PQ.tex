@@ -5,7 +5,7 @@ In this section we shows that, with the help of a property called step-by-step l
 
 The projection $e \vert{\mathcal{D}}$ of a sequential execution $e$ into a subset $\mathcal{D} \subseteq \mathbb{D}$ of items is obtained from $e$ by erasing all method events with a data value not in $\mathcal{D}$. The set of projections of $e$ is denoted $\textit{proj}(e)$. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique. We write $e \setminus x$ for the projection $e \vert_{ \mathbb{D} \setminus \{ x \} }$. This extends naturally to histories and concurrent executions.
 
-A set $S$ of sequential executions is closed under projection, if for all $\mathcal{D} \subseteq \mathbb{D}$ and $e \in S$, we have $e \vert_{ \mathcal{D} } \in S$.. The following lemma states that $\textit{PQueue}$ is closed under projection, since the predicates used in rules of priority queue are ``closed under projection''.
+A set $S$ of sequential executions is closed under projection, if for all $\mathcal{D} \subseteq \mathbb{D}$ and $e \in S$, we have $e \vert_{ \mathcal{D} } \in S$. The following lemma states that $\textit{PQueue}$ is closed under projection, since the predicates used in rules of priority queue are ``closed under projection''.
 
 \begin{restatable}{lemma}{PQisClosedUnderProjection}
 \label{lemma:PQ is closed under projection}
@@ -46,9 +46,9 @@ Given a data-differentiated execution and its history, we can abuse notation and
 $\textit{PQueue}$ is step-by-step linearizability.
 \end{restatable}
 
-The following lemma states that for data-differentiated execution, checking linearizability with respect to $\textit{PQueue}$ is equivalent to checking linearizability with respect to $\textit{MS}(R)$ for everyone of its projections. Roughly speaking, step-by-step linearizability of priority queue paly a important rule for proof of the $\textit{if}$ direction of Lemma \ref{lemma:PQ as multi in MRpri for history}: It guild us how to build a linearization of a whole execution by increasingly construct linearization of sub-execution from a $\epsilon$ execution.
+The following lemma states that for data-differentiated execution, checking linearizability with respect to $\textit{PQueue}$ is equivalent to checking linearizability with respect to $\textit{MS}(R)$ for everyone of its projections. Roughly speaking, step-by-step linearizability of priority queue play a important rule for proof of the $\textit{if}$ direction of Lemma \ref{lemma:PQ as multi in MRpri for history}: It guide us how to build a linearization of a whole execution by increasingly construct linearization of sub-execution from a $\epsilon$ execution.
 
 \begin{restatable}{lemma}{PQasMultiInMRpriforHistory}
 \label{lemma:PQ as multi in MRpri for history}
 Given a data-differentiated execution $e$, $e \sqsubseteq \textit{PQueue}$, if and only if, $\forall e' \in \textit{proj}(e)$, $e' \sqsubseteq \textit{MS}(R)$, where $R = \textit{last}(e')$.
-\end{restatable} 
+\end{restatable}
