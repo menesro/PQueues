@@ -1,0 +1,15 @@
+\section{Reduce Queue and Stack Executions into Priority Queue Executions}
+\label{sec:reduce queue and stack executions into priority queue executions}
+
+In this section, we shows how to reduce queue and stack executions into priority queue executions in polynomial time. 
+
+
+\subsection{Reduce Queue Executions into Priority Queue Executions}
+\label{subsec:reduce queue executions into priority queue executions} 
+
+Since we have already guarantee that each single-priority execution of priority queue has FIFO property, to reduce queue executions into priority queue executions, we simply give every item a same priority. Given a execution $e_q$ of queue, let $\textit{TransQ}(e_q)$ be an execution of priority queue, which is generated as follows: for each $a$, transform $\textit{call}(\textit{enq},a)$, $\textit{ret}(\textit{enq},a)$, $\textit{call}(\textit{deq},a)$ and $\textit{ret}(\textit{deq},a)$ of $e_q$ into $\textit{call}(\textit{put},a,1)$, $\textit{ret}(\textit{put},a)$, $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},a)$. The following lemma is obvious. 
+
+\begin{restatable}{lemma}{RelateQueuewithPQ}
+\label{lemma:relate queue with priority queue}
+Given an execution $e_q$ of queue, $e_q$ is linearizable w.r.t queue, if and only if $\textit{TransQ}(e_q) \sqsubseteq \textit{PQueue}$.
+\end{restatable} 

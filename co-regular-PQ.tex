@@ -40,7 +40,7 @@ A rule $R$ of priority queue is co-regular, if there are a finite set $\textit{A
 
 $$ \textit{Auts}_{R} \cap \mathcal{I} \neq \emptyset \Leftrightarrow \exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=R \wedge e' \ does \ not \ linearizable \ w.r.t. \ \textit{MS}(R)$$
 
-We say that $\textit{PQueue}$ is regular, if each of its rule is co-regular.
+We say that $\textit{PQueue}$ is co-regular, if each of its rule is co-regular.
 \end{definition}
 
 Before we go to investigate co-regular of each rules, we use the results in \cite{Bouajjani:2015} to simplify our work. \cite{Bouajjani:2015} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of items that does not use priority $i$. We call a priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \textit{PQueue}$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property.
@@ -303,3 +303,28 @@ In Appendix \ref{sec:appendix proof and definition in section co-regular of PQ1E
 \label{lemma:Rpr2 is co-regular}
 $\textit{PQ}_1^{=}$ is co-regular.
 \end{restatable}
+
+
+
+
+\subsection{Combine Step-by-Step linearizability and Co-Regular}
+\label{subsec:combine step-by-step linearizability and co-regular}
+
+We also prove that $\textit{PQ}_2^{>}$, $\textit{PQ}_2^{=}$ and $\textit{PQ}_3$ are co-regular. The case of $\textit{PQ}_2^{>}$ is quite simple, since whenever $\textit{last}(e) = \textit{PQ}_2^{>}$, $e \sqsubseteq \textit{MS}(\textit{PQ}_2^{>})$. For the case of $\textit{PQ}_2^{=}$, we find a necessary and sufficient condition for violating $\textit{MS}(\textit{PQ}_2^{>})$, and shows that such condition violates the assumptions that every single-priority execution is FIFO and can be safely ignored. For the case of $\textit{PQ}_3$, it can be similarly proved as the rule for $\textit{deq}(\textit{empty})$ in \cite{Bouajjani:2015}. We leave the detailed proof of co-regular of these three rules in Appendix \ref{subsec:appendix co-regular of PQ2Lar}, Appendix \ref{subsec:appendix co-regular of PQ2Equal} and Appendix \ref{subsec:co-regular of PQ3}, respectively.
+
+Now we can see that $\textit{PQueue}$ is co-regular, which is a direct consequence of co-regular of each of its rules, and is stated below.
+
+\begin{restatable}{lemma}{PQueueIsCoRegular}
+\label{lemma:PQueue is co-regular}
+$\textit{PQueue}$ is co-regular.
+\end{restatable}
+
+Since we have already prove that $\textit{PQueue}$ is step-by-step linearizability and co-regular, we can now reduce the verification of linearizability with respect to $\textit{PQueue}$ into a reachability problem, as illustrated by the following theorem. Here $\textit{Auts}$ is the set of witness automata of this section.
+
+\begin{restatable}{theorem}{ReducePQueueIntoStateReachability}
+\label{lemma:reduce PQueue into state reachability}
+Given a data-independence implementation $\mathcal{I}$. $\mathcal{I} \sqsubseteq \textit{PQueue}$, if and only if, $\mathcal{I} \cap \textit{Auts} = \emptyset$.
+\end{restatable}
+
+
+
