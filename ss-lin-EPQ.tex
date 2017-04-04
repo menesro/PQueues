@@ -1,0 +1,54 @@
+\section{Step-by-Step Linearizability of Extended Priority Queues}
+\label{sec:step-by-step linearizability of extended priority queues}
+
+In this section we shows that, with the help of a property called step-by-step linearizability, we can partition the concurrent executions which are not linearizable with respect to $\textit{EPQ}$ into a finite number of classes. Intuitively, each such class represents a set of sequential execution that violate one rule of extended priority queue. Here step-by-step linearizability enables us to build a linearization for an execution $e$ incrementally, using linearizations of projections of $e$. Our step-by-step linearizability is inspired by the step-by-step linearizabilility of queue and stacks in \cite{Bouajjani:2015}. The proof of lemmas in this section can be found in Appendix \ref{sec:appendix in section step-by-step linearizability of extended priority queues}.
+
+The projection $e \vert{\mathcal{D}}$ of a sequential execution $e$ into a subset $\mathcal{D} \subseteq \mathbb{D}$ of items is obtained from $e$ by erasing all method events with a data value not in $\mathcal{D}$. The set of projections of $e$ is denoted $\textit{proj}(e)$. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique. We write $e \setminus x$ for the projection $e \vert_{ \mathbb{D} \setminus \{ x \} }$. This extends naturally to histories and concurrent executions.
+
+A set $S$ of sequential executions is closed under projection, if for all $\mathcal{D} \subseteq \mathbb{D}$ and $e \in S$, we have $e \vert_{ \mathcal{D} } \in S$. The following lemma states that $\textit{EPQ}$ is closed under projection, since the predicates used in rules of extended priority queue are ``closed under projection''.
+
+\begin{restatable}{lemma}{EPQisClosedUnderProjection}
+\label{lemma:EPQ is closed under projection}
+$\textit{EPQ}$ is closed under projection.
+\end{restatable}
+
+A sequential execution $e$ matches a rule $R$ of extended priority queue, if $e=\textit{Expr}(l_1, \ldots, l_k,a,b)$, and $\textit{Guard}(l_1, \ldots, l_k,a,b)$ holds. Here $\textit{Guard}$ and $\textit{Expr}$ are of rule $R$, and we call $a$ (if exists) the witness of $e$. We denote by $\textit{MS}(R)$ the set of sequential executions which match $R$. Note that sequences in $\textit{MS}(R)$ only respect rule $R$ and may be not in $\textit{EPQ}$. $e$ is linearizable with respect to $\textit{MS}(R)$ with witness $x$, if $e$ is linearizable with respect to $u \in \textit{MS}(R)$ and $x$ is the witness of $u$.
+
+\begin{example}\label{example:match set of R}
+Assume that $p_1 <_{\mathbb{P}} p_2$, we can see that $e = \textit{rm}(b) \cdot \textit{put}(b,p_1) \cdot \textit{put}(a,p_2) \cdot \textit{rm}(a)$ is in $\textit{MS}(\textit{EPQ}_1^{>} )$, but it is obvious that $e \notin \textit{EPQ}$.
+\end{example}
+
+The following lemma states that for data-differentiated sequential execution, checking inclusion into $\textit{EPQ}$ is equivalent to checking inclusion into $\textit{MS}(R)$ for everyone of its projections.
+
+\begin{restatable}{lemma}{EPQasMultiInMRpriforSequence}
+\label{lemma:EPQ as multi in MRpri for sequence}
+Given a data-differentiated sequential execution $e$, $e \in \textit{EPQ}$, if and only if, $\forall e' \in \textit{proj}(e)$ and $\forall R \in \textit{last}(e')$, we have $e' \in \textit{MS}(R)$.
+\end{restatable}
+
+Lemma \ref{lemma:EPQ as multi in MRpri for sequence} simplifies checking inclusion into $\textit{EPQ}$, since checking $\textit{MS}(R)$ only concerns information of one rule, while checking $\textit{EPQ}$ need to consider every method events. We want a similar lemma for checking linearizability with respect to $\textit{EPQ}$. To enable such equivalent characterization, we introduce the notion of step-by-step linearizability for extended priority queue. The projection $e \vert{O}$ of a concurrent execution $e$ into a set $O$ of operations is obtained from $e$ by erasing all call and return actions of non-$O$ operations. We write $e \setminus o$ for the projection $e \vert_{ O_h \setminus \{ o \} }$, where $O_h$ is the set of operations of $e$. This extends naturally to histories. Similarly we can define projection into method events.
+
+\begin{definition}\label{def:step-by-step linearizability of extended priority queue}
+A set $S$ of sequential executions of extended priority queue is step-by-step linearizable, if for any data-differentiated execution $e$,
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] if $e$ is linearizable w.r.t. $\textit{MS}(R)$ ($R \in \{ \textit{EPQ}_1^{>}, \textit{EPQ}_1^{=}, \textit{EPQ}_2^{>},\textit{EPQ}_2^{=} \}$) with witness $x$, we have: $e \setminus x \sqsubseteq \textit{EPQ} \Rightarrow e \sqsubseteq \textit{EPQ}$.
+
+\item[-] if $e$ is linearizable w.r.t. $\textit{MS}(\textit{EPQ}_3)$ and $o$ is a $\textit{rm}(\textit{empty})$ event, we have:
+
+$e \setminus o \sqsubseteq \textit{EPQ} \Rightarrow e \sqsubseteq \textit{EPQ}$.
+\end{itemize}
+\end{definition}
+
+Given a data-differentiated execution and its history, we can abuse notation and mix labels and method events with operations themselves, since items are unique in a data-differentiated execution. For instance, we will reference an operation labeled by $\textit{put}(p,a)$ as $\textit{put}(p,a)$. The following lemma states that $\textit{EPQ}$ is step-by-step linearizability.
+
+\begin{restatable}{lemma}{EPQueueisStepByStepLinearizability}
+\label{lemma:EPQ is step-by-step linearizability}
+$\textit{EPQ}$ is step-by-step linearizability.
+\end{restatable}
+
+The following lemma states that for data-differentiated execution, checking linearizability with respect to $\textit{EPQ}$ is equivalent to checking linearizability with respect to $\textit{MS}(R)$ for everyone of its projections. Roughly speaking, step-by-step linearizability of extended priority queue play a important rule for proof of the $\textit{if}$ direction of Lemma \ref{lemma:EPQ as multi in MRpri for history}: It guide us how to build a linearization of a whole execution by increasingly construct linearization of sub-execution from $\epsilon$ execution.
+
+\begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
+\label{lemma:EPQ as multi in MRpri for history}
+Given a data-differentiated execution $e$, $e \sqsubseteq \textit{EPQ}$, if and only if, $\forall e' \in \textit{proj}(e)$ and $\forall R \in \textit{last}(e')$, we have $e' \sqsubseteq \textit{MS}(R)$.
+\end{restatable}
