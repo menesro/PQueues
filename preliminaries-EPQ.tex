@@ -1,0 +1,67 @@
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+\redt{In this section, we introduce the notion of sequential executions, concurrent executions, histories and linearizability in \cite{Bouajjani:2015,Wolper:1986}. Since $\textit{put}$ method of priority queue has two arguments, we slightly modified related definitions.}
+
+\redt{We fix several (possibly infinite) set $\mathbb{D}_1,\ldots$ of data values}, and a finite set $\mathbb{M}$ of methods. %We consider that methods have exactly one argument, or one return value.
+%\redt{Return values are transformed into argument values for uniformity \footnote{\redt{Method return values are guessed nondeterministically, and validated at return points. This can be handled using the assume statements of typical formal specification languages, which only admit executions satisfying a given predicate. The argument value for methods without argument or return values, or with fixed argument/return values, is ignored.}}.}
+We identify a subset $\mathbb{M}_{\textit{in}} \subseteq \mathbb{M}$ of input methods in order to differentiated methods taking an argument (e.g., the $\textit{put}$ method which inserts a argument value into a priority queue) from the other methods (e.g., the $\textit{rm}$ method which doesn't take an argument, and returns the item with maximal priority of a queue). A method-event is composed of a method $m \in \mathbb{M}$ and \redt{several data value $x_1 \in \mathbb{D}_1,\ldots$, and is denoted $m(x_1,\ldots)$}. We define the concatenation of method-event sequences $u \cdot v$ in the usual way, and $\epsilon$ denotes the empty sequence.
+
+\begin{definition}\label{def:sequential execution}
+A sequential execution is a sequence of method events.
+\end{definition}
+
+We also fix an arbitrary infinite set $\mathbb{O}$ of operation (identifiers). A call action is composed of a method $m \in \mathbb{M}$, \redt{several data value $x_1 \in \mathbb{D}_1,\ldots$, an operation $o \in \mathbb{O}$, and is denoted $\textit{cal}_o (m,x_1,\ldots)$. Similarly, a return action is denoted $\textit{ret}_o (m,x_1,\ldots)$.} The operation $o$ is used to match return actions to their call actions.
+
+
+\begin{definition}\label{def:concurrent execution}
+A (concurrent) execution $e$ is a sequence of call and return actions which satisfy a well-formedness property: every return has a call action before it in $e$, \redt{using the same tuple $m,o,x_1,\ldots$}, and an operation $o$ can be used only twice in $e$, once in a call action, and once in a return action.
+\end{definition}
+
+\begin{example}\label{example:concurrent execution}
+\redt{$\textit{cal}_{o_1}(\textit{put},a,7) \cdot \textit{cal}_{o_2}(\textit{put},b,4) \cdot \textit{ret}_{o_1}(\textit{put},a) \cdot \textit{ret}_{o_2}(\textit{put},b)$ is a concurrent execution, while $\textit{cal}_{o_1}(\textit{put},a,7) \cdot \textit{cal}_{o_2}(\textit{put},b,4) \cdot \textit{ret}_{o_1}(\textit{put},a) \cdot \textit{ret}_{o_1}(\textit{put},b)$ and $\textit{cal}_{o_1}(\textit{put},a,7) \cdot \textit{ret}_{o_1}(\textit{put},a) \cdot \textit{ret}_{o_2}(\textit{put},b)$ are not.}
+\end{example}
+
+\begin{definition}\label{def:implementation}
+An implementation $\mathcal{I}$ is a set of concurrent executions.
+\end{definition}
+
+Implementations represent libraries whose methods are called by external programs. In the remainder of this work, we consider only completed executions, where each call action has a corresponding return action. This simplification is sound when implementation methods can always make progress in isolation \cite{Henzinger:2013}: formally, for any execution $e$ with pending operations, there exists an execution $e'$ obtained by extending $e$ only with the return actions of the pending operations of $e$. Intuitively this means that methods can always return without any help from outside threads, avoiding deadlock.
+
+We simplify reasoning on executions by abstracting them into histories.
+
+\begin{definition}\label{def:histories}
+\redt{A history is a labeled partial order $(O,<_{\textit{hb}},l)$ with $O \in \mathbb{O}$ and $l:$ maps each $o \in O$ into $\mathbb{M} \times \mathbb{D}_1$, or $\mathbb{M} \times \mathbb{D}_1 \times \mathbb{D}_2$, or $\ldots$.}
+\end{definition}
+
+The order $<_{\textit{hb}}$ is called the happens-before relation, and we say that $o_1$ happens before $o_2$ when $o_1 <_{\textit{hb}} o_2$. Since histories arise from executions, their happens-before relations are interval orders \cite{Bouajjani:2015POPL}: for distinct $o_1,o_2,o_3,o_4$, if $o_1 <_{\textit{hb}} o_2$ and $o_3 <_{\textit{hb}} o_4$, then either $o_1 <_{\textit{hb}} o_4$, or $o_3 <_{\textit{hb}} o_2$. Intuitively, this comes from the fact that concurrent threads share a notion of global time.
+
+The history of an execution $e$ is defined as $O,<_{\textit{hb}},l$ where:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $O$ is the set of operations which appear in $e$,
+
+\item[-] $o_1 <_{\textit{hb}} o_2$, if the return action of $o_1$ is before the call action of $o_2$ in $e$,
+
+\item[-] \redt{an operation $o$ occurring in a call action $\textit{call}_o(m,x)$ is labeled by $m(x)$, the case of multiple arguments are similar.}
+\end{itemize}
+
+\begin{example}\label{example:concurrent execution}
+\redt{The history of the execution $\textit{cal}_{o_1}(\textit{put},a,7) \cdot \textit{cal}_{o_2}(\textit{put},b,4) \cdot \textit{ret}_{o_1}(\textit{put},a) \cdot \textit{ret}_{o_2}(\textit{put},b)$ is $(\{ o_1,o_2 \}, <_{\textit{hb}}, l)$ with $l(o_1) = \textit{put}(a,7)$, $l(o_2) = \textit{put}(b,4)$ and with $<_{\textit{hb}}$ being the empty order relation, since $o_1$ and $o_2$ overlap.}
+\end{example}
+
+Let $h = (O,<_{\textit{hb}},l)$ be a history and \redt{$e$ a sequential execution of length $n$}. We say that $h$ is linearizable with respect to $e$, denoted $h \sqsubseteq e$, if there is a bijection $f: O \rightarrow \{ 1,\ldots,n \}$ s.t.
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] if $o_1 <_{\textit{hb}} o_2$, then $f(o_1) <_{\textit{hb}} f(o_2)$,
+
+\item[-] the method event at position $f(o)$ in $e$ is $l(o)$.
+\end{itemize}
+
+\begin{definition}\label{def:linearizability}
+A history $h$ is linearizable with respect to a set $S$ of sequential executions, denoted $h \sqsubseteq S$, if there exists $e \in S$ such that $h \sqsubseteq e$.
+\end{definition}
+
+A set of histories $H$ is linearizable with respect to $S$, denoted $H \sqsubseteq S$, if $h \sqsubseteq S$ for all $h \in H$. We extend these definitions to executions according to their histories. In that context, the set $S$ is called a specification.

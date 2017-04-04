@@ -1,0 +1,158 @@
+\section{Inductive Rules of Extended Priority Queue}
+\label{sec:inductive rules of extended priority queue}
+
+A priority queue contains two method: $\textit{put}$ and $\textit{rm}$. A $\textit{put}$ method has two arguments, while the first argument is an item and the second argument is its priority. A $\textit{put}$ method is used to put an item into the priority queue with certain priority. Here we assume that the item is chosen from a specific (possibly infinite) data domain $\mathbb{D}$ and priority is chosen from a (possibly infinite) set $\mathbb{P}$. {\color {red}Moreover, we assume that there is a strict partial-order $<_\mathbb{P}$ among elements in $\mathbb{P}$.} A $\textit{rm}$ method intends to remove the item with minimal priority (with respect to $<_\mathbb{P}$) in priority queue and then returns it. It works as follows:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If the priority queue is empty, then $\textit{rm}$ returns $\textit{empty}$.
+
+\item[-] {\color {red}Else, $\textit{rm}$ returns a oldest element of one of minimal priorities. Formally, there are a set $S$ of items in priority queue. $S$ can be divided into several group, such that (1) items in each group have same priority, (2) the priorities of each two groups is incomparable and (3) no priority of items in $S$ can be larger than items not in $S$. Each group is the set of items of some minimal priority. Then, $\textit{rm}$ returns an item of some group, and this item must be putted earliest in this group. However, the chosen of group is arbitrary.}
+\end{itemize}
+
+We say that $\textit{put}(a,p)$ matches $\textit{rm}(b)$, if $a = b$. Our priority queue is an extension of common priority queue, where the priority is chosen from the set $\mathbb{N}$ of natural numbers, or from a set with total order. To distinguish our priority queue with common priority queue, we explicitly call our priority queue the extended priority queue.
+
+Similar as \cite{Bouajjani:2015}, we use inductive rules to define the set of sequential executions of extended priority queue. Each rule is of the form $l_1 \cdot \ldots \cdot l_k \in \textit{EPQ} \wedge \textit{Guard}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \Rightarrow \textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \in \textit{EPQ}$. Here $\textit{EPQ}$ is the set of sequential executions of extended priority queue. Here $\textit{itm}$ and $\textit{pri}$ are two variables, and represent an arbitrary item and priority, respectively. $\textit{Guard}(l_1,\ldots,l_k,\textit{itm},\textit{pri})$ is a conjunction of conditions with the following notations:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] Given sequential execution $l$, $\textit{noRE}(l)$ is satisfied when each method event of $l$ is not $\textit{rm}(\textit{empty})$.
+
+\item[-] Given sequential execution $l$, $\textit{LEI}(\textit{pri},l)$ is satisfied, if for priority of every item of $l$, $\textit{pri}$ is either larger, or equal, or incomparable with it. Here $L$ represents larger, $E$ represents equal, and $I$ represents incomparable. Similarly, we can define $\textit{LI}(\textit{pri},l)$. We use $U$ to represent items of unmatched $\textit{put}$, and $\textit{LI-U}(\textit{pri},l)$ is satisfied, if for priority of every item of unmatched $\textit{put}$ in $l$, $\textit{pri}$ is either larger, or incomparable with it. We use $M$ to represent items of matched $\textit{put}$, and define $\textit{LI-M}$ and $\textit{LEI-M}$ similarly.
+
+    {\color {red} We use $E'$ to emphasize that equal must holds somewhere. For example, $\textit{LE'I}(\textit{pri},l)$ holds, if (1) for priority of every item of $l$, $\textit{pri}$ is either larger, or equal, or incomparable with it, and (2) $\textit{pri}$ indeed equals priority of some items of $l$. $\textit{LE'I-M}$ is similarly defined.}
+
+\item[-] Given sequential execution $l$, its sub-sequence $l'$ and a priority $p$, $\textit{putInSeq}(l,l',p)$ is satisfied when all the $\textit{put}$ with priority $p$ of $l$ (if exists) is in $l'$.
+
+\item[-] {\color {red}Given sequential execution $l$ and priority $p$, $\textit{matched-C}(l,p)$ is satisfied, if (1) for each item $a$ whose priority is comparable with $p$, if $\textit{put}(a,\_)$ is in $l$, then $\textit{rm}(a)$ is in $l$, and (2) for each item $a$ whose priority is comparable with $p$, if $\textit{rm}(a)$ is in $l$, then $\textit{put}(a,\_)$ is in $l$. Similarly, we can define $\textit{matched-All}(l)$, where all items in $l$, instead of items with priority comparable with some priority in $l$, is considered and matched.}
+\end{itemize}
+
+$\textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri})$ is a expression $l'_1 \cdot \ldots \cdot l'_m$, where each $l'_i$ is chosen from (1) $l_j$ for some $j$, (2) method event with item $\textit{itm}$ and priority $\textit{pri}$ and (3) method event $\textit{rm}(\textit{empty})$.
+%Given $l'_1,\ldots,l'_k$ and expression $e=\textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri})$, we define $\llbracket e \rrbracket$ as the set of sequential executions which can be obtained from $e$ by replacing $l_i$ with $l'_i$ for each $i$, and replacing $\textit{itm}$ and $\textit{pri}$ with some values in $\mathbb{D}$ and $\mathbb{P}$, respectively.
+Given a rule $R \equiv l_1 \cdot \ldots \cdot l_k \in \textit{EPQ} \wedge \textit{Guard}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \Rightarrow \textit{Expr}(l_1,\ldots,l_k,\textit{itm},\textit{pri}) \in \textit{EPQ}$ and a sequential execution $w$, if $w=l'_1 \cdot \ldots \cdot l'_k$, and $\textit{Guard}(l'_1,\ldots,l'_k,a,p)$ holds for some $a \in \mathbb{D}$ and $p \in \mathbb{P}$, then we use $w \xrightarrow{R} w'$ to denote that we can obtain $w'$ from $w$ according to rule $R$, where $w' = \textit{Expr}(l'_1,\ldots,l'_k,a,p)$. Let $\llbracket \textit{EPQ} \rrbracket$ be the set of sequential executions $w$ which can be derived from the empty word: $$\epsilon = w_0 \xrightarrow{R_1} w_1 \ldots \xrightarrow{R_k} w$$ where each $R_i$ is one rules of the extended priority queue. When clear from context, we abuse $\llbracket \textit{EPQ} \rrbracket$ by $\textit{EPQ}$.
+
+\begin{definition}\label{def:inductive rules of priority queue}
+$\textit{EPQ}$ is defined by the following rules:
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{EPQ}_0 \equiv \epsilon \in \textit{EPQ}$.
+
+\item[-] $\textit{EPQ}_1 \equiv (u \cdot v \cdot w \in \textit{EPQ}) \wedge
+(\textit{noRE}(u \cdot v \cdot w)) \wedge
+(\textit{LEI}(\textit{pri}, u \cdot v \cdot w)) \wedge
+(\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
+(\textit{matched-C}(u \cdot v,\textit{pri}) ) \wedge
+%(\textit{matched}(w) ) \wedge
+(\textit{putInSeq}(u \cdot v \cdot w,u,\textit{pri}))
+\Rightarrow
+(u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \cdot \textit{rm}(\textit{itm}) \cdot w \in \textit{EPQ})$.
+
+\item[-] $\textit{EPQ}_2 \equiv
+(u \cdot v \in \textit{EPQ}) \wedge
+(\textit{noRE}(u \cdot v)) \wedge
+(\textit{LEI}(\textit{pri},u \cdot v)) \wedge
+(\textit{putInSeq}(u \cdot v,u,\textit{pri}))
+\Rightarrow
+(u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{EPQ})$.
+
+\item[-] $\textit{EPQ}_3 \equiv
+(u \cdot v \in \textit{EPQ}) \wedge
+(\textit{matched-All}(u) )
+\Rightarrow
+(u \cdot \textit{rm}(\textit{empty}) \cdot v \in \textit{EPQ})$.
+\end{itemize}
+\end{definition}
+
+\begin{example}\label{example:generate extended priority queue executions}
+Given priorities $p_1,p_2,p_3$ with orders $p_1 <_{\mathbb{P}} p_2$ and $p_1 <_{\mathbb{P}} p_3$, one sequential execution of $\textit{EPQ}$ is generated as follows:
+
+$\epsilon$ $\xrightarrow{\textit{EPQ}_1}$ $\textit{put}(a,p_1) \cdot \textit{rm}(a)$
+
+$\xrightarrow{\textit{EPQ}_2}$ $\textit{put}(a,p_1) \cdot \textit{rm}(a) \cdot \textit{put}(b,p_1)$
+
+$\xrightarrow{\textit{EPQ}_1}$ $\textit{put}(c,p_2) \cdot \textit{put}(a,p_1) \cdot \textit{rm}(a) \cdot \textit{rm}(c) \cdot \textit{put}(b,p_1)$
+
+$\xrightarrow{\textit{EPQ}_2}$ $\textit{put}(c,p_2) \cdot \textit{put}(a,p_1) \cdot \textit{rm}(a) \cdot \textit{rm}(c) \cdot \textit{put}(d,p_2) \cdot \textit{put}(b,p_1)$
+
+$\xrightarrow{\textit{EPQ}_1}$ $\textit{put}(c,p_2) \cdot \textit{put}(a,p_1) \cdot \textit{rm}(a) \cdot \textit{rm}(c) \cdot \textit{put}(d,p_2) \cdot \textit{put}(e,p_3) \cdot \textit{rm}(e) \cdot \textit{put}(b,p_1)$
+
+$\xrightarrow{\textit{EPQ}_3}$ $\textit{put}(c,p_2) \cdot \textit{put}(a,p_1) \cdot \textit{rm}(a) \cdot \textit{rm}(c) \cdot \textit{rm}(\textit{empty}) \cdot \textit{put}(d,p_2) \cdot \textit{put}(e,p_3) \cdot \textit{rm}(e) \cdot \textit{put}(b,p_1)$
+\end{example}
+
+To facilitate our proof of latter sections, we need to separate $\textit{EPQ}_1$ into two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$.  Therefore, we separate $\textit{EPQ}_1$ into two rules:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{EPQ}_1^{>} \equiv (u \cdot v \cdot w \in \textit{EPQ}) \wedge
+(\textit{noRE}(u \cdot v \cdot w)) \wedge
+(\textit{LI}(\textit{pri}, u \cdot v \cdot w)) \wedge
+(\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
+(\textit{matched-C}(u \cdot v,\textit{pri}) ) %\wedge
+%(\textit{matched}(w) )
+\Rightarrow
+(u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \cdot \textit{rm}(\textit{itm}) \cdot w \in \textit{EPQ})$.
+
+\item[-] $\textit{EPQ}_1^{=} \equiv (u \cdot v \cdot w \in \textit{EPQ}) \wedge
+(\textit{noRE}(u \cdot v \cdot w)) \wedge
+(\textit{LE'I}(\textit{pri}, u \cdot v \cdot w)) \wedge
+(\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
+(\textit{matched-C}(u \cdot v,\textit{pri}) ) %\wedge
+%(\textit{matched}(w) )
+\wedge
+(\textit{putInSeq}(u \cdot v \cdot w,u,\textit{pri}))
+\Rightarrow
+(u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \cdot \textit{rm}(\textit{itm}) \cdot w \in \textit{EPQ})$.
+\end{itemize}
+
+
+For $\textit{EPQ}_2$, we also need to distinguish two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$. Therefore, we separate $\textit{EPQ}_2$ into two rules:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{EPQ}_2^{>} \equiv
+(u \cdot v \in \textit{EPQ}) \wedge
+(\textit{noRE}(u \cdot v)) \wedge
+(\textit{LEI}(\textit{pri},u \cdot v)) \wedge
+(\textit{LI-M}(\textit{pri},u \cdot v)) \wedge
+(\textit{putInSeq}(u \cdot v,u,\textit{pri}))
+\Rightarrow
+(u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{EPQ})$.
+
+\item[-] $\textit{EPQ}_2^{=} \equiv
+(u \cdot v \in \textit{EPQ}) \wedge
+(\textit{noRE}(u \cdot v)) \wedge
+(\textit{LEI}(\textit{pri},u \cdot v)) \wedge
+(\textit{LE'I-M}(\textit{pri},u \cdot v)) \wedge
+(\textit{putInSeq}(u \cdot v,u,\textit{pri}))
+\Rightarrow
+(u \cdot \textit{put}(\textit{itm},\textit{pri}) \cdot v \in \textit{EPQ})$.
+\end{itemize}
+
+To persuade readers that our rules is indeed the rules of extended priority queue, in Appendix \ref{sec:appendix in section inductive rules of extended priority queue}, we give a semantical version definition $\textit{EPQ}_s$ of extended priority queue, and shows that the language generated by our rules equals the set of traces of $\textit{EPQ}_s$. To model the possible behaviors of extended priority queue, we model it as an labelled transition system (shortened as LTS) $\textit{LTS}_e$. Each state of $\textit{LTS}_e$ is a function from $\mathbb{P}$ into sequences over $\mathbb{D}$, and represents a snapshot of contents of extended priority queue. $\textit{EPQ}_s$ is the set of traces of $\textit{LTS}_e$. The definition of $\textit{EPQ}_s$ and the proof of the following lemma can be found in Appendix \ref{sec:appendix in section inductive rules of extended priority queue}.
+
+\begin{restatable}{lemma}{EPQRulesAndSemantics}
+\label{lemma:EPQ rules and semantics}
+$\textit{EPQ} = \textit{EPQ}_s$.
+\end{restatable}
+
+
+Given a sequential execution $w \in \textit{EPQ}$ and let $P$ be the set of priorities in $w$. According to above example, $w$ is generated from $\epsilon$ as follows: Let $P$ be the set of priorities of $w$ and $p$ be one of minimal priority in $P$. Then we start to loop. In each round of the loop there are two possibilities: (1) If there are matched $\textit{put}$ and $\textit{rm}$ with priority $p$ in $w$: Add pairs of matched $\textit{put}$ and $\textit{rm}$ with priority $p$ by using one time of $\textit{EPQ}_1^{>}$ and then (possibly) several times of $\textit{EPQ}_1^{=}$, and then (possibly) add unmatched $\textit{put}$ with priority $p$ by using $\textit{EPQ}_2^{=}$, (2) If there are no matched $\textit{put}$ and $\textit{rm}$ with priority $p$ in $w$: Add unmatched $\textit{put}$ with priority $p$ by using $\textit{EPQ}_2^{>}$ for several times. Then, let $P = P \setminus \{ p \}$, and restart this loop, until $P = \emptyset$. Finally, add $\textit{rm}(\textit{empty})$ by using $\textit{EPQ}_3$ for several times. We can see that, the order for generating $w$ may be not fixed, since some priorities are incomparable.
+
+Thus, given $w$, we define $\textit{last}(w)$ as the set of last possible rule to generate $w$ according to the rules of extended priority queues:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If $w$ contains $\textit{rm}(\textit{empty})$, then $\textit{last}(w) = \{ \textit{EPQ}_3 \}$.
+
+\item[-] Else, if items of several unmatched $\textit{put}$ and matched $\textit{put}$ have a maximal priority of $w$, then $\textit{last}(w)$ contains $\textit{EPQ}_2^{=}$.
+
+\item[-] Else, if items of only several unmatched $\textit{put}$ have a maximal priority of $w$, then $\textit{last}(w)$ contains $\textit{EPQ}_2^{>}$.
+
+\item[-] Else, if items of only more than one matched $\textit{put}$ have a maximal priority of $w$, then $\textit{last}(w)$ contains $\textit{EPQ}_1^{=}$.
+
+\item[-] Else, if items of only one matched $\textit{put}$ has a maximal priority of $w$, then $\textit{last}(w)$ contains $\textit{EPQ}_1^{>}$.
+
+\item[-] Else ($w = \epsilon$), $\textit{last}(w) = \{ \textit{EPQ}_0 \}$.
+\end{itemize}
+
+Note that $\textit{last}(w)$ may contains more than one rules. For example, given $w = \textit{put}(c,p_2) \cdot \textit{put}(a,p_1) \cdot \textit{rm}(a) \cdot \textit{rm}(c) \cdot \textit{put}(d,p_2) \cdot \textit{put}(e,p_3) \cdot \textit{rm}(e) \cdot \textit{put}(b,p_1)$ and orders $p_1 <_{\mathbb{P}} p_2$ and $p_1 <_{\mathbb{P}} p_3$, then $\textit{last}(w) = \{  \textit{EPQ}_2^{=}, \textit{EPQ}_1^{>} \}$. The notion of $\textit{last}$ can be extended into execution and histories: given a history $h$, $\textit{last}(h) = \textit{last}(u)$, where $u$ is any sequential execution such that $h \sqsubseteq u$. When $\textit{last}(e)$ contains only one rule $R$, we write $\textit{last}(e)=R$ for simplicity.
