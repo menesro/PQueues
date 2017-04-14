@@ -46,6 +46,41 @@ Given a data-differentiated execution and its history, we can abuse notation and
 $\textit{EPQ}$ is step-by-step linearizability.
 \end{restatable}
 
+Let us briefly explain the idea of proving step-by-step linearizability of $\textit{EPQ}_1$ with an example, while the other two rules is much simpler to deal with. Given a data-differentiated concurrent execution $e \sqsubseteq l \in \textit{MS}(\textit{EPQ}_1)$ with witness $x$ and assume that $e \setminus x \sqsubseteq l' \in \textit{EPQ}$, we explicitly construct a sequence $l''$ and prove that $e \sqsubseteq l'' \in \textit{EPQ}$. The construction of $l''$ is as follows:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] In \figurename~\ref{fig:concurrent execution for EPQ1}, we give an example of $e$, and we explicitly draw the linearization points according to $l'$. Assume that $p_1 <_{\mathbb{P}} p_2$ and $p_1 <_{\mathbb{P}} p_3$. According to $\textit{EPQ}_1$, there exists $u$, $v$ and $w$, such that $l = u \cdot \textit{put}(x,\textit{pri}_x) \cdot v \cdot \textit{rm}(x) \cdot w$. We use $\textit{put}(z_2,p_3)-w$ to denote that $\textit{put}(z_2,p_3)$ is in $w$.
+
+\item[-] Let $O_c$ and $O_i$ be the set of operations with priorities comparable with $\textit{pri}_x$ and incomparable with $\textit{pri}_x$ in $l$, respectively. It seems that we can make $l''= l''_1 \cdot \textit{put}(x,\textit{pri}_x) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$, where $l''_1$, $l''_2$ and $l''_3$ are sequences of operations chosen from $u$, $v$ and $w$, respectively. However, this is incorrect. The reason is that there is no restriction to $O_i$ operations in $u \cdot v$, and thus, there is no guarantee that the projection of $l'$ into $O_i$ operations in $u \cdot v$ being correct. In our example, we can see that such projection is $\textit{put}(z_1,p_3) \cdot \textit{rm}(z_2)$ and is incorrect.
+
+\item[-] Let $U$, $V$ and $W$ be the set of operations in $u$, $v$ and $w$, respectively. We use a two-steps method to construct $U'$, $V'$ and $W'$, which are the new version of $U$, $V$ and $W$.
+
+\item[-] The first step is to obtain $U' \cup V'$ and $W'$. We leave $O_c$ operations unchanged for $U \cdot V$ and $W$. We try to put as many as possible $O_i$ operations into $U' \cup V'$ (regardless whether they belong to $U \cdot V$ or $W$), until we meet a $O_i$ operation $o$ that happens before a $O_c$ operation in $W$. We move $O_i$ operations that before $o$ in $l'$ into $U' \cdot V'$, and move $o$ and $O_i$ operations that after $o$ in $l'$ into $W'$. In this example, $o$ is $\textit{put}(x_3,p_2)$ (emphasized by adding vertical dashed line), we move $\textit{put}(z_1,p_3)$ and $\textit{put}(z_2,p_3)$ into $U' \cdot V'$, and move $\textit{rm}(z_1)$ and $\textit{rm}(z_2)$ into $W'$ (emphasized by adding boxes).
+
+\item[-] The second step is to obtain $U'$ and $V'$. $U'$ contains the following two kinds of operations: (1) Operations whose linearization points are before $\textit{ret}(\textit{put},x)$, and (2) other $\textit{put}$ operations with priority $\textit{pri}_x$. $V'$ contains the remanning operations. In this example, $U'$ contains $\textit{put}(z_1,p_3)$ and $\textit{put}(x_2,p_2)$.
+
+\item[-] $l''_1$ is the concatenation of projection of $l'$ into the first and second kinds of operations in $U'$. $l''_2$ and $l''_3$ are projection of $l'$ into $V'$ and $W'$, respectively. In this example, $l''_1 = \textit{put}(z_1,p_3) \cdot \textit{put}(x_2,p_2)$, $l''_2 = \textit{put}(z_2,p_3) \cdot \textit{rm}(x_2) \cdot \textit{put}(y_1,p_1) \cdot \textit{rm}(y_1)$, and $l''_3 = \textit{put}(x_3,p_2) \cdot \textit{rm}(z_1) \cdot \textit{rm}(z_2)$. In \figurename~\ref{fig:concurrent execution with new linearization points for EPQ1}, we add linarization points according to $l''$, and we can see that $l''$ holds as required.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5 \textwidth]{figures/PIC-HIS-EPQ1.pdf}
+%\vspace{-10pt}
+  \caption{Concurrent execution $e$}
+  \label{fig:concurrent execution for EPQ1}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5 \textwidth]{figures/PIC-HIS-EPQ1-NEWLP.pdf}
+%\vspace{-10pt}
+  \caption{Concurrent execution $e$ with linearization points according to $l''$}
+  \label{fig:concurrent execution with new linearization points for EPQ1}
+\end{figure}
+
+
 The following lemma states that for data-differentiated execution, checking linearizability with respect to $\textit{EPQ}$ is equivalent to checking linearizability with respect to $\textit{MS}(R)$ for everyone of its projections. Roughly speaking, step-by-step linearizability of extended priority queue play a important rule for proof of the $\textit{if}$ direction of Lemma \ref{lemma:EPQ as multi in MRpri for history}: It guide us how to build a linearization of a whole execution by increasingly construct linearization of sub-execution from $\epsilon$ execution.
 
 \begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
