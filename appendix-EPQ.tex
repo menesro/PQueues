@@ -108,7 +108,10 @@ To prove the $\textit{if}$ direction, given an execution $e \in \mathcal{I}$. By
 
 \subsection{Proof of Lemma \ref{lemma:EPQ is closed under projection}}
 
-\EPQisClosedUnderProjection*
+\begin{restatable}{lemma}{EPQisClosedUnderProjection}
+\label{lemma:EPQ is closed under projection}
+$\textit{EPQ}$ is closed under projection.
+\end{restatable}
 
 \begin {proof}
 
@@ -118,7 +121,12 @@ This is obvious, since for each conditions in the $\textit{Guard}$ part of the r
 
 \subsection{Proof of Lemma \ref{lemma:EPQ as multi in MRpri for sequence}}
 
-\EPQasMultiInMRpriforSequence*
+%\EPQasMultiInMRpriforSequence*
+
+\begin{restatable}{lemma}{EPQasMultiInMRpriforSequence}
+\label{lemma:EPQ as multi in MRpri for sequence}
+Given a data-differentiated sequential execution $e$, $e \in \textit{EPQ}$, if and only if, $\forall e' \in \textit{proj}(e)$ and $\forall R \in \textit{last}(e')$, we have $e' \in \textit{MS}(R)$.
+\end{restatable}
 
 \begin {proof}
 
@@ -579,7 +587,12 @@ Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \te
 The following lemma states that $\textit{EPQ}$ is step-by-step linearizability, it is a direct consequence of Lemma \ref{lemma:EPQ1 is step-by-step linearizability}, Lemma \ref{lemma:EPQ2 is step-by-step linearizability} and Lemma \ref{lemma:EPQ3 is step-by-step linearizability}.
 
 
-\EPQueueisStepByStepLinearizability*
+%\EPQueueisStepByStepLinearizability*
+
+\begin{restatable}{lemma}{EPQueueisStepByStepLinearizability}
+\label{lemma:EPQ is step-by-step linearizability}
+$\textit{PQ}$ is step-by-step linearizability.
+\end{restatable} 
 
 \begin {proof}
 This is a direct consequence of Lemma \ref{lemma:EPQ1 is step-by-step linearizability}, Lemma \ref{lemma:EPQ2 is step-by-step linearizability} and Lemma \ref{lemma:EPQ3 is step-by-step linearizability}. \qed
@@ -622,9 +635,50 @@ Therefore, we know that $e_{\textit{m-1}} \in \textit{EPQ}$. Similarly, we can p
 \section{Proofs and Definitions in Section \ref{sec:co-regular of extended priority queues}}
 \label{sec:appendix proof and definition in section co-regular of extended priority queues}
 
+To facilitate our proof of latter sections, we need to separate $\textit{EPQ}_1$ into two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$.  Therefore, we separate $\textit{EPQ}_1$ into two cases:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{EPQ}_1^{>}(u,v,w,\textit{pri}) \equiv
+(\textit{noRE}(u \cdot v \cdot w)) \wedge
+(\textit{LI}(\textit{pri}, u \cdot v \cdot w)) \wedge
+(\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
+(\textit{matched-C}(u \cdot v,\textit{pri}) )$
+
+
+\item[-] $\textit{EPQ}_1^{=}(u,v,w,\textit{pri}) \equiv
+(\textit{noRE}(u \cdot v \cdot w)) \wedge
+(\textit{LE'I}(\textit{pri}, u \cdot v \cdot w)) \wedge
+(\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
+(\textit{matched-C}(u \cdot v,\textit{pri}) ) \wedge
+(\textit{putInSeq}(u \cdot v \cdot w,u,\textit{pri}))$
+\end{itemize}
+
+
+For $\textit{EPQ}_2$, we also need to distinguish two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$. Therefore, we separate $\textit{EPQ}_2$ into two rules:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $\textit{EPQ}_2^{>}(u,v) \equiv
+(\textit{noRE}(u \cdot v)) \wedge
+(\textit{LEI}(\textit{pri},u \cdot v)) \wedge
+(\textit{LI-M}(\textit{pri},u \cdot v)) \wedge
+(\textit{putInSeq}(u \cdot v,u,\textit{pri}))$.
+
+\item[-] $\textit{EPQ}_2^{=}(u,v) \equiv
+(\textit{noRE}(u \cdot v)) \wedge
+(\textit{LEI}(\textit{pri},u \cdot v)) \wedge
+(\textit{LE'I-M}(\textit{pri},u \cdot v)) \wedge
+(\textit{putInSeq}(u \cdot v,u,\textit{pri}))$.
+\end{itemize}
+
 
 \subsection{Proofs and Definitions in Subsection \ref{subsec:definition of co-regular}}
 \label{sec:appendix proof and definition in section definition of co-regular}
+
+Before we go to investigate co-regular of each rules, we use the results in \cite{Bouajjani:2015} to simplify our work. \cite{Bouajjani:2015} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of items that does not use priority $i$ (does not influence $\textit{rm}(\textit{empty})$). We call a extended priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \textit{EPQ}$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property.
+
+Given an execution of queue, we say that it is differentiated \cite{Wolper:1986}, if each item is enqueued at most once. \cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a witness automata for extended priority queue.
 
 \cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists.
 
@@ -707,6 +761,34 @@ Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by som
 
 \subsection{Proofs and Definitions in Subsection \ref{subsec:co-regular of EPQ1Lar}}
 \label{sec:appendix proof and definition in section co-regular of EPQ1Lar}
+
+
+The notion of left-right constraint used for extended priority queue is inspired by left-right constraint of queue \cite{Bouajjani:2015}. Let us introduce the notion of left-right constraint, which is a graph, and the existence of cycle though item with maximal priority in it correspond to the existence of the case in \figurename~\ref{fig:introduce gap for EPQ1Lar}.
+
+
+
+\begin{definition}\label{def:left-right constraint for matched put and rm operations}
+Given a data-differentiated $\textit{pri}_x$-execution $e$ without $\textit{rm}(\textit{empty})$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be the only  method events of $e$ with priority $\textit{pri}_x$. The left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ is the graph $G$ where:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] the nodes are the items of $e$, to which we add a node,
+
+\item[-] there is an edge from item $d_1$ to $x$, if $\textit{put}(d_1,\_)$ happens before $\textit{put}(x,\textit{pri}_x)$ or $\textit{rm}(x)$,
+
+\item[-] there is an edge from $x$ to item $d_1$, if $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$ or $\textit{rm}(d_1)$ does not exists in $h$,
+
+\item[-] there is an edge from item $d_1$ to item $d_2$, if $\textit{put}(d_1,\_)$ happens before $\textit{rm}(d_2,\_)$.
+\end{itemize}
+\end{definition}
+
+When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ through item with maximal priority (for example, $x$) in $G$, we say that $x$ is covered by $d_1,\ldots,d_m$. To state the effectiveness of left-right constraint, take the execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} as an example, we can see that $b$ is covered by $f,e,d$. We need to prove that getting rid of cycle though item with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\textit{MS}(\textit{EPQ}_1^{>})$, as stated by the following lemma:
+
+\begin{restatable}{lemma}{LinEqualsConstraintforEPQOneLar}
+\label{lemma:Lin Equals Constraint for EPQ1Lar}
+Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x)$ and $\textit{rm}(x)$. $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$, if and only if $G$ has no cycle going through $x$.
+\end{restatable}
+
 
 The following lemma states that, from linearization of sub-histories, we can merge them and obtain a linearization (regardless of whether it belongs to sequential specification) of the whole history.
 

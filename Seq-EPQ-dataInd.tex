@@ -1,0 +1,35 @@
+\section{Priority Queue and Data-Independence}
+\label{sec:priority queue and data-independence}
+
+
+A priority queue with partially-ordered priorities (priority queue for short) contains two method: $\textit{put}$ and $\textit{rm}$. A $\textit{put}$ method has two arguments, while the first argument is an item and the second argument is its priority. A $\textit{put}$ method is used to put an item into the priority queue with certain priority. Here the item is chosen from a specific (possibly infinite) data domain $\mathbb{D}$ and priority is chosen from a (possibly infinite) set $\mathbb{P}$. Moreover, there is a strict partial-order $\prec$ among elements in $\mathbb{P}$. A $\textit{rm}$ method intends to remove the item with minimal priority (w.r.t $\prec$) in priority queue and then returns it. It works as follows: 
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If the priority queue is empty, then $\textit{rm}$ returns $\textit{empty}$.
+
+\item[-] Else, $\textit{rm}$ choose one of minimal priority of items in priority queue, and returns the earliest putted item of this priority. Note that if there are more than one incomparable and minimal candidate priorities, then the chosen of priority is arbitrary.
+\end{itemize} 
+
+For example, assume that $p_1 \prec p_2$, then $\textit{put}(a,p_2) \cdot \textit{put}(b,p_1) \cdot \textit{rm}(b)$ is a correct behavior of priority queue, since $b$ has smaller priority. 
+
+Let us introduce the notion of sequential executions, which modelled the specification of concurrent libraries. We fix a (possibly infinite) set $\mathbb{D}$ of data values, a finite set $\mathbb{M}$ of methods, and an infinite set $\mathbb{O}$ of operation (identifiers). Given $m \in \mathbb{M}$, $x \in \mathbb{D}$, and $o \in \mathbb{O}$, a call action $\textit{call}_o (m,x)$ represents an invocation to method $m$ with argument $x$, while a return action $\textit{ret}_o (m,x)$ represents a response from method $m$ with return value $x$. \footnote{Call actions with more than one arguments are similarly defined.} Here $o$ is used to match return actions to their call actions: $\textit{cal}_o (m,x)$ matches $\textit{ret}_{o'} (m',x')$, if $o=o' \wedge m=m'$. A sequential execution is a sequence of call and return actions, while each call action is immediately followed by its matching return action. Let $\cdot$ be the concatenation of sequences. To ease the reading, given a sequential execution $e=\textit{call}_{o_1}(m_1,a_1) \cdot \textit{rm}_{o_1}(m_1,b_1) \cdot \ldots \cdot \textit{call}_{o_n}(m_n,a_n) \cdot \textit{rm}_{o_n}(m_n,b_n)$, when the context is clear, we can write it as $e=m_1(a_1,b_1) \cdot \ldots \cdot m_n(a_n,b_n)$. We write $m(a,b)$ as $m(a)$ or $m(b)$, when there is no return value or there is no argument, respectively. 
+
+Data-independence \cite{Wolper:1986} can be used to effectively handle unbounded data domain. In this paper, we slightly modify the notion of data-independence in \cite{Wolper:1986} and propose data-independence for priority queues. Let $\_$ denote an element, of which the value is irrelevant. A sequential execution $e$ of priority queue is data-differentiated if, for all $d \in \mathbb{D}$, there is at most one $\textit{put}(d,\_)$ in $e$. Note that a data-differentiated $e$ may contains more than one items with a same priority. The subset of data-differentiated sequential executions of a set $S$ is denoted by $S_{\neq}$. 
+
+A renaming function $r$ for priority queue is a function from $\mathbb{D}$ to $\mathbb{D}$. Given a sequential execution $e$, we denote by $r(e)$ the sequential execution obtained from $e$ by replacing every item $x$ by $r(x)$. Note that here the renaming functions rename only the items and keep the priorities unchanged. The explanation is that renaming items will not influence the executions of program, while renaming priorities may do.
+
+%\vspace{-6pt}
+\begin{definition}\label{def:priority-value data-independence}
+A set of sequential executions $S$ is data-independent, if:
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] for all $e \in S$, there exists $e' \in S'$, and a renaming function $r$, such that $e=r(e')$,
+
+\item[-] for all $e \in S$ and for all renaming $r$, $r(e) \in S$.
+\end{itemize}
+\end{definition} 
+
+In latter section, we shows that with the help of data-independence, we can concentrate on only data-differentiated executions when checking correctness.
+
+
