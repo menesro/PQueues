@@ -32,24 +32,24 @@ Now, all the maximal priority values are removed and the procedure selects a pai
 
 \If {$\mathsf{HasEmptyRemoves}(e)$}
 {
-    \If {$\exists\ o=\textit{rm}(\textit{empty})\in e$ such that $\mathsf{EmptyRemoveSeq}(e,o)$ holds}
+    \If {$\exists\ o=\textit{rm}(\textit{empty})\in e$ such that $\mathsf{EmptyRemove\text{-}Seq}(e,o)$ holds}
     {
         \KwRet $\textit{Check-PQ}(e \setminus o)$\;
     }
-    \Else {\KwRet $\mathsf{false}$\;}
+    %\Else {\KwRet $\mathsf{false}$\;}
 }
 \ElseIf{$\mathsf{HasUnmatchedMaxPriority}(e)$}
 {
-    \If {$\exists\ x \in \textit{values}(e)$ such that $\mathsf{UnmatchedMaxPrioritySeq}(e,x)$ holds}
+    \If {$\exists\ x \in \textit{values}(e)$ such that $\mathsf{UnmatchedMaxPriority\text{-}Seq}(e,x)$ holds}
     {
         \KwRet $\textit{Check-PQ}(e \setminus x)$\;
     }
-    \Else {\KwRet $\mathsf{false}$\;}
+    %\Else {\KwRet $\mathsf{false}$\;}
 }
 
 \Else
 {
-    \If {$\exists\ x \in \textit{values}(e)$ such that $\mathsf{MatchedMaxPrioritySeq}(e,x)$ holds}
+    \If {$\exists\ x \in \textit{values}(e)$ such that $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ holds}
     {
         \KwRet $\textit{Check-PQ}(e \setminus x)$\;
     }
@@ -67,14 +67,14 @@ In formal terms, the operations which are selected depend on the following set o
 \mathsf{HasUnmatchedMaxPriority}(e)=\mathsf{true} & \mbox{ iff $p\in \textit{unmatched-priorities}(e)$ for a maximal priority} \\
 &\hspace{4mm}\mbox{$p\in priorities(e)$}
 \end{align*}}
-where $\textit{priorities}(l)$, resp., $\textit{unmatched-priorities}(l)$, is the set of priorities occurring in $e$, resp., in $\textit{put}$ operations of $e$ for which there is no $\textit{rm}$ operation removing the same value. We call the latter \emph{unmatched} put operations. A put operation which is not unmatched is called \emph{matched}. For readability, we consider the following syntactic sugar $\mathsf{HasMatchedMaxPriority}(e)=\neg \mathsf{HasEmptyRemoves}(e)\land \neg \mathsf{HasUnmatchedMaxPriority}(e)$.
+where $\textit{priorities}(l)$, resp., $\textit{unmatched-priorities}(l)$, is the set of priorities occurring in $\textit{put}$ operations of $e$, resp., in $\textit{put}$ operations of $e$ for which there is no $\textit{rm}$ operation removing the same value. We call the latter \emph{unmatched} put operations. A put operation which is not unmatched is called \emph{matched}. For readability, we consider the following syntactic sugar $\mathsf{HasMatchedMaxPriority}(e)=\neg \mathsf{HasEmptyRemoves}(e)\land \neg \mathsf{HasUnmatchedMaxPriority}(e)$.
 
 The predicates defining the correctness of the selected operations are defined as follows:
 {\small
 \begin{align*}
-\mathsf{EmptyRemoveSeq}(e,o)=\mathsf{true} & \mbox{ iff  $e= u\cdot o\cdot v$ and $\textit{matched}(u)$} \\
-\mathsf{UnmatchedMaxPrioritySeq}(e,x)=\mathsf{true} & \mbox{ iff  $e= u\cdot \textit{put}(x,p)\cdot v$, $p\not\prec \textit{priorities}(u\cdot v)$, and $p\not\in \textit{priorities}(v)$} \\
-\mathsf{MatchedMaxPrioritySeq}(e,x)=\mathsf{true} & \mbox{ iff  $e= u\cdot \textit{put}(x,p)\cdot v\cdot \textit{rm}(x)\cdot w$, $p\not\prec \textit{priorities}(u\cdot v\cdot w)$,} \\
+\mathsf{EmptyRemove\text{-}Seq}(e,o)=\mathsf{true} & \mbox{ iff  $e= u\cdot o\cdot v$ and $\textit{matched}(u)$} \\
+\mathsf{UnmatchedMaxPriority\text{-}Seq}(e,x)=\mathsf{true} & \mbox{ iff  $e= u\cdot \textit{put}(x,p)\cdot v$, $p\not\prec \textit{priorities}(u\cdot v)$, and $p\not\in \textit{priorities}(v)$} \\
+\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)=\mathsf{true} & \mbox{ iff  $e= u\cdot \textit{put}(x,p)\cdot v\cdot \textit{rm}(x)\cdot w$, $p\not\prec \textit{priorities}(u\cdot v\cdot w)$,} \\
 &\hspace{4mm}\mbox{$p\not\preceq \textit{unmatched-priorities}(u\cdot v\cdot w)$, $\textit{matched}_\prec(u\cdot v,p)$,} \\
 &\hspace{4mm}\mbox{and $p\not\in \textit{priorities}(v\cdot w)$} 
 \end{align*}
@@ -85,7 +85,7 @@ The predicates defining the correctness of the selected operations are defined a
 where $p\prec \textit{priorities}(e)$ when $p\prec p'$ for some $p'\in \textit{priorities}(e)$ (and similarly for $p\prec \textit{unmatched-priorities}(e)$ or $p\preceq \textit{unmatched-priorities}(e)$), 
 $\textit{matched}_\prec(e,p)$ holds when each value with priority strictly smaller than $p$ is removed in $e$, and $\textit{matched}(e)$ holds when $\textit{matched}_\prec(e,p)$ holds for each $p\in\mathbb{P}$. Compared to the example presented at the beginning of the section, these predicates take into consideration that multiple values with the same priority are removed in FIFO order: the predicate $\mathsf{MatchedMaxPrioritySeq}(e,x)$ holds when $x$ is the last value with priority $p$ added in $e$.
 
-When $o$ is a $\textit{rm}(\textit{empty})$ operation, we write $e\setminus o$ for the maximal subsequence of $e$ which doesn't contain $o$. 
+When $o$ is a $\textit{rm}(\textit{empty})$ operation, we write $e\setminus o$ for the maximal subsequence of $e$ which doesn't contain $o$. For an execution $e$, $\textit{values}(e)$ is the set of values occurring in call/return actions of $e$.
 
 
 % and items of unmatched put in $l$, respectively. $p \prec \textit{priorities}(l)$ (resp., $p \preceq \textit{priorities}(l)$), if $p \prec p'$ (resp., $p \preceq p'$)for some $p' \in \textit{priorities}(l)$. Similarly we can define $p \preceq \textit{unmatched-priorities}(l)$.
