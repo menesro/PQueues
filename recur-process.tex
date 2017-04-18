@@ -1,3 +1,4 @@
+%!TEX root = draft.tex
 \section{Checking Inclusion By Recursive Procedure}
 \label{sec:checking inclusion by recursive procedure}
 
@@ -95,6 +96,36 @@ The recursive procedure $\textit{con-check-EPQ}$ is given as follows. Here $P_i(
 \end{algorithm}
 %\end{minipage}
 %\hfill
+
+\begin{algorithm}[t]
+\KwIn {A data-differentiated sequential execution $e$}
+\KwOut{$\mathsf{true}$ iff $e\in \seqPQ$}
+
+\If {$e = \epsilon$}
+{\Return $\mathsf{true}$\;}
+
+\If {$\mathsf{HasEmptyRemoves}(e)$}
+{
+    \If {$\exists\ o=\textit{rm}(\textit{empty})\in e$, $P_3(e,o)$ holds}
+    {
+        \KwRet $\textit{check-PQ}(e \setminus o)$;
+    }
+    \KwRet $\textit{false}$;
+}
+
+\If {$\textit{PQ}_i \in \textit{last}(e)$ for $i \in \{1,2\}$}
+{
+    \If {$\exists l$, $P_i(e,x)$ holds}
+    {
+        \KwRet $\textit{check-PQ}(e \setminus x)$;
+    }
+    \KwRet $\textit{false}$;
+}
+\caption{$\textit{check-PQ}$}
+\label{Method-check-PQ}
+\end{algorithm}
+
+
 
 Let us use an example to show how $\textit{check-PQ}$ works. Here we use $w_1 \xrightarrow{R} w_2$ to denote that in $\textit{check-PQ}(w_1)$, we choose the branch of $R$ and recursively call $\textit{check-PQ}(w_2)$.
 
