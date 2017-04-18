@@ -6,7 +6,7 @@ While checking linearizability of a given execution is known to be NP-complete i
 
 \subsection{Checking Data-Differentiated Sequential Executions}\label{ssec:seq_exec}
 
-Checking whether a data-differentiated sequential execution belongs to $\seqPQ$ could be implemented by checking membership into the language accepted by $LTS??$. The recursive procedure $\textit{Check-PQ}$ outlined in Algorithm~\ref{alg:seq_check} is an alternative to this membership test. Roughly, it selects one or two operations in the input execution, checks whether their return values are correct by ignoring the order between the other operations other than how they are ordered w.r.t. the selected ones, and calls itself recursively on the execution without the selected operations. 
+Checking whether a data-differentiated sequential execution belongs to $\seqPQ$ could be implemented by checking membership into the language accepted by $LTS??$. The recursive procedure $\textit{Check-PQ-Seq}$ outlined in Algorithm~\ref{alg:seq_check} is an alternative to this membership test. Roughly, it selects one or two operations in the input execution, checks whether their return values are correct by ignoring the order between the other operations other than how they are ordered w.r.t. the selected ones, and calls itself recursively on the execution without the selected operations. 
 
 We explain how the procedure works on the following execution:
 \begin{align}
@@ -34,7 +34,7 @@ Now, all the maximal priority values are removed and the procedure selects a pai
 {
     \If {$\exists\ o=\textit{rm}(\textit{empty})\in e$ such that $\mathsf{EmptyRemove\text{-}Seq}(e,o)$ holds}
     {
-        \KwRet $\textit{Check-PQ}(e \setminus o)$\;
+        \KwRet $\textit{Check-PQ-Seq}(e \setminus o)$\;
     }
     %\Else {\KwRet $\mathsf{false}$\;}
 }
@@ -42,7 +42,7 @@ Now, all the maximal priority values are removed and the procedure selects a pai
 {
     \If {$\exists\ x \in \textit{values}(e)$ such that $\mathsf{UnmatchedMaxPriority\text{-}Seq}(e,x)$ holds}
     {
-        \KwRet $\textit{Check-PQ}(e \setminus x)$\;
+        \KwRet $\textit{Check-PQ-Seq}(e \setminus x)$\;
     }
     %\Else {\KwRet $\mathsf{false}$\;}
 }
@@ -51,11 +51,11 @@ Now, all the maximal priority values are removed and the procedure selects a pai
 {
     \If {$\exists\ x \in \textit{values}(e)$ such that $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ holds}
     {
-        \KwRet $\textit{Check-PQ}(e \setminus x)$\;
+        \KwRet $\textit{Check-PQ-Seq}(e \setminus x)$\;
     }
     \Else {\KwRet $\mathsf{false}$\;}
 }
-\caption{$\textit{Check-PQ}$}
+\caption{$\textit{Check-PQ-Seq}$}
 \label{alg:seq_check}
 \end{algorithm}
 
@@ -213,11 +213,11 @@ When $o$ is a $\textit{rm}(\textit{empty})$ operation, we write $e\setminus o$ f
 %$\xrightarrow{\textit{EPQ}_1}$ $\epsilon$
 %\end{example}
 
-The following lemma states the correctness of $\textit{Check-PQ}$ (the proof can be found in Appendix~\ref{}).
+The following lemma states the correctness of $\textit{Check-PQ-Seq}$ (the proof can be found in Appendix~\ref{}).
 
 \begin{restatable}{lemma}{EPQRulesAndSemantics}
 \label{lemma:EPQ rules and semantics}
-Algorithm~\ref{alg:seq_check} returns $\mathsf{true}$ on an execution $e$ iff $e\in \seqPQ$.
+$\textit{Check-PQ-Seq}(e)=\mathsf{true}$ iff $e\in \seqPQ$, for every data-differentiated sequential execution $e$.
 \end{restatable}
 
 %
@@ -244,38 +244,49 @@ Algorithm~\ref{alg:seq_check} returns $\mathsf{true}$ on an execution $e$ iff $e
 
 \subsection{Checking Data-Differentiated Concurrent Executions}\label{ssec:conc_exec}
 
-Let us extend $\textit{check-PQ}$ with linearizability to deal with linearizability w.r.t $\textit{PQ}$ as follows: 
+The extension of $\textit{Check-PQ-Seq}$ to concurrent executions, checking whether they are linearizable w.r.t. $\seqPQ$, is obtained by replacing every predicate $\Gamma\mathsf{\text{-}Seq}$ with
+\begin{align*}
+\Gamma\mathsf{\text{-}Conc}(e,\alpha) = \mathsf{true}\mbox{ iff there exists a sequential execution $s$ such that $e\sqsubseteq s$ and $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$}
+\end{align*}
+for each $\Gamma\in \{\mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$. Let $\textit{Check-PQ-Conc}$ denote the thus obtained procedure (we assume recursive calls are modified accordingly).
 
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] The input $e$ is a concurrent execution. 
+% with linearizability to deal with linearizability w.r.t $\textit{PQ}$ as follows: 
+%
+%\begin{itemize}
+%\setlength{\itemsep}{0.5pt}
+%\item[-] The input $e$ is a concurrent execution. 
+%
+%\item[-] $\textit{last}(e)$ is the union of $\textit{last}(u)$ for any sequential execution $u$ such that $e \sqsubseteq u$. $e \sqsubseteq \textit{MS}(R)$ with witness $x$ (resp., $o$), if $e \sqsubseteq u \in \textit{MS}(R)$ and $x$ (resp., $o$) is the witness of $u$. 
+%    
+%\item[-] $P_i(e,o)$ and $P_i(e,x)$ holds, if $e \sqsubseteq \textit{MS}(\textit{PQ}_i)$ withe witness $o$ or $x$, respectively. 
+%\end{itemize} 
 
-\item[-] $\textit{last}(e)$ is the union of $\textit{last}(u)$ for any sequential execution $u$ such that $e \sqsubseteq u$. $e \sqsubseteq \textit{MS}(R)$ with witness $x$ (resp., $o$), if $e \sqsubseteq u \in \textit{MS}(R)$ and $x$ (resp., $o$) is the witness of $u$. 
-    
-\item[-] $P_i(e,o)$ and $P_i(e,x)$ holds, if $e \sqsubseteq \textit{MS}(\textit{PQ}_i)$ withe witness $o$ or $x$, respectively. 
-\end{itemize} 
-
-The following lemma states that $\textit{check-PQ}$ is correct. 
+The following lemma states the correctness of $\textit{Check-PQ-Conc}$. Completeness follows easily from the properties of $\seqPQ$. Thus, if $\textit{Check-PQ-Conc}(e) = \textit{false}$, then there exists a set of values $D$ such that one of the following doesn't hold: $\mathsf{EmptyRemove\text{-}Conc}(e \vert D)$, $\mathsf{UnmatchedMaxPriority\text{-}Conc}(e \vert D,x)$ for all maximal priority values $x$, or $\mathsf{MatchedMaxPriority\text{-}Conc}(e \vert D,x)$ for all maximal priority values $x$. It can be easily seen that we get $e \vert D\not\sqsubseteq \seqPQ$ in all cases, which by the closure under projection of $\seqPQ$ implies, $e \not\sqsubseteq \seqPQ$ (since every linearization of $e$ includes as a subsequence a linearization of $e \vert D$). 
 
 \begin{restatable}{lemma}{ConCheckEPQIsCorrect}
 \label{lemma:con-check-EPQ is correct}
-Given a data-differentiated execution $e$, $e \sqsubseteq \textit{EPQ}$, if and only if, $\textit{check-PQ} = \textit{true}$.
+$\textit{Check-PQ-Conc}(e)=\mathsf{true}$ iff $e \sqsubseteq \seqPQ$, for every data-differentiated execution $e$.
 \end{restatable} 
 
-\begin {proof} (Sketch)
-It is not hard to see that $\textit{check-PQ}(e) = \textit{false} \Rightarrow e \not\sqsubseteq \textit{PQ}$, since $\textit{PQ}_{\neq} \subset \textit{MS}(R)_{\neq}$. To ensure that $\textit{check-PQ}(e) = \textit{true} \Rightarrow e \sqsubseteq \textit{PQ}$, we require $\textit{PQ}$ to satisfy the following property.  
 
-for any data-differentiated execution $e$,
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] if $e \sqsubseteq \textit{MS}(R)$ ($R \in \{ \textit{PQ}_1, \textit{PQ}_2 \}$) with witness $x$, we have: $e \setminus x \sqsubseteq \textit{PQ} \Rightarrow e \sqsubseteq \textit{PQ}$.
+Proving soundness is highly non-trivial and one of the main technical contributions of this paper (see Appendix~\ref{} for a complete proof). The main technical difficulty is showing that for any execution $e$, any linearization of $e\setminus x$ for some maximal priority value $x$ can be extended to a linearization of $e$ provided that $\mathsf{UnmatchedMaxPriority}$ or $\mathsf{MatchedMaxPriority}$ holds (depending on whether there are values with the same priority as $x$ in $e$ which are not removed).
+%
+%
+%To ensure that $\textit{check-PQ}(e) = \textit{true} \Rightarrow e \sqsubseteq \textit{PQ}$, we require $\textit{PQ}$ to satisfy the following property.  
+%
+%for any data-differentiated execution $e$,
+%\begin{itemize}
+%\setlength{\itemsep}{0.5pt}
+%\item[-] if $e \sqsubseteq \textit{MS}(R)$ ($R \in \{ \textit{PQ}_1, \textit{PQ}_2 \}$) with witness $x$, we have: $e \setminus x \sqsubseteq \textit{PQ} \Rightarrow e \sqsubseteq \textit{PQ}$.
+%
+%\item[-] if $e \sqsubseteq \textit{MS}(\textit{PQ}_3)$ and $o$ is a $\textit{rm}(\textit{empty})$, we have: $e \setminus o \sqsubseteq \textit{PQ} \Rightarrow e \sqsubseteq \textit{PQ}$.
+%\end{itemize}
+%
+%With this property, we can build a linearization of a whole execution by increasingly construct linearization of sub-execution from $\epsilon$, and this convince us that $\textit{check-PQ}(e) = \textit{true} \Rightarrow e \sqsubseteq \textit{PQ}$. 
+%
 
-\item[-] if $e \sqsubseteq \textit{MS}(\textit{PQ}_3)$ and $o$ is a $\textit{rm}(\textit{empty})$, we have: $e \setminus o \sqsubseteq \textit{PQ} \Rightarrow e \sqsubseteq \textit{PQ}$.
-\end{itemize}
-
-With this property, we can build a linearization of a whole execution by increasingly construct linearization of sub-execution from $\epsilon$, and this convince us that $\textit{check-PQ}(e) = \textit{true} \Rightarrow e \sqsubseteq \textit{PQ}$. 
-
-Let us briefly explain the idea of proving this property for $\textit{PQ}_1$ with an example. Given a data-differentiated concurrent execution $e \sqsubseteq u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \textit{MS}(\textit{PQ}_1)$ with witness $x$ and assume that $e \setminus x \sqsubseteq l' \in \textit{PQ}$, as shown in \figurename~\ref{fig:concurrent execution for EPQ1} (a), we explicitly construct a sequence $l''= l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$ and prove that $e \sqsubseteq l'' \in \textit{PQ}$. In this example, $p_1 \prec p$, $p_1 \prec p_2$, $u=\epsilon$, $w$ contains $\textit{rm}(z_2), \textit{put}(x_3,p_2), \textit{rm}(z_1)$ (emphasize by $\textit{rm}(z_2)-w$), and the remanning operations are in $v$. We also explicitly draw the linearization points according to $l'$. We construct $l''$ as follows, and this method does not rely on the locations of linearization points of $l'$ and operations of $x$. Here we implicitly mix operation $o$ (when $\textit{call}_o(m,a)$, $\textit{ret}_o(m,b)$ in $e$) with $m(a,b)$.
+TODO UPDATE THE NOTATIONS IN THIS EXAMPLE
+Let us briefly explain the idea of proving this property when $\mathsf{MatchedMaxPriority}$ holds with an example. Given a data-differentiated concurrent execution $e \sqsubseteq u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \textit{MS}(\textit{PQ}_1)$ with witness $x$ and assume that $e \setminus x \sqsubseteq l' \in \textit{PQ}$, as shown in \figurename~\ref{fig:concurrent execution for EPQ1} (a), we explicitly construct a sequence $l''= l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$ and prove that $e \sqsubseteq l'' \in \textit{PQ}$. In this example, $p_1 \prec p$, $p_1 \prec p_2$, $u=\epsilon$, $w$ contains $\textit{rm}(z_2), \textit{put}(x_3,p_2), \textit{rm}(z_1)$ (emphasize by $\textit{rm}(z_2)-w$), and the remanning operations are in $v$. We also explicitly draw the linearization points according to $l'$. We construct $l''$ as follows, and this method does not rely on the locations of linearization points of $l'$ and operations of $x$. Here we implicitly mix operation $o$ (when $\textit{call}_o(m,a)$, $\textit{ret}_o(m,b)$ in $e$) with $m(a,b)$.
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -290,11 +301,16 @@ Let us briefly explain the idea of proving this property for $\textit{PQ}_1$ wit
 \item[-] In this example, $l''_1 = \textit{put}(z_1,p_2) \cdot \textit{put}(x_2,p)$, $l''_2 = \textit{put}(z_2,p_2) \cdot \textit{rm}(x_2) \cdot \textit{put}(y_1,p_1) \cdot \textit{rm}(y_1)$, and $l''_3 = \textit{put}(x_3,p) \cdot \textit{rm}(z_1) \cdot \textit{rm}(z_2)$. In \figurename~\ref{fig:concurrent execution for EPQ1} (b), we add linarization points according to $l''$, and we can see that $l''$ holds as required.
 \end{itemize}
 
-This completes the proof of this lemma. 
+
+%\begin {proof} (Sketch)
+%It is not hard to see that $\textit{check-PQ}(e) = \textit{false} \Rightarrow e \not\sqsubseteq \textit{PQ}$, since $\textit{PQ}_{\neq} \subset \textit{MS}(R)_{\neq}$. 
 
 
-\qed
-\end {proof}
+%This completes the proof of this lemma. 
+%
+%
+%\qed
+%\end {proof}
 
 
 
