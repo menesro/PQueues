@@ -200,9 +200,15 @@ $\xrightarrow{\textit{EPQ}_1}$ $\epsilon$
 
 The following lemma states the correctness of $\textit{Check-PQ}$ (the proof can be found in Appendix~\ref{}).
 
-\begin{lemma}
+\begin{restatable}{lemma}{EPQRulesAndSemantics}
+\label{lemma:EPQ rules and semantics}
 Algorithm~\ref{alg:seq_check} returns $\mathsf{true}$ on an execution $e$ iff $e\in \seqPQ$.
-\end{lemma}
+\end{restatable}
+
+%
+%\begin{lemma}
+%Algorithm~\ref{alg:seq_check} returns $\mathsf{true}$ on an execution $e$ iff $e\in \seqPQ$.
+%\end{lemma}
 
 
 %Let $\textit{PQ}$ be set of sequences obtained by renaming some data-differentiated sequential execution that is accepted by $\textit{check-PQ}$. To persuade readers that $\textit{PQ}$ is indeed the set of behaviors of priority queue, in Appendix \ref{sec:appendix in section inductive rules of extended priority queue}, we give a semantical version definition $\textit{PQ}_s$ of priority queue, and shows that $\textit{PQ} = \textit{PQ}_s$. To model the possible behaviors of priority queue, we model it as an labelled transition system (shortened as LTS) $\textit{LTS}_e$. Each state of $\textit{LTS}_e$ is a function from $\mathbb{P}$ into sequences over $\mathbb{D}$, and represents a snapshot of contents of priority queue. $\textit{PQ}_s$ is the set of traces of $\textit{LTS}_e$. The definition of $\textit{PQ}_s$ and the proof of the following lemma can be found in Appendix \ref{sec:appendix in section inductive rules of extended priority queue}.
