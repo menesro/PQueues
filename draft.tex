@@ -1,7 +1,4 @@
-%\documentclass[a4paper,UKenglish]{lipics}
-\documentclass{llncs}
-%\usepackage{mathbbold}
-
+\documentclass[a4paper,UKenglish]{lipics-v2016}
 
 %\newtheorem{theorem}{Theorem}[section]
 %\newtheorem{conjecture}[theorem]{Conjecture}
@@ -23,7 +20,7 @@
 %\usepackage{mathabx}
 %\usepackage{makeidx}  % allows for indexgeneration
 \usepackage{verbatim}
-\usepackage{url}
+%\usepackage{url}
 %\usepackage{hyperref}
 \usepackage{times}
 \usepackage{ulem}    %(\emph{....} in the texfile) is underlined instead of italic
@@ -47,9 +44,9 @@
 \usepackage[version=0.96]{pgf}
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,snakes,automata,backgrounds,petri}
-\usepackage[latin1]{inputenc}
-\usepackage{placeins}
-\usepackage[bookmarks=false]{hyperref}
+%\usepackage[latin1]{inputenc}
+%\usepackage{placeins}
+%\usepackage[bookmarks=false]{hyperref}
 
 %\declaretheorem[name=Claim]{clm}
 %\declaretheorem[name=Lemma]{lem}
@@ -174,14 +171,17 @@
 
 %\def\lastname{Xu,Palamidessi}
 
-\title{Reducing Linearizability of Priority Queues and More Data Structures to State Reachability}
+\title{Checking Linearizability of Priority Queues}
 
 
 
 
-\author {Ahmed Bouajjani \and Michael Emmi \and Constantin Enea \and Chao Wang}
-\institute{Institut de Recherche en Informatique Fondamentale, \\Univ. Paris Diderot (Paris 7)
-}
+\author[1]{Ahmed Bouajjani}
+\author[2]{Michael Emmi}
+\author[1]{Constantin Enea}
+\author[1]{Chao Wang}
+\affil[1]{Institut de Recherche en Informatique Fondamentale, \\ \texttt{\{abou,cenea,wangch\}@irif.fr}}
+\affil[2]{Nokia Bell Labs, \\ \texttt{michael.emmi@nokia.com}}
 
 
 
@@ -220,52 +220,50 @@
 
 
 %\FloatBarrier
-
-%\bibliography{short}
-%\bibliographystyle{plain}
-%\bibliographystyle{splncs}
+  \bibliography{violin}
+\bibliographystyle{plainurl}
 %\bibliography{biblio_cat.bib}
 
 
-\begin{thebibliography}{50}
-
-\bibitem{Bouajjani:2015}
-Bouajjani, A., Emmi, M., Enea, C., Hamza, J.:
-\newblock On reducing linearizability to state reachability.
-\newblock In: Halld{\'{o}}rsson, M.M. et al. (eds.) ICALP 2015, Part II, pp. 95--107. Springer (2015)
-
-\bibitem{Bouajjani:2015POPL}
-Bouajjani, A., Emmi, M., Enea, C., Hamza, J.:
-\newblock Tractable Refinement Checking for Concurrent Objects.
-\newblock In: {\em POPL'15}. pp.651--662. (2015)
-
-\bibitem{Wolper:1986}
-Wolper, P.:
-\newblock Expressing interesting properties of programs in propositional
-  temporal logic.
-\newblock In {\em POPL'86}. pp.184--193. (1986)
-
-\bibitem{Henzinger:2013}
-Henzinger A. T., Sezgin A., Vafeiadis, V.:
-\newblock Aspect-Oriented Linearizability Proofs.
-\newblock In {\em CONCUR'13}. pp.242--256. (2013)
-
-
-\bibitem{Herlihy:1990}
-Herlihy, M., Wing, M, J. A.:
-\newblock Linearizability: {A} Correctness Condition for Concurrent Objects.
-\newblock In {\em {ACM} Trans. Program. Lang. Syst.}. pp.463--492. (1990)
-
-
-\bibitem{Abdulla:2013}
-Abdulla, P. A., Haziza, F., Hol¨ªk, L., Jonsson, B., Rezine, A.:
-\newblock An integrated specification and verification technique for highly concurrent data
-structures.
-\newblock In {\em TACAS'13}. pp.324--338. (2013)
-
-
-
-\end{thebibliography}
+%\begin{thebibliography}{50}
+%
+%\bibitem{Bouajjani:2015}
+%Bouajjani, A., Emmi, M., Enea, C., Hamza, J.:
+%\newblock On reducing linearizability to state reachability.
+%\newblock In: Halld{\'{o}}rsson, M.M. et al. (eds.) ICALP 2015, Part II, pp. 95--107. Springer (2015)
+%
+%\bibitem{Bouajjani:2015POPL}
+%Bouajjani, A., Emmi, M., Enea, C., Hamza, J.:
+%\newblock Tractable Refinement Checking for Concurrent Objects.
+%\newblock In: {\em POPL'15}. pp.651--662. (2015)
+%
+%\bibitem{Wolper:1986}
+%Wolper, P.:
+%\newblock Expressing interesting properties of programs in propositional
+%  temporal logic.
+%\newblock In {\em POPL'86}. pp.184--193. (1986)
+%
+%\bibitem{Henzinger:2013}
+%Henzinger A. T., Sezgin A., Vafeiadis, V.:
+%\newblock Aspect-Oriented Linearizability Proofs.
+%\newblock In {\em CONCUR'13}. pp.242--256. (2013)
+%
+%
+%\bibitem{Herlihy:1990}
+%Herlihy, M., Wing, M, J. A.:
+%\newblock Linearizability: {A} Correctness Condition for Concurrent Objects.
+%\newblock In {\em {ACM} Trans. Program. Lang. Syst.}. pp.463--492. (1990)
+%
+%
+%\bibitem{Abdulla:2013}
+%Abdulla, P. A., Haziza, F., HolÅ¡Âªk, L., Jonsson, B., Rezine, A.:
+%\newblock An integrated specification and verification technique for highly concurrent data
+%structures.
+%\newblock In {\em TACAS'13}. pp.324--338. (2013)
+%
+%
+%
+%\end{thebibliography}
 \newpage
 
 \appendix

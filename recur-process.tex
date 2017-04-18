@@ -1,6 +1,9 @@
 \section{Checking Inclusion By Recursive Procedure}
 \label{sec:checking inclusion by recursive procedure}
 
+
+ The projection $e \vert{O}$ of $e$ into $O$ is obtained from $e$ by erasing all call and return actions of non-$O$ operations. We write $e \setminus o$ for the projection $e \vert_{ O_e \setminus \{ o \} }$, where $O_e$ is the set of operations of $e$.
+
 Given a data-differentiated sequential execution $e$, it is costly to check whether $e$ belongs to priority queue, since for each element of $e$, we should keep the current content of priority queue and try to modify the priority queue according to this element. Such process is too complex. In this section, we propose another method for checking inclusion of priority queue by using a recursive procedure $\textit{check-PQ}$. For checking a sequence, every time we only check a much simpler property, and then recursively check the remanning sequences obtained by erasing one or two elements. Each step of our method is easier to deal with.
 
 $\textit{put}(a,p)$ matches $\textit{rm}(b)$, if $a = b$. To introduce $\textit{check-PQ}$, let us introduce several predicates. Given sequential execution $l$ and priority $p$:
