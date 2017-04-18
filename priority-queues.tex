@@ -1,0 +1,104 @@
+%!TEX root = draft.tex
+\newcommand{\seqPQ}{\mathsf{SeqPQ}}
+
+\section{The Priority Queue ADT}
+\label{sec:priority queue and data-independence}
+
+We consider priority queues whose interface contains two methods $\textit{put}$ and $\textit{rm}$ for adding and respectively, removing a value. Each value is assigned with a priority when being added to the data structure (using a call to  $\textit{put}$) and the remove method $\textit{rm}$ removes a value with a minimal priority. For generality, we assume that the set of priorities is partially-ordered and that incomparable priorities can be removed in any order. In case multiple values are assigned with the same priority, $\textit{rm}$ returns the least recent value (according to a FIFO semantics). Also, when the set of values stored in the priority queue is empty, $\textit{rm}$ returns the distinguished value $\textit{empty}$. Concurrent priority queues allow the methods $\textit{put}$ and $\textit{rm}$ to be called concurrently from different threads. However, every method invocation should give the illusion that it takes place instantaneously at some point between its invocation and its return. We formalize (concurrent) executions and implementations in Section~\ref{ssec:exec}, Section~\ref{ssec:semantic_prop} introduces a set of properties satisfied by all the  implementations we are aware of, and Section~\ref{ssec:lin} defines the standard correctness criterion for concurrent ADTs such as the priority queue known as \emph{linearizability}\cite{journals/toplas/HerlihyW90}.
+
+\subsection{Executions}\label{ssec:exec}
+
+We fix a (possibly infinite) set $\mathbb{D}$ of data values, a (possibly infinite) set $\mathbb{P}$ of priorities, a partial order $\prec$ among elements in $\mathbb{P}$, and an infinite set $\mathbb{O}$ of operation identifiers.
+The latter are used to match call and return actions of the same invocation. Call actions $\textit{call}_o(\textit{put},a,p)$ and $\textit{call}_o(\textit{rm},a')$ with $a\in \mathbb{D}$, $a'\in \mathbb{D}\cup\{\textit{empty}\}$, $p \in \mathbb{P}$, and $o \in \mathbb{O}$, combine a method name and a set of parameters with an operation identifier. The return value of a remove is transformed to an argument value for uniformity~\footnote{Method return values are guessed nondeterministically, and validated at return points.
+This can be handled using the {\tt assume} statements of typical formal specification languages, which only admit executions satisfying a given predicate.}.
+The return actions are denoted in a similar way as $\textit{ret}_o(\textit{put},a,p)$ and respectively, $\textit{ret}_o(\textit{rm},a')$.
+
+An \emph{execution} $e$ is a sequence of call and return actions which satisfy the following well-formedness properties: each return is preceded by a matching call (i.e., having the same operation identifier), and each operation identifier is used in at most one call/return. We assume every set of executions is closed under isomorphic renaming of operation identifiers. An execution is called \emph{sequential} when no two operations overlap, i.e., each call action is immediately followed by its matching return action, and \emph{concurrent} otherwise. To ease the reading, we write a sequential execution as a sequence of $\textit{put}(a,p)$ and $\textit{rm}(a)$ symbols representing a pair of actions $\textit{call}_o(\textit{put},a,p)\cdot \textit{ret}_o(\textit{put},a,p)$ and $\textit{call}_o(\textit{rm},a)\cdot \textit{ret}_o(\textit{rm},a)$, respectively (where $o\in\mathbb{O}$). For example, given two priorities $p_1 \prec p_2$, $\textit{put}(a,p_2) \cdot \textit{put}(b,p_1) \cdot \textit{rm}(b)$ is a sequential execution of the priority queue ($\textit{rm}$ returns $b$ because it has smaller priority). 
+
+We define $\seqPQ$, the set of sequential priority queue executions semantically via labelled transition system ($LTS$). An LTS is a tuple $(Q,\Sigma,\rightarrow,q_0)$, where $Q$ is a set of states, $\Sigma$ is an alphabet of transition labels, $\rightarrow\subseteq Q\times\Sigma\times Q$ is a transition relation and $q_0$ is the initial state. We modelled priority queue as an LTS $\textit{LTS}_e$ as follows: Each state of $\textit{LTS}_e$ is a function from $\mathbb{P}$ into a finite sequence over $\mathbb{D}$ and represents a snapshot of priority queue content; The transition label are $\textit{put}$ and $\textit{rm}$ operations; Each transition modified state according to operations. For example, $q_1 \xrightarrow{\textit{rm}(\textit{empty})} q_2$, if $q_1 = q_2$, and they maps each element in $\mathbb{P}$ into $\epsilon$. Let $\seqPQ$ be the set of traces of $\textit{LTS}_e$. 
+
+
+An implementation $\mathcal{I}$ is a set of executions. Implementations represent libraries whose methods are called by external programs. In the remainder of this work, we consider only completed executions, where each call action has a corresponding return action. This simplification is sound when implementation methods can always make progress in isolation: formally, for any execution $e$ with pending operations, there exists an execution $e'$ obtained by extending $e$ only with the return actions of the pending operations of $e$. Intuitively this means that methods can always return without any help from outside threads, avoiding deadlock.
+
+
+%a finite set $\mathbb{M}$ of methods, and an infinite set $\mathbb{O}$ of operation (identifiers). Given $m \in \mathbb{M}$, $x \in \mathbb{D}$, and $o \in \mathbb{O}$, a call action $\textit{call}_o (m,x)$ represents an invocation to method $m$ with argument $x$, while a return action $\textit{ret}_o (m,x)$ represents a response from method $m$ with return value $x$. \footnote{Call actions with more than one arguments are similarly defined.} Here $o$ is used to match return actions to their call actions: $\textit{cal}_o (m,x)$ matches $\textit{ret}_{o'} (m',x')$, if $o=o' \wedge m=m'$. A sequential execution is a sequence of call and return actions, while each call action is immediately followed by its matching return action. Let $\cdot$ be the concatenation of sequences. To ease the reading, given a sequential execution $e=\textit{call}_{o_1}(m_1,a_1) \cdot \textit{rm}_{o_1}(m_1,b_1) \cdot \ldots \cdot \textit{call}_{o_n}(m_n,a_n) \cdot \textit{rm}_{o_n}(m_n,b_n)$, when the context is clear, we can write it as $e=m_1(a_1,b_1) \cdot \ldots \cdot m_n(a_n,b_n)$. We write $m(a,b)$ as $m(a)$ or $m(b)$, when there is no return value or there is no argument, respectively.
+
+
+
+%A priority queue with partially-ordered priorities (priority queue for short) contains two method: $\textit{put}$ and $\textit{rm}$. A $\textit{put}$ method has two arguments, while the first argument is an item and the second argument is its priority. A $\textit{put}$ method is used to put an item into the priority queue with certain priority. Here the item is chosen from a specific (possibly infinite) data domain $\mathbb{D}$ and priority is chosen from a (possibly infinite) set $\mathbb{P}$. Moreover, there is a strict partial-order $\prec$ among elements in $\mathbb{P}$. A $\textit{rm}$ method intends to remove the item with minimal priority (w.r.t $\prec$) in priority queue and then returns it. It works as follows:
+
+%\begin{itemize}
+%\setlength{\itemsep}{0.5pt}
+%\item[-] If the priority queue is empty, then $\textit{rm}$ returns $\textit{empty}$.
+%
+%\item[-] Else, $\textit{rm}$ choose one of minimal priority of items in priority queue, and returns the earliest putted item of this priority. Note that if there are more than one incomparable and minimal candidate priorities, then the chosen of priority is arbitrary.
+%\end{itemize}
+
+
+%Let us introduce the notion of sequential executions, which modelled the specification of concurrent libraries. We fix a (possibly infinite) set $\mathbb{D}$ of data values, a finite set $\mathbb{M}$ of methods, and an infinite set $\mathbb{O}$ of operation (identifiers). Given $m \in \mathbb{M}$, $x \in \mathbb{D}$, and $o \in \mathbb{O}$, a call action $\textit{call}_o (m,x)$ represents an invocation to method $m$ with argument $x$, while a return action $\textit{ret}_o (m,x)$ represents a response from method $m$ with return value $x$. \footnote{Call actions with more than one arguments are similarly defined.} Here $o$ is used to match return actions to their call actions: $\textit{cal}_o (m,x)$ matches $\textit{ret}_{o'} (m',x')$, if $o=o' \wedge m=m'$. A sequential execution is a sequence of call and return actions, while each call action is immediately followed by its matching return action. Let $\cdot$ be the concatenation of sequences. To ease the reading, given a sequential execution $e=\textit{call}_{o_1}(m_1,a_1) \cdot \textit{rm}_{o_1}(m_1,b_1) \cdot \ldots \cdot \textit{call}_{o_n}(m_n,a_n) \cdot \textit{rm}_{o_n}(m_n,b_n)$, when the context is clear, we can write it as $e=m_1(a_1,b_1) \cdot \ldots \cdot m_n(a_n,b_n)$. We write $m(a,b)$ as $m(a)$ or $m(b)$, when there is no return value or there is no argument, respectively.
+
+\subsection{Semantic Properties of Priority Queues}\label{ssec:semantic_prop}
+
+We define two properties which are satisfied by priority queue implementations and which are important for the results that follow: (1) \emph{data independence}~\cite{conf/popl/Wolper86,conf/tacas/AbdullaHHJR13} states that priority queue behaviors do not depend on the actual values which are added to the queue, and (2) \emph{closure under projection}~\cite{DBLP:conf/icalp/BouajjaniEEH15} states that intuitively, remove operations can return the same values no matter how many other different values are in the queue, assuming they don't have more important priorities.
+
+%Data-independence \cite{Wolper:1986} can be used to effectively handle unbounded data domain. In this paper, we slightly modify the notion of data-independence in \cite{Wolper:1986} and propose data-independence for priority queues. Let $\_$ denote an element, of which the value is irrelevant.
+An execution $e$ is \emph{data-differentiated} if every value is added at most once, i.e., for each $d \in \mathbb{D}$, $e$ contains at most one action $\textit{call}_o(\textit{put},d,p)$ with $o\in\mathbb{O}$ and $p\in \mathbb{P}$. Note that this property concerns only values, a data-differentiated execution $e$ may contain more than one value with the same priority. The subset of data-differentiated executions of a set of executions $E$ is denoted by $E_{\neq}$.
+
+A renaming function $r$ is a function from $\mathbb{D}$ to $\mathbb{D}$. Given an execution $e$, we denote by $r(e)$ the execution obtained from $e$ by replacing every data value $x$ by $r(x)$. Note that $r$ renames only the values and keep the priorities unchanged. Intuitively, renaming values has no influence on the behavior of the priority queue, contrary to renaming priorities.
+
+%\vspace{-6pt}
+\begin{definition}\label{def:priority-value data-independence}
+A set of executions $E$ is \emph{data independent} iff
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] for all $e \in E$, there exists $e' \in E_{\neq}$ and a renaming function $r$, such that $e=r(e')$,
+
+\item[-] for all $e \in E$ and for all renamings $r$, $r(e) \in E$.
+\end{itemize}
+\end{definition}
+
+The following lemma is a direct consequence of definitions.
+
+\begin{lemma}
+$\seqPQ$ is data independent.
+\end{lemma}
+
+Beyond the sequential executions, every (concurrent) implementation of the priority queue that we are aware of is data-independent. Therefore, from now on, we consider only data-independent implementations. This assumption enables a reduction from checking the correctness of an implementation $\mathcal{I}$ to checking the correctness of only its data-differentiated executions in $\mathcal{I}_{\neq}$.
+
+TODO MOTIVATE THE FOLLOWING
+
+The projection $e \vert D$ of an execution $e$ to a set of values $D \subseteq \mathbb{D}$ is obtained from $e$ by erasing all actions with a data value not in $D$. We write $e \setminus x$ for the projection $e \vert_{ \mathbb{D} \setminus \{ x \} }$.
+
+\begin{lemma}
+$\seqPQ$ is closed under projection, i.e., for every execution $e\in \seqPQ$ and $D \subseteq \mathbb{D}$, $e \vert D\in \seqPQ$.
+\end{lemma}
+
+
+\subsection{Linearizability}\label{ssec:lin}
+
+%A (concurrent) execution $e$ is a sequence of call and return actions which satisfy a well-formedness property: every return has a matching call action before it in $e$, and an operation $o$ can be used only twice in $e$, once in a call action, and once in a return action. The definition of data-differentiated, renaming function, data-independence and projection extends to (concurrent) executions. For instance, an execution is data-differentiated if, for all $d \in \mathbb{D}$, there is at most one $\textit{cal}_{\_}(\textit{put},d,\_)$.
+%
+%An implementation $\mathcal{I}$ is a set of concurrent executions. Implementations represent libraries whose methods are called by external programs. In the remainder of this work, we consider only completed executions, where each call action has a corresponding return action. This simplification is sound when implementation methods can always make progress in isolation \cite{Henzinger:2013}: formally, for any execution $e$ with pending operations, there exists an execution $e'$ obtained by extending $e$ only with the return actions of the pending operations of $e$. Intuitively this means that methods can always return without any help from outside threads, avoiding deadlock.
+
+TODO WORK THE FOLLOWING
+
+Given execution $e$, the happen-before relation $<_{\textit{hb}}$ is defined as follows: $o_1 <_{\textit{hb}} o_2$, if the return action of $o_1$ is before the call action of $o_2$ in $e$. The happens-before relation are interval orders \cite{DBLP:conf/popl/BouajjaniEEH15}: for distinct $o_1,o_2,o_3,o_4$, if $o_1 <_{\textit{hb}} o_2$ and $o_3 <_{\textit{hb}} o_4$, then either $o_1 <_{\textit{hb}} o_4$, or $o_3 <_{\textit{hb}} o_2$. Intuitively, this comes from the fact that concurrent threads share a notion of global time.
+
+Linearizability \cite{journals/toplas/HerlihyW90} is the \emph{de facto} standard correctness condition for concurrent data structures. Given concurrent execution $e$ and sequential execution $s$ of length $n$, we say that $e$ is linearizable w.r.t $s$, denoted $e \sqsubseteq s$, if there is a bijection $f: O_1 \rightarrow O_2$, where $O_1$ and $O_2$ are set of operations of $e$ and $s$, respectively, and $f$ s.t.
+
+\begin{itemize}
+\item[-] if $o_1 <_{\textit{hb}} o_2$, then $f(o_1) <_{\textit{hb}} f(o_2)$,
+
+\item[-] $o$ and $f(o)$ have same call and return actions.
+\end{itemize}
+
+A concurrent execution $e$ is linearizable w.r.t a set $S$ of sequential executions, denoted $e \sqsubseteq S$, if there exists $s \in S$ such that $e \sqsubseteq s$. A set of concurrent executions $E$ is linearizable w.r.t $S$, denoted $E \sqsubseteq S$, if $e \sqsubseteq S$ for all $e \in H$.
+
+The following lemma states that with the help of data-independence, it is enough to consider only data-differentiated executions when checking linearizability. This is similar to that in \cite{Abdulla:2013}, where they use the notion of data-independence in \cite{Wolper:1986}. Thus, in the remainder of the paper, we focus on characterizing linearizability for data-differentiated executions. The proof of this lemma can be found in Appendix \ref{sec:appendix in section data-independence of EPQ}.
+
+\begin{restatable}{lemma}{DataDifferentiatedisEnoughforPQ}
+\label{lemma:data differentiated is enough for PQ}
+A data-independent implementation $\mathcal{I}$ is linearizable w.r.t data-independent set $S$ of sequential executions, if and only if $\mathcal{I}_{\neq}$ is linearizable with respect to $S_{\neq}$.
+\end{restatable}
+
+
