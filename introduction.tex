@@ -6,7 +6,9 @@ Efficient implementations of concurrent objects are essential and hard to get ri
 
 The set of objects considered in previous work consists of stacks, queues, registers.
 
-Here, we consider another important object, the priority queues, which are used to TODO, and for which numerous implementations exist CITE (research articles and languages/libraries providing priority queue implementations). This object is much less studied compared to the other ones in the verification literature.
+
+
+Here, we consider another important object, the priority queues, which are essential for applications such as task scheduling and discrete event simulation, and for which numerous implementations have been proposed, e.g.,~\cite{DBLP:conf/ppopp/AlistarhKLS15,DBLP:conf/wdag/CalciuMH14,DBLP:conf/opodis/LindenJ13,DBLP:conf/podc/ShavitZ99,DBLP:conf/ipps/ShavitL00}. This object is much less studied compared to the other ones in the verification literature.
 
 Priority queues are collections and in that sense, they could be found similar to stacks and queues. The main difference which complicates the process of inventing verification techniques is that the order in which elements are removed is not fixed by the happens-before like in stacks and queues but by parameters, the priorities, which come from an unbounded domain. TODO an example. Say that for generality, we consider partially-ordered priorities and that for single priority we take FIFO. In java, same priority values are removed in an arbitrary order, however, this can be modeled using our partial orders. TODO SAY HOW
 
