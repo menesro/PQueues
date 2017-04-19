@@ -1,34 +1,35 @@
-\section{Reducing Linearizability of Extended Priority Queues into State Reachability}
+\section{Reducing Linearizability of Priority Queues into State Reachability}
 \label{sec:co-regular of extended priority queues}
 
-In this section, we use the notation co-regular to reduce checking linearizability w.r.t $\textit{MS}(R)$ into checking the emptiness of intersection between implementation and a set of witness automata. With the help of step-by-step linearizability and co-regular, we finally reduce the linearizability problem of $\textit{EPQ}$ into state reachability problem.
+In this section, we divide checking linearizability w.r.t $\seqPQ$ into checking linearizablity w.r.t $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$, each of which can be done in polynomial-time. Due to data-independence, violations to each $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$ can be captured by register automata. This reduces checking linearizability w.r.t $\seqPQ$ into state reachability problem.  
 
 
 
-\subsection{Witness Automata and Co-Regular}
-\label{subsec:definition of co-regular}
+\subsection{Co-Regular}
+\label{subsec:definition of co-regular} 
 
-$\textit{con-check-EPQ}$ inspires us that, for data-differentiated executions, checking linearizability with respect to $\textit{EPQ}$ is equivalent to checking linearizability with respect to $\textit{MS}(R)$ for everyone of its projections, as stated by the following lemma.
-
-The set of projections of $e$ is denoted $\textit{proj}(e)$. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique.
+Let $\Gamma\mathsf{\text{-}Condition}(e)$ be $\mathsf{HasEmptyRemoves}(e)$, $\neg \mathsf{HasEmptyRemoves}(e) \wedge \mathsf{HasUnmatchedMaxPriority}(e)$, and $\mathsf{HasMatchedMaxPriority}(e)$, for $\Gamma = \mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}$, respectively. $\textit{Check-PQ-Conc}$ inspires us that, whenever $\Gamma\mathsf{\text{-}Condition}(e)$ holds, there should exist some $\alpha$, such that  $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds. The following lemma states this formally. Let $\textit{proj}(e)$ be the set of projections of $e$ into set of values. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique.
 
 \begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
 \label{lemma:EPQ as multi in MRpri for history}
-Given a data-differentiated execution $e$, $e \sqsubseteq \textit{EPQ}$, if and only if, $\forall e' \in \textit{proj}(e)$ and $\forall R \in \textit{last}(e')$, we have $e' \sqsubseteq \textit{MS}(R)$.
-\end{restatable}
+Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\Gamma\mathsf{\text{-}Condition}(e) \Rightarrow \Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds for some $\alpha$
+\end{restatable} 
 
-A witness automaton is a finite automaton with priority variable. It uses alphabet $\{ \textit{cal}(\textit{put},d,\textit{pred}), \textit{ret}(\textit{put},d),$ $\textit{cal}(\textit{rm},d),\textit{ret}(\textit{rm},d) \vert d \in \mathbb{D} \cup \{ \textit{empty} \},\textit{pred} \in \textit{predWA} \}$. Here $\textit{predWA} = \{p, \textit{les}_p, \textit{anyPri}\}$, where $p$ is a predicate variable, $\textit{les}_p$ represents priorities that are smaller than the value of $p$, and $\textit{anyPri}$ represents any priority. Given an execution $e = \alpha_1 \cdots \alpha_k$ of extended priority queue and a witness automaton $\mathcal{A}$, we say that $e$ is accepted by $\mathcal{A}$, if
+Register automata is a kind of finite automata with registers used to deal with infinite data domain, where register can be assigned values and do simple operations. In this paper we use a restricted kind of register automata, which contains only one register, whose value is obtained once by guessing and never changed. Our register machine contains a register $\textit{reg}$. Its transition labels are $\textit{call}(\textit{put},d,p,g), \textit{ret}(\textit{put},d,p),$ $\textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d)$, where $d \in \mathbb{D} \cup \{ \textit{empty} \}$, and $g$ and $\top$ are guards. A guard is a predicate chosen from $\{\textit{equalReg},\textit{lesReg},\top \}$, which represents equals the value of $\textit{reg}$, less than the value of $\textit{reg}$, and always holds, respectively. Given an execution $e = \alpha_1 \cdots \alpha_k$ of priority queue, register automata $\mathcal{A}$ accepts $e$, if there exists value $p \in \in \mathbb{D}$ and transitions $q_0 \xrightarrow{\beta_1} q_1 \ldots \xrightarrow{\beta_k} q_k$ of $\mathcal{A}$ from a initial state to a final state, such that for each $i$
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] There exist transitions $q_0 \xrightarrow{\beta_1} q_1 \ldots \xrightarrow{\beta_k} q_k$ of $\mathcal{A}$, such that $q_0$ is one of initial state of $\mathcal{A}$, and $q_k$ is one of accept state of $\mathcal{A}$. We choose value of $p$ as some value $d_p \in \mathbb{D}$.
+\item[-] If $\alpha_i = \textit{call}(\textit{put},a,p)$, then $\beta_i= \textit{call}(\textit{put},a,p,g)$ and $g(q)$ holds. 
 
-\item[-] For each $i$, if $\alpha_i = \textit{cal}(\textit{put},a,q)$, then either (1) $q = d_p$ and $\beta_i = \textit{cal}(\textit{put},a,p)$, or (2) $q <_{\mathbb{P}} d_p$ and $\beta_i = \textit{cal}(\textit{put},a,\textit{les}_p)$, or (3) $\beta_i = \textit{cal}(\textit{put},a,\textit{anyPri})$.
-
-\item[-] For each $i$, if $\alpha_i = \textit{ret}(\textit{put},a)$, $\textit{cal}(\textit{rm},a)$, $\textit{ret}(\textit{rm},a)$, $\textit{cal}(\textit{rm},\textit{empty})$ or $\textit{ret}(\textit{rm},\textit{empty})$, then $\beta_i = \alpha_i$.
+\item[-] Else, $\alpha_i = \beta_i$. 
 \end{itemize}
 
-Note that due to data-independence, witness automata are used to detect some renamed violations, instead of store and checking directly. Let us introduce the notion of co-regular, which reduce checking linearizable w.r.t $\textit{MS}(R)$ into checking set of witness automata.
+Note that due to data-independence, register automata are used to detect some renamed violations, instead of store and checking directly. 
+
+
+
+
+Let us introduce the notion of co-regular, which reduce checking linearizable w.r.t $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ into checking set of witness automata.
 
 %\vspace{-6pt}
 \begin{definition}\label{def:co-regular of rules of extended priority queues}
