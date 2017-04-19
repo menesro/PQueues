@@ -212,7 +212,7 @@ When $o$ is a $\textit{rm}(\textit{empty})$ operation, we write $e\setminus o$ f
 %$\xrightarrow{\textit{EPQ}_1}$ $\epsilon$
 %\end{example}
 
-The following lemma states the correctness of $\textit{Check-PQ-Seq}$ (the proof can be found in Appendix~\ref{}). {\color {blue}Therefore, in latter section we can abuse $\seqPQ$ by the set obtained by renaming sequences that are accepted by $Check-PQ-Seq$.} 
+The following lemma states the correctness of $\textit{Check-PQ-Seq}$ (the proof can be found in Appendix~\ref{}).
 
 \begin{restatable}{lemma}{EPQRulesAndSemantics}
 \label{lemma:EPQ rules and semantics}
@@ -260,7 +260,7 @@ for each $\Gamma\in \{\mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \math
 %\item[-] $P_i(e,o)$ and $P_i(e,x)$ holds, if $e \sqsubseteq \textit{MS}(\textit{PQ}_i)$ withe witness $o$ or $x$, respectively.
 %\end{itemize}
 
-The following lemma states the correctness of $\textit{Check-PQ-Conc}$. Completeness follows easily from the properties of $\seqPQ$. Thus, if $\textit{Check-PQ-Conc}(e) = \textit{false}$, then there exists a set of values $D$ such that one of the following doesn't hold: $\mathsf{EmptyRemove\text{-}Conc}(e \vert D)$, {\color {blue}$\mathsf{UnmatchedMaxPriority\text{-}Conc}(e \vert D,x)$ for some maximal priority values $x$, or $\mathsf{MatchedMaxPriority\text{-}Conc}(e \vert D,x)$ for some maximal priority values $x$.} It can be easily seen that we get $e \vert D\not\sqsubseteq \seqPQ$ in all cases, which by the closure under projection of $\seqPQ$ implies, $e \not\sqsubseteq \seqPQ$ (since every linearization of $e$ includes as a subsequence a linearization of $e \vert D$).
+The following lemma states the correctness of $\textit{Check-PQ-Conc}$. Completeness follows easily from the properties of $\seqPQ$. Thus, if $\textit{Check-PQ-Conc}(e) = \textit{false}$, then there exists a set of values $D$ such that one of the following doesn't hold: $\mathsf{EmptyRemove\text{-}Conc}(e \vert D)$, {\color {blue}$\mathsf{UnmatchedMaxPriority\text{-}Conc}(e \vert D,x)$ for all values that are unmatched and with maximal priority $x$, or $\mathsf{MatchedMaxPriority\text{-}Conc}(e \vert D,x)$ for all maximal priority values $x$ where values of $x$ are all matched.} It can be easily seen that we get $e \vert D\not\sqsubseteq \seqPQ$ in all cases, which by the closure under projection of $\seqPQ$ implies, $e \not\sqsubseteq \seqPQ$ (since every linearization of $e$ includes as a subsequence a linearization of $e \vert D$).
 
 \begin{restatable}{lemma}{ConCheckEPQIsCorrect}
 \label{lemma:con-check-EPQ is correct}
