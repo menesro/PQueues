@@ -1,6 +1,25 @@
+%!TEX root = draft.tex
 \section{Introduction}
 \label{sec:introduction}
-I am introduction
+
+Efficient implementations of concurrent objects are hard to get right. Verifying them is difficult, checking a single execution is NP-complete~\cite{journals/siamcomp/GibbonsK97} and checking a finite-state implementation is undecidable~\cite{conf/esop/BouajjaniEEH13}.
+
+The set of objects considered in previous work consists of stacks, queues, registers.
+
+Here, we consider another important object, the priority queues, which are used to TODO, and for which numerous implementations exist CITE (research articles and languages/libraries providing priority queue implementations). This object is much less studied compared to the other ones in the verification literature.
+
+Priority queues are collections and in that sense, they could be found similar to stacks and queues. The main difference which complicates the process of inventing verification techniques is that the order in which elements are removed is not fixed by the happens-before like in stacks and queues but by parameters, the priorities, which come from an unbounded domain. TODO an example. Say that for generality, we consider partially-ordered priorities and that for single priority we take FIFO. In java, same priority values are removed in an arbitrary order, however, this can be modeled using our partial orders. TODO SAY HOW
+
+Building on previous work~\cite{DBLP:conf/icalp/BouajjaniEEH15}, we define decision procedures for priority queues. These procedures are designed in several steps:
+1) defining recursive procedures recognizing valid sequences, and extending them to concurrent executions. These procedures take values one by one and check some property local to that value, ignoring how operations on other values are ordered between them. This works only for data-differentiated, but this is complete by data-independence.
+2) checking whether a fixed value violates that property can be done using a specific class of register automata, TODO say how simple they are
+3) we distinguish between that value being removed or not, and we have to also consider the case of remove(empty). This results in 3-4 automata describing all the possible violations.
+
+Although we follow the same schema as in~\cite{DBLP:conf/icalp/BouajjaniEEH15}, these results require establishing key results which are specific to priority queues and which are not implied by those for stacks and queues (say that more details are given in the related work)
+
+This gives a reduction to reachability that works for arbitrary implementations, and a decision procedure for finite-state implementations
+
+
 
 
 \smallskip
