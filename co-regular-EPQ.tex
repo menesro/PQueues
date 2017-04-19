@@ -8,14 +8,14 @@ In this section, we divide checking linearizability w.r.t $\seqPQ$ into checking
 \subsection{Co-Regular}
 \label{subsec:definition of co-regular}
 
-Let $\Gamma\mathsf{\text{-}Condition}(e)$ be $\mathsf{HasEmptyRemoves}(e)$, $\neg \mathsf{HasEmptyRemoves}(e) \wedge \mathsf{HasUnmatchedMaxPriority}(e)$, and $\mathsf{HasMatchedMaxPriority}(e)$, for $\Gamma = \mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}$, respectively. $\textit{Check-PQ-Conc}$ inspires us that, when $\Gamma\mathsf{\text{-}Condition}(e)$ holds, there should exist some $\alpha$, such that  $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds. The following lemma states this formally. Let $\textit{proj}(e)$ be the set of projections of $e$ into set of values. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique.
+Let $\Gamma\mathsf{\text{-}Condition}(e)$ be $\mathsf{HasEmptyRemoves}(e)$, $\neg \mathsf{HasEmptyRemoves}(e) \wedge \mathsf{HasUnmatchedMaxPriority}(e)$, and $\mathsf{HasMatchedMaxPriority}(e)$, for $\Gamma = \mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}$, respectively. $\textit{Check-PQ-Conc}$ inspires us that, when $\Gamma\mathsf{\text{-}Condition}(e)$ holds, there should exist some $\alpha$, such that  $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds. The following lemma states this formally. Let $\textit{proj}(e)$ be the set of projections of $e$ into set of values. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique. We say that execution $l$ is linearizable w.r.t $\Gamma$, if we can find a sequence $s$ where $e \sqsubseteq s$ and $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$ holds for some $\alpha$.
 
 \begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
 \label{lemma:EPQ as multi in MRpri for history}
-Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\Gamma\mathsf{\text{-}Condition}(e) \Rightarrow \Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds for some $\alpha$ for each $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$.
+Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$. 
 \end{restatable}
 
-Register automata is a kind of finite automata with registers used to deal with infinite data domain, where register can be assigned values and do simple operations. In this paper we use a restricted kind of register automata, which contains only one register, whose value is obtained once by guessing and never changed. Our register machine contains a register $r$. Its transition labels are $r=*,\textit{call}(\textit{put},d,g), \textit{ret}(\textit{put},d,g),$ $\textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d)$, where $d \in \mathbb{D} \cup \{ \textit{empty} \}$, and $g$ and $\top$ are guards. The first transition from initial state is a $r=*$ transition, and is used to assign an arbitrary value to $r$. A guard is a predicate chosen from $\{=r,\leq r,\top \}$, which represents equals the value of $r$, less than the value of $r$, and always holds, respectively. Given an execution $e = \alpha_1 \cdots \alpha_k$ of priority queue, register automata $\mathcal{A}$ accepts $e$, if there exists value $d_r\in \mathbb{D}$ and transitions $q_0 \xrightarrow{\beta_1} q_1 \ldots \xrightarrow{\beta_k} q_k$ of $\mathcal{A}$ from a initial state to a final state, such that for each $i$
+Register automata is a kind of finite automata with registers used to deal with infinite data domain, where register can be assigned values and do simple operations. In this paper we use a restricted kind of register automata, which contains only one register, whose value is obtained once by guessing and never changed. Our register machine contains a register $r$. Its transition labels are $r=*,\textit{call}(\textit{put},d,g), \textit{ret}(\textit{put},d,g),$ $\textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d)$, where $d \in \mathbb{D} \cup \{ \textit{empty} \}$, and $g$ and $\top$ are guards. The first transition from initial state is a $r=*$ transition, and is used to assign an arbitrary value to $r$. A guard is a predicate chosen from $\{=r,< r,\top \}$, which represents equals the value of $r$, less than the value of $r$, and always holds, respectively. Given an execution $e = \alpha_1 \cdots \alpha_k$ of priority queue, register automata $\mathcal{A}$ accepts $e$, if there exists value $d_r\in \mathbb{D}$ and transitions $q_0 \xrightarrow{\beta_1} q_1 \ldots \xrightarrow{\beta_k} q_k$ of $\mathcal{A}$ from a initial state to a final state, such that for each $i$
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -30,7 +30,7 @@ Note that due to data-independence, register automata are used to detect some re
 \begin{definition}\label{def:co-regular of rules of extended priority queues}
 Given $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$. $\Gamma$ is co-regular, if there is a finite set $\textit{Auts}_{\Gamma}$ of register automata, such that for each data-independent implementation $\mathcal{I}$, we have that:
 
-$\textit{Auts}_{\Gamma} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\Gamma\mathsf{\text{-}Condition}(e')$ holds but $\Gamma\mathsf{\text{-}Conc}(e',\alpha)$ does not hold for some $\alpha$.
+$\textit{Auts}_{\Gamma} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\Gamma\mathsf{\text{-}Condition}(e')$ holds but $e$ does not linearizable w.r.t $\Gamma$. 
 
 $\seqPQ$ is co-regular, if each $\Gamma$ is co-regular.
 \end{definition}
@@ -95,7 +95,7 @@ We can also define two conditions, where $\textit{unmatched-priorities}(l)$ is t
 
 In this subsection, we briefly introduce the idea for proving co-regular of $\mathsf{MatchedMaxPriority}^{>}$. The proof of this subsection can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. The notion of left-right constraint used for priority queue is inspired by left-right constraint of queue \cite{Bouajjani:2015}.
 
-Given a data-differentiated $\_$-execution $e$ such that $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Condition}(e)$ holds, Lemma \ref{lemma:automata for extended priority queue with single priority} is not enough for ensuring that $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Conc}(e,x)$ for some $x$. This is because that it is possible that $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Conc}(e,x)$ does not holds because of interaction between actions of multiple priorities. One such example is shown in \figurename~\ref{fig:introduce gap for EPQ1Lar}. We call the time interval from $\textit{ret}(\textit{put},x)$ to $\textit{cal}(rm,x)$, or from $\textit{ret}(\textit{put},x)$ when $\textit{cal}(rm,x)$ does not exist, the interval of value $x$. In \figurename~\ref{fig:introduce gap for EPQ1Lar}, we draw the interval of each value by dashed line. Here we assume that $p_1 \prec p_4$, $p_2 \prec p_4$ and $p_3 \prec p_4$. We can not find a sequence $s$ where $e \sqsubseteq s$ and $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Seq}(s,b)$ holds, since each time point from $\textit{cal}(\textit{rm},b)$ to $\textit{ret}(\textit{rm},b)$ is in interval of some item with smaller priority, and $\textit{rm}(b)$ can not happen in interval of item with smaller priority. 
+Given a data-differentiated $\_$-execution $e$ such that $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Condition}(e)$ holds, Lemma \ref{lemma:automata for extended priority queue with single priority} is not enough for ensure linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$. This is because that it is possible that $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Conc}(e,x)$ does not holds because of interaction between actions of multiple priorities. One such example is shown in \figurename~\ref{fig:introduce gap for EPQ1Lar}. We call the time interval from $\textit{ret}(\textit{put},x)$ to $\textit{cal}(rm,x)$, or from $\textit{ret}(\textit{put},x)$ when $\textit{cal}(rm,x)$ does not exist, the interval of value $x$. In \figurename~\ref{fig:introduce gap for EPQ1Lar}, we draw the interval of each value by dashed line. Here we assume that $p_1 \prec p_4$, $p_2 \prec p_4$ and $p_3 \prec p_4$. We can not find a sequence $s$ where $e \sqsubseteq s$ and $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Seq}(s,b)$ holds, since each time point from $\textit{cal}(\textit{rm},b)$ to $\textit{ret}(\textit{rm},b)$ is in interval of some value with smaller priority, and $\textit{rm}(b)$ can not happen in interval of value with smaller priority.
 
 \begin{figure}[htbp]
   \centering
@@ -105,9 +105,9 @@ Given a data-differentiated $\_$-execution $e$ such that $\mathsf{MatchedMaxPrio
   \label{fig:introduce gap for EPQ1Lar}
 \end{figure}
 
-In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, we introduce the notion of left-right constraint, which is a graph, and the existence of cycle though item with maximal priority in it formally modelled the case in \figurename~\ref{fig:introduce gap for EPQ1Lar}. For example, in \figurename~\ref{fig:introduce gap for EPQ1Lar}, $b$ is covered by $f$, $e$ and $d$. We then prove that getting rid of cycle though item with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$, or we can say, ensure $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Conc}(e,x)$ for some $x$. 
+In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, we introduce the notion of left-right constraint, which is a graph, and the existence of cycle though value with maximal priority in it formally modelled the case in \figurename~\ref{fig:introduce gap for EPQ1Lar}. For example, in \figurename~\ref{fig:introduce gap for EPQ1Lar}, $b$ is covered by $f$, $e$ and $d$. We then prove that getting rid of cycle though value with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$.
 
-When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ through item $x$ with maximal priority in left-right constraint, we say that $x$ is covered by $d_1,\ldots,d_m$. Assume that $x$ is covered by $d_1,\ldots,d_m$, we can safely rename $x$ into $b$, rename $d_1,\ldots,d_m$ into $a$ and rename all other item into $c$ by data-independence. Such execution can be recognized by witness automata, since between the first $\textit{ret}(\textit{put},a,\_)$ and the last $\textit{call}(\textit{rm},a)$ (if exists), $\textit{ret}(\textit{put},a,\_)$ and $\textit{call}(\textit{rm},a)$ occurs in pair and there is no need for count. In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, we construct a set $\textit{Auts}_{\textit{1-lar}}$ of witness automata, and use $\textit{Auts}_{\textit{1-lar}}$ to prove that $\mathsf{MatchedMaxPriority}^{>}$ is co-regular, as stated by the following lemma.
+When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ through value $x$ with maximal priority in left-right constraint, we say that $x$ is covered by $d_1,\ldots,d_m$. Assume that $x$ is covered by $d_1,\ldots,d_m$, we can safely rename $x$ into $b$, rename $d_1,\ldots,d_m$ into $a$ and rename all other value into $c$ by data-independence. Such execution can be recognized by witness automata, since between the first $\textit{ret}(\textit{put},a,\_)$ and the last $\textit{call}(\textit{rm},a)$ (if exists), $\textit{ret}(\textit{put},a,\_)$ and $\textit{call}(\textit{rm},a)$ occurs in pair and there is no need for count. In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, we construct a set $\textit{Auts}_{\textit{1-lar}}$ of register automata, and use $\textit{Auts}_{\textit{1-lar}}$ to prove that $\mathsf{MatchedMaxPriority}^{>}$ is co-regular, as stated by the following lemma.
 
 \begin{restatable}{lemma}{EPQOneLarisCoRegular}
 \label{lemma:EPQ1Lar is co-regular}
@@ -117,12 +117,12 @@ $\mathsf{MatchedMaxPriority}^{>}$ is co-regular.
 
 
 
-\subsection{Co-Regular of $\textit{EPQ}_1^{=}$}
+\subsection{Co-Regular of $\mathsf{MatchedMaxPriority}^{=}$}
 \label{subsec:co-regular of EPQ1Equal}
 
-In this subsection, we briefly introduce the idea for proving co-regular of $\textit{EPQ}_1^{=}$. The proof of this subsection can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}.
+In this subsection, we briefly introduce the idea for proving co-regular of $\mathsf{MatchedMaxPriority}^{=}$. The proof of this subsection can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}.
 
-Given a data-differentiated $\_$-execution $e$ such that $\textit{last}(e) = \textit{EPQ}_1^{=}$. Lemma \ref{lemma:automata for extended priority queue with single priority} and $\textit{Auts}_{\textit{1-lar}}$ are sill not enough for ensure that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$. This is because that given items $a$ and $b$ with maximal priority, it is possible that all the possible linearization point of $\textit{rm}(b)$ are disabled by $\textit{rm}(b)$. We give an example of such execution $e$ in \figurename~\ref{fig:introduce pb order}. The execution $e$ of \figurename~\ref{fig:introduce pb order} is not linearizable w.r.t $\textit{EPQ}$, even if $h \vert_{p_1}$ and $h \vert_{p_4}$ both does, and either $a$ or $b$ is covered by items with smaller priority. The explanation of $e \not\sqsubseteq \textit{EPQ}$ is as follows: Since $\textit{put}(a,p_4) <_{\textit{hb}} \textit{put}(b,p_4)$, the linearization points of $\textit{rm}(a)$ should before the linearization point of $\textit{rm}(b)$. According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, the time intervals identified with dotted lines in \figurename~\ref{fig:introduce pb order} are are possible position to locate the linearization point of $\textit{rm}(b)$. However, each of them is before $\textit{cal}(\textit{rm},a)$.
+Given a data-differentiated $\_$-execution $e$ such that $\mathsf{MatchedMaxPriority}^{=}\mathsf{\text{-}Condition}(e)$ holds, Lemma \ref{lemma:automata for extended priority queue with single priority} and $\textit{Auts}_{\textit{1-lar}}$ are sill not enough for ensure that $e$ linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$. This is because that given values $a$ and $b$ with maximal priority, it is possible that all the possible linearization points of $\textit{rm}(b)$ are disabled by $\textit{rm}(b)$. We give an example of such execution $e$ in \figurename~\ref{fig:introduce pb order}. The execution $e$ of \figurename~\ref{fig:introduce pb order} is not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$, even if $h \vert_{p_1}$ and $h \vert_{p_4}$ both linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$, and either $a$ or $b$ is covered by values with smaller priority. The explanation of $e$ not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ is as follows: Since $\textit{put}(a,p_4) <_{\textit{hb}} \textit{put}(b,p_4)$, the linearization points of $\textit{rm}(a)$ should before the linearization point of $\textit{rm}(b)$. According to the previous section, which says that linearizaton point of larger priority can be happen in the interval of values with smaller priority. Thus, the time intervals identified with dotted lines in \figurename~\ref{fig:introduce pb order} are are possible position to locate the linearization point of $\textit{rm}(b)$. However, each of them is before $\textit{call}(\textit{rm},a)$.
 
 \begin{figure}[htbp]
   \centering
@@ -132,52 +132,51 @@ Given a data-differentiated $\_$-execution $e$ such that $\textit{last}(e) = \te
   \label{fig:introduce pb order}
 \end{figure}
 
-Let us introduce put-before order $<_{\textit{pb}}$ to formally state that ``an item is putted before another item''. Given a data-differentiated $\_$-execution $e$ and two items $a,b$ with maximal priority, $a <_{\textit{pb}} b$, if one of the following cases holds: (1) $\textit{put}(a,\_) <_{\textit{hb}} \textit{put}(b,\_)$, (2) $\textit{rm}(a) <_{\textit{hb}} \textit{rm}(b)$, or (3) $\textit{rm}(a) <_{\textit{hb}} \textit{put}(b,\_)$. Sometimes we use $a <_{\textit{pb}}^A b$, $a <_{\textit{pb}}^B b$ and $a <_{\textit{pb}}^C b$ to explicitly distinguish above three cases. Let $<_{\textit{pb}}^*$ be the transitive closure of $<_{\textit{pb}}$. Intuitively, $a <_{\textit{pb}}^* b$ means that we can infer that $a$ should be putted earlier than $b$ with the help of several other items.
+One point need to be modeled in \figurename~\ref{fig:introduce pb order} is that ``a is putted before b''. Let us introduce put-before order $<_{\textit{pb}}$ to formally state that ``an value is putted before another value''. Given a data-differentiated $\_$-execution $e$ and two values $a,b$ with maximal priority, $a <_{\textit{pb}} b$, if one of the following cases holds: (1) $\textit{put}(a,\_) <_{\textit{hb}} \textit{put}(b,\_)$, (2) $\textit{rm}(a) <_{\textit{hb}} \textit{rm}(b)$, or (3) $\textit{rm}(a) <_{\textit{hb}} \textit{put}(b,\_)$. Sometimes we use $a <_{\textit{pb}}^A b$, $a <_{\textit{pb}}^B b$ and $a <_{\textit{pb}}^C b$ to explicitly distinguish above three cases. Let $<_{\textit{pb}}^*$ be the transitive closure of $<_{\textit{pb}}$. Intuitively, $a <_{\textit{pb}}^* b$ means that we can infer that $a$ is putted before $b$ with the help of several intermediate values.
 
-Let us introduce gap-point to formally define the time point in dotted line of \figurename~\ref{fig:introduce pb order}.
+Another point need to be modeled in \figurename~\ref{fig:introduce pb order} is the possible time points of $\textit{rm}(b)$, which is formally modeled by gap-point. 
 
 \begin{definition}\label{def:gap-point for matched put and rm operations}
-Given a data-differentiated $\textit{pri}_x$-execution $e$ and two method events $\textit{put}(x,\textit{pri}_x),\textit{rm}(x)$ of $e$. We say that a time-point $o$ is a gap-point of $x$, if $o$ is after $\textit{call}(\textit{put},x,\textit{pri}_x)$ and $\textit{call}(\textit{rm},x)$, is before $\textit{ret}(\textit{rm},x)$, and is not in interval of any items with smaller priority.
+Given a data-differentiated $p$-execution $e$ and two method events $\textit{put}(x,p),\textit{rm}(x)$ of $e$. We say that a time-point $o$ is a gap-point of $x$, if $o$ is after $\textit{call}(\textit{put},x,p)$ and $\textit{call}(\textit{rm},x)$, is before $\textit{ret}(\textit{rm},x)$, and is not in interval of any values with smaller priority.
 \end{definition}
 
-The case of \figurename~\ref{fig:introduce pb order} can be formally described as follows: $a <_{\textit{pb}}^* b$, while the right-most gap-point of $b$ is before $\textit{cal}(\textit{rm},a)$ or $\textit{cal}(\textit{put},a,p_4)$. The following lemma states that getting rid of such case is enough for ensure linearizable w.r.t $\textit{MS}(\textit{PQ}_1^{=})$.
+The case of \figurename~\ref{fig:introduce pb order} can be formally described as follows: $a <_{\textit{pb}}^* b$, while the right-most gap-point of $b$ is before $\textit{call}(\textit{rm},a)$ or $\textit{call}(\textit{put},a,p_4)$. The following lemma states that getting rid of such case is enough for ensure linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$.
 
 \begin{restatable}{lemma}{EPQOneEqualAsPBandGP}
 \label{lemma:EPQ1Equal as pb order and gap-point}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{=}$. $e \not\sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$, if and only if there exists $x$ and $y$ with maximal priority $\textit{pri}$ in $e$, such that $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{cal}(\textit{put},y,\textit{pri})$ or $\textit{cal}(\textit{rm},y)$ in $e$.
+Given a data-differentiated $p$-execution $e$ where $\mathsf{MatchedMaxPriority}^{=}\mathsf{\text{-}Condition}(e)$ holds. $e$ is not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$, if and only if there exists $x$ and $y$ with maximal priority $p$, such that $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$ in $e$. 
 \end{restatable}
 
 \begin {proof} (Sketch)
 
 We have already intuitively explain the proof of the $\textit{if}$ direction. To prove the $\textit{only if}$ direction, we prove its contrapositive. %, where we already know that $\forall x, y$ with maximal priority, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{cal}(\textit{put},y,\textit{pri})$ and $\textit{cal}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$. %Or we can say, we need to explicitly construct linearization of $e$.
 
-Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in $e$. We introduce another lemma (Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal} in Appendix), which states that: If $\exists g_1 \in \textit{Items}(e,\textit{pri})$, such that $\forall g_2 \in \textit{Items}(e,\textit{pri})$, (1) $g_1 \nless_{\textit{pb}} g_2$, and (2) the right-most gap-point of $g_1$ is after $\textit{cal}(\textit{put},g_2,\textit{pri})$ and $\textit{cal}(\textit{rm},g_2)$. Then $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$. %The proof of this lemma also tell us how to construct linearization in such case.
-The remaining of our proof is a loop for searching $g_1$ in $e$. Initially we set $a_1$ to be the last inserted item in the $l_{\textit{pri}}$, linearization of the projection of $e$ into $\textit{pri}$.
+Let $\textit{Items}(e,p)$ be the set of values with priority $p$ in $e$. We introduce another lemma (Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal} in Appendix), which states that if we can find a value $\exists g_1 \in \textit{Items}(e,p)$, such that $\forall g_2 \in \textit{Items}(e,p)$, (1) $g_1 \nless_{\textit{pb}} g_2$, and (2) the right-most gap-point of $g_1$ is after $\textit{call}(\textit{put},g_2,p)$ and $\textit{call}(\textit{rm},g_2)$. Then $e$ is linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$. 
+The remaining of our proof is a loop for searching such $g_1$ in $e$. Let $e_p$ be the projection of $e$ into values of priority $p$, and let $l_p$ be the linearization of $e$ which satisfy the requirements of queue. Let the initial value of $a_1$ be the last inserted value in $l_p$.
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-%\item[-] We start with $a_1$, the last inserted item in the linearization of the projection of $e$ into $\textit{pri}$.
 \item[-] check if $a_1$ satisfy the conditions of Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}. If it does, then this loop terminates.
 
-\item[-] Otherwise, $\exists a_2 \in \textit{Items}(e,\textit{pri})$, such that the rightmost gap-point of $a_1$ is before $\textit{cal}(\textit{put},a_2,\textit{pri})$ or $\textit{cal}(\textit{rm},a_2)$ in $e$. By assumption, we know that $a_2 \nless_{\textit{pb}} a_1$, and each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
+\item[-] Otherwise, $\exists a_2 \in \textit{Items}(e,p)$, such that the rightmost gap-point of $a_1$ is before $\textit{cal}(\textit{put},a_2,p)$ or $\textit{cal}(\textit{rm},a_2)$ in $e$. By assumption, we know that $a_2 \nless_{\textit{pb}} a_1$, and each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $\forall b \in \textit{Items}(e,\textit{pri})$, $a_2$ does not $<_{\textit{pb}}$ to $b$. Then we go to next round of the loop and make $a_2$ to be the ``new-round $a_1$''.
-    \item[-] Otherwise, there exists $a_3 \in \textit{Items}(e,\textit{pri})$ such that $a_2 <_{\textit{pb}}^* a_3$. Since $l_{\textit{pri}}$ has FIFO property, there is no cycle in $<_{\textit{pb}}$, and it is safe to assume that $a_3$ is maximal w.r.t $<_{\textit{pb}}^*$.
+    \item[-] If $\forall b \in \textit{Items}(e,p)$, $a_2\not<_{\textit{pb}}b$. Then we go to next round of the loop and make $a_2$ to be the ``new-round $a_1$''.
+    \item[-] Otherwise, there exists $a_3 \in \textit{Items}(e,p)$ such that $a_2 <_{\textit{pb}}^* a_3$. It is not hard to see that there is no cycle in $<_{\textit{pb}}$, and it is safe to assume that $a_3$ is maximal w.r.t $<_{\textit{pb}}^*$.
 
-        By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{cal}(\textit{put},a_2,\textit{pri})$ and $\textit{cal}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to next round of the loop and make $a_3$ to be the ``new-round $a_1$''.
+        By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{call}(\textit{put},a_2,p)$ and $\textit{call}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to next round of the loop and make $a_3$ to be the ``new-round $a_1$''.
     \end{itemize}
 \end{itemize}
 
-Let $a^i$ be the $a_1$ in the $\textit{i-th}$ round of loop. We can see that the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$ for each $i<j$. Therefore, the loop finally terminates at some $a^f$ that satisfies the condition of Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}. This implies that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$. \qed
+Let $a^i$ be the $a_1$ in the $\textit{i-th}$ round of loop. We can see that the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$ for each $i<j$. Therefore, the loop finally terminates at some $a^f$ that satisfies the condition of Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}. This implies that $e$ is linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ and completes the proof of the $\textit{only if}$ direction. \qed
 \end {proof}
 
-The result of Lemma \ref{lemma:EPQ1Equal as pb order and gap-point} is not quite suitable for verificaion with automata, because obtaining $y <_{\textit{pb}}^* x$ may requires arbitrary many intermediate items, and it is hard to store unbounded items by automata. Fortunately, we prove that the number of intermediate items $a_i$ is essentially bounded, as stated by the following lemma.
+The result of Lemma \ref{lemma:EPQ1Equal as pb order and gap-point} still needs to be impove, since obtaining $y <_{\textit{pb}}^* x$ may requires arbitrary many intermediate values, and it is hard to store unbounded values by automata. Fortunately, we prove that the number of intermediate values is essentially bounded, as stated by the following lemma.
 
 \begin{restatable}{lemma}{OBOrderHasBoundedLength}
 \label{lemma:ob order has bounded length}
-Given a data-differentiated execution $h$. Assume that $a <_{\textit{pb}} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}} a_m <_{\textit{pb}} b$, then one of the following cases holds:
+Given a data-differentiated execution $e$. Assume that $a <_{\textit{pb}} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}} a_m <_{\textit{pb}} b$, then one of the following cases holds:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -188,47 +187,44 @@ Given a data-differentiated execution $h$. Assume that $a <_{\textit{pb}} a_1 <_
 \end{itemize}
 \end{restatable}
 
-By Lemma \ref{lemma:ob order has bounded length}, we can use witness automata to detect $a <_{\textit{pb}}^* b$ by enumerating all possible enumerations of operations of $a$, $b$ and possibly $a_1$. Since some combinations of $<_{\textit{pb}}^*$ and gap-points are conflict, we finally reduce the number of potential enumerations of operations of $a$, $b$ and possibly $a_1$ into only five, as shown by the following lemma:
+By Lemma \ref{lemma:ob order has bounded length}, we can use register automata to detect $a <_{\textit{pb}}^* b$ by enumerating all possible enumerations of operations of $a$, $b$ and possibly $a_1$. Since some combinations of $<_{\textit{pb}}^*$ and gap-points are conflict, we finally reduce the number of potential enumerations of operations of $a$, $b$ and possibly $a_1$ into only five in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}. 
 
-\begin{restatable}{lemma}{FiveEnmuerationisEnoughForEPQOneEqual}
-\label{lemma:five enumeration is enough for EPQ1Equal}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{=}$. Let $a$ and $b$ be items with maximal priority $\textit{pri}$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$. Then, there are five possible enumeration of method events of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
-\end{restatable}
-
-In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}, we construct a set $\textit{Auts}_{\textit{1-eq}}$ of witness automata, and prove that $\textit{EPQ}_1^{=}$ is co-regular, as stated by the following lemma.
+In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}, we construct a set $\textit{Auts}_{\textit{1-eq}}$ of register automata, and prove that $\mathsf{MatchedMaxPriority}^{=}$ is co-regular, as stated by the following lemma.
 
 \begin{restatable}{lemma}{EPQOneEqualIsCoRegular}
 \label{lemma:EPQ1Equal is co-regular}
-$\textit{EPQ}_1^{=}$ is co-regular.
+$\mathsf{MatchedMaxPriority}^{=}$ is co-regular.
 \end{restatable}
 
-A enumeration of Lemma \ref{lemma:five enumeration is enough for EPQ1Equal} and its witness automata is shown in \figurename~\ref{fig:an enumeration and its witness automaton}. $o$ is the rightmost gap-point of $b$, we rename the items that ``covers the time interval from $\textit{cal}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$'' (see Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}) into $d$, and rename the renaming items into $e$. In this figure, $c = \textit{cal}(\textit{put},e,\textit{anyPri}),\textit{ret}(\textit{put},e)$, $\textit{cal}(\textit{rm},e), \textit{ret}(\textit{rm},e),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{put},d,\textit{les}_p)$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{rm},d)$.
+One such enumeration and its register automata is shown in \figurename~\ref{fig:an enumeration and its witness automaton}. $o$ is the rightmost gap-point of $b$, we rename the values that ``covers the time interval from $\textit{call}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$'' (see Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}) into $d$, and rename the renaming values into $e$. In this figure, $c = \textit{call}(\textit{put},e,\top),\textit{ret}(\textit{put},e,\top)$, $\textit{call}(\textit{rm},e), \textit{ret}(\textit{rm},e),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{call}(\textit{put},d,<r)$, $c_2 = c_1 + \textit{ret}(\textit{put},b,r)$, $c_3 = c_2 + \textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b,r) + \textit{ret}(\textit{rm},d)$.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8 \textwidth]{figures/PIC-Enumeration-WitnessAutomata.pdf}
 %\vspace{-10pt}
-  \caption{An enumerations and its witness automaton}
+  \caption{An enumerations and its register automaton}
   \label{fig:an enumeration and its witness automaton}
 \end{figure}
 
 
-\subsection{Combine Step-by-Step linearizability and Co-Regular}
-\label{subsec:combine step-by-step linearizability and co-regular}
+\subsection{Reduce into State Reachability}
+\label{subsec:combine step-by-step linearizability and co-regular} 
 
-We also prove that $\textit{EPQ}_2^{>}$, $\textit{EPQ}_2^{=}$ and $\textit{EPQ}_3$ are co-regular in Appendix \ref{subsec:appendix co-regular of EPQ2Lar}, Appendix \ref{subsec:appendix co-regular of EPQ2Equal} and Appendix \ref{subsec:co-regular of EPQ3}, respectively. Then we can see that $\textit{EPQ}$ is co-regular.
+We also prove that $\mathsf{UnmatchedMaxPriority}$ are co-regular in Appendix \ref{subsec:appendix co-regular of EPQ2Lar}, Appendix \ref{subsec:appendix co-regular of EPQ2Equal}, and prove that $\mathsf{EmptyRemove}$ are co-regular in Appendix \ref{subsec:co-regular of EPQ3}. Then we can see that $\seqPQ$ is co-regular.
 
 \begin{restatable}{lemma}{EPQIsCoRegular}
 \label{lemma:EPQ is co-regular}
-$\textit{EPQ}$ is co-regular.
+$\seqPQ$ is co-regular.
 \end{restatable}
 
-By Lemma \ref{lemma:EPQ as multi in MRpri for history} and Lemma \ref{lemma:EPQ is co-regular}, we can finally reduce the verification of linearizability w.r.t $\textit{EPQ}$ into a reachability problem, as illustrated by the following theorem, where $\textit{Auts}_{\textit{EPQ}}$ is the set of witness automata of this section.
+By Lemma \ref{lemma:EPQ as multi in MRpri for history} and Lemma \ref{lemma:EPQ is co-regular}, we can finally reduce the verification of linearizability w.r.t $\seqPQ$ into a reachability problem, as illustrated by the following theorem, where $\textit{Auts}_{\textit{EPQ}}$ is the set of witness automata of this section.
 
 \begin{restatable}{theorem}{ReduceEPQIntoStateReachability}
 \label{lemma:reduce EPQ into state reachability}
-Given a data-independence implementation $\mathcal{I}$. $\mathcal{I} \sqsubseteq \textit{EPQ}$, if and only if, $\mathcal{I} \cap \textit{Auts}_{\textit{EPQ}} = \emptyset$.
-\end{restatable}
+Given a data-independence implementation $\mathcal{I}$. $\mathcal{I} \sqsubseteq \seqPQ$, if and only if, $\mathcal{I} \cap \textit{Auts}_{\textit{EPQ}} = \emptyset$.
+\end{restatable} 
+
+When the data domain and priority domain are both fixed to be finite set, the register automata can be simulated with finite automata, and by Lemma \ref{lemma:reduce EPQ into state reachability}, checking linearizable w.r.t $\seqPQ$ is decidable. 
 
 
 
