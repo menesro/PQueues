@@ -8,18 +8,18 @@ In this section, we divide checking linearizability w.r.t $\seqPQ$ into checking
 \subsection{Co-Regular}
 \label{subsec:definition of co-regular} 
 
-Let $\Gamma\mathsf{\text{-}Condition}(e)$ be $\mathsf{HasEmptyRemoves}(e)$, $\neg \mathsf{HasEmptyRemoves}(e) \wedge \mathsf{HasUnmatchedMaxPriority}(e)$, and $\mathsf{HasMatchedMaxPriority}(e)$, for $\Gamma = \mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}$, respectively. $\textit{Check-PQ-Conc}$ inspires us that, whenever $\Gamma\mathsf{\text{-}Condition}(e)$ holds, there should exist some $\alpha$, such that  $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds. The following lemma states this formally. Let $\textit{proj}(e)$ be the set of projections of $e$ into set of values. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique.
+Let $\Gamma\mathsf{\text{-}Condition}(e)$ be $\mathsf{HasEmptyRemoves}(e)$, $\neg \mathsf{HasEmptyRemoves}(e) \wedge \mathsf{HasUnmatchedMaxPriority}(e)$, and $\mathsf{HasMatchedMaxPriority}(e)$, for $\Gamma = \mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}$, respectively. $\textit{Check-PQ-Conc}$ inspires us that, when $\Gamma\mathsf{\text{-}Condition}(e)$ holds, there should exist some $\alpha$, such that  $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds. The following lemma states this formally. Let $\textit{proj}(e)$ be the set of projections of $e$ into set of values. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique.
 
 \begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
 \label{lemma:EPQ as multi in MRpri for history}
 Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\Gamma\mathsf{\text{-}Condition}(e) \Rightarrow \Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds for some $\alpha$ for each $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$. 
 \end{restatable} 
 
-Register automata is a kind of finite automata with registers used to deal with infinite data domain, where register can be assigned values and do simple operations. In this paper we use a restricted kind of register automata, which contains only one register, whose value is obtained once by guessing and never changed. Our register machine contains a register $\textit{reg}$. Its transition labels are $\textit{call}(\textit{put},d,g), \textit{ret}(\textit{put},d,p),$ $\textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d)$, where $d \in \mathbb{D} \cup \{ \textit{empty} \}$, and $g$ and $\top$ are guards. A guard is a predicate chosen from $\{\textit{equalReg},\textit{lesReg},\top \}$, which represents equals the value of $\textit{reg}$, less than the value of $\textit{reg}$, and always holds, respectively. Given an execution $e = \alpha_1 \cdots \alpha_k$ of priority queue, register automata $\mathcal{A}$ accepts $e$, if there exists value $p \in \in \mathbb{D}$ and transitions $q_0 \xrightarrow{\beta_1} q_1 \ldots \xrightarrow{\beta_k} q_k$ of $\mathcal{A}$ from a initial state to a final state, such that for each $i$
+Register automata is a kind of finite automata with registers used to deal with infinite data domain, where register can be assigned values and do simple operations. In this paper we use a restricted kind of register automata, which contains only one register, whose value is obtained once by guessing and never changed. Our register machine contains a register $r$. Its transition labels are $r=*,\textit{call}(\textit{put},d,g), \textit{ret}(\textit{put},d,g),$ $\textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d)$, where $d \in \mathbb{D} \cup \{ \textit{empty} \}$, and $g$ and $\top$ are guards. The first transition from initial state is a $r=*$ transition, and is used to assign an arbitrary value to $r$. A guard is a predicate chosen from $\{=r,\leq r,\top \}$, which represents equals the value of $\textit{reg}$, less than the value of $\textit{reg}$, and always holds, respectively. Given an execution $e = \alpha_1 \cdots \alpha_k$ of priority queue, register automata $\mathcal{A}$ accepts $e$, if there exists value $d_r\in \mathbb{D}$ and transitions $q_0 \xrightarrow{\beta_1} q_1 \ldots \xrightarrow{\beta_k} q_k$ of $\mathcal{A}$ from a initial state to a final state, such that for each $i$
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If $\alpha_i = \textit{call}(\textit{put},a,p)$, then $\beta_i= \textit{call}(\textit{put},a,g)$ and $g(q)$ holds. 
+\item[-] If $\alpha_i = \textit{call}(\textit{put},a,p)$, then $\beta_i= \textit{call}(\textit{put},a,g)$ and $g$ holds with $p$ and $d_r$. Similarly for $\textit{ret}(\textit{put},a,p)$. 
 
 \item[-] Else, $\alpha_i = \beta_i$. 
 \end{itemize}
@@ -28,9 +28,11 @@ Note that due to data-independence, register automata are used to detect some re
 
 %\vspace{-6pt}
 \begin{definition}\label{def:co-regular of rules of extended priority queues}
-$\seqPQ$ is co-regular, if for each $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$, there is a finite set $\textit{Auts}_{\Gamma}$ of register automata, such that for each data-independence implementation $\mathcal{I}$, we have that: 
+Given $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$. $\Gamma$ is co-regular, if there is a finite set $\textit{Auts}_{\Gamma}$ of register automata, such that for each data-independence implementation $\mathcal{I}$, we have that:
 
-$\textit{Auts}_{\Gamma} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\Gamma\mathsf{\text{-}Condition}(e')$ holds but $\Gamma\mathsf{\text{-}Conc}(e',\alpha)$ does not hold for some $\alpha$
+$\textit{Auts}_{\Gamma} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\Gamma\mathsf{\text{-}Condition}(e')$ holds but $\Gamma\mathsf{\text{-}Conc}(e',\alpha)$ does not hold for some $\alpha$. 
+
+$\seqPQ$ is co-regular, if each $\Gamma$ is co-regular. 
 \end{definition} 
 
 We use two point to simply our proof co-regular. The first point is to ues the results in \cite{Bouajjani:2015} to ensure FIFO (first in first out) property of each single-priority projections. A execution where only values of one priority is putted is called a single-priority execution. It is obvious that each single-priority projection of sequences in $\seqPQ$ satisfy FIFO property. Let $\textit{toQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. In Appendix \ref{sec:appendix proof and definition in section definition of co-regular}, according to the result of queue in \cite{Bouajjani:2015}, we construct a set $\textit{Auts}_{\textit{sinPri}}$ of witness automata, and shows that they are enough to ensure that for each data-differentiated executions, each of its single-priority projection without $\textit{rm}(\textit{empty})$ to have ``FIFO'' property, as shown by the following lemma.
@@ -38,16 +40,16 @@ We use two point to simply our proof co-regular. The first point is to ues the r
 \begin{restatable}{lemma}{AutoForEPQwithSignlePri}
 \label{lemma:automata for extended priority queue with single priority}
 
-Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \textit{Auts}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{transToQueue}(e')$ does not linearizable to queue.
+Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \textit{Auts}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{toQueue}(e')$ does not linearizable to queue.
 \end{restatable}
 
 According to Lemma \ref{lemma:automata for extended priority queue with single priority}, from now on, it is safe to assume that, for each data-differentiated execution, any of its single-priority projection without $\textit{rm}(\textit{empty})$ has ``FIFO'' property. This effectively exclude some obvious violations, such as $\textit{rm}(a)$ happens before $\textit{put}(a,\_)$. 
 
-The second point is to ignore the incomparable priorities. Given a data-differentiated execution $e$, we say that $e$ is a $p$-execution, if $p$ is larger than or equal to the priority of values of $e$. Given a data-differentiated execution $e$ and assume that $p$ is one of the maximal priority of $e$, let $\textit{p-Exec}(e)$ be an execution obtained from $e$ by erasing all operations of values whose priority are incomparable with $\textit{pri}$. The following lemma states that when checking co-regular of $\seqPQ$, it is safe to consider only $p$-executions.
+The second point is to ignore the incomparable priorities. Given a data-differentiated execution $e$ and one of its maximal priority $p$, $e\vert_{\preceq p}$ is an execution obtained from $e$ by erasing operations of items with priority incomparable with $p$. The following lemma states that when checking co-regular of $\seqPQ$, it is safe to ignore all incomparable priorities. 
 
 \begin{restatable}{lemma}{priExecutionIsEnough}
 \label{lemma:pri execution is enough}
-Given a data-differentiated execution $e$ and $\Gamma\in \{\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$. $\Gamma\mathsf{\text{-}Conc}(e,x)$ holds, if and only if $\Gamma\mathsf{\text{-}Conc}(\textit{p-Exec}(e),x)$ holds, where $p$ is the priority of $x$.
+Given a data-differentiated execution $e$ and $\Gamma\in \{\mathsf{UnmatchedMaxPriority}$, $\mathsf{MatchedMaxPriority}\}$. $\Gamma\mathsf{\text{-}Conc}(e,x)$ holds, if and only if $\Gamma\mathsf{\text{-}Conc}(e\vert_{\preceq p},x)$ holds, where $p$ is the priority of $x$.
 \end{restatable}
 \begin {proof} (Sketch) 
 
@@ -55,22 +57,52 @@ To prove the $\textit{only if}$ direction, given $e \sqsubseteq l = u \cdot \tex
 
 To prove the $\textit{if}$ direction, we use a lemma in Appendix, which said that if the projection an execution into a set $O_1$ of operations has linearization $l_1$ and the projection of the execution into $O_2$, the remanning operation, has linearization $l_2$, then the execution has a linearization whose projection into $O_1$ is $l_1$ and projection into $O_2$ is $l_2$. 
 
-Given $\textit{p-Exec}(e) \sqsubseteq l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \Gamma\mathsf{\text{-}Seq}(s,\alpha)$. By above lemma we know that $e$ has a linearization $l'$, such that the projection of $l'$ into $p$-incomparable values. It is not hard to see that the priorities comparable with $p$ are either smaller or incomparable with the priorities incomparable with $p$. Thus, $l' \in \seqPQ$. \qed
+Given $e\vert_{\preceq p} \sqsubseteq l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \Gamma\mathsf{\text{-}Seq}(s,\alpha)$. By above lemma we know that $e$ has a linearization $l'$, such that the projection of $l'$ into $p$-incomparable values. It is not hard to see that the priorities comparable with $p$ are either smaller or incomparable with the priorities incomparable with $p$. Thus, $l' \in \seqPQ$. \qed
 \end {proof}
 
-Lemma \ref{lemma:pri execution is enough} make our co-regular proof more clear. One consequence of it is that for $e=\textit{p-Exec}(e)$, at most one $\Gamma\mathsf{\text{-}Condition}(e')$ holds. 
+Lemma \ref{lemma:pri execution is enough} makes our co-regular proof more clear. One consequence of it is that for $e=\textit{p-Exec}(e)$, at most one $\Gamma\mathsf{\text{-}Condition}(e')$ holds. 
 
 
 
 
 
 
-\subsection{Co-Regular of $\textit{EPQ}_1^{>}$}
-\label{subsec:co-regular of EPQ1Lar}
+\subsection{Co-Regular of $\mathsf{MatchedMaxPriority}^{>}$}
+\label{subsec:co-regular of EPQ1Lar} 
 
-In this subsection, we briefly introduce the idea for proving co-regular of $\textit{PQ}_1^{>}$. The proof of this subsection can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. The notion of left-right constraint used for extended priority queue is inspired by left-right constraint of queue \cite{Bouajjani:2015}.
+To facilitate the proof of co-Regular of $\mathsf{MatchedMaxPriority}$, we separate $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ into the following two sub-predicates, where the first one represents that $x$ is the only value with priority $p$ in $e$ , and the second one represents that there are more than one value with priority $p$ in $e$. Here $p\not\prec'\textit{priorities}(l)$ means that $p$ is either larger, equal, or incomparable with priorities in $l$, and $p$ must equals with some priority in $l$. 
 
-Given a data-differentiated $\_$-execution $e$ such that $\textit{last}(e) = \textit{EPQ}_1^{>}$, Lemma \ref{lemma:automata for extended priority queue with single priority} is not enough for ensuring that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$. This is because that it is possible that $e \not\sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$ because of interaction between actions of multiple priorities. One such example is shown in \figurename~\ref{fig:introduce gap for EPQ1Lar}. We call the time interval from $\textit{ret}(\textit{put},x)$ to $\textit{cal}(rm,x)$, or from $\textit{ret}(\textit{put},x)$ when $\textit{cal}(rm,x)$ does not exist, the interval of item $x$. In \figurename~\ref{fig:introduce gap for EPQ1Lar}, we draw the interval of each item by dashed line. Here we assume that $p_1 <_{\mathbb{P}} p_4$, $p_2 <_{\mathbb{P}} p_4$ and $p_3 <_{\mathbb{P}} p_4$. The reason of $e \not\sqsubseteq \textit{MS}(\textit{PQ}_1^{>})$ is that, each time point from $\textit{cal}(\textit{rm},b)$ to $\textit{ret}(\textit{rm},b)$ is in interval of some item with smaller priority.
+{\small
+\begin{align*}
+\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Seq}(e,x)=\mathsf{true} & \mbox{ iff  $e= u\cdot \textit{put}(x,p)\cdot v\cdot \textit{rm}(x)\cdot w$, $p\not\preceq \textit{priorities}(u\cdot v\cdot w)$,} \\
+&\hspace{4mm}\mbox{$p\not\preceq \textit{unmatched-priorities}(u\cdot v\cdot w)$, $\textit{matched}_\prec(u\cdot v,p)$,} \\
+&\hspace{4mm}\mbox{and $p\not\in \textit{priorities}(v\cdot w)$} \\
+\mathsf{MatchedMaxPriority}^{=}\mathsf{\text{-}Seq}(e,x)=\mathsf{true} & \mbox{ iff  $e= u\cdot \textit{put}(x,p)\cdot v\cdot \textit{rm}(x)\cdot w$, $p\not\prec' \textit{priorities}(u\cdot v\cdot w)$,} \\
+&\hspace{4mm}\mbox{$p\not\preceq \textit{unmatched-priorities}(u\cdot v\cdot w)$, $\textit{matched}_\prec(u\cdot v,p)$,} \\
+&\hspace{4mm}\mbox{and $p\not\in \textit{priorities}(v\cdot w)$} 
+\end{align*}
+} 
+
+The corresponding conditions are defined as follows: $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Condition}(e)$ 
+
+
+
+
+{\small
+\begin{align*}
+\mathsf{HasEmptyRemoves}(e)=\mathsf{true} & \mbox{ iff  $e$ contains a $\textit{rm}(\textit{empty})$ operation} \\
+\mathsf{HasUnmatchedMaxPriority}(e)=\mathsf{true} & \mbox{ iff $p\in \textit{unmatched-priorities}(e)$ for a maximal priority} \\
+&\hspace{4mm}\mbox{$p\in priorities(e)$}
+\end{align*}}
+
+
+$\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Conc}(e,x)$ is obtained from $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Conc}(e,x)$ by using $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Seq}(e,x)$ instead of $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$. And similarly for $\mathsf{MatchedMaxPriority}^{=}\mathsf{\text{-}Conc}(e,x)$. 
+
+In this subsection, we briefly introduce the idea for proving co-regular of $\mathsf{MatchedMaxPriority}^{>}$. The proof of this subsection can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. The notion of left-right constraint used for priority queue is inspired by left-right constraint of queue \cite{Bouajjani:2015}.
+
+$\Gamma\mathsf{\text{-}Condition}(e')$ holds but $\Gamma\mathsf{\text{-}Conc}(e',\alpha)$ does not hold
+
+Given a data-differentiated $\_$-execution $e$ such that $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Condition}(e)$ holds, Lemma \ref{lemma:automata for extended priority queue with single priority} is not enough for ensuring that $\mathsf{MatchedMaxPriority}^{>}\mathsf{\text{-}Conc}(e,x)$ for some $x$. This is because that it is possible that $e \not\sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$ because of interaction between actions of multiple priorities. One such example is shown in \figurename~\ref{fig:introduce gap for EPQ1Lar}. We call the time interval from $\textit{ret}(\textit{put},x)$ to $\textit{cal}(rm,x)$, or from $\textit{ret}(\textit{put},x)$ when $\textit{cal}(rm,x)$ does not exist, the interval of item $x$. In \figurename~\ref{fig:introduce gap for EPQ1Lar}, we draw the interval of each item by dashed line. Here we assume that $p_1 <_{\mathbb{P}} p_4$, $p_2 <_{\mathbb{P}} p_4$ and $p_3 <_{\mathbb{P}} p_4$. The reason of $e \not\sqsubseteq \textit{MS}(\textit{PQ}_1^{>})$ is that, each time point from $\textit{cal}(\textit{rm},b)$ to $\textit{ret}(\textit{rm},b)$ is in interval of some item with smaller priority.
 
 \begin{figure}[htbp]
   \centering
