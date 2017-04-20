@@ -4,7 +4,7 @@
 
 While checking linearizability of a given execution is known to be NP-complete in general~\cite{journals/siamcomp/GibbonsK97} we show in this section that it is polynomial-time for data-differentiated executions of the priority queue. For pedagogical reasons, Section~\ref{ssec:seq_exec} introduces a polynomial-time recursive procedure for checking whether a data-differentiated \emph{sequential} execution is admitted by the priority queue which is then extended to the concurrent case in Section~\ref{ssec:conc_exec}.
 
-\subsection{Checking Data-Differentiated Sequential Executions}\label{ssec:seq_exec}
+\subsection{Characterizing Data-Differentiated Sequential Executions}\label{ssec:seq_exec}
 
 Checking whether a data-differentiated sequential execution belongs to $\seqPQ$ could be implemented by checking membership into the language accepted by $LTS??$. The recursive procedure $\textit{Check-PQ-Seq}$ outlined in Algorithm~\ref{alg:seq_check} is an alternative to this membership test. Roughly, it selects one or two operations in the input execution, checks whether their return values are correct by ignoring the order between the other operations other than how they are ordered w.r.t. the selected ones, and calls itself recursively on the execution without the selected operations. {\color {blue} Here we implicitly mix operation $o$ (when $\textit{call}_o(m,a)$, $\textit{ret}_o(m,b)$ in $e$) with $m(a,b)$.} 
 
@@ -241,7 +241,7 @@ $\textit{Check-PQ-Seq}(e)=\mathsf{true}$ iff $e\in \seqPQ$, for every data-diffe
 %\item[-] Then, we add $\textit{rm}(\textit{empty})$ by using $\textit{PQ}_3$.
 %\end{itemize}
 
-\subsection{Checking Data-Differentiated Concurrent Executions}\label{ssec:conc_exec}
+\subsection{Checking Linearizability of Data-Differentiated Concurrent Executions}\label{ssec:conc_exec}
 
 The extension of $\textit{Check-PQ-Seq}$ to concurrent executions, checking whether they are linearizable w.r.t. $\seqPQ$, is obtained by replacing every predicate $\Gamma\mathsf{\text{-}Seq}$ with
 \begin{align*}
