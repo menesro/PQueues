@@ -28,26 +28,27 @@ $\mathcal{I} \sqsubseteq \seqPQ$ if and only if $\mathcal{I} \cap A(\Gamma) = \e
 
 Section~\ref{ssec:aut} describes a $\mathsf{MatchedMaxPriority}$-complete automaton (TODO the other automata are discussed in Appendix~\ref{} or Icalp??) while Section~\ref{} discusses decidability results implied by the theorem above.
 
-W.l.o.g., we assume that every implementation $\mathcal{I}$ behaves correctly, i.e., as a FIFO queue, when only values with the same priority are observed. More precisely, we assume that for every execution $e\in\mathcal{I}$ and every priority $p\in\mathbb{P}$, the projection of $e$ to values with priority $p$ is linearizable (w.r.t. $\seqPQ$). This property can be checked separately using the techniques introduced for regular FIFO queues in~\cite{DBLP:conf/icalp/BouajjaniEEH15} (see Appendix~\ref{} for more details). Note that this assumption excludes some obvious violations, such as a $\textit{rm}(a)$ operation happens before a $\textit{put}(a,p)$ operation, for some $p$. 
+W.l.o.g., we assume that every implementation $\mathcal{I}$ behaves correctly, i.e., as a FIFO queue, when only values with the same priority are observed. More precisely, we assume that for every execution $e\in\mathcal{I}$ and every priority $p\in\mathbb{P}$, the projection of $e$ to values with priority $p$ is linearizable (w.r.t. $\seqPQ$). This property can be checked separately using the techniques introduced for regular FIFO queues in~\cite{DBLP:conf/icalp/BouajjaniEEH15} (see Appendix~\ref{} for more details). Note that this assumption excludes some obvious violations, such as a $\textit{rm}(a)$ operation happens before a $\textit{put}(a,p)$ operation, for some $p$.
 
 Also, we consider $\Gamma$-complete automata for $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, recognizing executions which contains only one maximal priority. This is possible because any data-differentiated execution for which $\Gamma(e)$ is false has such a projection.
-%Also, we consider $\Gamma$-complete automata for $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, recognizing executions where any two occurring priorities are comparable (w.r.t. $\prec$). This is possible because any data-differentiated execution which is not $\Gamma$-linearizable has such a projection. 
+%Also, we consider $\Gamma$-complete automata for $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, recognizing executions where any two occurring priorities are comparable (w.r.t. $\prec$). This is possible because any data-differentiated execution which is not $\Gamma$-linearizable has such a projection.
 Formally, given a data-differentiated execution $e$ and $p$ a maximal priority in $e$, $e\vert_{\preceq p}$ is the projection of $e$ to the set of values with priorities comparable to $p$. Then,
 
 \begin{restatable}{lemma}{priExecutionIsEnough}
 \label{lemma:pri execution is enough}
-Let $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$ and $e$ be a data-differentiated execution. Then, $e$ is not $\Gamma$-linearizable if and only if $e\vert_{\preceq p}$ is not $\Gamma$-linearizable, for some maximal priority $p$ in $e$.
+Let $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$ and $e$ be a data-differentiated execution. Then, $e$ is not $\Gamma$-linearizable if and only if $e\vert_{\preceq p}$ is not $\Gamma$-linearizable, for {\color{blue}any} maximal priority $p$ in $e$.
 \end{restatable}
-\begin {proof} (Sketch)
-To prove the $\textit{only if}$ direction, let $e$ be a data-differentiated execution linearizable w.r.t. $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$. Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$ imposes no restriction on the operations in $u$, $v$ and $w$ with priorities incomparable to $p$, erasing all these operations results in a sequential execution which still satisfies this property. Similarly, for $\Gamma=\mathsf{UnmatchedMaxPriority}$. 
+\begin {proof} (Sketch) 
+{\color {blue}We prove an equivalent property: $e$ is $\Gamma$-linearizable if and only if $e\vert_{\preceq p}$ is $\Gamma$-linearizable for some maximal priority $p$ in $e$.} %We consider the case of $\mathsf{MatchedMaxPriority}$ and the case of $\mathsf{UnmatchedMaxPriority}$ is similar.
+
+To prove the $\textit{only if}$ direction, let $e$ be a data-differentiated execution linearizable w.r.t. $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$. Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$ imposes no restriction on the operations in $u$, $v$ and $w$ with priorities incomparable to $p$, erasing all these operations results in a sequential execution which still satisfies this property. Similarly, for $\Gamma=\mathsf{UnmatchedMaxPriority}$.
 
 The $\textit{if}$ direction follows from the fact that if the projection of an execution to a set of operations $O_1$ has a linearization $l_1$ and the projection of the same execution to the remaining set of operations has a linearization $l_2$, then the execution has a linearization which is defined as an interleaving of $l_1$ and $l_2$ (see Appendix~\ref{} for more details).
 
-Thus, let $e$ be an execution such that $e\vert_{\preceq p}$ is linearizable w.r.t. $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$. By the property above, we know that $e$ has a linearization $l' = u' \cdot \textit{put}(x,p) \cdot v' \cdot \textit{rm}(x) \cdot w'$, such that the projection of $l'$ to values of priority comparable to $p$ is $l$. 
-%We can see that $u$, $v$ and $w$ are subsequences of $u'$, $v'$ an $w'$, respectively. 
-Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$ does not have a condition on values of priority incomparable to $p$, we obtain that $l' \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$.
+Thus, let $e$ be an execution such that $e\vert_{\preceq p}$ is linearizable w.r.t. $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$. By the property above, we know that $e$ has a linearization $l' = u' \cdot \textit{put}(x,p) \cdot v' \cdot \textit{rm}(x) \cdot w'$, such that the projection of $l'$ to values of priority comparable to $p$ is $l$.
+%We can see that $u$, $v$ and $w$ are subsequences of $u'$, $v'$ an $w'$, respectively.
+Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$ does not have a condition on values of priority incomparable to $p$, we obtain that $l' \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$.
 \end {proof}
-
 
 %When the data domain and priority domain are both fixed to be finite set, the register automata can be simulated with finite automata, and by Lemma \ref{lemma:reduce EPQ into state reachability}, checking linearizable w.r.t $\seqPQ$ is decidable.
 
@@ -97,7 +98,7 @@ Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$ does not have 
 %$\seqPQ$ is co-regular, if each $\Gamma$ is co-regular.
 %\end{definition}
 
-\subsection{A $\mathsf{MatchedMaxPriority}$-complete automaton}\label{ssec:aut} 
+\subsection{A $\mathsf{MatchedMaxPriority}$-complete automaton}\label{ssec:aut}
 
 %{\color {blue}When $\mathsf{MatchedMaxPriority}$ is false for some execution $e$, then there are two possibilities:
 %
@@ -111,7 +112,7 @@ Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$ does not have 
 %It is surprised to see that these two possibilities can be captured by two sub-cases of $\mathsf{MatchedMaxPriority}$, depending on whether is only one value $x$ with maximal priority $p$. We denote by $\mathsf{MatchedMaxPriority}^{>}$ the strengthening of $\mathsf{MatchedMaxPriority}$ with this condition (i.e., all the values other than $x$ have a priority strictly smaller than $p$) and $\mathsf{MatchedMaxPriority}^{=}$ for the strengthening of the same formula with the negation of this condition (i.e., there exists another value $y$ with priority $p$).
 %}
 
-A differentiated execution $e$ is not $\mathsf{MatchedMaxPriority}$-linearizable when all the $\textit{put}$ operations in $e$ using the maximal priority $p$ are matched, and $e$ is not linearizable w.r.t. the set of sequential executions satisfying $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ for some value $x$ of priority $p$. We consider two cases depending on whether $e$ contains exactly one value with priority $p$ or at least two values. We denote by $\mathsf{MatchedMaxPriority}^{>}$ the strengthening of $\mathsf{MatchedMaxPriority}$ with the condition that all the values other than $x$ have a priority strictly smaller than $p$ (corresponding to the first case), and by $\mathsf{MatchedMaxPriority}^{=}$ the strengthening of the same formula with the negation of this condition (corresponding to the second case). 
+A differentiated execution $e$ is not $\mathsf{MatchedMaxPriority}$-linearizable when all the $\textit{put}$ operations in $e$ using the maximal priority $p$ are matched, and $e$ is not linearizable w.r.t. the set of sequential executions satisfying $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ for {\color {blue}any value $x$ of priority $p$}. We consider two cases depending on whether $e$ contains exactly one value with priority $p$ or at least two values. We denote by $\mathsf{MatchedMaxPriority}^{>}$ the strengthening of $\mathsf{MatchedMaxPriority}$ with the condition that all the values other than $x$ have a priority strictly smaller than $p$ (corresponding to the first case), and by $\mathsf{MatchedMaxPriority}^{=}$ the strengthening of the same formula with the negation of this condition (corresponding to the second case).
 We use particular instances of register automata~\cite{finite-memory, the paper I found} whose states include only two registers, one for storing a priority guessed at the initial state, and one for storing the priority of the current action in the execution. The transitions can check equality or the order relation $\prec$ between the values stored in the two registers. Instead of formalizing the full class of register automata, we consider a simpler class which suffices our needs. More precisely, we consider a class of labeled transition systems whose states consist of a finite control part and a register $r$ interpreted to elements of $\mathbb{P}$. The transition labels can be one of the following:
 \begin{itemize}
 	\item $r=*$ for storing an arbitrary value to $r$,
@@ -197,24 +198,51 @@ TODO UPDATE THE ARGUMENTS OF ACTIONS
   \centering
   \includegraphics[width=0.4 \textwidth]{figures/PIC-HIS-INTRO-GAP-EPQ1L.pdf}
 %\vspace{-10pt}
-  \caption{An execution that does not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$}
+  \caption{An execution that is not $\mathsf{MatchedMaxPriority}^{>}$-linearizable}
   \label{fig:introduce gap for EPQ1Lar}
 \end{figure}
 
 TODO GIVE THE FORMAL DEFINITION OF THE LEFT-RIGHT CONSTRAINT
+{\color {blue}Let us introduce left-right constraint to detect the phenomenon in \figurename~\ref{fig:introduce gap for EPQ1Lar}.
 
-In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, we introduce the notion of left-right constraint, which is a graph, and the existence of cycle though value with maximal priority in it formally modelled the case in \figurename~\ref{fig:introduce gap for EPQ1Lar}. For example, in \figurename~\ref{fig:introduce gap for EPQ1Lar}, $b$ is covered by $f$, $e$ and $d$. We then prove that getting rid of cycle though value with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$.
+\begin{definition}\label{def:left-right constraint for matched put and rm operations}
+Given a data-differentiated $e$ without $\textit{rm}(\textit{empty})$, and let $\textit{put}(x,p)$ and $\textit{rm}(x)$ be the only operations with priority $p$. The left-right constraint of $\textit{put}(x,p)$ and $\textit{rm}(x)$ is the graph $G$ where:
 
-When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ through value $x$ with maximal priority in left-right constraint, we say that $x$ is covered by $d_1,\ldots,d_m$. Assume that $x$ is covered by $d_1,\ldots,d_m$, we can safely rename $x$ into $b$, rename $d_1,\ldots,d_m$ into $a$ and rename all other value into $c$ by data-independence. Such execution can be recognized by witness automata, since between the first $\textit{ret}(\textit{put},a,\_)$ and the last $\textit{call}(\textit{rm},a)$ (if exists), $\textit{ret}(\textit{put},a,\_)$ and $\textit{call}(\textit{rm},a)$ occurs in pair and there is no need for count. In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, we construct a set $\textit{Auts}_{\textit{1-lar}}$ of register automata, and use $\textit{Auts}_{\textit{1-lar}}$ to prove that $\mathsf{MatchedMaxPriority}^{>}$ is co-regular, as stated by the following lemma.
+\begin{itemize}
+\item the nodes are the values of $e$, to which we add a node,
+\item there is an edge from $d_1$ to $x$, if $\textit{put}(d_1,\_) <_{\textit{hb}} \textit{put}(x,p)$ or $\textit{rm}(x)$,
+\item there is an edge from $x$ to $d_1$, if $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$ or $\textit{rm}(d_1)$ does not exists,
+\item there is an edge from $d_1$ to $d_2$, if $\textit{put}(d_1,\_) <_{\textit{hb}} \textit{rm}(d_2,\_)$.
+\end{itemize} 
+\end{definition}
+
+
+The existence of cycle though value with maximal priority in left-right constraint formally modelled the phenomenon in \figurename~\ref{fig:introduce gap for EPQ1Lar}. For example, in \figurename~\ref{fig:introduce gap for EPQ1Lar}, $f \rightarrow e \rightarrow d \rightarrow b \rightarrow f$ is a cycle in left-right constraint. We then prove that getting rid of cycle though value with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$.
+}
+
+When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ through value $x$ with maximal priority in left-right constraint, we say that $x$ is covered by $d_1,\ldots,d_m$. Assume that $x$ is covered by $d_1,\ldots,d_m$, we can safely rename $x$ into $b$, rename $d_1,\ldots,d_m$ into $a$ and rename all other value into $c$ by data-independence. Such execution can be recognized by register automata, since between the first $\textit{ret}(\textit{put},a,\_)$ and the last $\textit{call}(\textit{rm},a)$ (if exists), $\textit{ret}(\textit{put},a,\_)$ and $\textit{call}(\textit{rm},a)$ occurs in pair and there is no need for count. In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, we construct a set $\textit{Auts}_{\textit{1-lar}}$ of register automata, {\color {blue}and prove that $\textit{Auts}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete, as stated by the following lemma.
 
 \begin{restatable}{lemma}{EPQOneLarisCoRegular}
 \label{lemma:EPQ1Lar is co-regular}
-$\mathsf{MatchedMaxPriority}^{>}$ is co-regular.
+$\textit{Auts}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete.
 \end{restatable}
+} 
 
+{\color {blue}
+For example, to capture non-$\mathsf{MatchedMaxPriority}^{>}$-linearizable execution $e$ where $e \vert_{b} = \textit{call}(\textit{put},b,\_) \cdot \textit{ret}(\textit{put},b,\_) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{rm},b)$, we use the register automaton in \figurename~\ref{fig:automata APQ1Lar-1 in paper}. Here $c_1 = c + \textit{ret}(\textit{rm},a)$, $c_2 = c + \textit{call}(\textit{put},a,=r)$, $c_3 = c_2 + \textit{ret}(\textit{rm},a)$, where $c = \textit{call}(\textit{put},d,\top),\textit{ret}(\textit{put},d,\top), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. There are three paths in $\mathcal{A}_{\textit{l-lar}}^1$, since there are three possible position of  the first $\textit{ret}(\textit{put},a)$ in $e$. 
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1 \textwidth]{figures/PIC_AUTO_PQ1Lar-pprr.pdf}
+%\vspace{-10pt}
+  \caption{Automaton $\mathcal{A}_{\textit{l-lar}}^1$}
+  \label{fig:automata APQ1Lar-1 in paper}
+\end{figure}
+}
 TODO GIVE THE AUTOMATON
 
-More details can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. TODO MOVE THIS TO THE RELATED WORK The notion of left-right constraint used for priority queue is inspired by left-right constraint of queue \cite{Bouajjani:2015}.
+
+More details can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. %TODO MOVE THIS TO THE RELATED WORK 
 
 
 \subsection{A $\mathsf{MatchedMaxPriority}^=$-complete automaton}
