@@ -2,6 +2,7 @@
 \section{Checking Linearizability of Priority Queue Executions}
 \label{sec:checking inclusion by recursive procedure}
 
+TODO REPHRASE THIS
 While checking linearizability of a given execution is known to be NP-complete in general~\cite{journals/siamcomp/GibbonsK97} we show in this section that it is polynomial-time for data-differentiated executions of the priority queue. For pedagogical reasons, Section~\ref{ssec:seq_exec} introduces a polynomial-time recursive procedure for checking whether a data-differentiated \emph{sequential} execution is admitted by the priority queue which is then extended to the concurrent case in Section~\ref{ssec:conc_exec}.
 
 \subsection{Characterizing Data-Differentiated Sequential Executions}\label{ssec:seq_exec}
@@ -29,7 +30,7 @@ where $p_1$, $p_2$, $p_3$ are priorities such that $p_1 \prec p_2$ and $p_1 \pre
 \If {$e = \epsilon$}
 {\Return $\mathsf{true}$\;}
 
-\If {$\mathsf{HasEmptyRemoves}(e)$}
+\If {$\mathsf{Has\text{-}EmptyRemoves}(e)$}
 {
     \If {$\exists\ o=\textit{rm}(\textit{empty})\in e$ such that $\mathsf{EmptyRemove\text{-}Seq}(e,o)$ holds}
     {
@@ -37,7 +38,7 @@ where $p_1$, $p_2$, $p_3$ are priorities such that $p_1 \prec p_2$ and $p_1 \pre
     }
     %\Else {\KwRet $\mathsf{false}$\;}
 }
-\ElseIf{$\mathsf{HasUnmatchedMaxPriority}(e)$}
+\ElseIf{$\mathsf{Has\text{-}UnmatchedMaxPriority}(e)$}
 {
     \If {$\exists\ x \in \textit{values}(e)$ such that $\mathsf{UnmatchedMaxPriority\text{-}Seq}(e,x)$ holds}
     {
@@ -62,11 +63,11 @@ where $p_1$, $p_2$, $p_3$ are priorities such that $p_1 \prec p_2$ and $p_1 \pre
 In formal terms, the operations which are selected depend on the following set of predicates on executions:
 {\small
 \begin{align*}
-\mathsf{HasEmptyRemoves}(e)=\mathsf{true} & \mbox{ iff  $e$ contains a $\textit{rm}(\textit{empty})$ operation} \\
-\mathsf{HasUnmatchedMaxPriority}(e)=\mathsf{true} & \mbox{ iff $p\in \textit{unmatched-priorities}(e)$ for a maximal priority} \\
+\mathsf{Has\text{-}EmptyRemoves}(e)=\mathsf{true} & \mbox{ iff  $e$ contains a $\textit{rm}(\textit{empty})$ operation} \\
+\mathsf{Has\text{-}UnmatchedMaxPriority}(e)=\mathsf{true} & \mbox{ iff $p\in \textit{unmatched-priorities}(e)$ for a maximal priority} \\
 &\hspace{4mm}\mbox{$p\in priorities(e)$}
 \end{align*}}
-where $\textit{priorities}(l)$, resp., $\textit{unmatched-priorities}(l)$, is the set of priorities occurring in $\textit{put}$ operations of $e$, resp., in $\textit{put}$ operations of $e$ for which there is no $\textit{rm}$ operation removing the same value. We call the latter \emph{unmatched} put operations. A put operation which is not unmatched is called \emph{matched}. For readability, we consider the following syntactic sugar $\mathsf{HasMatchedMaxPriority}(e)=\neg \mathsf{HasEmptyRemoves}(e)\land \neg \mathsf{HasUnmatchedMaxPriority}(e)$.
+where $\textit{priorities}(l)$, resp., $\textit{unmatched-priorities}(l)$, is the set of priorities occurring in $\textit{put}$ operations of $e$, resp., in $\textit{put}$ operations of $e$ for which there is no $\textit{rm}$ operation removing the same value. We call the latter \emph{unmatched} put operations. A put operation which is not unmatched is called \emph{matched}. For simplicity, we consider the following syntactic sugar $\mathsf{Has\text{-}MatchedMaxPriority}(e)=\neg \mathsf{Has\text{-}EmptyRemoves}(e)\land \neg \mathsf{Has\text{-}UnmatchedMaxPriority}(e)$. By an abuse of notation, we also assume that  $\mathsf{Has\text{-}UnmatchedMaxPriority}(e) \Rightarrow \neg \mathsf{Has\text{-}EmptyRemoves}(e)$ (this is sound by the order of the conditionals in $\textit{Check-PQ-Seq}$.
 
 The predicates defining the correctness of the selected operations are defined as follows:
 {\small
@@ -314,7 +315,7 @@ Let us briefly explain the idea of proving this property when $\mathsf{MatchedMa
 
 
 
-\begin{figure}[htbp]
+\begin{figure}[t]
   \centering
   \includegraphics[width=1 \textwidth]{figures/PIC-HIS-EPQ1-TwoHis.pdf}
 %\vspace{-10pt}
@@ -322,6 +323,37 @@ Let us briefly explain the idea of proving this property when $\mathsf{MatchedMa
   \label{fig:concurrent execution for EPQ1}
 \end{figure}
 
+Section~\ref{sec:co-regular of extended priority queues} introduces a characterization of concurrent priority queue violations using a set of \emph{non-recursive} automata (i.e., whose states consist of a fixed number of registers) whose product is equivalent to $\textit{Check-PQ-Conc}$ (modulo renaming of values which is possible by data-independence). Since $\seqPQ$ is closed under projection (Lemma~\ref{lem:closure_proj}), the recursion in $\textit{Check-PQ-Conc}$ can be eliminated by checking that each projection of a given execution $e$ passes a non-recursive version of $\textit{Check-PQ-Conc}$ where every recursive call is replaced by $\mathsf{true}$. More precisely, every occurrence of $\text{{\bf return}}\ \textit{Check-PQ-Conc}$ is replaced by  $\text{{\bf return}}\ \mathsf{true}$. Let $\textit{Check-PQ-Conc-NonRec}$ be the thus obtained procedure.
 
+\begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
+\label{lemma:EPQ as multi in MRpri for history}
+Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$ if and only if for each $e' \in \textit{proj}(e)$, $\textit{Check-PQ-Conc-NonRec}(e)$ returns $\mathsf{true}$.
+\end{restatable}
+
+%The following section shows that the linearizability check in the above lemma can be implemented using a set of register automata.
+
+
+
+
+%In this section, we divide checking linearizability w.r.t $\seqPQ$ into checking linearizablity w.r.t $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$, each of which can be done in polynomial-time. Due to data-independence, violations to each $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$ can be captured by register automata. This reduces checking linearizability w.r.t $\seqPQ$ into state reachability problem.
+
+%\begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
+%\label{lemma:EPQ as multi in MRpri for history}
+%Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$ if and only if for each $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}}\Gamma(e')$ implies $\Gamma\mathsf{\text{-}Conc}(e')$.
+%
+%$\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$. 
+%\end{restatable}
+%
+%
+%
+%\subsection{Co-Regular}
+%\label{subsec:definition of co-regular}
+%
+%Let $\Gamma\mathsf{\text{-}Condition}(e)$ be $\mathsf{Has\text{-}EmptyRemoves}(e)$, $\neg \mathsf{Has\text{-}EmptyRemoves}(e) \wedge \mathsf{HasUnmatchedMaxPriority}(e)$, and $\mathsf{HasMatchedMaxPriority}(e)$, for $\Gamma = \mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}$, respectively. $\textit{Check-PQ-Conc}$ inspires us that, when $\Gamma\mathsf{\text{-}Condition}(e)$ holds, there should exist some $\alpha$, such that  $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds. The following lemma states this formally. Let $\textit{proj}(e)$ be the set of projections of $e$ into set of values. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique. We say that execution $l$ is linearizable w.r.t $\Gamma$, if we can find a sequence $s$ where $e \sqsubseteq s$ and $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$ holds for some $\alpha$.
+%
+%\begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
+%\label{lemma:EPQ as multi in MRpri for history}
+%Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$. 
+%\end{restatable}
 
 

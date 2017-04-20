@@ -66,10 +66,10 @@ $\seqPQ$ is data independent.
 Beyond the sequential executions, every (concurrent) implementation of the priority queue that we are aware of is data-independent. Therefore, from now on, we consider only data-independent implementations. This assumption enables a reduction from checking the correctness of an implementation $\mathcal{I}$ to checking the correctness of only its data-differentiated executions in $\mathcal{I}_{\neq}$.
 
 Besides data independence, the sequential behaviors of the priority queue satisfy the following closure property: a behavior remains valid when removing all the operations with an argument in some set of values $D \subseteq \mathbb{D}$ and any $\textit{rm}(\textit{empty})$ operation (since they are read-only and they don't affect the queue's state).
-In order to distinguish between different $\textit{rm}(\textit{empty})$ operations while simplifying the technical exposition, we assume that they receive as argument a value, i.e., call actions are of the form $\textit{call}_o(\textit{rm},\textit{empty},a)$ for some $a\in \mathbb{D}$. We will make explicit this argument only when needed in our technical development. The projection $e \vert D$ of an execution $e$ to a set of values $D \subseteq \mathbb{D}$ is obtained from $e$ by erasing all call/return actions with an argument in $D$. We write $e \setminus x$ for the projection $e \vert_{ \mathbb{D} \setminus \{ x \} }$.
+In order to distinguish between different $\textit{rm}(\textit{empty})$ operations while simplifying the technical exposition, we assume that they receive as argument a value, i.e., call actions are of the form $\textit{call}_o(\textit{rm},\textit{empty},a)$ for some $a\in \mathbb{D}$. We will make explicit this argument only when needed in our technical development. The projection $e \vert D$ of an execution $e$ to a set of values $D \subseteq \mathbb{D}$ is obtained from $e$ by erasing all call/return actions with an argument in $D$. We write $e \setminus x$ for the projection $e \vert_{ \mathbb{D} \setminus \{ x \} }$. Let $\textit{proj}(e)$ be the set of all projections of $e$ to a set of values.
 
-\begin{lemma}
-$\seqPQ$ is closed under projection, i.e., for every execution $e\in \seqPQ$ and $D \subseteq \mathbb{D}$, $e \vert D\in \seqPQ$.
+\begin{lemma}\label{lem:closure_proj}
+$\seqPQ$ is closed under projection, i.e., $\textit{proj}(e)\subseteq \seqPQ$ for each $e\in \seqPQ$.
 \end{lemma}
 
 

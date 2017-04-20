@@ -1,19 +1,101 @@
-\section{Reducing Linearizability of Priority Queues into State Reachability}
+%!TEX root = draft.tex
+\section{Reducing Linearizability of Priority Queues to Reachability}
 \label{sec:co-regular of extended priority queues}
 
-In this section, we divide checking linearizability w.r.t $\seqPQ$ into checking linearizablity w.r.t $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$, each of which can be done in polynomial-time. Due to data-independence, violations to each $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$ can be captured by register automata. This reduces checking linearizability w.r.t $\seqPQ$ into state reachability problem.
+We show that the set of executions for which some projection fails the test $\textit{Check-PQ-Conc-NonRec}$ can be characterized using a set of register automata, modulo a value renaming. The possibility of renaming values (which is complete for checking data independent implementations) allows to simplify the reasoning about projections. Thus, we assume that all the operations which are not in the projection failing this test use the same distinguished value $\top$, different from those used in the projection. Then, it is enough to find an automata characterization for the set of executions $e$ for which $\textit{Check-PQ-Conc-NonRec}$ fails, or equivalently, for which one 
+%a projection $e'$ fails $\textit{Check-PQ-Conc-NonRec}$ when one 
+of the following three formulas is false:
+\begin{align*}
+\hspace{-5mm}
+\Gamma(e) := \mathsf{Has\text{-}}\Gamma(e) \Rightarrow \exists \alpha.\ \Gamma\mathsf{\text{-}Conc}(e,\alpha)\mbox{ with $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$, $\mathsf{MatchedMaxPriority}\}$}
+\end{align*}
+Extending the automaton corresponding to some $\Gamma$ with self-loops that allow any operation with parameter $\top$ results in an automaton satisfying the following property called \emph{$\Gamma$-completeness}.
 
+\begin{definition}
+For $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$, $\mathsf{MatchedMaxPriority}\}$, an automaton $A$ is called \emph{$\Gamma$-complete} when for each data-independent implementation $\mathcal{I}$:
 
+$A \cap \mathcal{I} \neq \emptyset$ if and only if there exists $ e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $\Gamma(e')$ doesn't hold.
+\end{definition}
 
-\subsection{Co-Regular}
-\label{subsec:definition of co-regular}
+The following result shows that deriving $\Gamma$-complete automata for each $\Gamma$ enables an effective reduction of checking linearizability of concurrent priority queue implementations to state reachability. It is a direct consequence of the above definitions.
 
-Let $\Gamma\mathsf{\text{-}Condition}(e)$ be $\mathsf{HasEmptyRemoves}(e)$, $\neg \mathsf{HasEmptyRemoves}(e) \wedge \mathsf{HasUnmatchedMaxPriority}(e)$, and $\mathsf{HasMatchedMaxPriority}(e)$, for $\Gamma = \mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}$, respectively. $\textit{Check-PQ-Conc}$ inspires us that, when $\Gamma\mathsf{\text{-}Condition}(e)$ holds, there should exist some $\alpha$, such that  $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds. The following lemma states this formally. Let $\textit{proj}(e)$ be the set of projections of $e$ into set of values. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique. We say that execution $l$ is linearizable w.r.t $\Gamma$, if we can find a sequence $s$ where $e \sqsubseteq s$ and $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$ holds for some $\alpha$.
+\begin{restatable}{theorem}{ReduceEPQIntoStateReachability}
+\label{lemma:reduce EPQ into state reachability}
+Let $\mathcal{I}$ be a data-independent implementation, and $A(\Gamma)$ a $\Gamma$-complete automaton for each $\Gamma$. Then,
+$\mathcal{I} \sqsubseteq \seqPQ$ if and only if $\mathcal{I} \cap A(\Gamma) = \emptyset$ for all $\Gamma$.
+\end{restatable} 
 
-\begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
-\label{lemma:EPQ as multi in MRpri for history}
-Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$. 
+Section~\ref{ssec:aut} describes a $\mathsf{MatchedMaxPriority}$-complete automaton (TODO the other automata are discussed in Appendix~\ref{} or Icalp??) while Section~\ref{} discusses decidability results implied by the theorem above. 
+
+W.l.o.g., we assume that every implementation $\mathcal{I}$ behaves correctly, i.e., as a FIFO queue, when only values with the same priority are observed. More precisely, we assume that for every execution $e\in\mathcal{I}$ and every priority $p\in\mathbb{P}$, the projection of $e$ to values with priority $p$ is linearizable. This property can be checked separately using the techniques introduced for regular FIFO queues in~\cite{DBLP:conf/icalp/BouajjaniEEH15} (see Appendix~\ref{} for more details). Note that this assumption excludes some obvious violations, such as a $\textit{rm}(a)$ operation happens before a $\textit{put}(a,p)$ operation, for some $p$.
+
+Also, we consider $\Gamma$-complete automata for $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, recognizing executions where any two occurring priorities are comparable (w.r.t. $\prec$). This is possible because any data-differentiated execution for which $\Gamma(e)$ is false has such a projection. Formally, given a data-differentiated execution $e$ and $p$ a maximal priority in $e$, $e\vert_{\preceq p}$ is the projection of $e$ to the set of values with priorities comparable to $p$. Then,
+
+\begin{restatable}{lemma}{priExecutionIsEnough}
+\label{lemma:pri execution is enough}
+Let $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$ and $e$ be a data-differentiated execution. Then, $\Gamma(e)$ is false if and only if $\Gamma(e\vert_{\preceq p})$ is false for some maximal priority $p$ in $e$.
 \end{restatable}
+\begin {proof} (Sketch)
+TODO UPDATE THE FOLLOWING
+To prove the $\textit{only if}$ direction, given $e \sqsubseteq l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$. Since there is no restriction to $p$-incomparable operations in $u$, $v$ and $w$, we can safely erase all $p$-incomparable values. Similar case holds for $\Gamma=\mathsf{UnmatchedMaxPriority}$. 
+
+To prove the $\textit{if}$ direction, we use a lemma in Appendix, which said that if the projection of an execution into a set $O_1$ of operations has linearization $l_1$ and the projection of the execution into $O_2$, the remanning operations, has linearization $l_2$, then the execution has a linearization whose projection into $O_1$ is $l_1$ and projection into $O_2$ is $l_2$.
+
+Given $e\vert_{\preceq p} \sqsubseteq l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$. By above lemma we know that $e$ has a linearization $l' = u' \cdot \textit{put}(x,p) \cdot v' \cdot \textit{rm}(x) \cdot w'$, such that the projection of $l'$ into $p$-incomparable values is l. We can see that $u$, $v$ and $w$ are sub-sequence of $u'$, $v'$ an $w'$, respectively. Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$ does not have restriction to $p$-incomparable values, we can see that $l' \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$. \qed
+\end {proof}
+
+
+%When the data domain and priority domain are both fixed to be finite set, the register automata can be simulated with finite automata, and by Lemma \ref{lemma:reduce EPQ into state reachability}, checking linearizable w.r.t $\seqPQ$ is decidable. 
+
+
+%
+%
+% and 
+%
+%Let $A(\Gamma)$ be a $\Gamma$-complete automaton for each $\Gamma$. The following theorem 
+%
+%
+%We will describe this automaton only in the case of $\Gamma=\mathsf{MatchedMaxPriority}$. The rest can be found in Appendix~\ref{}. These automata satisfy the following property 
+%
+%the main technical challenge is to show that each of the following sets of executions can be characterized in terms of automata (modulo renaming of values):
+%
+%
+% define a set of register automata whose product with a given implementation $\mathcal{I}$ accepts a linearizability violation whenever $\mathcal{I}$ is not linearizable.
+%
+%are precise enough to recognize every non-linearizable implementation.
+%
+%In this section, we divide checking linearizability w.r.t $\seqPQ$ into checking linearizablity w.r.t $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$, each of which can be done in polynomial-time. Due to data-independence, violations to each $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$ can be captured by register automata. This reduces checking linearizability w.r.t $\seqPQ$ into state reachability problem.
+%
+%
+%
+%\subsection{Co-Regular}
+%\label{subsec:definition of co-regular}
+%
+ 
+
+
+%Let $\Gamma\mathsf{\text{-}Condition}(e)$ be $\mathsf{HasEmptyRemoves}(e)$, $\neg \mathsf{HasEmptyRemoves}(e) \wedge \mathsf{HasUnmatchedMaxPriority}(e)$, and $\mathsf{HasMatchedMaxPriority}(e)$, for $\Gamma = \mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}$, respectively. $\textit{Check-PQ-Conc}$ inspires us that, when $\Gamma\mathsf{\text{-}Condition}(e)$ holds, there should exist some $\alpha$, such that  $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ holds. The following lemma states this formally. Let $\textit{proj}(e)$ be the set of projections of $e$ into set of values. When refer to $\textit{proj}(e)$, we implicitly assume that each $\textit{rm}(\textit{empty})$ in $e$ has a ghost argument that is unique. We say that execution $l$ is linearizable w.r.t $\Gamma$, if we can find a sequence $s$ where $e \sqsubseteq s$ and $\Gamma\mathsf{\text{-}Seq}(s,\alpha)$ holds for some $\alpha$.
+
+%\begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
+%\label{lemma:EPQ as multi in MRpri for history}
+%Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$. 
+%\end{restatable}
+
+
+%Note that due to data-independence, register automata are used to detect some renamed violations, instead of store and checking directly. Let us introduce the notion of co-regular, which reduce checking linearizable w.r.t $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ into checking set of witness automata.
+%
+%%\vspace{-6pt}
+%\begin{definition}\label{def:co-regular of rules of extended priority queues}
+%Given $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$. $\Gamma$ is co-regular, if there is a finite set $\textit{Auts}_{\Gamma}$ of register automata, such that for each data-independent implementation $\mathcal{I}$, we have that:
+%
+%$\textit{Auts}_{\Gamma} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\Gamma\mathsf{\text{-}Condition}(e')$ holds but $e$ does not linearizable w.r.t $\Gamma$. 
+%
+%$\seqPQ$ is co-regular, if each $\Gamma$ is co-regular.
+%\end{definition}
+
+\subsection{A $\mathsf{MatchedMaxPriority}$-complete automaton}\label{ssec:aut}
+
+The formula $\mathsf{MatchedMaxPriority}$ is false for some execution $e$ when all the values of maximal priorities in $e$ are removed and there exists a value $x$ of maximal priority $p$ s.t. $\mathsf{MatchedMaxPriority\text{-}Conc}(e,x)$ is false. We consider two cases depending on whether $x$ is the only value with priority $p$. We denote by $\mathsf{MatchedMaxPriority}^{>}$ the strengthening of $\mathsf{MatchedMaxPriority}$ with this condition (i.e., all the values other than $x$ have a priority strictly smaller than $p$) and $\mathsf{MatchedMaxPriority}^{=}$ for the strengthening of the same formula with the negation of this condition (i.e., there exists another value $y$ with priority $p$).
 
 Register automata is a kind of finite automata with registers used to deal with infinite data domain, where register can be assigned values and do simple operations. In this paper we use a restricted kind of register automata, which contains only one register, whose value is obtained once by guessing and never changed. Our register machine contains a register $r$. Its transition labels are $r=*,\textit{call}(\textit{put},d,g), \textit{ret}(\textit{put},d,g),$ $\textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d)$, where $d \in \mathbb{D} \cup \{ \textit{empty} \}$, and $g$ and $\top$ are guards. The first transition from initial state is a $r=*$ transition, and is used to assign an arbitrary value to $r$. A guard is a predicate chosen from $\{=r,< r,\top \}$, which represents equals the value of $r$, less than the value of $r$, and always holds, respectively. Given an execution $e = \alpha_1 \cdots \alpha_k$ of priority queue, register automata $\mathcal{A}$ accepts $e$, if there exists value $d_r\in \mathbb{D}$ and transitions $q_0 \xrightarrow{\beta_1} q_1 \ldots \xrightarrow{\beta_k} q_k$ of $\mathcal{A}$ from a initial state to a final state, such that for each $i$
 
@@ -24,51 +106,31 @@ Register automata is a kind of finite automata with registers used to deal with 
 \item[-] Else, $\alpha_i = \beta_i$.
 \end{itemize}
 
-Note that due to data-independence, register automata are used to detect some renamed violations, instead of store and checking directly. Let us introduce the notion of co-regular, which reduce checking linearizable w.r.t $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ into checking set of witness automata.
 
-%\vspace{-6pt}
-\begin{definition}\label{def:co-regular of rules of extended priority queues}
-Given $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$. $\Gamma$ is co-regular, if there is a finite set $\textit{Auts}_{\Gamma}$ of register automata, such that for each data-independent implementation $\mathcal{I}$, we have that:
-
-$\textit{Auts}_{\Gamma} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\Gamma\mathsf{\text{-}Condition}(e')$ holds but $e$ does not linearizable w.r.t $\Gamma$. 
-
-$\seqPQ$ is co-regular, if each $\Gamma$ is co-regular.
-\end{definition}
-
-We use two point to simply our proof of co-regular. The first point is to use the results in \cite{Bouajjani:2015} to ensure FIFO (first in first out) property of each single-priority projections. A execution where only values of one priority is putted is called a single-priority execution. It is obvious that each single-priority projection of sequences in $\seqPQ$ satisfy FIFO property. Let $\textit{toQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. In Appendix \ref{sec:appendix proof and definition in section definition of co-regular}, according to the result of queue in \cite{Bouajjani:2015}, we construct a set $\textit{Auts}_{\textit{sinPri}}$ of witness automata, and shows that they are enough to ensure that for each data-differentiated executions, each of its single-priority projection without $\textit{rm}(\textit{empty})$ to have ``FIFO'' property, as shown by the following lemma.
-
-\begin{restatable}{lemma}{AutoForEPQwithSignlePri}
-\label{lemma:automata for extended priority queue with single priority}
-
-Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \textit{Auts}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{toQueue}(e')$ does not linearizable to queue.
-\end{restatable}
-
-According to Lemma \ref{lemma:automata for extended priority queue with single priority}, from now on, it is safe to assume that, for each data-differentiated execution, any of its single-priority projection without $\textit{rm}(\textit{empty})$ has ``FIFO'' property. This effectively exclude some obvious violations, such as $\textit{rm}(a)$ happens before $\textit{put}(a,\_)$.
-
-The second point is to ignore the incomparable priorities. Given a data-differentiated execution $e$ and one of its maximal priority $p$, $e\vert_{\preceq p}$ is an execution obtained from $e$ by erasing operations of values with priority incomparable with $p$. The following lemma states that when checking co-regular of $\seqPQ$, it is safe to ignore all incomparable priorities.
-
-\begin{restatable}{lemma}{priExecutionIsEnough}
-\label{lemma:pri execution is enough}
-Given a data-differentiated execution $e$ and $\Gamma\in \{\mathsf{UnmatchedMaxPriority}$, $\mathsf{MatchedMaxPriority}\}$. $\Gamma\mathsf{\text{-}Conc}(e,x)$ holds, if and only if $\Gamma\mathsf{\text{-}Conc}(e\vert_{\preceq p},x)$ holds, where $p$ is the priority of $x$.
-\end{restatable}
-\begin {proof} (Sketch)
-
-To prove the $\textit{only if}$ direction, given $e \sqsubseteq l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$. Since there is no restriction to $p$-incomparable operations in $u$, $v$ and $w$, we can safely erase all $p$-incomparable values. Similar case holds for $\Gamma=\mathsf{UnmatchedMaxPriority}$. 
-
-To prove the $\textit{if}$ direction, we use a lemma in Appendix, which said that if the projection of an execution into a set $O_1$ of operations has linearization $l_1$ and the projection of the execution into $O_2$, the remanning operations, has linearization $l_2$, then the execution has a linearization whose projection into $O_1$ is $l_1$ and projection into $O_2$ is $l_2$.
-
-Given $e\vert_{\preceq p} \sqsubseteq l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$. By above lemma we know that $e$ has a linearization $l' = u' \cdot \textit{put}(x,p) \cdot v' \cdot \textit{rm}(x) \cdot w'$, such that the projection of $l'$ into $p$-incomparable values is l. We can see that $u$, $v$ and $w$ are sub-sequence of $u'$, $v'$ an $w'$, respectively. Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$ does not have restriction to $p$-incomparable values, we can see that $l' \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$. \qed
-\end {proof}
-
-Lemma \ref{lemma:pri execution is enough} makes our co-regular proof more clear. One consequence of it is that for given $e\vert_{\preceq p}$, $\Gamma\mathsf{\text{-}Condition}(e')$ holds only for one $\Gamma$. 
-
-
-
-
-
-
-\subsection{Co-Regular of $\mathsf{MatchedMaxPriority}^{>}$}
+\subsubsection{A $\mathsf{MatchedMaxPriority}^>$-complete automaton}
 \label{subsec:co-regular of EPQ1Lar}
+
+
+%We use two point to simply our proof of co-regular. The first point is to use the results in \cite{Bouajjani:2015} to ensure FIFO (first in first out) property of each single-priority projections. A execution where only values of one priority is putted is called a single-priority execution. It is obvious that each single-priority projection of sequences in $\seqPQ$ satisfy FIFO property. Let $\textit{toQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. In Appendix \ref{sec:appendix proof and definition in section definition of co-regular}, according to the result of queue in \cite{Bouajjani:2015}, we construct a set $\textit{Auts}_{\textit{sinPri}}$ of witness automata, and shows that they are enough to ensure that for each data-differentiated executions, each of its single-priority projection without $\textit{rm}(\textit{empty})$ to have ``FIFO'' property, as shown by the following lemma.
+%
+%\begin{restatable}{lemma}{AutoForEPQwithSignlePri}
+%\label{lemma:automata for extended priority queue with single priority}
+%
+%Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \textit{Auts}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{toQueue}(e')$ does not linearizable to queue.
+%\end{restatable}
+%
+%According to Lemma \ref{lemma:automata for extended priority queue with single priority}, from now on, it is safe to assume that, for each data-differentiated execution, any of its single-priority projection without $\textit{rm}(\textit{empty})$ has ``FIFO'' property. This effectively exclude some obvious violations, such as $\textit{rm}(a)$ happens before $\textit{put}(a,\_)$.
+
+
+%Lemma \ref{lemma:pri execution is enough} makes our co-regular proof more clear. One consequence of it is that for given $e\vert_{\preceq p}$, $\Gamma\mathsf{\text{-}Condition}(e')$ holds only for one $\Gamma$. 
+%
+%
+%
+%
+%
+%
+%\subsection{Co-Regular of $\mathsf{MatchedMaxPriority}^{>}$}
+%\label{subsec:co-regular of EPQ1Lar}
 
 To facilitate the proof of co-Regular of $\mathsf{MatchedMaxPriority}$, we separate $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ into the following two sub-predicates, where the first one represents that $x$ is the only value with priority $p$ in $e$ , and the second one represents that there are more than one value with priority $p$ in $e$. Here $\textit{occurOnce}(p,l)$ holds if there is only one value with priority $p$ in $l$. 
 
@@ -114,10 +176,7 @@ When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rig
 $\mathsf{MatchedMaxPriority}^{>}$ is co-regular.
 \end{restatable}
 
-
-
-
-\subsection{Co-Regular of $\mathsf{MatchedMaxPriority}^{=}$}
+\subsection{A $\mathsf{MatchedMaxPriority}^=$-complete automaton}
 \label{subsec:co-regular of EPQ1Equal}
 
 In this subsection, we briefly introduce the idea for proving co-regular of $\mathsf{MatchedMaxPriority}^{=}$. The proof of this subsection can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}.

@@ -729,7 +729,17 @@ We generate witness automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth cas
 
 Let $\textit{Auts}_{\textit{sinPri}} = \{ \mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3, \mathcal{A}_{\textit{SinPri}}^4 \}$. Let us prove Lemma \ref{lemma:automata for extended priority queue with single priority}.
 
-\AutoForEPQwithSignlePri*
+\begin{lemma}\label{lemma:automata for extended priority queue with single priority}
+Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \textit{Auts}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{toQueue}(e')$ does not linearizable to queue.
+\end{lemma}
+
+%\begin{restatable}{lemma}{AutoForEPQwithSignlePri}
+%\label{lemma:automata for extended priority queue with single priority}
+%
+%Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \textit{Auts}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{toQueue}(e')$ does not linearizable to queue.
+%\end{restatable}
+
+%\AutoForEPQwithSignlePri*
 
 \begin {proof}
 
