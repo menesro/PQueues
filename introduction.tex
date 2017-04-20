@@ -27,8 +27,7 @@ This gives a reduction to reachability that works for arbitrary implementations,
 \smallskip
 
 \noindent {\bf Related work}
-%\label{sec:related work}
-\noindent Related work
+\noindent The most related work of our paper is ~\cite{DBLP:conf/icalp/BouajjaniEEH15}. Compared to ~\cite{DBLP:conf/icalp/BouajjaniEEH15}, our work are specific to priority queue and thus have points not occur in queues and stacks. Due to the partial-order priorities, to prove the correctness of recursive procedure, we need to alter the positions of linearization points of incomparable items while keeps the linearization points of comparable items unchanged. For checking violations of one local property, we just need to find a value, such that at every possible time point to locate its remove operation, there is already values with smaller priorities in priority queue. For checking violations of another local property, we just need to find two values with maximal priority, such that every possible time point to locate remove operation of one value is disabled by remove operation of another value. Such phenomenons are unique for priority queue. 
 
 
 
