@@ -1144,7 +1144,12 @@ $\mathcal{A}_{\textit{l-lar}}^4$ is used to recognize conditions in \figurename~
 Let $\textit{Auts}_{\textit{1-lar}} = \{ \mathcal{A}_{\textit{l-lar}}^1, \mathcal{A}_{\textit{l-lar}}^2, \mathcal{A}_{\textit{l-lar}}^3, \mathcal{A}_{\textit{l-lar}}^4 \}$. The following lemma states that $\textit{EPQ}_1^{>}$ is co-regular.
 
 
-\EPQOneLarisCoRegular*
+%\EPQOneLarisCoRegular*
+\begin{restatable}{lemma}{EPQOneLarisCoRegular}
+\label{lemma:EPQ1Lar is co-regular}
+$\textit{Auts}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete.
+\end{restatable}
+
 
 \begin {proof}
 
@@ -1466,7 +1471,10 @@ Similarly, we construct sets $\textit{Auts}_{\textit{1-eq}}^{4}$ and $\textit{Au
 Let $\textit{Auts}_{\textit{1-eq}} = \{ \mathcal{A}_{\textit{l-eq}}^1, \mathcal{A}_{\textit{l-eq}}^2 \} \cup \textit{Auts}_{\textit{1-eq}}^{3} \cup \textit{Auts}_{\textit{1-eq}}^{4} \cup \textit{Auts}_{\textit{1-eq}}^{5}$. The following lemma states that $\textit{PQ}_1^{=}$ is co-regular.
 
 
-\EPQOneEqualIsCoRegular*
+\begin{restatable}{lemma}{EPQOneEqualIsCoRegular}
+\label{lemma:EPQ1Equal is co-regular}
+$\mathsf{MatchedMaxPriority}^{=}$ is co-regular.
+\end{restatable}
 
 \begin {proof}
 
