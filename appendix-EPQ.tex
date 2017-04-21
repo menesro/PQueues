@@ -611,56 +611,23 @@ To prove the $\textit{if}$ direction, assume that for each $e' \in \textit{proj}
 
 
 \section{Proofs and Definitions in Section \ref{sec:co-regular of extended priority queues}}
-\label{sec:appendix proof and definition in section co-regular of extended priority queues}
+\label{sec:appendix proof and definition in section co-regular of extended priority queues} 
 
-To facilitate our proof of latter sections, we need to separate $\seqPQ_1$ into two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$.  Therefore, we separate $\seqPQ_1$ into two cases:
+To facilitate our proof, we consider two cases of $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ depending on whether $e$ contains exactly one value with priority $p$ or at least two values. We denote by $\mathsf{MatchedMax-}$ $\mathsf{Priority}^{>}(e,x)$ the strengthening of $\mathsf{MatchedMaxPriority}(e,x)$ with the condition that all the values other than $x$ have a priority strictly smaller than $p$, and by $\mathsf{MatchedMaxPriority}^{=}(e,x)$ the strengthening of the same formula with the negation of this condition.
 
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $\seqPQ_1^{>}(u,v,w,\textit{pri}) \equiv
-(\textit{noRE}(u \cdot v \cdot w)) \wedge
-(\textit{LI}(\textit{pri}, u \cdot v \cdot w)) \wedge
-(\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
-(\textit{matched-C}(u \cdot v,\textit{pri}) )$
+Similarly, we consider two cases of $\mathsf{UnmatchedMaxPriority\text{-}Seq}(e,x)$ depending on whether $e$ some values of priority $p$ has matched $\textit{put}$. We denote by $\mathsf{UnmatchedMaxPriority}^{>}(e,x)$ the strengthening of $\mathsf{UnmatchedMaxPriority}(e,x)$ with the condition that non value of priority $p$ has matched $\textit{put}$, and by $\mathsf{UnmatchedMaxPriority}^{=}(e,x)$ the strengthening of the same formula with the negation of this condition.
 
 
-\item[-] $\seqPQ_1^{=}(u,v,w,\textit{pri}) \equiv
-(\textit{noRE}(u \cdot v \cdot w)) \wedge
-(\textit{LE'I}(\textit{pri}, u \cdot v \cdot w)) \wedge
-(\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
-(\textit{matched-C}(u \cdot v,\textit{pri}) ) \wedge
-(\textit{putInSeq}(u \cdot v \cdot w,u,\textit{pri}))$
-\end{itemize}
 
 
-For $\seqPQ_2$, we also need to distinguish two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$. Therefore, we separate $\seqPQ_2$ into two rules:
+\subsection{Lemma and Register Automata For FIFO of Single-Priority Executions}
+\label{sec:appendix lemma and register automata for FIFO of single-priority executions}
 
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $\seqPQ_2^{>}(u,v) \equiv
-(\textit{noRE}(u \cdot v)) \wedge
-(\textit{LEI}(\textit{pri},u \cdot v)) \wedge
-(\textit{LI-M}(\textit{pri},u \cdot v)) \wedge
-(\textit{putInSeq}(u \cdot v,u,\textit{pri}))$.
+Before we go to investigate $\Gamma$-linearizable, we can use the result in \cite{DBLP:conf/icalp/BouajjaniEEH15} to simplify our work. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of values that does not use priority $i$ (does not influence $\textit{rm}(\textit{empty})$). We call a extended priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \seqPQ$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property. 
 
-\item[-] $\seqPQ_2^{=}(u,v) \equiv
-(\textit{noRE}(u \cdot v)) \wedge
-(\textit{LEI}(\textit{pri},u \cdot v)) \wedge
-(\textit{LE'I-M}(\textit{pri},u \cdot v)) \wedge
-(\textit{putInSeq}(u \cdot v,u,\textit{pri}))$.
-\end{itemize}
+Given an execution of queue, we say that it is differentiated, if each item is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue. 
 
-
-\subsection{Proofs and Definitions in Subsection \ref{subsec:definition of co-regular}}
-\label{sec:appendix proof and definition in section definition of co-regular}
-
-Before we go to investigate co-regular of each rules, we use the results in \cite{Bouajjani:2015} to simplify our work. \cite{Bouajjani:2015} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of items that does not use priority $i$ (does not influence $\textit{rm}(\textit{empty})$). We call a extended priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \seqPQ$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property.
-
-Given an execution of queue, we say that it is differentiated \cite{Wolper:1986}, if each item is enqueued at most once. \cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a witness automata for extended priority queue.
-
-\cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists.
-
-For each such case, we construct a witness automata. We generate witness automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri})$, $\textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},b),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$.
+We generate witness automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top)$, $\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\top) \}$.
 
 
 \begin{figure}[htbp]
@@ -672,7 +639,7 @@ For each such case, we construct a witness automata. We generate witness automat
 \end{figure}
 
 
-We generate witness automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri}),\textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_2 = c_1 + \textit{cal}(\textit{rm},b) + \textit{ret}(\textit{rm},b)$.
+We generate witness automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top),\textit{ret}(\textit{put},a,\top), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{cal}(\textit{rm},b) + \textit{ret}(\textit{rm},b) \}$.
 
 
 \begin{figure}[htbp]
