@@ -979,7 +979,7 @@ This completes the proof of the $\textit{if}$ direction.
 
 Let us begin to represent register automata that is used for capture the existence of a data-differentiated execution $e$, let $p$ be a maximal priority of $e$, and $e'$ be the projection of $e$ into values with priorities comparable with $p$. We also require that $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds and there exists a cycle going through the value with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such item to be $b$, maps items that cover it to be $a$, and maps other items into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b,p)$ and $\textit{rm}(b)$. For each of them, we generate a register automaton.
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $C_1 = C \cup \{ \textit{ret}(\textit{rm},a) \}$, $C_2 = C \cup \{ \textit{call}(\textit{put},a,<r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $C_1 = C \cup \{ \textit{ret}(\textit{rm},a) \}$, $C_2 = C \cup \{ \textit{call}(\textit{put},a,<r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top)$, $\textit{ret}(\textit{rm},\top),$ $\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
 \begin{figure}[htbp]
   \centering
@@ -989,7 +989,7 @@ For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit
   \label{fig:automata APQ1Lar-1}
 \end{figure}
 
-$\mathcal{A}_{\textit{l-lar}}^1$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-1}. Here for simplicity, we only draw operation of $b$, and the first $\textit{ret}(\textit{put},a)$.
+$\mathcal{A}_{\textit{l-lar}}^1$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-1}. Here for simplicity, we only draw operation of $b$, and the first $\textit{ret}(\textit{put},a,\_)$.
 
 
 \begin{figure}[htbp]
@@ -1001,7 +1001,7 @@ $\mathcal{A}_{\textit{l-lar}}^1$ is used to recognize conditions in \figurename~
 \end{figure}
 
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{call}(\textit{rm}) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^2$, as shown in \figurename~\ref{fig:automata APQ1Lar-2}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^2$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^2$, as shown in \figurename~\ref{fig:automata APQ1Lar-2}. Here $C_1,C_2,C_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^2$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1012,7 +1012,7 @@ For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit
 \end{figure}
 
 
-$\mathcal{A}_{\textit{l-lar}}^2$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-2}. Here for simplicity, we only draw operation of $b$, and the first $\textit{ret}(\textit{put},a)$.
+$\mathcal{A}_{\textit{l-lar}}^2$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-2}. Here for simplicity, we only draw operation of $b$, and the first $\textit{ret}(\textit{put},a,\_)$.
 
 
 \begin{figure}[htbp]
@@ -1023,7 +1023,7 @@ $\mathcal{A}_{\textit{l-lar}}^2$ is used to recognize conditions in \figurename~
   \label{fig:his for APQ1Lar-2}
 \end{figure}
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{rm}) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^3$, as shown in \figurename~\ref{fig:automata APQ1Lar-3}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^3$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{rm},b) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^3$, as shown in \figurename~\ref{fig:automata APQ1Lar-3}. Here $C_1,C_2,C_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^3$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1034,7 +1034,7 @@ For the case when $e_r \vert_{b} = \textit{call}(\textit{rm}) \cdot \textit{call
 \end{figure}
 
 
-$\mathcal{A}_{\textit{l-lar}}^3$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-3}. Here for simplicity, we only draw operation of $b$, and the first $\textit{ret}(\textit{put},a)$.
+$\mathcal{A}_{\textit{l-lar}}^3$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-3}. Here for simplicity, we only draw operation of $b$, and the first $\textit{ret}(\textit{put},a,\_)$.
 
 
 \begin{figure}[htbp]
@@ -1046,7 +1046,7 @@ $\mathcal{A}_{\textit{l-lar}}^3$ is used to recognize conditions in \figurename~
 \end{figure}
 
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{rm}) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b) \cdot \textit{ret}(\textit{put})$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^4$, as shown in \figurename~\ref{fig:automata APQ1Lar-4}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$, and $c_4 = c_1 + \textit{ret}(\textit{put},b)$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^4$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{rm},b) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b) \cdot \textit{ret}(\textit{put},b,p)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^4$, as shown in \figurename~\ref{fig:automata APQ1Lar-4}. Here $C_1,C_2,C_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$, and $C_4 = C_1 \cup \{ \textit{ret}(\textit{put},b,=r) \}$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^4$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1057,7 +1057,7 @@ For the case when $e_r \vert_{b} = \textit{call}(\textit{rm}) \cdot \textit{call
 \end{figure}
 
 
-$\mathcal{A}_{\textit{l-lar}}^4$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-4}. Here for simplicity, we only draw operation of $b$, and the first $\textit{ret}(\textit{put},a)$.
+$\mathcal{A}_{\textit{l-lar}}^4$ is used to recognize conditions in \figurename~\ref{fig:his for APQ1Lar-4}. Here for simplicity, we only draw operation of $b$, and the first $\textit{ret}(\textit{put},a,\_)$.
 
 
 \begin{figure}[htbp]
@@ -1068,25 +1068,25 @@ $\mathcal{A}_{\textit{l-lar}}^4$ is used to recognize conditions in \figurename~
   \label{fig:his for APQ1Lar-4}
 \end{figure}
 
-Let $\textit{Auts}_{\textit{1-lar}} = \{ \mathcal{A}_{\textit{l-lar}}^1, \mathcal{A}_{\textit{l-lar}}^2, \mathcal{A}_{\textit{l-lar}}^3, \mathcal{A}_{\textit{l-lar}}^4 \}$. The following lemma states that $\seqPQ_1^{>}$ is co-regular.
+Let $\mathcal{A}_{\textit{1-lar}}$ be the union of $\mathcal{A}_{\textit{l-lar}}^1, \mathcal{A}_{\textit{l-lar}}^2, \mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$. The following lemma states that $\mathcal{A}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete. 
 
 
 %\EPQOneLarisCoRegular*
 \begin{restatable}{lemma}{EPQOneLarisCoRegular}
 \label{lemma:EPQ1Lar is co-regular}
-$\textit{Auts}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete.
+$\mathcal{A}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete.
 \end{restatable}
 
 
-\begin {proof}
+\begin {proof} 
 
-We need to prove that, given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$, if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e),$ $\seqPQ_1^{>} \in last(e') \wedge e'$ does not linearizable w.r.t. $\textit{MS}(\seqPQ_1^{>})$.
+We need to prove that, given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\mathsf{MatchedMaxPriority}^{>}$-linearizable. 
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $last(e')=\seqPQ_1^{>}$, $x$ is the item with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution. And there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, and there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $x$ in $e'$. 
 
-\noindent The $\textit{only if}$ direction: Let us consider the case of $\mathcal{A}_{\textit{l-lar}}^1$. Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$. By data-independence, there exists data-differentiated execution $e \in \mathcal{I}$ and renaming function $r_1$, such that $e_1 = r_1(e)$. Assume that $r_1$ maps $d$ into $b$ and maps $f_1,\ldots,f_m$ into $a$. Let $e'$ be obtained from $e$ by projection into $\{ d, f_1,\ldots,f_m \}$. Assume that the priority of $b$ is $p$. It is easy to see that $e'$ is a $p$-execution, $\textit{last}(e') = \seqPQ_1^{>}$, and there is a cycle going through $d$ in $G$, where $G$ is the left-right constraint of $e'$. The case of $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$ can be similarly proved.
+\noindent The $\textit{only if}$ direction: Let us consider the case of $\mathcal{A}_{\textit{l-lar}}^1$. Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$. By data-independence, there exists data-differentiated execution $e \in \mathcal{I}$ and renaming function $r_1$, such that $e_1 = r_1(e)$. Assume that $r_1$ maps $d$ into $b$ and maps $f_1,\ldots,f_m$ into $a$. Let $e'$ be obtained from $e$ by projection into $\{ d, f_1,\ldots,f_m \}$. Assume that the priority of $b$ is $p$. It is easy to see that $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds, and there is a cycle going through $d$ in $G$, where $G$ is the left-right constraint of $e'$. The case of $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$ can be similarly proved.
 
 \noindent The $\textit{if}$ direction: Given such $e$, $e'$ and $x$. Let renaming function $r$ maps $x$ into $b$, maps items cover $x$ into $a$, and maps other items into $d$. By data-independence, $r(e) \in \mathcal{I}$. Then depending on the cases of $r(e) \vert_{b}$, we can see that $r(e)$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$, $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ or $\mathcal{A}_{\textit{l-lar}}^4$. \qed
 \end {proof}
