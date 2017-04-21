@@ -25,13 +25,13 @@ Let us model priority queue as an LTS $\textit{PQ} = (Q,\Sigma,\rightarrow,q_0)$
     \end{itemize}
 \end{itemize}
 
-A path of an LTS is a finite transition sequence $q_0\xrightarrow{\beta_1}q_1\overset{\beta_2}{\longrightarrow}\ldots\overset{\beta_k}{\longrightarrow}q_k$ for $k\geq 0$, where $q_0$ is the initial state of the LTS. A trace of an LTS is a finite sequence $\beta_1 \cdot \beta_2 \cdot \ldots \cdot \beta_k$, where $k \geq 0$ if there exists a path $q_0\overset{\beta_1}{\longrightarrow}q_1\overset{\beta_2}{\longrightarrow}\ldots\overset{\beta_k}{\longrightarrow}q_k$ of the LTS. Let $\seqPQ$ be the set of traces of $\textit{PQ}$. The following lemma states that $\seqPQ$ is indeed the set of sequences obtained by renaming sequences accepted by $\textit{Check-PQ-Seq}$. Given $\Gamma\in \{\mathsf{EmptyRemove}, \mathsf{Unmatched-}$ $\mathsf{MaxPriority}, \mathsf{MatchedMaxPriority}\}$, let us use $l_2 \xrightarrow{\Gamma} l_1$ to mean that when we use $\textit{Check-PQ-Seq}$ to check $l_2$, we choose the branch of $\mathsf{Has\text{-}\Gamma}$ and finally recursively call $\textit{Check-PQ-Seq}$ to check $l_1$. 
+A path of an LTS is a finite transition sequence $q_0\xrightarrow{\beta_1}q_1\overset{\beta_2}{\longrightarrow}\ldots\overset{\beta_k}{\longrightarrow}q_k$ for $k\geq 0$, where $q_0$ is the initial state of the LTS. A trace of an LTS is a finite sequence $\beta_1 \cdot \beta_2 \cdot \ldots \cdot \beta_k$, where $k \geq 0$ if there exists a path $q_0\overset{\beta_1}{\longrightarrow}q_1\overset{\beta_2}{\longrightarrow}\ldots\overset{\beta_k}{\longrightarrow}q_k$ of the LTS. Let $\seqPQ$ be the set of traces of $\textit{PQ}$. The following lemma states that $\seqPQ$ is indeed the set of sequences obtained by renaming sequences accepted by $\textit{Check-PQ-Seq}$. Given $\Gamma\in \{\mathsf{EmptyRemove}, \mathsf{Unmatched-}$ $\mathsf{MaxPriority}, \mathsf{MatchedMaxPriority}\}$, let us use $l_2 \xrightarrow{\Gamma} l_1$ to mean that when we use $\textit{Check-PQ-Seq}$ to check $l_2$, we choose the branch of $\mathsf{Has\text{-}\Gamma}$ and finally recursively call $\textit{Check-PQ-Seq}$ to check $l_1$.
 
 \EPQRulesAndSemantics*
 
 \begin {proof}
 
-Let $\textit{SeqPQ}_f$ be the set of data-differentiated sequences, such that $e \in \textit{SeqPQ}_f$, if $\textit{Check-PQ-}$ $\textit{Seq}(e)=\mathsf{true}$. We need to prove that $\textit{SeqPQ}_f = \seqPQ_{\neq}$. 
+Let $\textit{SeqPQ}_f$ be the set of data-differentiated sequences, such that $e \in \textit{SeqPQ}_f$, if $\textit{Check-PQ-}$ $\textit{Seq}(e)=\mathsf{true}$. We need to prove that $\textit{SeqPQ}_f = \seqPQ_{\neq}$.
 We prove $\textit{SeqPQ}_f \subseteq \seqPQ_{\neq}$ by induction.
 
 \begin{itemize}
@@ -582,10 +582,10 @@ To prove the $\textit{if}$ direction, given a data-differentiated $e \sqsubseteq
 
 \item[-] If $\mathsf{Has\text{-}UnmatchedMaxPriority}(e)$ holds, then there exists a maximal priority $p$ in $e$, such that $p$ has unmatched $\textit{put}$. Let $l = u \cdot \textit{put}(x,p) \cdot v$, where in $v$ there is no $\textit{put}$ with priority $p$. It is not hard to see that $\mathsf{UnmatchedMaxPriority\text{-}Seq}(l,x)$ holds. Let $e'$ be the projection of $e$ into operations of $u \cdot v$. It is easy to see that $e' \sqsubseteq u \cdot v$ and then $e' \sqsubseteq \seqPQ$. Then we start the next round and choose $e'$ to be the ``$e$ in the next round''.
 
-\item[-] If $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, then there exists a maximal priority $p$ in $e$, such that $p$ has only matched $\textit{put}$. Let $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, where in $v \cdot w$ there is no $\textit{put}$ with priority $p$. It is not hard to see that $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds. Let $e'$ be the projection of $e$ into operations of $u \cdot v \cdot w$. It is easy to see that $e' \sqsubseteq u \cdot v \cdot w$ and then $e' \sqsubseteq \seqPQ$. Then we start the next round and choose $e'$ to be the ``$e$ in the next round''. 
+\item[-] If $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, then there exists a maximal priority $p$ in $e$, such that $p$ has only matched $\textit{put}$. Let $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, where in $v \cdot w$ there is no $\textit{put}$ with priority $p$. It is not hard to see that $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds. Let $e'$ be the projection of $e$ into operations of $u \cdot v \cdot w$. It is easy to see that $e' \sqsubseteq u \cdot v \cdot w$ and then $e' \sqsubseteq \seqPQ$. Then we start the next round and choose $e'$ to be the ``$e$ in the next round''.
 \end{itemize}
 
-The loop terminates when at some round $e=\epsilon$. This process ensures that $\textit{Check-PQ-Conc}(e)=\mathsf{true}$. 
+The loop terminates when at some round $e=\epsilon$. This process ensures that $\textit{Check-PQ-Conc}(e)=\mathsf{true}$.
 
 To prove the $\textit{only if}$ direction, given a data-differentiated execution $e$ and assume that $\textit{Check-PQ-}$ $\textit{Conc}(e)=\mathsf{true}$. Then we have $e \xrightarrow{\Gamma_1} e_1 \ldots \xrightarrow{\Gamma_m} e_m$ with $e_0=e$ and $e_m=\epsilon$. Assume that for each $i$, we found $\mathsf{\Gamma\text{-}Seq}(e_i,\alpha_i)$ holds for some $\alpha_i$. From $\mathsf{\Gamma\text{-}Seq}(e_{\textit{m-1}},\alpha_{\textit{m-1}})$ holds and $e_m = e_{\textit{m-1}} \setminus \alpha_{\textit{m-1}} \sqsubseteq \seqPQ$, by Lemma \ref{lemma:EPQ is step-by-step linearizability}, we can see that $e_{\textit{m-1}} \sqsubseteq \seqPQ$. Similarly, we can prove that $e_{\textit{m-2}},\ldots,e_0=e \sqsubseteq \seqPQ$. \qed
 \end {proof}
@@ -597,9 +597,9 @@ To prove the $\textit{only if}$ direction, given a data-differentiated execution
 
 \EPQasMultiInMRpriforHistory*
 
-\begin {proof} 
+\begin {proof}
 
-To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l \in \seqPQ$. Given $e' = e \vert_{D}$ and $l' = l \vert_{D}$, it is easy to see that $e' \sqsubseteq l'$, and by Lemma \ref{lem:closure_proj}, we can see that $l' \in \seqPQ$. Then it is obvious that $\textit{Check-PQ-Conc-NonRec}(e')$ returns $\mathsf{true}$. 
+To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l \in \seqPQ$. Given $e' = e \vert_{D}$ and $l' = l \vert_{D}$, it is easy to see that $e' \sqsubseteq l'$, and by Lemma \ref{lem:closure_proj}, we can see that $l' \in \seqPQ$. Then it is obvious that $\textit{Check-PQ-Conc-NonRec}(e')$ returns $\mathsf{true}$.
 
 To prove the $\textit{if}$ direction, assume that for each $e' \in \textit{proj}(e)$, $\textit{Check-PQ-Conc-NonRec}(e')$ returns $\mathsf{true}$. Then similarly as by Lemma \ref{lemma:con-check-EPQ is correct}, we can implies that $\textit{Check-PQ-Conc}(e)=\mathsf{true}$, and then by Lemma \ref{lemma:con-check-EPQ is correct}, we know that $e \sqsubseteq \seqPQ$. \qed
 \end {proof}
@@ -611,7 +611,7 @@ To prove the $\textit{if}$ direction, assume that for each $e' \in \textit{proj}
 
 
 \section{Proofs and Definitions in Section \ref{sec:co-regular of extended priority queues}}
-\label{sec:appendix proof and definition in section co-regular of extended priority queues} 
+\label{sec:appendix proof and definition in section co-regular of extended priority queues}
 
 To facilitate our proof, we consider two cases of $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ depending on whether $e$ contains exactly one value with priority $p$ or at least two values. We denote by $\mathsf{MatchedMax-}$ $\mathsf{Priority}^{>}(e,x)$ the strengthening of $\mathsf{MatchedMaxPriority}(e,x)$ with the condition that all the values other than $x$ have a priority strictly smaller than $p$, and by $\mathsf{MatchedMaxPriority}^{=}(e,x)$ the strengthening of the same formula with the negation of this condition.
 
@@ -623,9 +623,9 @@ Similarly, we consider two cases of $\mathsf{UnmatchedMaxPriority\text{-}Seq}(e,
 \subsection{Lemma and Register Automata For FIFO of Single-Priority Executions}
 \label{sec:appendix lemma and register automata for FIFO of single-priority executions}
 
-Before we go to investigate $\Gamma$-linearizable, we can use the result in \cite{DBLP:conf/icalp/BouajjaniEEH15} to simplify our work. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of values that does not use priority $i$ (does not influence $\textit{rm}(\textit{empty})$). We call a extended priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \seqPQ$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property. 
+Before we go to investigate $\Gamma$-linearizable, we can use the result in \cite{DBLP:conf/icalp/BouajjaniEEH15} to simplify our work. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of values that does not use priority $i$ (does not influence $\textit{rm}(\textit{empty})$). We call a extended priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \seqPQ$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property.
 
-Given an execution of queue, we say that it is differentiated, if each item is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue. 
+Given an execution of queue, we say that it is differentiated, if each item is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue.
 
 We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top)$, $\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\top) \}$.
 
@@ -660,7 +660,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third ca
   \label{fig:automata for FIFO-3}
 \end{figure}
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $C_1 = C \cup \{ \textit{call}(\textit{rm},b) \}$, and $C_2 = C \cup \{ \textit{ret}(\textit{put},b,\top), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\top),\textit{ret}(\textit{put},d,\top), \textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$. 
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $C_1 = C \cup \{ \textit{call}(\textit{rm},b) \}$, and $C_2 = C \cup \{ \textit{ret}(\textit{put},b,\top), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\top),\textit{ret}(\textit{put},d,\top), \textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -670,7 +670,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth ca
   \label{fig:automata for FIFO-4}
 \end{figure}
 
-Let $\mathcal{A}_{\textit{sinPri}}$ be the union of $\mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3, \mathcal{A}_{\textit{SinPri}}^4$. Let us prove Lemma \ref{lemma:automata for extended priority queue with single priority}. 
+Let $\mathcal{A}_{\textit{sinPri}}$ be the union of $\mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3, \mathcal{A}_{\textit{SinPri}}^4$. Let us prove Lemma \ref{lemma:automata for extended priority queue with single priority}.
 
 \begin{lemma}\label{lemma:automata for extended priority queue with single priority}
 Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \mathcal{A}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{transToQueue}(e')$ does not linearizable to queue.
@@ -714,48 +714,20 @@ Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by $\m
 
 
 
-\subsection{Proofs and Definitions in Subsection \ref{subsec:co-regular of EPQ1Lar}}
-\label{sec:appendix proof and definition in section co-regular of EPQ1Lar}
-
-
-The notion of left-right constraint used for extended priority queue is inspired by left-right constraint of queue \cite{Bouajjani:2015}. Let us introduce the notion of left-right constraint, which is a graph, and the existence of cycle though item with maximal priority in it correspond to the existence of the case in \figurename~\ref{fig:introduce gap for EPQ1Lar}.
-
-
-
-\begin{definition}\label{def:left-right constraint for matched put and rm operations}
-Given a data-differentiated $\textit{pri}_x$-execution $e$ without $\textit{rm}(\textit{empty})$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be the only  method events of $e$ with priority $\textit{pri}_x$. The left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ is the graph $G$ where:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] the nodes are the items of $e$, to which we add a node,
-
-\item[-] there is an edge from item $d_1$ to $x$, if $\textit{put}(d_1,\_)$ happens before $\textit{put}(x,\textit{pri}_x)$ or $\textit{rm}(x)$,
-
-\item[-] there is an edge from $x$ to item $d_1$, if $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$ or $\textit{rm}(d_1)$ does not exists in $h$,
-
-\item[-] there is an edge from item $d_1$ to item $d_2$, if $\textit{put}(d_1,\_)$ happens before $\textit{rm}(d_2,\_)$.
-\end{itemize}
-\end{definition}
-
-When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ through item with maximal priority (for example, $x$) in $G$, we say that $x$ is covered by $d_1,\ldots,d_m$. To state the effectiveness of left-right constraint, take the execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} as an example, we can see that $b$ is covered by $f,e,d$. We need to prove that getting rid of cycle though item with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\textit{MS}(\seqPQ_1^{>})$, as stated by the following lemma:
-
-\begin{restatable}{lemma}{LinEqualsConstraintforEPQOneLar}
-\label{lemma:Lin Equals Constraint for EPQ1Lar}
-Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x)$ and $\textit{rm}(x)$. $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$, if and only if $G$ has no cycle going through $x$.
-\end{restatable}
-
+\subsection{Proof of Lemma \ref{lemma:pri execution is enough}}
+\label{sec:appendix proof of Lemma pri execution is enough}
 
 The following lemma states that, from linearization of sub-histories, we can merge them and obtain a linearization (regardless of whether it belongs to sequential specification) of the whole history.
 
 \begin{restatable}{lemma}{MergeTwoLinearization}
 \label{lemma:merge two linearization}
 
-Given a history $h$, operation sets $S_1$, $S_2$ and sequences $l_1$ and $l_2$. Let $h_1 = h \vert{S_1}$ and $h_2 = h \vert{S_2}$. Assume that $h_1 \sqsubseteq l_1$, $h_2 \sqsubseteq l_2$, and $S_1 \cup S_2$ contains all operations of $h$. Then, there exists a sequence $l$, such that $h \sqsubseteq l$, $l \vert{S_1} = l_1$ and $l \vert{S_2} = l_2$.
+Given an execution $e$, operation sets $S_1$, $S_2$ and sequences $l_1$ and $l_2$. Let $e_1 = e \vert{S_1}$ and $e_2 = e \vert{S_2}$. Assume that $e_1 \sqsubseteq l_1$, $e_2 \sqsubseteq l_2$, and $S_1 \cup S_2$ contains all operations of $e$. Then, there exists a sequence $l$, such that $e \sqsubseteq l$, $l \vert{S_1} = l_1$ and $l \vert{S_2} = l_2$.
 \end{restatable}
 
 \begin {proof}
 
-Given a history $h$ and a operation $o \in S_2$, let $\textit{MB}(o) = \{ o' \vert o' \in S_1$ and $o'$ happens before $o$ in $h \}$, let $\textit{SBI}(o) = \textit{min}\{ i \vert l_1[0,i]$ contains all elements of $\textit{MB}(o) \}$.
+Given an execution $e$ and a operation $o \in S_2$, let $\textit{MB}(o) = \{ o' \vert o' \in S_1$ and $o'$ happens before $o$ in $h \}$, let $\textit{SBI}(o) = \textit{min}\{ i \vert l_1[0,i]$ contains all elements of $\textit{MB}(o) \}$.
 
 Let $l = s_1 \cdot l_2[1] \cdot \ldots \cdot l_2[n] \cdot s_{\textit{n+1}}$ be generated as follows, where $n = \vert l_2 \vert$:
 
@@ -766,7 +738,7 @@ Let $l = s_1 \cdot l_2[1] \cdot \ldots \cdot l_2[n] \cdot s_{\textit{n+1}}$ be g
 \item[-] If $s_1 \cdot l_2[1] \cdot \ldots \cdot l_2[i]$ already contains $l_1(\textit{SBI}(l_2[\textit{i+1}]))$, then $s_{\textit{i+1}} = \epsilon$. Otherwise, $s_{\textit{i+1}}$ is a subsequence of $l_1$, which starts from the next of last elements of $s_1 \cdot l_2[1] \cdot \ldots \cdot l_2[i]$ in $l_1$ and ends in $l_1(\textit{SBI}(l_2[\textit{i+1}]))$.
 \end{itemize}
 
-It is obvious that $l \vert{S_1} = l_1$ and $l \vert{S_2} = l_2$, and it remains to prove that $h \sqsubseteq l$. We prove this by contradiction. Assume that $h$ is not linearizable with respect to $l$. Then there must be two operations of $h$, such that $o_1 <_{hb} o_2$ in $h$ but $o_2$ before $0_1$ in $l$. Since $l \vert{S_1} = l_1$, $l \vert{S_2} = l_2$, and $h_1 \sqsubseteq l_1$, $h_2 \sqsubseteq l_2$, it is easy to see that it is impossible that $o_1,o_2 \in S_1$ or $o_1,o_2 \in S_2$. There are only two possibilities:
+It is obvious that $l \vert{S_1} = l_1$ and $l \vert{S_2} = l_2$, and it remains to prove that $e \sqsubseteq l$. We prove this by contradiction. Assume that $e \not \sqsubseteq l$. Then there must be two operations $o_1$, $o_2$ of $e$, such that $o_1 <_{hb} o_2$ in $e$ but $o_2$ before $0_1$ in $l$. Since $l \vert{S_1} = l_1$, $l \vert{S_2} = l_2$, and $h_1 \sqsubseteq l_1$, $h_2 \sqsubseteq l_2$, it is easy to see that it is impossible that $o_1,o_2 \in S_1$ or $o_1,o_2 \in S_2$. There are only two possibilities:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -783,15 +755,20 @@ With Lemma \ref{lemma:merge two linearization}, we can now prove Lemma \ref{lemm
 \priExecutionIsEnough*
 \begin {proof}
 
-We deal with the case of $R = \seqPQ_1^{>}$ , and other cases can be similarly dealt with.
+We deal with the case of $\Gamma = \mathsf{MatchedMaxPriority}^{>}$ , and other cases can be similarly dealt with.
 
-To prove the $\textit{only if}$ direction, given $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$ and such $\textit{pri}$ and $x$. Since $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$ with witness $x$, we know that $e \sqsubseteq u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, where $u$, $v$, $w$, $x$ and $\textit{pri}$ satisfy the guard of $\seqPQ_1^{>}$. Let $u'$, $v'$ and $w'$ be obtained from $u$, $v$ and $w$ by erasing all items with priority incomparable with $\textit{pri}$, respectively. It is not hard to see that $u'$, $v'$, $w'$, $x$ and $\textit{pri}$ satisfy the guard of $\seqPQ_1^{>}$, and then $e \sqsubseteq l = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w' \in \textit{MS}(\seqPQ_1^{>})$.
+To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l$, $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds and $p$ is the priority of $x$. We can see that $e \sqsubseteq u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$. Let $u'$, $v'$ and $w'$ be obtained from $u$, $v$ and $w$ by erasing all items with priority incomparable with $p$, respectively. Since the predicates in $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ does not restrict the values of priorities incomparable with $p$, is not hard to see that $e \sqsubseteq l'$ and $\mathsf{MatchedMaxPriority\text{-}Seq}(l',x)$ holds, where $l' = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w'$.
 
-To prove the $\textit{if}$ direction, given $e' = \textit{pri-Exec}(e)$ and such $x$ and $\textit{pri}$. Since $e' \sqsubseteq \textit{MS}(\seqPQ_1^{>})$ with witness $x$, we know that $e' \sqsubseteq l_1 = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, where $u$, $v$, $w$, $x$ and $\textit{pri}$ satisfy the guard of $\seqPQ_1^{>}$. Let $O_c$ be the set of operations in $e$ that have priorities comparable with $\textit{pri}$, and Let $O_i$ be the set of operations in $e$ that have priorities incomparable with $\textit{pri}$. It is obvious that $l_1$ is the linearization of $e \vert_{O_c}$. By Lemma \ref{lemma:merge two linearization}, there exists sequence $l$, such that $e \sqsubseteq l$, and $l \vert_{O_c} = l_1$. Then $l = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w'$, where $u' \vert_{O_c} = u$, $v' \vert_{O_c} = v$ and $w' \vert_{O_c} = w$. Since $\textit{pri}$ is one of maximal priorities in $e$, and the predicates of guards of $\seqPQ_1^{>}$ does not restrict $O_i$, it is easy to see that $l \in \textit{MS}(\seqPQ_1^{>})$ and then $e \sqsubseteq l$ with witness $x$. \qed
+To prove the $\textit{if}$ direction, given $e' = e \vert_{\prec p}$. By assumption, $e' \sqsubseteq l$, $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds and $p$ is the priority of $x$, and then we can see that $e' \sqsubseteq l_1 = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$. Let $O_c$ be the set of operations in $e$ that have priorities comparable with $p$, and Let $O_i$ be the set of operations in $e$ that have priorities incomparable with $p$. It is obvious that $l_1$ is the linearization of $e \vert_{O_c}$. By Lemma \ref{lemma:merge two linearization}, there exists sequence $l$, such that $e \sqsubseteq l$, and $l \vert_{O_c} = l_1$. Then $l = u' \cdot \textit{put}(x,p) \cdot v' \cdot \textit{rm}(x) \cdot w'$, where $u' \vert_{O_c} = u$, $v' \vert_{O_c} = v$ and $w' \vert_{O_c} = w$. Since $p$ is one of maximal priorities in $e$, and the predicates in $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ does not restrict the values with priority $O_i$, it is easy to see that $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds. \qed
 \end {proof}
 
 
-We can see that $\textit{UVSet}_i(e,x) \cap \textit{UVSet}_j(e,x) = \emptyset$ for any $i \neq j$.
+
+\subsection{Proofs and Definitions in Subsection \ref{subsec:co-regular of EPQ1Lar}}
+\label{sec:appendix proof and definition in section co-regular of EPQ1Lar}
+
+
+Let us introduce $\textit{UVSet}(e,x)$, which intuitively contains all pairs of operations that should be putted before $\textit{rm}(x)$ when construction linearization of $x$ according to $\mathsf{MatchedMaxPriority}$. Let $\textit{UVSet}_1(e$, $x) = o \vert$ either $o <{\textit{hb}} \textit{put}(x,\_)$ or $\textit{rm}(x)$, or there exists $o'$ with the same value of $o$, such that $o' <{\textit{hb}} \textit{put}(x)$ or $\textit{rm}(x) \}$. For each $i > 1$, let $\textit{UVSet}_{\textit{i+1}}(e,x) = o \vert$ $o \notin \textit{UVSet}_k$ for each $k \leq i$, and either $o$ happens before some operation $o' \in \textit{UVSet}_i(e,x)$, or there exists $o''$ with the same value of $o$, and $o''$ happens before some operation $o' \in \textit{UVSet}_i(e,x) \}$. Let $\textit{UVSet}(e,x) = \textit{UVSet}_1(e,x) \cup \ldots$. Note that it is possible that $\textit{UVSet}_i(e,x) \cap \textit{UVSet}_j(e,x) = \emptyset$ for any $i \neq j$.
 
 The following lemma states that $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
 
@@ -939,7 +916,10 @@ This completes the proof for $\textit{UVSet}_{\textit{j+1}}(e,x)$. Therefore, $\
 
 With Lemma \ref{lemma:UVSet has matched put and rm} and Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}, we can now prove Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}.
 
-\LinEqualsConstraintforEPQOneLar*
+\begin{restatable}{lemma}{LinEqualsConstraintforEPQOneLar}
+\label{lemma:Lin Equals Constraint for EPQ1Lar}
+Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x)$ and $\textit{rm}(x)$. $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$, if and only if $G$ has no cycle going through $x$.
+\end{restatable}
 
 \begin {proof}
 
