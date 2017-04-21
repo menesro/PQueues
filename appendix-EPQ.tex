@@ -768,7 +768,7 @@ Therefore, from now on, it is safe to consider only the data-differentiated sequ
 
 
 
-\subsection{Proofs and Definitions in Subsection \ref{subsec:co-regular of EPQ1Lar}}
+\subsection{Proofs, Definitions and Register Automata in Subsection \ref{subsec:co-regular of EPQ1Lar}}
 \label{sec:appendix proof and definition in section co-regular of EPQ1Lar}
 
 
@@ -1093,14 +1093,14 @@ By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Con
 
 
 
-\subsection{Proofs and Definitions in Subsection \ref{subsec:co-regular of EPQ1Equal}}
+\subsection{Proofs, Definitions and Register Automata in Subsection \ref{subsec:co-regular of EPQ1Equal}}
 \label{sec:appendix proof and definition in section co-regular of EPQ1Equal}
 
-Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$. The following lemma states a method to choose $\textit{itm}$ of $\seqPQ_1^{=}$.
+Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$. The following lemma states a method to build the linearization of $e$ w.r.t $\mathsf{MatchedMaxPriority}^{=}$. 
 
 \begin{restatable}{lemma}{MaximalInPBadGPMakePQ1Equal}
 \label{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. If there exists an item $x$ with priority $\textit{pri}$, such that for each $y \in \textit{Items}(e,\textit{pri})$, (1) $x$ does not $<_{\textit{pb}}$ to $y$, and (2) the right-most gap-point of $x$ is after $\textit{call}(\textit{put},y,\_)$ and $\textit{call}(\textit{rm},y)$. Then $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds and $p$ is its maximal priority. If there exists a value $x$ with priority $p$, such that for each $y \in \textit{Items}(e,p)$, (1) $x\not<_{\textit{pb}}y$, and (2) the right-most gap-point of $x$ is after $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},y)$. Then $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable. 
 \end{restatable}
 
 \begin {proof}
@@ -1111,21 +1111,21 @@ Let $o$ be the right-most gap-point of $x$. We locate linearization points of ea
 \setlength{\itemsep}{0.5pt}
 \item[-] Locate the linearization point of $\textit{rm}(x)$ at $o$,
 
-\item[-] If $\textit{put}(x,\textit{pri})$ overlaps with $\textit{rm}(x)$, then locate the linearization point of $\textit{put}(x,\textit{pri})$ just before the linearization point of $\textit{rm}(x)$. Otherwise, $\textit{put}(x,\textit{pri}) <_{\textit{hb}} \textit{rm}(x)$, and we locate the linearization point of $\textit{put}(x,\textit{pri})$ just before its return action.
+\item[-] If $\textit{put}(x,p)$ overlaps with $\textit{rm}(x)$, then locate the linearization point of $\textit{put}(x,p)$ just before the linearization point of $\textit{rm}(x)$. Otherwise, $\textit{put}(x,p) <_{\textit{hb}} \textit{rm}(x)$, and we locate the linearization point of $\textit{put}(x,p)$ just before its return action.
 
-\item[-] Locate linearization points of operation of each $y \in \textit{Items}(e,\textit{pri})$ (except for $x$) just after the call action of the operation.
+\item[-] Locate linearization points of operation of each $y \in \textit{Items}(e,p)$ (except for $x$) just after the call action of the operation.
 
-\item[-] For item $z$ with priority smaller than $\textit{pri}$. If both $\textit{call}(\textit{put},z,\_)$ and $\textit{call}(\textit{rm},z)$ is before $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just after their call actions. If both $\textit{ret}(\textit{put},z)$ and $\textit{ret}(\textit{rm},z)$ (if exists) is after $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just before their return actions. Otherwise, $x$ is in interval of $z$, which contradicts the definition of gap-point, and is impossible.
+\item[-] For item $z$ with priority smaller than $p$. If both $\textit{call}(\textit{put},z,\_)$ and $\textit{call}(\textit{rm},z)$ is before $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just after their call actions. If both $\textit{ret}(\textit{put},z)$ and $\textit{ret}(\textit{rm},z)$ (if exists) is after $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just before their return actions. Otherwise, $x$ is in interval of $z$, which contradicts the definition of gap-point, and is impossible.
 \end{itemize}
 
-Let $l$ be the sequence of linearization points constructed above. It is obvious that $e \sqsubseteq l$. Since for each $y \in \textit{Items}(e,\textit{pri})$, $o$ is after $\textit{call}(\textit{put},y,\_)$ and $\textit{call}(\textit{rm},x)$, we can see that $\textit{rm}(x)$ is after $\textit{put}(y,\textit{pri})$ and $\textit{rm}(y)$ in $l$. It is obvious that $\textit{put}(x,\textit{pri})$ is before $\textit{rm}(x)$ in $l$. Since $x$ does not $<_{\textit{pb}}$ to $y$, we can see that no $\textit{put}(y,\textit{pri})$ happens before $\textit{put}(x,\textit{pri})$. Then it is easy to see that $\textit{put}(x,\textit{pri})$ is after $\textit{put}(y,\textit{pri})$ in $l$. Since $\textit{last}(e) = \seqPQ_1^{=}$, all other items in $\textit{Items}(e,\textit{pri})$ has matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that their $\textit{put}$ and $\textit{rm}$ (except for that of $x$) are all before $\textit{rm}(x)$ in $l$.
+Let $l$ be the sequence of linearization points constructed above. It is obvious that $e \sqsubseteq l$. Since for each $y \in \textit{Items}(e,p)$, $o$ is after $\textit{call}(\textit{put},y,\_)$ and $\textit{call}(\textit{rm},x)$, we can see that $\textit{rm}(x)$ is after $\textit{put}(y,p)$ and $\textit{rm}(y)$ in $l$. It is obvious that $\textit{put}(x,p)$ is before $\textit{rm}(x)$ in $l$. Since $x$ does not $<_{\textit{pb}}$ to $y$, we can see that no $\textit{put}(y,p)$ happens before $\textit{put}(x,p)$. Then it is easy to see that $\textit{put}(x,p)$ is after $\textit{put}(y,p)$ in $l$. Since $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds, all other items in $\textit{Items}(e,p)$ has matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that their $\textit{put}$ and $\textit{rm}$ (except for that of $x$) are all before $\textit{rm}(x)$ in $l$.
 
-For item $z$ with priority smaller than $\textit{pri}$, we can see that there are only two possibilities: (1) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ are both before $\textit{rm}(x)$ in $l$, and (2) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ (if exists) are after before $\textit{rm}(x)$ in $l$. Therefore, before $\textit{rm}(x)$ in $l$, the $\textit{put}$ and $\textit{rm}$ of $z$ are matched.
+For item $z$ with priority smaller than $p$, we can see that there are only two possibilities: (1) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ are both before $\textit{rm}(x)$ in $l$, and (2) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ (if exists) are after before $\textit{rm}(x)$ in $l$. Therefore, before $\textit{rm}(x)$ in $l$, the $\textit{put}$ and $\textit{rm}$ of $z$ are matched.
 
-Therefore, it is easy to see that $l \in \textit{MS}(\seqPQ_1^{=})$. \qed
+Therefore, it is easy to see that $\mathsf{MatchedMaxPriority^{=}\text{-}Seq}(l,x)$ holds and $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable. \qed 
 \end {proof}
 
-With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can prove the following lemma, which states that getting rid of case in \figurename~\ref{fig:introduce pb order} is enough for ensure $\textit{last}(e) = \seqPQ_1^{=} \Rightarrow e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
+With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can prove the following lemma, which states that getting rid of case in \figurename~\ref{fig:introduce pb order} is enough for ensure that $\mathsf{MatchedMaxPriority}^{=}(e)$ holds. 
 
 
 \EPQOneEqualAsPBandGP*
@@ -1134,36 +1134,36 @@ With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
 
 To prove the $\textit{if}$ direction, let $e_{x,y}$ be the execution that is obtained from $e$ by erasing all actions of items that has same priority as $x$, except for actions of $x$ and $y$. It is obvious that $\textit{last}(e_{x,y}) = \seqPQ_1^{=}$. Since $y <_{\textit{pb}}^* x$, according to $\seqPQ_1^{=}$, we can see that $x$ should be chosen as $\textit{itm}$ in $\seqPQ_1^{=}$.
 
-According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar} (Here we temporarily forget the existence of $y$), the only possible position for locating linearizaton point of $\textit{rm}(x)$ is at gap-point of $x$. Otherwise, if the linearizaton point of $\textit{rm}(x)$ is chosen at a position that is not a gap-point of $x$, then there exists unmatched operation before $\textit{rm}(x)$ with smaller priority. Since the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},y)$, if we locate linearizaton point of $\textit{rm}(x)$ at gap-point of $x$, then $\textit{rm}(x)$ will be before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},x)$.
+According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar} (Here we temporarily forget the existence of $y$), the only possible position for locating linearizaton point of $\textit{rm}(x)$ is at gap-point of $x$. Otherwise, if the linearizaton point of $\textit{rm}(x)$ is chosen at a position that is not a gap-point of $x$, then there exists unmatched operation before $\textit{rm}(x)$ with smaller priority. Since the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$, if we locate linearizaton point of $\textit{rm}(x)$ at gap-point of $x$, then $\textit{rm}(x)$ will be before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},x)$.
 
-Therefore, for every sequence $l = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched operations of priority smaller than $\textit{pri}$, or $w$ contains $\textit{put}(y,\textit{pri})$ or $\textit{rm}(y)$. In both cases, $l \notin \textit{MS}(\seqPQ_1^{=})$.
+Therefore, for every sequence $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched operations of priority smaller than $p$, or $w$ contains $\textit{put}(y,p)$ or $\textit{rm}(y)$. In both cases, $l \notin \textit{MS}(\seqPQ_1^{=})$.
 
-To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{call}(\textit{put},y,\textit{pri})$ and $\textit{call}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. Recall that we already assume that each single-priority execution has FIFO property, and item with larger priority is not covered by items with smaller priority.
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. Recall that we already assume that each single-priority execution has FIFO property, and item with larger priority is not covered by items with smaller priority.
 
 Our proof proceed as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] Let $e_{\textit{pri}}$ be the projection of $e$ into operations of priority $\textit{pri}$. Since each single-priority execution has FIFO property, there exists sequence $l_{\textit{pri}}$, such that $e_{\textit{pri}} \sqsubseteq l_{\textit{pri}}$, and when we treat $\textit{put}$ as $\textit{enq}$ and $\textit{rm}$ as $\textit{deq}$, $l_{\textit{pri}}$ belongs to queue.
+\item[-] Let $e_{p}$ be the projection of $e$ into operations of priority $p$. Since each single-priority execution has FIFO property, there exists sequence $l_{p}$, such that $e_{p} \sqsubseteq l_{p}$, and when we treat $\textit{put}$ as $\textit{enq}$ and $\textit{rm}$ as $\textit{deq}$, $l_{p}$ belongs to queue.
 
-\item[-] Let $a_1$ be the last inserted item of $l_{\textit{pri}}$.
+\item[-] Let $a_1$ be the last inserted item of $l_{p}$.
 
-    Step $1$: Check whether for each $b \in \textit{Items}(e,\textit{pri})$, (1) $a_1$ does not $<_{\textit{pb}}$ to $b$, and (2) the right-most gap-point of $a$ is after $\textit{call}(\textit{put},b,\textit{pri})$ and $\textit{call}(\textit{rm},b)$.
+    Step $1$: Check whether for each $b \in \textit{Items}(e,p)$, (1) $a_1$ does not $<_{\textit{pb}}$ to $b$, and (2) the right-most gap-point of $a$ is after $\textit{call}(\textit{put},b,p)$ and $\textit{call}(\textit{rm},b)$.
 
-    It is easy to see that $a_1$ is of priority $\textit{pri}$, and $a_1$ does not $<_{\textit{pb}}$ to any $b \in \textit{Items}(e,\textit{pri})$. If for each $b \in \textit{Items}(e,\textit{pri})$, the rightmost gap-point of $a_1$ is after $\textit{call}(\textit{put},b,\textit{pri})$ and $\textit{call}(\textit{rm},b)$. Then by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can obtain that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
+    It is easy to see that $a_1$ is of priority $p$, and $a_1$ does not $<_{\textit{pb}}$ to any $b \in \textit{Items}(e,p)$. If for each $b \in \textit{Items}(e,p)$, the rightmost gap-point of $a_1$ is after $\textit{call}(\textit{put},b,p)$ and $\textit{call}(\textit{rm},b)$. Then by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can obtain that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
 
 
-\item[-] Otherwise, there exists $a_2 \in \textit{Items}(e,\textit{pri})$, such that the rightmost gap-point of $a_1$ is before $\textit{call}(\textit{put},a_2,\textit{pri})$ or $\textit{call}(\textit{rm},a_2)$ in $e$. We can see that each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.%, and thus, the right-most gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
+\item[-] Otherwise, there exists $a_2 \in \textit{Items}(e,p)$, such that the rightmost gap-point of $a_1$ is before $\textit{call}(\textit{put},a_2,p)$ or $\textit{call}(\textit{rm},a_2)$ in $e$. We can see that each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.%, and thus, the right-most gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
     By assumption, we know that $a_2$ does not $<_{\textit{pb}}$ to $a_1$.
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If for each item $b \in \textit{Items}(e,\textit{pri})$, $a_2$ does not $<_{\textit{pb}}$ to $b$. Then we go to step $1$ and treat $a_2$ similarly as $a_1$.
-    \item[-] Otherwise, there exists $a_3$ with priority $\textit{pri}$ such that $a_2 <_{\textit{pb}}^* a_3$.
+    \item[-] If for each item $b \in \textit{Items}(e,p)$, $a_2$ does not $<_{\textit{pb}}$ to $b$. Then we go to step $1$ and treat $a_2$ similarly as $a_1$.
+    \item[-] Otherwise, there exists $a_3$ with priority $p$ such that $a_2 <_{\textit{pb}}^* a_3$.
 
-    Since $l_{\textit{pri}}$ has FIFO property, it is easy to see that there is no cycle in $<_{\textit{pb}}$ order. It is safe to assume that $a_3$ is maximal in the sense of $<_{\textit{pb}}^*$. Or we can say, there does not exists $a_4$, such that $a_3 <_{\textit{pb}}^* a_4$.
+    Since $l_{p}$ has FIFO property, it is easy to see that there is no cycle in $<_{\textit{pb}}$ order. It is safe to assume that $a_3$ is maximal in the sense of $<_{\textit{pb}}^*$. Or we can say, there does not exists $a_4$, such that $a_3 <_{\textit{pb}}^* a_4$.
 
-    By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{call}(\textit{put},a_2,\textit{pri})$ and $\textit{call}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to step $1$ and treat $a_3$ similarly as $a_1$.
+    By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{call}(\textit{put},a_2,p)$ and $\textit{call}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to step $1$ and treat $a_3$ similarly as $a_1$.
     \end{itemize}
 \end{itemize}
 
@@ -1239,7 +1239,7 @@ There are many enumerations of operations of $a$, $b$ and $a_1$ that may makes $
 
 \begin{restatable}{lemma}{FiveEnmuerationisEnoughForEPQOneEqual}
 \label{lemma:five enumeration is enough for EPQ1Equal}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. Let $a$ and $b$ be items with maximal priority $\textit{pri}$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\textit{pri})$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
+Given a data-differentiated $p$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. Let $a$ and $b$ be items with maximal priority $p$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
 \end{restatable}
 \begin {proof}
 
@@ -1249,7 +1249,7 @@ Let us prove by consider all the possible reason of $a <_{\textit{pb}}^* b$. Acc
 \setlength{\itemsep}{0.5pt}
 \item[-] Reason $1$, $a <_{\textit{pb}}^A b$:
 
-    Since $a <_{\textit{pb}}^A b$, $\textit{put}(a,\textit{pri}) <_{\textit{hb}} \textit{put}(b,\textit{pri})$. Since $o$ is after $\textit{call}(\textit{put},b,\textit{pri})$, and thus, after $\textit{call}(\textit{put},a,\textit{pri})$, we can see that $o$ is before $\textit{call}(\textit{rm},b)$.
+    Since $a <_{\textit{pb}}^A b$, $\textit{put}(a,p) <_{\textit{hb}} \textit{put}(b,p)$. Since $o$ is after $\textit{call}(\textit{put},b,p)$, and thus, after $\textit{call}(\textit{put},a,p)$, we can see that $o$ is before $\textit{call}(\textit{rm},b)$.
 
     Since single-priority execution must satisfy the FIFO property, $\textit{rm}(b)$ does not happen before $\textit{rm}(a)$, and thus, $\textit{call}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. If $\textit{call}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},b)$, then $o$ is also a gap-point of $a$ and contradicts our assumption. So we know that $\textit{call}(\textit{rm},a)$ is after $\textit{call}(\textit{rm},b)$. If $\textit{ret}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$, since we already assume that there exists gap-point of $a$, this gap-point is also a gap-point of $b$, and is after $o$, which contradicts that $o$ is the rightmost gap-point of $b$. Therefore, $\textit{ret}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$.
 
@@ -1257,29 +1257,29 @@ Let us prove by consider all the possible reason of $a <_{\textit{pb}}^* b$. Acc
 
 \item[-] Reason $2$, $a <_{\textit{pb}}^B b$:
 
-    Since $a <_{\textit{pb}}^B b$, $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},b)$. Since $o$ is after $\textit{call}(\textit{rm},b)$, we can see that $o$ is before $\textit{call}(\textit{put},a,\textit{pri})$. This implies that $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},a,\textit{pri})$, and then $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a)$, which is impossible. Therefore, we can safely ignore this reason.
+    Since $a <_{\textit{pb}}^B b$, $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},b)$. Since $o$ is after $\textit{call}(\textit{rm},b)$, we can see that $o$ is before $\textit{call}(\textit{put},a,p)$. This implies that $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},a,p)$, and then $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a)$, which is impossible. Therefore, we can safely ignore this reason.
 
 \item[-] Reason $3$, $a <_{\textit{pb}}^C b$:
 
-    Since $a <_{\textit{pb}}^B b$, $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},b,\textit{pri})$. Since $o$ is after $\textit{call}(\textit{put},b)$, we can see that $o$ is before $\textit{call}(\textit{put},a,\textit{pri})$. This implies that $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},a,\textit{pri})$, and then $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a)$, which is impossible. Therefore, we can safely ignore this reason.
+    Since $a <_{\textit{pb}}^B b$, $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},b,p)$. Since $o$ is after $\textit{call}(\textit{put},b)$, we can see that $o$ is before $\textit{call}(\textit{put},a,p)$. This implies that $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},a,p)$, and then $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a)$, which is impossible. Therefore, we can safely ignore this reason.
 
 \item[-] Reason $4$, $a <_{\textit{pb}}^A a_1 <_{\textit{pb}}^B b$:
 
-    Since $a_1 <_{\textit{pb}}^B b$, $\textit{rm}(a_1) <_{\textit{hb}} \textit{rm}(b)$, and $\textit{ret}(\textit{rm},a_1)$ is before $\textit{call}(\textit{rm},b)$. Since $\textit{rm}(a_1)$ does not happen before $\textit{put}(a_1)$, $\textit{call}(\textit{put},a_1,\textit{pri})$ is before $\textit{ret}(\textit{rm},a_1)$. Since $a <_{\textit{pb}}^A a_1$, $\textit{ret}(\textit{put},a,\textit{pri})$ is before $\textit{call}(\textit{put},a_1,\textit{pri})$. Therefore, $\textit{ret}(\textit{put},a,\textit{pri})$ is before $\textit{call}(\textit{rm},b)$. Since $\textit{call}(\textit{rm},b)$ is before $o$, we can see that $o$ is before $\textit{call}(\textit{rm},a)$.
+    Since $a_1 <_{\textit{pb}}^B b$, $\textit{rm}(a_1) <_{\textit{hb}} \textit{rm}(b)$, and $\textit{ret}(\textit{rm},a_1)$ is before $\textit{call}(\textit{rm},b)$. Since $\textit{rm}(a_1)$ does not happen before $\textit{put}(a_1)$, $\textit{call}(\textit{put},a_1,p)$ is before $\textit{ret}(\textit{rm},a_1)$. Since $a <_{\textit{pb}}^A a_1$, $\textit{ret}(\textit{put},a,p)$ is before $\textit{call}(\textit{put},a_1,p)$. Therefore, $\textit{ret}(\textit{put},a,p)$ is before $\textit{call}(\textit{rm},b)$. Since $\textit{call}(\textit{rm},b)$ is before $o$, we can see that $o$ is before $\textit{call}(\textit{rm},a)$.
 
     If $\textit{call}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$, then $e \vert_{ \{ a,a_1,b \} }$ violates the FIFO property. Therefore, $\textit{call}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. Similarly as the case of reason $1$, we can see that $\textit{ret}(\textit{rm},b)$ is before $\textit{ret}(\textit{rm},a)$.
 
-    According to above discussion, there are three possible enumeration of operations of $a$, $a_1$ and $b$, as shown in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}, \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and \figurename~\ref{fig:history enumeration 5 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},a_1,\textit{pri})$ and $\textit{call}(\textit{put},a,\textit{pri})$ do not influence the correctness, we can simply ignore it. We also ignore $\textit{call}(\textit{put},b,\textit{pri})$ and $\textit{ret}(\textit{put},b)$, since the only requirements of them are (1) $\textit{rm}(b)$ does not happen before $\textit{put}(b)$ and (2) $\textit{call}(\textit{put},b,\textit{pri})$ is before $o$.
+    According to above discussion, there are three possible enumeration of operations of $a$, $a_1$ and $b$, as shown in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}, \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and \figurename~\ref{fig:history enumeration 5 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},a_1,p)$ and $\textit{call}(\textit{put},a,p)$ do not influence the correctness, we can simply ignore it. We also ignore $\textit{call}(\textit{put},b,p)$ and $\textit{ret}(\textit{put},b)$, since the only requirements of them are (1) $\textit{rm}(b)$ does not happen before $\textit{put}(b)$ and (2) $\textit{call}(\textit{put},b,p)$ is before $o$.
 
 \item[-] Reason $5$, $a <_{\textit{pb}}^B a_1 <_{\textit{pb}}^A b$:
 
-    Since $a_1 <_{\textit{pb}}^A b$, $\textit{ret}(\textit{put},a_1)$ is before $\textit{call}(\textit{put},b,\textit{pri})$. Since $\textit{call}(\textit{put},b,\textit{pri})$ is before $o$, we can see that $\textit{ret}(\textit{put},a_1)$ is before $o$.
+    Since $a_1 <_{\textit{pb}}^A b$, $\textit{ret}(\textit{put},a_1)$ is before $\textit{call}(\textit{put},b,p)$. Since $\textit{call}(\textit{put},b,p)$ is before $o$, we can see that $\textit{ret}(\textit{put},a_1)$ is before $o$.
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
     \item[-] If $o$ is before $\textit{call}(\textit{rm},a)$: Then $o$ is obviously before $\textit{ret}(\textit{rm},a)$. Since $a <_{\textit{pb}}^B a_1$, $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},a_1)$. Then we can see that, $o$ is before $\textit{call}(\textit{rm},a_1)$, and remember that $a_1 <_{\textit{pb}}^A b$. Then we can goto the case of reason $1$ and treat $a_1$ as $a$. Therefore, we can safely ignore this.
 
-    \item[-] If $o$ is before $\textit{call}(\textit{put},a,\textit{pri})$: Since $\textit{rm}(a)$ does not happen before $\textit{put}(a,\textit{pri})$, we can see that $\textit{call}(\textit{put},a,\textit{pri})$ is before $\textit{ret}(\textit{rm},a)$, and then $o$ is before $\textit{ret}(\textit{rm},a)$. Then similarly as above case, we can see that $o$ is before $\textit{call}(\textit{rm},a_1)$, and $a_1 <_{\textit{pb}}^A b$. Then we can goto the case of reason $1$ and treat $a_1$ as $a$. Therefore, we can safely ignore this.
+    \item[-] If $o$ is before $\textit{call}(\textit{put},a,p)$: Since $\textit{rm}(a)$ does not happen before $\textit{put}(a,p)$, we can see that $\textit{call}(\textit{put},a,p)$ is before $\textit{ret}(\textit{rm},a)$, and then $o$ is before $\textit{ret}(\textit{rm},a)$. Then similarly as above case, we can see that $o$ is before $\textit{call}(\textit{rm},a_1)$, and $a_1 <_{\textit{pb}}^A b$. Then we can goto the case of reason $1$ and treat $a_1$ as $a$. Therefore, we can safely ignore this.
     \end{itemize}
 \end{itemize}
 
@@ -1409,13 +1409,13 @@ We need to prove that, given a data-independence implementation $\mathcal{I}$, $
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $\textit{last}(e')=\seqPQ_1^{=}$, $a$ and $b$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\textit{pri})$ or $\textit{call}(\textit{rm},a)$ in $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $\textit{last}(e')=\seqPQ_1^{=}$, $a$ and $b$ are two items with maximal priority $p$ in $e'$, $e'$ is a $p$-execution, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e'$.
 
 \noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\textit{Auts}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\textit{Auts}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the items that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the items that are renamed into $d$ by $r$.
 
-let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$ is a $\textit{pri}$-execution, $\textit{last}(e'') = \seqPQ_1^{=}$. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},y)$ in $e''$.
+let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$ is a $p$-execution, $\textit{last}(e'') = \seqPQ_1^{=}$. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$ in $e''$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $last(e')=\textit{PQ}_1^{=}$, $a'$ and $b'$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',\textit{pri})$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $e$. It is easy to see that $\textit{last}(e_1) = \seqPQ_1^{=}$, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\textit{pri})$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
+\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $last(e')=\textit{PQ}_1^{=}$, $a'$ and $b'$ are two items with maximal priority $p$ in $e'$, $e'$ is a $p$-execution, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',p)$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $e$. It is easy to see that $\textit{last}(e_1) = \seqPQ_1^{=}$, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
 
 
 \begin{itemize}
@@ -1459,39 +1459,39 @@ Since $\textit{last}(e) = \seqPQ_2^{>}$, the actions with maximal priority in $e
 
 \begin{restatable}{lemma}{EPQ2EqualAsHappenBefore}
 \label{lemma:EPQ2Equal as happen before}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_2^{=}$. $e$ does not linearizable to $\textit{MS}(\seqPQ_2^{=})$, if and only if there exists $x$ and $y$ with priority $\textit{pri}$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, and $\textit{put}(x,\textit{pri}) <_{\textit{hb}} \textit{put}(y,\textit{pri})$.
+Given a data-differentiated $p$-execution $e$ with $\textit{last}(e) = \seqPQ_2^{=}$. $e$ does not linearizable to $\textit{MS}(\seqPQ_2^{=})$, if and only if there exists $x$ and $y$ with priority $p$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, and $\textit{put}(x,p) <_{\textit{hb}} \textit{put}(y,p)$.
 \end{restatable}
 
 \begin {proof}
 
 The $\textit{if}$ direction is obvious.
 
-To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,\textit{pri})$ does not happen before $\textit{put}(y,\textit{pri})$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,p)$ does not happen before $\textit{put}(y,p)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
 
-Let $x_1,\ldots,x_m$ be the set of items with priority $\textit{pri}$ and has unmatched $\textit{put}$ in $e$, let $y_1,\ldots,y_n$ be the set of items with priority $\textit{pri}$ and has matched $\textit{put}$ and $\textit{rm}$ in $e$. By assumption, we know that $\textit{call}(\textit{put},y_i,\textit{pri})$ is before $\textit{ret}(\textit{put},x_j)$ for each $i,j$. Then we explicitly construction the linearization of $e$ by locating the linearization points of $e$ as follows:
+Let $x_1,\ldots,x_m$ be the set of items with priority $p$ and has unmatched $\textit{put}$ in $e$, let $y_1,\ldots,y_n$ be the set of items with priority $p$ and has matched $\textit{put}$ and $\textit{rm}$ in $e$. By assumption, we know that $\textit{call}(\textit{put},y_i,p)$ is before $\textit{ret}(\textit{put},x_j)$ for each $i,j$. Then we explicitly construction the linearization of $e$ by locating the linearization points of $e$ as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] For each $x_i$, locate the linearization point of $\textit{put}(x_i,\textit{pri})$ just before its return action.
+\item[-] For each $x_i$, locate the linearization point of $\textit{put}(x_i,p)$ just before its return action.
 
-\item[-] For each $y_j$, locate the lineariztion point of $\textit{put}(y_j,\textit{pri})$ jest after its call action.
+\item[-] For each $y_j$, locate the lineariztion point of $\textit{put}(y_j,p)$ jest after its call action.
 
 \item[-] For other operations, locate their linearization points at an arbitrary location after its call action and before its return action.
 \end{itemize}
 
-Let $l$ be the sequence of linearization points. It is easy to see that $e \sqsubseteq l$. Since linearization points of $\textit{put}(x_i,\textit{pri})$ is after the linearization point of $\textit{put}(y_j,\textit{pri})$ for each $i,j$, it is easy to see that $l \in \textit{MS}(\seqPQ_2^{=})$. This completes the proof of this lemma. \qed
+Let $l$ be the sequence of linearization points. It is easy to see that $e \sqsubseteq l$. Since linearization points of $\textit{put}(x_i,p)$ is after the linearization point of $\textit{put}(y_j,p)$ for each $i,j$, it is easy to see that $l \in \textit{MS}(\seqPQ_2^{=})$. This completes the proof of this lemma. \qed
 \end {proof}
 
 Lemma \ref{lemma:EPQ2Equal as happen before} shows how to check violation to $\textit{MS}(\seqPQ_2^{=})$. However, the case in Lemma \ref{lemma:EPQ2Equal as happen before} violates our assumption that each single-priority execution is FIFO. Therefore, we know that $\seqPQ_2^{=}$ is always co-regular, as states by the following lemma.
 
 \begin{restatable}{lemma}{EPQ2EqualIsAlwaysCoRegular}
 \label{lemma:EPQ2Equal is always co-regular}
-Given a data-differentiated $\textit{pri}$-execution $e$, if $\textit{last}(e) = \seqPQ_2^{=}$, then $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
+Given a data-differentiated $p$-execution $e$, if $\textit{last}(e) = \seqPQ_2^{=}$, then $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
 \end{restatable}
 
 \begin {proof}
 
-According to Lemma \ref{lemma:EPQ2Equal as happen before}, if $\textit{last}(e) = \seqPQ_2^{=}$ and $e$ does not linearizable to $\textit{MS}(\seqPQ_2^{=})$, then there exists $x$ and $y$ with priority $\textit{pri}$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$, and $\textit{put}(x,\textit{pri}) <_{\textit{hb}} \textit{put}(y,\textit{pri})$. Let $e_1 = e \vert_{ \{ x,y \} }$. It is obvious that $e_1$ does not satisfy FIFO property. This contradicts the assumption that every single-priority execution has FIFO property, and thus, we can safely ignore this case. \qed
+According to Lemma \ref{lemma:EPQ2Equal as happen before}, if $\textit{last}(e) = \seqPQ_2^{=}$ and $e$ does not linearizable to $\textit{MS}(\seqPQ_2^{=})$, then there exists $x$ and $y$ with priority $p$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$, and $\textit{put}(x,p) <_{\textit{hb}} \textit{put}(y,p)$. Let $e_1 = e \vert_{ \{ x,y \} }$. It is obvious that $e_1$ does not satisfy FIFO property. This contradicts the assumption that every single-priority execution has FIFO property, and thus, we can safely ignore this case. \qed
 \end {proof}
 
 

@@ -3,7 +3,7 @@
 \label{sec:checking inclusion by recursive procedure}
 
 %TODO REPHRASE THIS
-%While checking linearizability of a given execution is known to be NP-complete in general~\cite{journals/siamcomp/GibbonsK97} we show in this section that it is polynomial-time for data-differentiated executions of the priority queue. 
+%While checking linearizability of a given execution is known to be NP-complete in general~\cite{journals/siamcomp/GibbonsK97} we show in this section that it is polynomial-time for data-differentiated executions of the priority queue.
 We define a recursive procedure for checking linearizability of an execution w.r.t. $\seqPQ$.
 To ease the exposition, Section~\ref{ssec:seq_exec} introduces a recursive procedure for checking whether a data-differentiated \emph{sequential} execution is admitted by the priority queue which is then extended to the concurrent case in Section~\ref{ssec:conc_exec}.
 
@@ -271,7 +271,7 @@ $\textit{Check-PQ-Conc}(e)=\mathsf{true}$ iff $e \sqsubseteq \seqPQ$, for every 
 \end{restatable}
 
 
-Proving soundness is highly non-trivial and one of the main technical contributions of this paper (see Appendix~\ref{} for a complete proof). The main technical difficulty is showing that for any execution $e$, any linearization of $e\setminus x$ for some maximal priority value $x$ can be extended to a linearization of $e$ provided that $\mathsf{UnmatchedMaxPriority}$ or $\mathsf{MatchedMaxPriority}$ holds (depending on whether there are values with the same priority as $x$ in $e$ which are not removed).
+Proving soundness is highly non-trivial and one of the main technical contributions of this paper (see Appendix~\ref{sec:appendix subsection proof of lemma con-check-EPQ is correct} for a complete proof). The main technical difficulty is showing that for any execution $e$, any linearization of $e\setminus x$ for some maximal priority value $x$ can be extended to a linearization of $e$ provided that $\mathsf{UnmatchedMaxPriority}$ or $\mathsf{MatchedMaxPriority}$ holds (depending on whether there are values with the same priority as $x$ in $e$ which are not removed).
 %
 %
 %To ensure that $\textit{check-PQ}(e) = \textit{true} \Rightarrow e \sqsubseteq \textit{PQ}$, we require $\textit{PQ}$ to satisfy the following property.

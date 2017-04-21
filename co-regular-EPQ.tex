@@ -18,13 +18,15 @@ For $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$, $\maths
 $A \cap \mathcal{I} \neq \emptyset$ if and only if there exists $ e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\Gamma$-linearizable.
 \end{definition}
 
-Section~\ref{ssec:aut} describes a $\mathsf{MatchedMaxPriority}$-complete automaton, the other automata being defined in Appendix~\ref{} or Icalp??. Therefore, the following holds.
+Section~\ref{ssec:aut} describes a $\mathsf{MatchedMaxPriority}$-complete automaton, the other automata being defined in Appendix~\ref{sec:appendix lemma and register automata for FIFO of single-priority executions}, %Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, 
+%Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal} 
+and Appendix \ref{subsec:co-regular of EPQ3}. Therefore, the following holds.
 
 \begin{lemma}
 There exists a $\Gamma$-complete automaton for each $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$, $\mathsf{MatchedMaxPriority}\}$.
 \end{lemma}
 
-When defining $\Gamma$-complete automata, we assume that every implementation $\mathcal{I}$ behaves correctly, i.e., as a FIFO queue, when only values with the same priority are observed. More precisely, we assume that for every execution $e\in\mathcal{I}$ and every priority $p\in\mathbb{P}$, the projection of $e$ to values with priority $p$ is linearizable (w.r.t. $\seqPQ$). This property can be checked separately using the techniques introduced for regular FIFO queues in~\cite{DBLP:conf/icalp/BouajjaniEEH15} (see Appendix~\ref{} for more details). Note that this assumption excludes some obvious violations, such as a $\textit{rm}(a)$ operation happens before a $\textit{put}(a,p)$ operation, for some $p$.
+When defining $\Gamma$-complete automata, we assume that every implementation $\mathcal{I}$ behaves correctly, i.e., as a FIFO queue, when only values with the same priority are observed. More precisely, we assume that for every execution $e\in\mathcal{I}$ and every priority $p\in\mathbb{P}$, the projection of $e$ to values with priority $p$ is linearizable (w.r.t. $\seqPQ$). This property can be checked separately using the techniques introduced for regular FIFO queues in~\cite{DBLP:conf/icalp/BouajjaniEEH15} (see Appendix~\ref{sec:appendix lemma and register automata for FIFO of single-priority executions} for more details). Note that this assumption excludes some obvious violations, such as a $\textit{rm}(a)$ operation happens before a $\textit{put}(a,p)$ operation, for some $p$.
 
 Also, we consider $\Gamma$-complete automata for $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, recognizing executions which contain only one maximal priority. This is possible because any data-differentiated execution for which $\Gamma(e)$ is false has such a projection.
 %Also, we consider $\Gamma$-complete automata for $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, recognizing executions where any two occurring priorities are comparable (w.r.t. $\prec$). This is possible because any data-differentiated execution which is not $\Gamma$-linearizable has such a projection.
@@ -38,7 +40,7 @@ Let $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$ a
 %{\color {blue}We prove an equivalent property: $e$ is $\Gamma$-linearizable if and only if $e\vert_{\preceq p}$ is $\Gamma$-linearizable for some maximal priority $p$ in $e$.} %We consider the case of $\mathsf{MatchedMaxPriority}$ and the case of $\mathsf{UnmatchedMaxPriority}$ is similar.
 To prove the $\textit{only if}$ direction, let $e$ be a data-differentiated execution linearizable w.r.t. $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$. Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$ imposes no restriction on the operations in $u$, $v$ and $w$ with priorities incomparable to $p$, erasing all these operations results in a sequential execution which still satisfies this property. Similarly, for $\Gamma=\mathsf{UnmatchedMaxPriority}$.
 
-The $\textit{if}$ direction follows from the fact that if the projection of an execution to a set of operations $O_1$ has a linearization $l_1$ and the projection of the same execution to the remaining set of operations has a linearization $l_2$, then the execution has a linearization which is defined as an interleaving of $l_1$ and $l_2$ (see Appendix~\ref{} for more details).
+The $\textit{if}$ direction follows from the fact that if the projection of an execution to a set of operations $O_1$ has a linearization $l_1$ and the projection of the same execution to the remaining set of operations has a linearization $l_2$, then the execution has a linearization which is defined as an interleaving of $l_1$ and $l_2$ (see Appendix~\ref{sec:appendix proof of Lemma pri execution is enough} for more details).
 
 Thus, let $e$ be an execution such that $e\vert_{\preceq p}$ is linearizable w.r.t. $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$. By the property above, we know that $e$ has a linearization $l' = u' \cdot \textit{put}(x,p) \cdot v' \cdot \textit{rm}(x) \cdot w'$, such that the projection of $l'$ to values of priority comparable to $p$ is $l$.
 %We can see that $u$, $v$ and $w$ are subsequences of $u'$, $v'$ an $w'$, respectively.
@@ -55,7 +57,7 @@ $\mathcal{I} \sqsubseteq \seqPQ$ if and only if $\mathcal{I} \cap A(\Gamma) = \e
 
 Section~\ref{subsec:combine step-by-step linearizability and co-regular} discusses decidability results implied by the theorem above.
 
-%Section~\ref{ssec:aut} discusses 
+%Section~\ref{ssec:aut} discusses
 
 %When the data domain and priority domain are both fixed to be finite set, the register automata can be simulated with finite automata, and by Lemma \ref{lemma:reduce EPQ into state reachability}, checking linearizable w.r.t $\seqPQ$ is decidable.
 
@@ -222,7 +224,7 @@ The \emph{left-right constraint of $x$} is the graph $G$ where: %$\textit{put}(x
 \end{itemize}
 \end{definition}
 
-The execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} is not $\mathsf{MatchedMaxPriority}^>$-linearizable because the left-right constraint of the maximal priority value $b$ contains a cycle: $f \rightarrow e \rightarrow d \rightarrow b \rightarrow f$. We prove that the presence of such a cycle is equivalent to the execution not being $\mathsf{MatchedMaxPriority}^>$-linearizable (see Appendix~\ref{}).
+The execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} is not $\mathsf{MatchedMaxPriority}^>$-linearizable because the left-right constraint of the maximal priority value $b$ contains a cycle: $f \rightarrow e \rightarrow d \rightarrow b \rightarrow f$. We prove that the presence of such a cycle is equivalent to the execution not being $\mathsf{MatchedMaxPriority}^>$-linearizable (see Appendix~\ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}).
 %The existence of cycle though value with maximal priority in left-right constraint formally modelled the phenomenon in \figurename~\ref{fig:introduce gap for EPQ1Lar}. For example, in \figurename~\ref{fig:introduce gap for EPQ1Lar}, $f \rightarrow e \rightarrow d \rightarrow b \rightarrow f$ is a cycle in left-right constraint. We then prove that getting rid of cycle though value with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$.
 When the left-right constraint of the maximal priority value $x$ contains a cycle of the form $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ for some $d_1$,$\ldots$,$d_n\in \mathbb{D}$, we say that $x$ is \emph{covered} by $d_1,\ldots,d_m$. The shape of such a cycle (i.e., the alternation between call/return actions of $\textit{put}$/$\textit{rm}$ operations) can be detected using our class of automata, the only complication being the unbounded number of values $d_1$,$\ldots$,$d_n$. However, by data independence, whenever an implementation contains such an execution it also contains an execution where all the values $d_1$,$\ldots$,$d_n$ are renamed to the same value $a$, and $x$ is renamed to $b$. Therefore, our automata can be defined over a fixed set of values $a$, $b$, and $\top$ (for the operations outside of the non-linearizable projection).
 
@@ -231,14 +233,15 @@ TODO COMPLETE THE FOLLOWING
 Defining a $\mathsf{MatchedMaxPriority}^>$-complete automaton needs to consider ?? cases depending on the order between ??. For each case, we define an automaton recognizing the induced set of violations. For example, the automaton corresponding to the case ?? is pictured in in \figurename~\ref{fig:automata APQ1Lar-1 in paper}. More details can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}.
 
 
-{\color {blue} Assume that $x$ is covered by $d_1,\ldots,d_m$, we can safely rename $x$ into $b$, rename $d_1,\ldots,d_m$ into $a$ and rename all other value into $c$ by data-independence. Since there are four cases of projection of execution to $x$ when their is a cycle through $x$. To ease the reading, for each of such case we generate a register automata, and then let the $\mathsf{MatchedMaxPriority}^{>}$-complete automaton be the union of the four register automata. For example, for the case when the projection of $e$ to $x$ is as in \figurename~\ref{fig:introduce gap for EPQ1Lar} (rename $b$ into $x$), we construct a register automaton $\mathcal{A}_{\textit{l-lar}}^1$ in \figurename~\ref{fig:automata APQ1Lar-1 in paper}. Here transition labels $C_1 = c \cup \{ \textit{ret}(\textit{rm},a) \}$, $C_2 = C \cup \{ \textit{call}(\textit{put},a,=r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$. There are three paths in \figurename~\ref{fig:introduce gap for EPQ1Lar} from $q_{\textit{init}}$ to $q_7$, and they comes from that there are three possible positions for the first $\textit{call}(\textit{put},a,\_)$ in the captured execution, which is shown in \figurename~\ref{fig:executions APQ1Lar-1 in paper}. In \figurename~\ref{fig:automata APQ1Lar-1 in paper}, the paths $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_7$, $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_{10}$ and $q_1 \rightarrow q_9 \rightarrow q_{10} \ldots \rightarrow q_7$ corresponds to the first, second and third cases in \figurename~\ref{fig:executions APQ1Lar-1 in paper}, respectively.
+{\color {blue} 
+Defining a $\mathsf{MatchedMaxPriority}^>$-complete automaton needs to capture the executions when a value $x$ is covered by values with smaller priority. By data-independence, we rename $x$ into $b$, rename the items covers it into $a$ and rename all other value into $\top$. There are four possibility of projection of captured execution into $b$, and for clarity we construct a register automaton for each of these case. For example, one such case is as in \figurename~\ref{fig:introduce gap for EPQ1Lar} (consider $b$ as $x$), and the corresponding register automaton is shown in \figurename~\ref{fig:automata APQ1Lar-1 in paper}. There are three possible place of the first $\textit{call}(\textit{put},a,\_)$ in the captured execution, as shown in \figurename~\ref{fig:executions APQ1Lar-1 in paper}. These three possible places correspond to three paths in $\mathcal{A}_{\textit{l-lar}}^1$: $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_7$, $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_{10}$ and $q_1 \rightarrow q_9 \rightarrow q_{10} \ldots \rightarrow q_7$. More details can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. 
 }
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=1 \textwidth]{figures/PIC_AUTO_PQ1Lar-pprr.pdf}
 %\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{l-lar}}^1$}
+  \caption{Register automaton $\mathcal{A}_{\textit{l-lar}}^1$. We use the following notations: $C_1 = C \cup \{ \textit{ret}(\textit{rm},a) \}$, $C_2 = C \cup \{ \textit{call}(\textit{put},a,=r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$.}
   \label{fig:automata APQ1Lar-1 in paper}
 \end{figure}
 
@@ -328,8 +331,8 @@ Let $a^i$ be the $a_1$ in the $\textit{i-th}$ round of loop. We can see that the
 
 To characterize violations to linearizability w.r.t. $\mathsf{MatchedMaxPriority}^{=}$ using an automaton that tracks a bounded number of values, we show that the number of values needed to witness that $y <_{\textit{pb}}^* x$ for some $x$ and $y$ is bounded.
 %
-%While Lemma \ref{lemma:EPQ1Equal as pb order and gap-point} doesn't imply a bound for 
-%the number of values needs to witness that 
+%While Lemma \ref{lemma:EPQ1Equal as pb order and gap-point} doesn't imply a bound for
+%the number of values needs to witness that
 %
 %The result of Lemma \ref{lemma:EPQ1Equal as pb order and gap-point} still needs to be impove, since obtaining $y <_{\textit{pb}}^* x$ may requires arbitrary many intermediate values, and it is hard to store unbounded values by automata. Fortunately, we prove that the number of intermediate values is essentially bounded, as stated by the following lemma.
 
@@ -345,15 +348,15 @@ Let $e$ be a data-differentiated execution such that $a <_{\textit{pb}} a_1 <_{\
 \end{itemize}
 \end{restatable}
 
-To characterize violations to linearizability w.r.t. $\mathsf{MatchedMaxPriority}^{=}$, one has to consider all the possible orders between call/return actions of the operations on values $a$, $b$, and $a_i$ in Lemma \ref{lemma:ob order has bounded length}, and the right-most gap point of $b$. Excluding the inconsistent cases, we are left with 5 possible orders that are listed in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}. For each case, we define an automaton recognizing the induced set of violations. For instance, one such case and the corresponding register automaton is shown in \figurename~\ref{fig:an enumeration and its witness automaton} ($o$ denotes the rightmost gap-point of $b$). In this case, the conditions in Lemma~\ref{lemma:EPQ1Equal as pb order and gap-point} are equivalent to the fact that intuitively, the time interval from $\textit{call}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$ is covered by lower priority values (and thus, there is no gap-point of $b$ which occurs after $\textit{call}(\textit{rm},a)$). Using again the data-independence property, these lower priority values can all be renamed to a fixed value $d$, and the other values to a fixed value $e$. 
+To characterize violations to linearizability w.r.t. $\mathsf{MatchedMaxPriority}^{=}$, one has to consider all the possible orders between call/return actions of the operations on values $a$, $b$, and $a_i$ in Lemma \ref{lemma:ob order has bounded length}, and the right-most gap point of $b$. Excluding the inconsistent cases, we are left with 5 possible orders that are listed in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}. For each case, we define an automaton recognizing the induced set of violations. For instance, one such case and the corresponding register automaton is shown in \figurename~\ref{fig:an enumeration and its witness automaton} ($o$ denotes the rightmost gap-point of $b$). In this case, the conditions in Lemma~\ref{lemma:EPQ1Equal as pb order and gap-point} are equivalent to the fact that intuitively, the time interval from $\textit{call}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$ is covered by lower priority values (and thus, there is no gap-point of $b$ which occurs after $\textit{call}(\textit{rm},a)$). Using again the data-independence property, these lower priority values can all be renamed to a fixed value $d$, and the other values to a fixed value $\top$.
 
-%We denote by $o$ the rightmost gap-point of $b$, we rename the values that ``cover the time interval from $\textit{call}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$'' (see Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}) into $d$, and rename the renaming values into $e$. 
+%We denote by $o$ the rightmost gap-point of $b$, we rename the values that ``cover the time interval from $\textit{call}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$'' (see Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}) into $d$, and rename the renaming values into $e$.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8 \textwidth]{figures/PIC-Enumeration-WitnessAutomata.pdf}
 %\vspace{-10pt}
-  \caption{A case in deriving a $\mathsf{MatchedMaxPriority}^{=}$-complete automaton. We use the following notations: $c = \textit{call}(\textit{put},e,\top),\textit{ret}(\textit{put},e,\top)$, $\textit{call}(\textit{rm},e), \textit{ret}(\textit{rm},e),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{call}(\textit{put},d,<r)$, $c_2 = c_1 + \textit{ret}(\textit{put},b,r)$, $c_3 = c_2 + \textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b,r) + \textit{ret}(\textit{rm},d)$.}
+  \caption{A case in deriving a $\mathsf{MatchedMaxPriority}^{=}$-complete automaton. We use the following notations: $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true})$, $\textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_1 = C \cup \textit{call}(\textit{put},d,<r) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,=r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},d) \}$, $C_4 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{ret}(\textit{rm},d) \}$.}
   \label{fig:an enumeration and its witness automaton}
 \end{figure}
 
