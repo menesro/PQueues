@@ -627,19 +627,19 @@ Before we go to investigate $\Gamma$-linearizable, we can use the result in \cit
 
 Given an execution of queue, we say that it is differentiated, if each item is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue. 
 
-We generate witness automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top)$, $\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\top) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top)$, $\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\top) \}$.
 
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.6 \textwidth]{figures/PIC_AUTO_FIFO_1.pdf}
+  \includegraphics[width=0.5 \textwidth]{figures/PIC_AUTO_FIFO_1.pdf}
 %\vspace{-10pt}
   \caption{Automaton $\mathcal{A}_{\textit{SinPri}}^1$}
   \label{fig:automata for FIFO-1 in appendix}
 \end{figure}
 
 
-We generate witness automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top),\textit{ret}(\textit{put},a,\top), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{cal}(\textit{rm},b) + \textit{ret}(\textit{rm},b) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top),\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{call}(\textit{rm},b) + \textit{ret}(\textit{rm},b) \}$.
 
 
 \begin{figure}[htbp]
@@ -650,7 +650,7 @@ We generate witness automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second ca
   \label{fig:automata for FIFO-2}
 \end{figure}
 
-We generate witness automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $c_1 = \textit{cal}(\textit{put},a,\textit{anyPri}),\textit{ret}(\textit{put},a), \textit{cal}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{ret}(\textit{rm},b)$, $c_4 = c_3 + \textit{cal}(\textit{rm},b)$, $c_5 = c_1 + \textit{ret}(\textit{rm},b)$, $c_6 = c_5 + \textit{cal}(\textit{rm},b)$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top),\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,\top) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_4 = C_3 \cup \{ \textit{call}(\textit{rm},b) \}$, $C_5 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_6 = C_5 \cup \{ \textit{call}(\textit{rm},b) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -660,7 +660,7 @@ We generate witness automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third cas
   \label{fig:automata for FIFO-3}
 \end{figure}
 
-We generate witness automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $c_1 = c + \textit{cal}(\textit{rm},b)$, and $c_2 = c + \textit{ret}(\textit{put},b) + \textit{cal}(\textit{rm},a) + \textit{ret}(\textit{rm},a)$, where $c = \textit{cal}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{cal}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $C_1 = C \cup \{ \textit{call}(\textit{rm},b) \}$, and $C_2 = C \cup \{ \textit{ret}(\textit{put},b,\top), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\top),\textit{ret}(\textit{put},d,\top), \textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$. 
 
 \begin{figure}[htbp]
   \centering
@@ -670,10 +670,10 @@ We generate witness automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth cas
   \label{fig:automata for FIFO-4}
 \end{figure}
 
-Let $\textit{Auts}_{\textit{sinPri}} = \{ \mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3, \mathcal{A}_{\textit{SinPri}}^4 \}$. Let us prove Lemma \ref{lemma:automata for extended priority queue with single priority}.
+Let $\mathcal{A}_{\textit{sinPri}}$ be the union of $\mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3, \mathcal{A}_{\textit{SinPri}}^4$. Let us prove Lemma \ref{lemma:automata for extended priority queue with single priority}. 
 
 \begin{lemma}\label{lemma:automata for extended priority queue with single priority}
-Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \textit{Auts}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{toQueue}(e')$ does not linearizable to queue.
+Given a data-independent implementations $\mathcal{I}$ of extended priority queue, $\mathcal{I} \cap \mathcal{A}_{\textit{sinPri}} \neq \emptyset$, if and only if there exists $e \in \mathcal{I}_{\neq}$, $e' \in \textit{proj}(e)$, such that $e'$ is single-priority  without $\textit{rm}(\textit{empty})$, and $\textit{transToQueue}(e')$ does not linearizable to queue.
 \end{lemma}
 
 %\begin{restatable}{lemma}{AutoForEPQwithSignlePri}
@@ -686,9 +686,9 @@ Given a data-independent implementations $\mathcal{I}$ of extended priority queu
 
 \begin {proof}
 
-\cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $v_a,v_b$: (1) $\textit{deq}(v_b) <_{hb} \textit{enq}(v_b)$, (2) there are are no $\textit{enq}(v_b)$ and at least one $\textit{deq}(v_b)$, (3) there are are one $\textit{enq}(v_b)$ and more than one $\textit{deq}(v_b)$, and (4) $\textit{enq}(v_a) <_{\textit{hb}} \textit{enq}(v_b)$, and $\textit{deq}(v_b) <_{\textit{hb}} \textit{deq}(v_a)$, or $\textit{deq}(v_a)$ does not exists.
+\cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $v_a,v_b$: (1) $\textit{deq}(v_b) <_{hb} \textit{enq}(v_b)$, (2) there are are no $\textit{enq}(v_b)$ and at least one $\textit{deq}(v_b)$, (3) there are are one $\textit{enq}(v_b)$ and more than one $\textit{deq}(v_b)$, and (4) $\textit{enq}(v_a) <_{\textit{hb}} \textit{enq}(v_b)$, and $\textit{deq}(v_b) <_{\textit{hb}} \textit{deq}(v_a)$, or $\textit{deq}(v_a)$ does not exists.
 
-Let us prove the $\textit{only if}$ direction. Assume that there exists execution $e_0 \in \mathcal{I}$ and $e_0$ is accepted by an automaton in $\textit{Auts}_{\textit{sinPri}}$. By data-independence, we can see that there exists a data-differentiated $e \in \mathcal{I}$ and renaming function, such that $e_0=r(e)$. Let $e'$ be obtained from $e$ by first removing $\textit{rm}(\textit{empty})$, and then,
+Let us prove the $\textit{only if}$ direction. Assume that there exists execution $e_0 \in \mathcal{I}$ and $e_0$ is accepted by $\mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\textit{SinPri}}^4$. By data-independence, we can see that there exists a data-differentiated $e \in \mathcal{I}$ and renaming function, such that $e_0=r(e)$. Let $e'$ be obtained from $e$ by first removing $\textit{rm}(\textit{empty})$, and then,
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -708,7 +708,7 @@ Let us prove the $\textit{if}$ direction. Assume that exists $e \in \mathcal{I}_
 \item[-] If this is because case $4$: $r$ maps $v_a$ and $v_b$ into $a$ and $b$, respectively, and maps all other values into $d$.
 \end{itemize}
 
-Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by some automaton in $\textit{Auts}_{\textit{sinPri}}$. This completes the proof of this lemma. \qed
+Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by $\mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\textit{SinPri}}^4$. This completes the proof of this lemma. \qed
 \end {proof}
 
 
@@ -993,9 +993,9 @@ This completes the proof of the $\textit{if}$ direction.
 \end {proof}
 
 
-Let us begin to represent witness automata that is used for capture the existence of a data-differentiated execution $e$, $e$ has a $\_$-projection $e'$, $\textit{last}(e') = \textit{PQ}_1^{>}$, and there exists a cycle going through the item with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such item to be $b$, maps items that cover it to be $a$, and maps other items into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b)$ and $\textit{rm}(b)$. For each of them, we generate a witness automaton.
+Let us begin to represent register automata that is used for capture the existence of a data-differentiated execution $e$, $e$ has a $\_$-projection $e'$, $\textit{last}(e') = \textit{PQ}_1^{>}$, and there exists a cycle going through the item with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such item to be $b$, maps items that cover it to be $a$, and maps other items into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b)$ and $\textit{rm}(b)$. For each of them, we generate a register automaton.
 
-For the case when $e_r \vert_{b} = \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{cal}(\textit{rm}) \cdot \textit{ret}(\textit{rm},b)$, we generate witness automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $c_1 = c + \textit{ret}(\textit{rm},a)$, $c_2 = c + \textit{cal}(\textit{put},a,\textit{les}_p)$, $c_3 = c_2 + \textit{ret}(\textit{rm},a)$, where $c = \textit{cal}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{cal}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{call}(\textit{rm}) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $c_1 = c + \textit{ret}(\textit{rm},a)$, $c_2 = c + \textit{call}(\textit{put},a,\textit{les}_p)$, $c_3 = c_2 + \textit{ret}(\textit{rm},a)$, where $c = \textit{call}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1017,7 +1017,7 @@ $\mathcal{A}_{\textit{l-lar}}^1$ is used to recognize conditions in \figurename~
 \end{figure}
 
 
-For the case when $e_r \vert_{b} = \textit{cal}(\textit{put},b,p) \cdot \textit{cal}(\textit{rm}) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$, we generate witness automaton $\mathcal{A}_{\textit{l-lar}}^2$, as shown in \figurename~\ref{fig:automata APQ1Lar-2}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^2$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{call}(\textit{rm}) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^2$, as shown in \figurename~\ref{fig:automata APQ1Lar-2}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^2$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1039,7 +1039,7 @@ $\mathcal{A}_{\textit{l-lar}}^2$ is used to recognize conditions in \figurename~
   \label{fig:his for APQ1Lar-2}
 \end{figure}
 
-For the case when $e_r \vert_{b} = \textit{cal}(\textit{rm}) \cdot \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$, we generate witness automaton $\mathcal{A}_{\textit{l-lar}}^3$, as shown in \figurename~\ref{fig:automata APQ1Lar-3}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^3$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{rm}) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^3$, as shown in \figurename~\ref{fig:automata APQ1Lar-3}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^3$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1062,7 +1062,7 @@ $\mathcal{A}_{\textit{l-lar}}^3$ is used to recognize conditions in \figurename~
 \end{figure}
 
 
-For the case when $e_r \vert_{b} = \textit{cal}(\textit{rm}) \cdot \textit{cal}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b) \cdot \textit{ret}(\textit{put})$, we generate witness automaton $\mathcal{A}_{\textit{l-lar}}^4$, as shown in \figurename~\ref{fig:automata APQ1Lar-4}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$, and $c_4 = c_1 + \textit{ret}(\textit{put},b)$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^4$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{rm}) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b) \cdot \textit{ret}(\textit{put})$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^4$, as shown in \figurename~\ref{fig:automata APQ1Lar-4}. Here $c_1,c_2,c_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$, and $c_4 = c_1 + \textit{ret}(\textit{put},b)$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^4$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1116,7 +1116,7 @@ Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$
 
 \begin{restatable}{lemma}{MaximalInPBadGPMakePQ1Equal}
 \label{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. If there exists an item $x$ with priority $\textit{pri}$, such that for each $y \in \textit{Items}(e,\textit{pri})$, (1) $x$ does not $<_{\textit{pb}}$ to $y$, and (2) the right-most gap-point of $x$ is after $\textit{cal}(\textit{put},y,\_)$ and $\textit{cal}(\textit{rm},y)$. Then $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
+Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. If there exists an item $x$ with priority $\textit{pri}$, such that for each $y \in \textit{Items}(e,\textit{pri})$, (1) $x$ does not $<_{\textit{pb}}$ to $y$, and (2) the right-most gap-point of $x$ is after $\textit{call}(\textit{put},y,\_)$ and $\textit{call}(\textit{rm},y)$. Then $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
 \end{restatable}
 
 \begin {proof}
@@ -1131,10 +1131,10 @@ Let $o$ be the right-most gap-point of $x$. We locate linearization points of ea
 
 \item[-] Locate linearization points of method event of each $y \in \textit{Items}(e,\textit{pri})$ (except for $x$) just after the call action of the method event.
 
-\item[-] For item $z$ with priority smaller than $\textit{pri}$. If both $\textit{cal}(\textit{put},z,\_)$ and $\textit{cal}(\textit{rm},z)$ is before $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just after their call actions. If both $\textit{ret}(\textit{put},z)$ and $\textit{ret}(\textit{rm},z)$ (if exists) is after $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just before their return actions. Otherwise, $x$ is in interval of $z$, which contradicts the definition of gap-point, and is impossible.
+\item[-] For item $z$ with priority smaller than $\textit{pri}$. If both $\textit{call}(\textit{put},z,\_)$ and $\textit{call}(\textit{rm},z)$ is before $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just after their call actions. If both $\textit{ret}(\textit{put},z)$ and $\textit{ret}(\textit{rm},z)$ (if exists) is after $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just before their return actions. Otherwise, $x$ is in interval of $z$, which contradicts the definition of gap-point, and is impossible.
 \end{itemize}
 
-Let $l$ be the sequence of linearization points constructed above. It is obvious that $e \sqsubseteq l$. Since for each $y \in \textit{Items}(e,\textit{pri})$, $o$ is after $\textit{cal}(\textit{put},y,\_)$ and $\textit{cal}(\textit{rm},x)$, we can see that $\textit{rm}(x)$ is after $\textit{put}(y,\textit{pri})$ and $\textit{rm}(y)$ in $l$. It is obvious that $\textit{put}(x,\textit{pri})$ is before $\textit{rm}(x)$ in $l$. Since $x$ does not $<_{\textit{pb}}$ to $y$, we can see that no $\textit{put}(y,\textit{pri})$ happens before $\textit{put}(x,\textit{pri})$. Then it is easy to see that $\textit{put}(x,\textit{pri})$ is after $\textit{put}(y,\textit{pri})$ in $l$. Since $\textit{last}(e) = \seqPQ_1^{=}$, all other items in $\textit{Items}(e,\textit{pri})$ has matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that their $\textit{put}$ and $\textit{rm}$ (except for that of $x$) are all before $\textit{rm}(x)$ in $l$.
+Let $l$ be the sequence of linearization points constructed above. It is obvious that $e \sqsubseteq l$. Since for each $y \in \textit{Items}(e,\textit{pri})$, $o$ is after $\textit{call}(\textit{put},y,\_)$ and $\textit{call}(\textit{rm},x)$, we can see that $\textit{rm}(x)$ is after $\textit{put}(y,\textit{pri})$ and $\textit{rm}(y)$ in $l$. It is obvious that $\textit{put}(x,\textit{pri})$ is before $\textit{rm}(x)$ in $l$. Since $x$ does not $<_{\textit{pb}}$ to $y$, we can see that no $\textit{put}(y,\textit{pri})$ happens before $\textit{put}(x,\textit{pri})$. Then it is easy to see that $\textit{put}(x,\textit{pri})$ is after $\textit{put}(y,\textit{pri})$ in $l$. Since $\textit{last}(e) = \seqPQ_1^{=}$, all other items in $\textit{Items}(e,\textit{pri})$ has matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that their $\textit{put}$ and $\textit{rm}$ (except for that of $x$) are all before $\textit{rm}(x)$ in $l$.
 
 For item $z$ with priority smaller than $\textit{pri}$, we can see that there are only two possibilities: (1) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ are both before $\textit{rm}(x)$ in $l$, and (2) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ (if exists) are after before $\textit{rm}(x)$ in $l$. Therefore, before $\textit{rm}(x)$ in $l$, the $\textit{put}$ and $\textit{rm}$ of $z$ are matched.
 
@@ -1150,11 +1150,11 @@ With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
 
 To prove the $\textit{if}$ direction, let $e_{x,y}$ be the execution that is obtained from $e$ by erasing all actions of items that has same priority as $x$, except for actions of $x$ and $y$. It is obvious that $\textit{last}(e_{x,y}) = \seqPQ_1^{=}$. Since $y <_{\textit{pb}}^* x$, according to $\seqPQ_1^{=}$, we can see that $x$ should be chosen as $\textit{itm}$ in $\seqPQ_1^{=}$.
 
-According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar} (Here we temporarily forget the existence of $y$), the only possible position for locating linearizaton point of $\textit{rm}(x)$ is at gap-point of $x$. Otherwise, if the linearizaton point of $\textit{rm}(x)$ is chosen at a position that is not a gap-point of $x$, then there exists unmatched method event before $\textit{rm}(x)$ with smaller priority. Since the rightmost gap-point of $x$ is before $\textit{cal}(\textit{put},y,\textit{pri})$ or $\textit{cal}(\textit{rm},y)$, if we locate linearizaton point of $\textit{rm}(x)$ at gap-point of $x$, then $\textit{rm}(x)$ will be before $\textit{cal}(\textit{put},y,\textit{pri})$ or $\textit{cal}(\textit{rm},x)$.
+According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar} (Here we temporarily forget the existence of $y$), the only possible position for locating linearizaton point of $\textit{rm}(x)$ is at gap-point of $x$. Otherwise, if the linearizaton point of $\textit{rm}(x)$ is chosen at a position that is not a gap-point of $x$, then there exists unmatched method event before $\textit{rm}(x)$ with smaller priority. Since the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},y)$, if we locate linearizaton point of $\textit{rm}(x)$ at gap-point of $x$, then $\textit{rm}(x)$ will be before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},x)$.
 
 Therefore, for every sequence $l = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched method events of priority smaller than $\textit{pri}$, or $w$ contains $\textit{put}(y,\textit{pri})$ or $\textit{rm}(y)$. In both cases, $l \notin \textit{MS}(\seqPQ_1^{=})$.
 
-To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{cal}(\textit{put},y,\textit{pri})$ and $\textit{cal}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. Recall that we already assume that each single-priority execution has FIFO property, and item with larger priority is not covered by items with smaller priority.
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{call}(\textit{put},y,\textit{pri})$ and $\textit{call}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. Recall that we already assume that each single-priority execution has FIFO property, and item with larger priority is not covered by items with smaller priority.
 
 Our proof proceed as follows:
 
@@ -1164,12 +1164,12 @@ Our proof proceed as follows:
 
 \item[-] Let $a_1$ be the last inserted item of $l_{\textit{pri}}$.
 
-    Step $1$: Check whether for each $b \in \textit{Items}(e,\textit{pri})$, (1) $a_1$ does not $<_{\textit{pb}}$ to $b$, and (2) the right-most gap-point of $a$ is after $\textit{cal}(\textit{put},b,\textit{pri})$ and $\textit{cal}(\textit{rm},b)$.
+    Step $1$: Check whether for each $b \in \textit{Items}(e,\textit{pri})$, (1) $a_1$ does not $<_{\textit{pb}}$ to $b$, and (2) the right-most gap-point of $a$ is after $\textit{call}(\textit{put},b,\textit{pri})$ and $\textit{call}(\textit{rm},b)$.
 
-    It is easy to see that $a_1$ is of priority $\textit{pri}$, and $a_1$ does not $<_{\textit{pb}}$ to any $b \in \textit{Items}(e,\textit{pri})$. If for each $b \in \textit{Items}(e,\textit{pri})$, the rightmost gap-point of $a_1$ is after $\textit{cal}(\textit{put},b,\textit{pri})$ and $\textit{cal}(\textit{rm},b)$. Then by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can obtain that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
+    It is easy to see that $a_1$ is of priority $\textit{pri}$, and $a_1$ does not $<_{\textit{pb}}$ to any $b \in \textit{Items}(e,\textit{pri})$. If for each $b \in \textit{Items}(e,\textit{pri})$, the rightmost gap-point of $a_1$ is after $\textit{call}(\textit{put},b,\textit{pri})$ and $\textit{call}(\textit{rm},b)$. Then by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can obtain that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
 
 
-\item[-] Otherwise, there exists $a_2 \in \textit{Items}(e,\textit{pri})$, such that the rightmost gap-point of $a_1$ is before $\textit{cal}(\textit{put},a_2,\textit{pri})$ or $\textit{cal}(\textit{rm},a_2)$ in $e$. We can see that each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.%, and thus, the right-most gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
+\item[-] Otherwise, there exists $a_2 \in \textit{Items}(e,\textit{pri})$, such that the rightmost gap-point of $a_1$ is before $\textit{call}(\textit{put},a_2,\textit{pri})$ or $\textit{call}(\textit{rm},a_2)$ in $e$. We can see that each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.%, and thus, the right-most gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
     By assumption, we know that $a_2$ does not $<_{\textit{pb}}$ to $a_1$.
 
     \begin{itemize}
@@ -1179,7 +1179,7 @@ Our proof proceed as follows:
 
     Since $l_{\textit{pri}}$ has FIFO property, it is easy to see that there is no cycle in $<_{\textit{pb}}$ order. It is safe to assume that $a_3$ is maximal in the sense of $<_{\textit{pb}}^*$. Or we can say, there does not exists $a_4$, such that $a_3 <_{\textit{pb}}^* a_4$.
 
-    By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{cal}(\textit{put},a_2,\textit{pri})$ and $\textit{cal}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to step $1$ and treat $a_3$ similarly as $a_1$.
+    By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{call}(\textit{put},a_2,\textit{pri})$ and $\textit{call}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to step $1$ and treat $a_3$ similarly as $a_1$.
     \end{itemize}
 \end{itemize}
 
@@ -1202,7 +1202,7 @@ Our proof proceed as follows:
 
     Similarly, if $c_3 <_{\textit{pb}}^B c_2 <_{\textit{pb}}^B c_1$, then $c_3 <_{\textit{pb}}^B c_1$.
 
-    If $c_3 <_{\textit{pb}}^C c_2 <_{\textit{pb}}^C c_1$: Since $c_2 <_{\textit{pb}}^C c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{cal}(\textit{put},c_1,\_)$. Since $\textit{rm}(c_2)$ does not happen before $\textit{put}(c_2,\_)$, $\textit{cal}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
+    If $c_3 <_{\textit{pb}}^C c_2 <_{\textit{pb}}^C c_1$: Since $c_2 <_{\textit{pb}}^C c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$. Since $\textit{rm}(c_2)$ does not happen before $\textit{put}(c_2,\_)$, $\textit{call}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
 
     Therefore, when we meet successive $<_{\textit{pb}}^A$, it is safe to leave only the first and the last elements and ignore intermediate elements. Similar cases hold for $<_{\textit{pb}}^B$ and $<_{\textit{pb}}^C$.
 
@@ -1210,9 +1210,9 @@ Our proof proceed as follows:
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] ($<_{\textit{pb}}^A \cdot <_{\textit{pb}}^C$): If $c_3 <_{\textit{pb}}^A c_2 <_{\textit{pb}}^C c_1$. Since $c_2 <_{\textit{pb}}^C c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{cal}(\textit{put},c_1,\_)$. Since $\textit{rm}(c_2)$ does not happen before $\textit{put}(c_2,\_)$, $\textit{cal}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^A c_2$, $\textit{ret}(\textit{put},c_3)$ is before $\textit{cal}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{put},c_3)$ is before $\textit{cal}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^A c_1$.
+    \item[-] ($<_{\textit{pb}}^A \cdot <_{\textit{pb}}^C$): If $c_3 <_{\textit{pb}}^A c_2 <_{\textit{pb}}^C c_1$. Since $c_2 <_{\textit{pb}}^C c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$. Since $\textit{rm}(c_2)$ does not happen before $\textit{put}(c_2,\_)$, $\textit{call}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^A c_2$, $\textit{ret}(\textit{put},c_3)$ is before $\textit{call}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{put},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^A c_1$.
 
-    \item[-] ($<_{\textit{pb}}^C \cdot <_{\textit{pb}}^A$): If $c_3 <_{\textit{pb}}^C c_2 <_{\textit{pb}}^A c_1$. Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{ret}(\textit{put},c_2)$ is before $\textit{cal}(\textit{put},c_1,\_)$. It is obvious that $\textit{cal}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{put},c_2)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
+    \item[-] ($<_{\textit{pb}}^C \cdot <_{\textit{pb}}^A$): If $c_3 <_{\textit{pb}}^C c_2 <_{\textit{pb}}^A c_1$. Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{ret}(\textit{put},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$. It is obvious that $\textit{call}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{put},c_2)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
 
     %Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{put}(c_2,\_)$ happens before $\textit{put}(c_1,\_)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{rm}(c_3)$ happens before $\textit{put}(c_2,\_)$. Therefore, $\textit{rm}(c_3)$ happens before $\textit{put}(c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
     \end{itemize}
@@ -1221,20 +1221,20 @@ Our proof proceed as follows:
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] ($<_{\textit{pb}}^B \cdot <_{\textit{pb}}^C$): If $c_3 <_{\textit{pb}}^B c_2 <_{\textit{pb}}^C c_1$. Since $c_2 <_{\textit{pb}}^C c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{cal}(\textit{put},c_1,\_)$. It is obvious that $\textit{cal}(\textit{rm},c_2)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{rm},c_2)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
+    \item[-] ($<_{\textit{pb}}^B \cdot <_{\textit{pb}}^C$): If $c_3 <_{\textit{pb}}^B c_2 <_{\textit{pb}}^C c_1$. Since $c_2 <_{\textit{pb}}^C c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$. It is obvious that $\textit{call}(\textit{rm},c_2)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{rm},c_2)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
 
-    \item[-] ($<_{\textit{pb}}^C \cdot <_{\textit{pb}}^B$): If $c_3 <_{\textit{pb}}^C c_2 <_{\textit{pb}}^B c_1$. Since $c_2 <_{\textit{pb}}^B c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{cal}(\textit{rm},c_1)$. Since $\textit{rm}(c_2)$ does not happen before $\textit{put}(c_2,\_)$, $\textit{cal}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{rm},c_1)$, and $c_3 <_{\textit{pb}}^B c_1$.
+    \item[-] ($<_{\textit{pb}}^C \cdot <_{\textit{pb}}^B$): If $c_3 <_{\textit{pb}}^C c_2 <_{\textit{pb}}^B c_1$. Since $c_2 <_{\textit{pb}}^B c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{call}(\textit{rm},c_1)$. Since $\textit{rm}(c_2)$ does not happen before $\textit{put}(c_2,\_)$, $\textit{call}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{rm},c_1)$, and $c_3 <_{\textit{pb}}^B c_1$.
     \end{itemize}
 
 \item[-]  ($<_{\textit{pb}}^A \cdot <_{\textit{pb}}^B \cdot <_{\textit{pb}}^A$): If $c_4 <_{\textit{pb}}^A c_3 <_{\textit{pb}}^B c_2 <_{\textit{pb}}^A c_1$:
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $\textit{cal}(\textit{rm},c_2)$ is before $\textit{cal}(\textit{put},c_1,\_)$: Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{rm},c_2)$. Then $\textit{ret}(\textit{rm},c_3)$ is before $\textit{cal}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$. This implies that $c_4 <_{\textit{pb}}^A c_3 <_{\textit{pb}}^C c_1$. According to the fact for $<_{\textit{pb}}^A \cdot <_{\textit{pb}}^C$, we know that $c_4  <_{\textit{pb}}^A c_1$.
+    \item[-] If $\textit{call}(\textit{rm},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$: Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{rm},c_2)$. Then $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$. This implies that $c_4 <_{\textit{pb}}^A c_3 <_{\textit{pb}}^C c_1$. According to the fact for $<_{\textit{pb}}^A \cdot <_{\textit{pb}}^C$, we know that $c_4  <_{\textit{pb}}^A c_1$.
 
-    \item[-] If $\textit{cal}(\textit{rm},c_2)$ is after $\textit{cal}(\textit{put},c_1,\_)$: Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{ret}(\textit{put},c_2,\_)$ is before $\textit{cal}(\textit{put},c_1,\_)$. Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{rm}(c_3)$ happens before $\textit{rm}(c_2)$, and then we know that $\textit{put}(c_2,\_)$ can not happen before $\textit{put}(c_3,\_)$. Since $\textit{put}(c_2,\_)$ does not happen before $\textit{put}(c_3,\_)$, $\textit{cal}(\textit{put},c_3,\_)$ is before $\textit{ret}(\textit{put},c_2,\_)$. Since $c_4 <_{\textit{pb}}^A c_3$, $\textit{ret}(\textit{put},c_4)$ is before $\textit{cal}(\textit{put},c_3,\_)$. Therefore, $\textit{ret}(\textit{put},c_4)$ is before $\textit{cal}(\textit{put},c_1,\_)$, and $c_4 <_{\textit{pb}}^A c_1$.
+    \item[-] If $\textit{call}(\textit{rm},c_2)$ is after $\textit{call}(\textit{put},c_1,\_)$: Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{ret}(\textit{put},c_2,\_)$ is before $\textit{call}(\textit{put},c_1,\_)$. Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{rm}(c_3)$ happens before $\textit{rm}(c_2)$, and then we know that $\textit{put}(c_2,\_)$ can not happen before $\textit{put}(c_3,\_)$. Since $\textit{put}(c_2,\_)$ does not happen before $\textit{put}(c_3,\_)$, $\textit{call}(\textit{put},c_3,\_)$ is before $\textit{ret}(\textit{put},c_2,\_)$. Since $c_4 <_{\textit{pb}}^A c_3$, $\textit{ret}(\textit{put},c_4)$ is before $\textit{call}(\textit{put},c_3,\_)$. Therefore, $\textit{ret}(\textit{put},c_4)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_4 <_{\textit{pb}}^A c_1$.
     \end{itemize}
 
-\item[-]  ($<_{\textit{pb}}^B \cdot <_{\textit{pb}}^A \cdot <_{\textit{pb}}^B$): If $c_4 <_{\textit{pb}}^B c_3 <_{\textit{pb}}^A c_2 <_{\textit{pb}}^B c_1$: Since $c_2 <_{\textit{pb}}^B c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{cal}(\textit{rm},c_1)$. Since $c_3 <_{\textit{pb}}^A c_2$, we can see that $\textit{put}(c_3,\_) <_{\textit{hb}} \textit{put}(c_2,\_)$. Since each single-priority execution has FIFO property, we know that $\textit{rm}(c_2)$ does not happen before $\textit{rm}(c_3)$, and thus, $\textit{cal}(\textit{rm},c_3)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_4 <_{\textit{pb}}^B c_3$, $\textit{ret}(\textit{rm},c_4)$ is before $\textit{cal}(\textit{rm},c_3)$. Therefore, $\textit{ret}(\textit{rm},c_4)$ is before $\textit{cal}(\textit{rm},c_1)$, and $c_4 <_{\textit{pb}}^B c_1$.
+\item[-]  ($<_{\textit{pb}}^B \cdot <_{\textit{pb}}^A \cdot <_{\textit{pb}}^B$): If $c_4 <_{\textit{pb}}^B c_3 <_{\textit{pb}}^A c_2 <_{\textit{pb}}^B c_1$: Since $c_2 <_{\textit{pb}}^B c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{call}(\textit{rm},c_1)$. Since $c_3 <_{\textit{pb}}^A c_2$, we can see that $\textit{put}(c_3,\_) <_{\textit{hb}} \textit{put}(c_2,\_)$. Since each single-priority execution has FIFO property, we know that $\textit{rm}(c_2)$ does not happen before $\textit{rm}(c_3)$, and thus, $\textit{call}(\textit{rm},c_3)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_4 <_{\textit{pb}}^B c_3$, $\textit{ret}(\textit{rm},c_4)$ is before $\textit{call}(\textit{rm},c_3)$. Therefore, $\textit{ret}(\textit{rm},c_4)$ is before $\textit{call}(\textit{rm},c_1)$, and $c_4 <_{\textit{pb}}^B c_1$.
 
 \end{itemize}
 
@@ -1255,7 +1255,7 @@ There are many enumerations of method events of $a$, $b$ and $a_1$ that may make
 
 \begin{restatable}{lemma}{FiveEnmuerationisEnoughForEPQOneEqual}
 \label{lemma:five enumeration is enough for EPQ1Equal}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. Let $a$ and $b$ be items with maximal priority $\textit{pri}$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$. Then, there are five possible enumeration of method events of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
+Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. Let $a$ and $b$ be items with maximal priority $\textit{pri}$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\textit{pri})$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of method events of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
 \end{restatable}
 \begin {proof}
 
@@ -1265,27 +1265,27 @@ Let us prove by consider all the possible reason of $a <_{\textit{pb}}^* b$. Acc
 \setlength{\itemsep}{0.5pt}
 \item[-] Reason $1$, $a <_{\textit{pb}}^A b$:
 
-    Since $a <_{\textit{pb}}^A b$, $\textit{put}(a,\textit{pri}) <_{\textit{hb}} \textit{put}(b,\textit{pri})$. Since $o$ is after $\textit{cal}(\textit{put},b,\textit{pri})$, and thus, after $\textit{cal}(\textit{put},a,\textit{pri})$, we can see that $o$ is before $\textit{cal}(\textit{rm},b)$.
+    Since $a <_{\textit{pb}}^A b$, $\textit{put}(a,\textit{pri}) <_{\textit{hb}} \textit{put}(b,\textit{pri})$. Since $o$ is after $\textit{call}(\textit{put},b,\textit{pri})$, and thus, after $\textit{call}(\textit{put},a,\textit{pri})$, we can see that $o$ is before $\textit{call}(\textit{rm},b)$.
 
-    Since single-priority execution must satisfy the FIFO property, $\textit{rm}(b)$ does not happen before $\textit{rm}(a)$, and thus, $\textit{cal}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. If $\textit{cal}(\textit{rm},a)$ is before $\textit{cal}(\textit{rm},b)$, then $o$ is also a gap-point of $a$ and contradicts our assumption. So we know that $\textit{cal}(\textit{rm},a)$ is after $\textit{cal}(\textit{rm},b)$. If $\textit{ret}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$, since we already assume that there exists gap-point of $a$, this gap-point is also a gap-point of $b$, and is after $o$, which contradicts that $o$ is the rightmost gap-point of $b$. Therefore, $\textit{ret}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$.
+    Since single-priority execution must satisfy the FIFO property, $\textit{rm}(b)$ does not happen before $\textit{rm}(a)$, and thus, $\textit{call}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. If $\textit{call}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},b)$, then $o$ is also a gap-point of $a$ and contradicts our assumption. So we know that $\textit{call}(\textit{rm},a)$ is after $\textit{call}(\textit{rm},b)$. If $\textit{ret}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$, since we already assume that there exists gap-point of $a$, this gap-point is also a gap-point of $b$, and is after $o$, which contradicts that $o$ is the rightmost gap-point of $b$. Therefore, $\textit{ret}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$.
 
     According to above discussion, there are two possible enumeration of operations of $a$ and $b$, as shown in \figurename~\ref{fig:history enumeration 1 for PQ1Equal} and \figurename~\ref{fig:history enumeration 2 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},b)$ does not influence the correctness, we can simply ignore it.
 
 \item[-] Reason $2$, $a <_{\textit{pb}}^B b$:
 
-    Since $a <_{\textit{pb}}^B b$, $\textit{ret}(\textit{rm},a)$ is before $\textit{cal}(\textit{rm},b)$. Since $o$ is after $\textit{cal}(\textit{rm},b)$, we can see that $o$ is before $\textit{cal}(\textit{put},a,\textit{pri})$. This implies that $\textit{ret}(\textit{rm},a)$ is before $\textit{cal}(\textit{put},a,\textit{pri})$, and then $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a)$, which is impossible. Therefore, we can safely ignore this reason.
+    Since $a <_{\textit{pb}}^B b$, $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},b)$. Since $o$ is after $\textit{call}(\textit{rm},b)$, we can see that $o$ is before $\textit{call}(\textit{put},a,\textit{pri})$. This implies that $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},a,\textit{pri})$, and then $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a)$, which is impossible. Therefore, we can safely ignore this reason.
 
 \item[-] Reason $3$, $a <_{\textit{pb}}^C b$:
 
-    Since $a <_{\textit{pb}}^B b$, $\textit{ret}(\textit{rm},a)$ is before $\textit{cal}(\textit{put},b,\textit{pri})$. Since $o$ is after $\textit{cal}(\textit{put},b)$, we can see that $o$ is before $\textit{cal}(\textit{put},a,\textit{pri})$. This implies that $\textit{ret}(\textit{rm},a)$ is before $\textit{cal}(\textit{put},a,\textit{pri})$, and then $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a)$, which is impossible. Therefore, we can safely ignore this reason.
+    Since $a <_{\textit{pb}}^B b$, $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},b,\textit{pri})$. Since $o$ is after $\textit{call}(\textit{put},b)$, we can see that $o$ is before $\textit{call}(\textit{put},a,\textit{pri})$. This implies that $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{put},a,\textit{pri})$, and then $\textit{rm}(a) <_{\textit{hb}} \textit{put}(a)$, which is impossible. Therefore, we can safely ignore this reason.
 
 \item[-] Reason $4$, $a <_{\textit{pb}}^A a_1 <_{\textit{pb}}^B b$:
 
-    Since $a_1 <_{\textit{pb}}^B b$, $\textit{rm}(a_1) <_{\textit{hb}} \textit{rm}(b)$, and $\textit{ret}(\textit{rm},a_1)$ is before $\textit{cal}(\textit{rm},b)$. Since $\textit{rm}(a_1)$ does not happen before $\textit{put}(a_1)$, $\textit{cal}(\textit{put},a_1,\textit{pri})$ is before $\textit{ret}(\textit{rm},a_1)$. Since $a <_{\textit{pb}}^A a_1$, $\textit{ret}(\textit{put},a,\textit{pri})$ is before $\textit{cal}(\textit{put},a_1,\textit{pri})$. Therefore, $\textit{ret}(\textit{put},a,\textit{pri})$ is before $\textit{cal}(\textit{rm},b)$. Since $\textit{cal}(\textit{rm},b)$ is before $o$, we can see that $o$ is before $\textit{cal}(\textit{rm},a)$.
+    Since $a_1 <_{\textit{pb}}^B b$, $\textit{rm}(a_1) <_{\textit{hb}} \textit{rm}(b)$, and $\textit{ret}(\textit{rm},a_1)$ is before $\textit{call}(\textit{rm},b)$. Since $\textit{rm}(a_1)$ does not happen before $\textit{put}(a_1)$, $\textit{call}(\textit{put},a_1,\textit{pri})$ is before $\textit{ret}(\textit{rm},a_1)$. Since $a <_{\textit{pb}}^A a_1$, $\textit{ret}(\textit{put},a,\textit{pri})$ is before $\textit{call}(\textit{put},a_1,\textit{pri})$. Therefore, $\textit{ret}(\textit{put},a,\textit{pri})$ is before $\textit{call}(\textit{rm},b)$. Since $\textit{call}(\textit{rm},b)$ is before $o$, we can see that $o$ is before $\textit{call}(\textit{rm},a)$.
 
-    If $\textit{cal}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$, then $e \vert_{ \{ a,a_1,b \} }$ violates the FIFO property. Therefore, $\textit{cal}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. Similarly as the case of reason $1$, we can see that $\textit{ret}(\textit{rm},b)$ is before $\textit{ret}(\textit{rm},a)$.
+    If $\textit{call}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$, then $e \vert_{ \{ a,a_1,b \} }$ violates the FIFO property. Therefore, $\textit{call}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. Similarly as the case of reason $1$, we can see that $\textit{ret}(\textit{rm},b)$ is before $\textit{ret}(\textit{rm},a)$.
 
-    According to above discussion, there are three possible enumeration of operations of $a$, $a_1$ and $b$, as shown in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}, \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and \figurename~\ref{fig:history enumeration 5 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},a_1,\textit{pri})$ and $\textit{cal}(\textit{put},a,\textit{pri})$ do not influence the correctness, we can simply ignore it. We also ignore $\textit{cal}(\textit{put},b,\textit{pri})$ and $\textit{ret}(\textit{put},b)$, since the only requirements of them are (1) $\textit{rm}(b)$ does not happen before $\textit{put}(b)$ and (2) $\textit{cal}(\textit{put},b,\textit{pri})$ is before $o$.
+    According to above discussion, there are three possible enumeration of operations of $a$, $a_1$ and $b$, as shown in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}, \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and \figurename~\ref{fig:history enumeration 5 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},a_1,\textit{pri})$ and $\textit{call}(\textit{put},a,\textit{pri})$ do not influence the correctness, we can simply ignore it. We also ignore $\textit{call}(\textit{put},b,\textit{pri})$ and $\textit{ret}(\textit{put},b)$, since the only requirements of them are (1) $\textit{rm}(b)$ does not happen before $\textit{put}(b)$ and (2) $\textit{call}(\textit{put},b,\textit{pri})$ is before $o$.
 
 \item[-] Reason $5$, $a <_{\textit{pb}}^B a_1 <_{\textit{pb}}^A b$:
 
@@ -1293,9 +1293,9 @@ Let us prove by consider all the possible reason of $a <_{\textit{pb}}^* b$. Acc
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $o$ is before $\textit{cal}(\textit{rm},a)$: Then $o$ is obviously before $\textit{ret}(\textit{rm},a)$. Since $a <_{\textit{pb}}^B a_1$, $\textit{ret}(\textit{rm},a)$ is before $\textit{cal}(\textit{rm},a_1)$. Then we can see that, $o$ is before $\textit{cal}(\textit{rm},a_1)$, and remember that $a_1 <_{\textit{pb}}^A b$. Then we can goto the case of reason $1$ and treat $a_1$ as $a$. Therefore, we can safely ignore this.
+    \item[-] If $o$ is before $\textit{call}(\textit{rm},a)$: Then $o$ is obviously before $\textit{ret}(\textit{rm},a)$. Since $a <_{\textit{pb}}^B a_1$, $\textit{ret}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},a_1)$. Then we can see that, $o$ is before $\textit{call}(\textit{rm},a_1)$, and remember that $a_1 <_{\textit{pb}}^A b$. Then we can goto the case of reason $1$ and treat $a_1$ as $a$. Therefore, we can safely ignore this.
 
-    \item[-] If $o$ is before $\textit{cal}(\textit{put},a,\textit{pri})$: Since $\textit{rm}(a)$ does not happen before $\textit{put}(a,\textit{pri})$, we can see that $\textit{cal}(\textit{put},a,\textit{pri})$ is before $\textit{ret}(\textit{rm},a)$, and then $o$ is before $\textit{ret}(\textit{rm},a)$. Then similarly as above case, we can see that $o$ is before $\textit{cal}(\textit{rm},a_1)$, and $a_1 <_{\textit{pb}}^A b$. Then we can goto the case of reason $1$ and treat $a_1$ as $a$. Therefore, we can safely ignore this.
+    \item[-] If $o$ is before $\textit{call}(\textit{put},a,\textit{pri})$: Since $\textit{rm}(a)$ does not happen before $\textit{put}(a,\textit{pri})$, we can see that $\textit{call}(\textit{put},a,\textit{pri})$ is before $\textit{ret}(\textit{rm},a)$, and then $o$ is before $\textit{ret}(\textit{rm},a)$. Then similarly as above case, we can see that $o$ is before $\textit{call}(\textit{rm},a_1)$, and $a_1 <_{\textit{pb}}^A b$. Then we can goto the case of reason $1$ and treat $a_1$ as $a$. Therefore, we can safely ignore this.
     \end{itemize}
 \end{itemize}
 
@@ -1344,7 +1344,7 @@ This completes the proof of this lemma. \qed
 \end{figure}
 
 
-Let us begin to represent several witness automata that is used to capture the existence of a data-differentiated $\_$-execution $e$, $e$ has a projection $e'$, $\textit{last}(e') = \seqPQ_1^{=}$, there exists items $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\_)$ or $\textit{cal}(\textit{rm},a)$.
+Let us begin to represent several register automata that is used to capture the existence of a data-differentiated $\_$-execution $e$, $e$ has a projection $e'$, $\textit{last}(e') = \seqPQ_1^{=}$, there exists items $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\_)$ or $\textit{call}(\textit{rm},a)$.
 
 Given a data-differentiated $\_$-execution $e$, two actions $\textit{act}_1$, $\textit{act}_2$ of maximal priority in $e$, and assume that $\textit{act}_1$ is before $\textit{act}_2$ in $e$.
 we say that $\textit{act}_1$, $\textit{act}_2$ is covered by items $d_1,\ldots,d_m$ in $e$, if the priorities of $d_1,\ldots,d_m$ is smaller than that of $\textit{act}_1$ and $\textit{act}_2$, and
@@ -1355,13 +1355,13 @@ we say that $\textit{act}_1$, $\textit{act}_2$ is covered by items $d_1,\ldots,d
 
 \item[-] For each $i < 1 \leq m$,$\textit{put}(d_{\textit{i-1}},\_)$ happens before $\textit{rm}(d_i)$,
 
-\item[-] $\textit{act}_2$ is before $\textit{cal}(\textit{rm},d_1)$.
+\item[-] $\textit{act}_2$ is before $\textit{call}(\textit{rm},d_1)$.
 \end{itemize}
 
-According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{lemma:ob order has bounded length} and Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, it is not hard to prove that, given a data-differentiated $\_$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$, $e$ does not linearizable with respect to $\textit{EMS}(\textit{PQ}_1^{=})$, if and only if, one of enumerations holds in $e$ (permit renaming), while $\textit{cal}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ is covered by some $d_1,\ldots,d_m$, $\textit{cal}(\textit{rm},b)$ is before $\textit{ret}(\textit{put},d_m,\_)$, and $\textit{cal}(\textit{rm},d_1)$ is before $\textit{ret}(\textit{rm},a)$. We say that such $d_1,\ldots,d_m$ constitute the rightmost gap of $b$.
+According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{lemma:ob order has bounded length} and Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, it is not hard to prove that, given a data-differentiated $\_$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$, $e$ does not linearizable with respect to $\textit{EMS}(\textit{PQ}_1^{=})$, if and only if, one of enumerations holds in $e$ (permit renaming), while $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ is covered by some $d_1,\ldots,d_m$, $\textit{call}(\textit{rm},b)$ is before $\textit{ret}(\textit{put},d_m,\_)$, and $\textit{call}(\textit{rm},d_1)$ is before $\textit{ret}(\textit{rm},a)$. We say that such $d_1,\ldots,d_m$ constitute the rightmost gap of $b$.
 
 
-An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the items that covers $\textit{cal}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $d$, and rename the remanning items into $e$. In this figure, $c = \textit{cal}(\textit{put},e,\textit{anyPri}),\textit{ret}(\textit{put},e)$, $\textit{cal}(\textit{rm},e), \textit{ret}(\textit{rm},e),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{put},d,\textit{les}_p)$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{cal}(\textit{put},d),\textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{rm},d)$.
+An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the items that covers $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $d$, and rename the remanning items into $e$. In this figure, $c = \textit{call}(\textit{put},e,\textit{anyPri}),\textit{ret}(\textit{put},e)$, $\textit{call}(\textit{rm},e), \textit{ret}(\textit{rm},e),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{call}(\textit{put},d,\textit{les}_p)$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{call}(\textit{put},d),\textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{rm},d)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1382,24 +1382,24 @@ An automaton $\mathcal{A}_{\textit{l-eq}}^2$ is given in \figurename~\ref{fig:au
   \label{fig:automata for second enumeration of PQ1Equal}
 \end{figure}
 
-For the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}. Since we want to ensure that $a$ and $b$ are putted only once, we need to explicitly record the positions of $\textit{cal}(\textit{put},a,p)$ and $\textit{cal}(\textit{put},b,p)$. Since the positions of $\textit{cal}(\textit{put},a,p)$ and $\textit{cal}(\textit{put},b,p)$ are not fixed, there are finite possible cases to consider, as shown below:
+For the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}. Since we want to ensure that $a$ and $b$ are putted only once, we need to explicitly record the positions of $\textit{call}(\textit{put},a,p)$ and $\textit{call}(\textit{put},b,p)$. Since the positions of $\textit{call}(\textit{put},a,p)$ and $\textit{call}(\textit{put},b,p)$ are not fixed, there are finite possible cases to consider, as shown below:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If $\textit{cal}(\textit{put},b,p)$ is after $\textit{cal}(\textit{rm},b)$ and before $\textit{cal}(\textit{rm},a)$: There are two possible positions of $\textit{cal}(\textit{put},a,p)$: (1) before $\textit{cal}(\textit{rm},a_1)$, and (2) after $\textit{cal}(\textit{rm},a_1)$, and before $\textit{ret}(\textit{put},a)$.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{rm},b)$ and before $\textit{call}(\textit{rm},a)$: There are two possible positions of $\textit{call}(\textit{put},a,p)$: (1) before $\textit{call}(\textit{rm},a_1)$, and (2) after $\textit{call}(\textit{rm},a_1)$, and before $\textit{ret}(\textit{put},a)$.
 
-\item[-] If $\textit{cal}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$ and before $\textit{cal}(\textit{rm},b)$: same as above case.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$ and before $\textit{call}(\textit{rm},b)$: same as above case.
 
-\item[-] If $\textit{cal}(\textit{put},b,p)$ is after $\textit{cal}(\textit{put},a_1,\_)$ and before $\textit{ret}(\textit{rm},a_1)$: same as above case.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{put},a_1,\_)$ and before $\textit{ret}(\textit{rm},a_1)$: same as above case.
 
-\item[-] If $\textit{cal}(\textit{put},b,p)$ is after $\textit{ret}(\textit{put},a)$ and before $\textit{cal}(\textit{put},a_1,p)$: same as above case.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{put},a)$ and before $\textit{call}(\textit{put},a_1,p)$: same as above case.
 
-\item[-] If $\textit{cal}(\textit{put},b,p)$ is after $\textit{cal}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a)$: There are three possible positions of $\textit{cal}(\textit{put},a,p)$: (1) after $\textit{cal}(\textit{put},b,p)$ and before $\textit{ret}(\textit{put},a)$, (2) after $\textit{cal}(\textit{rm},a_1)$ and before $\textit{cal}(\textit{put},b,p)$, and (3) before $\textit{call}(\textit{rm},a_1)$.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a)$: There are three possible positions of $\textit{call}(\textit{put},a,p)$: (1) after $\textit{call}(\textit{put},b,p)$ and before $\textit{ret}(\textit{put},a)$, (2) after $\textit{call}(\textit{rm},a_1)$ and before $\textit{call}(\textit{put},b,p)$, and (3) before $\textit{call}(\textit{rm},a_1)$.
 
-\item[-] If $\textit{cal}(\textit{put},b,p)$ is before $\textit{cal}(\textit{rm},a_1)$: There are three possible positions of $\textit{cal}(\textit{put},a,p)$: (1) after $\textit{cal}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a)$, (2) after $\textit{cal}(\textit{put},b,p)$ and before $\textit{cal}(\textit{rm},a_1)$, and (3) before $\textit{cal}(\textit{put},b,p)$.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},a_1)$: There are three possible positions of $\textit{call}(\textit{put},a,p)$: (1) after $\textit{call}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a)$, (2) after $\textit{call}(\textit{put},b,p)$ and before $\textit{call}(\textit{rm},a_1)$, and (3) before $\textit{call}(\textit{put},b,p)$.
 \end{itemize}
 
-Therefore, there are fourteen possible cases that satisfy the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}. For each case, we construct an finite automaton. Let $\textit{Auts}_{\textit{1-eq}}^{3}$ be the set of finite automata that is constructed for above fourteen cases. For example, for the case $\textit{ca}_1$ when $\textit{cal}(\textit{put},a,p)$ is before $\textit{cal}(\textit{rm},a_1)$, $\textit{cal}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$, and $\textit{cal}(\textit{put},b,p)$ is before $\textit{cal}(\textit{rm},b)$, we construct a finite automaton $\mathcal{A}_{\textit{l-eq}}^{\textit{3-1}}$ in \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}. In \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}, let $c$ and $c_1 = c + \textit{cal}(\textit{put},d,\textit{les}_p)$ the same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}. Let $c_2 = c_1 + \textit{ret}(\textit{put},a_1)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$, $c_4 = c_3 + \textit{cal}(\textit{put},d) + \textit{ret}(\textit{rm},d)$, and $c_5 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{put},a_1) + \textit{ret}(\textit{rm},d)$. The other witness automata in $\textit{Auts}_{\textit{1-eq}}^{3}$ can be similarly constructed.
+Therefore, there are fourteen possible cases that satisfy the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}. For each case, we construct an finite automaton. Let $\textit{Auts}_{\textit{1-eq}}^{3}$ be the set of finite automata that is constructed for above fourteen cases. For example, for the case $\textit{ca}_1$ when $\textit{call}(\textit{put},a,p)$ is before $\textit{call}(\textit{rm},a_1)$, $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$, and $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},b)$, we construct a finite automaton $\mathcal{A}_{\textit{l-eq}}^{\textit{3-1}}$ in \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}. In \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}, let $c$ and $c_1 = c + \textit{call}(\textit{put},d,\textit{les}_p)$ the same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}. Let $c_2 = c_1 + \textit{ret}(\textit{put},a_1)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$, $c_4 = c_3 + \textit{call}(\textit{put},d) + \textit{ret}(\textit{rm},d)$, and $c_5 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{put},a_1) + \textit{ret}(\textit{rm},d)$. The other register automata in $\textit{Auts}_{\textit{1-eq}}^{3}$ can be similarly constructed.
 
 \begin{figure}[htbp]
   \centering
@@ -1409,7 +1409,7 @@ Therefore, there are fourteen possible cases that satisfy the third enumeration 
   \label{fig:automata for ca1 of third enumeration of Rpr2}
 \end{figure}
 
-Similarly, we construct sets $\textit{Auts}_{\textit{1-eq}}^{4}$ and $\textit{Auts}_{\textit{1-eq}}^{5}$ of witness automata for the forth enumeration in \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and the fifth enumeration in \figurename~\ref{fig:history enumeration 5 for PQ1Equal}, respectively.
+Similarly, we construct sets $\textit{Auts}_{\textit{1-eq}}^{4}$ and $\textit{Auts}_{\textit{1-eq}}^{5}$ of register automata for the forth enumeration in \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and the fifth enumeration in \figurename~\ref{fig:history enumeration 5 for PQ1Equal}, respectively.
 
 Let $\textit{Auts}_{\textit{1-eq}} = \{ \mathcal{A}_{\textit{l-eq}}^1, \mathcal{A}_{\textit{l-eq}}^2 \} \cup \textit{Auts}_{\textit{1-eq}}^{3} \cup \textit{Auts}_{\textit{1-eq}}^{4} \cup \textit{Auts}_{\textit{1-eq}}^{5}$. The following lemma states that $\textit{PQ}_1^{=}$ is co-regular.
 
@@ -1425,13 +1425,13 @@ We need to prove that, given a data-independence implementation $\mathcal{I}$, $
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $\textit{last}(e')=\seqPQ_1^{=}$, $a$ and $b$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$ in $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $\textit{last}(e')=\seqPQ_1^{=}$, $a$ and $b$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\textit{pri})$ or $\textit{call}(\textit{rm},a)$ in $e'$.
 
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some witness automata in $\textit{Auts}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some witness automata in  $\textit{Auts}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the items that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the items that are renamed into $d$ by $r$.
+\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\textit{Auts}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\textit{Auts}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the items that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the items that are renamed into $d$ by $r$.
 
-let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$ is a $\textit{pri}$-execution, $\textit{last}(e'') = \seqPQ_1^{=}$. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{cal}(\textit{put},y,\textit{pri})$ or $\textit{cal}(\textit{rm},y)$ in $e''$.
+let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$ is a $\textit{pri}$-execution, $\textit{last}(e'') = \seqPQ_1^{=}$. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},y)$ in $e''$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $last(e')=\textit{PQ}_1^{=}$, $a'$ and $b'$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{cal}(\textit{put},a',\textit{pri})$ or $\textit{cal}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $e$. It is easy to see that $\textit{last}(e_1) = \seqPQ_1^{=}$, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
+\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $last(e')=\textit{PQ}_1^{=}$, $a'$ and $b'$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',\textit{pri})$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $e$. It is easy to see that $\textit{last}(e_1) = \seqPQ_1^{=}$, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\textit{pri})$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
 
 
 \begin{itemize}
@@ -1440,11 +1440,11 @@ let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \i
 
 \item[-] If $a <_{\textit{pb}}^* b$ because of the second enumeration, it is easy to see that $h_1$ is accepted by $\mathcal{A}_{\textit{l-eq}}^2$.
 
-\item[-] If $a <_{\textit{pb}}^* b$ because of the third enumeration, it is easy to see that $h_1$ is accepted by some witness automaton in $\textit{Auts}_{\textit{1-eq}}^{3}$.
+\item[-] If $a <_{\textit{pb}}^* b$ because of the third enumeration, it is easy to see that $h_1$ is accepted by some register automaton in $\textit{Auts}_{\textit{1-eq}}^{3}$.
 
-\item[-] If $a <_{\textit{pb}}^* b$ because of the forth enumeration, it is easy to see that $h_1$ is accepted by some witness automaton in $\textit{Auts}_{\textit{1-eq}}^{4}$.
+\item[-] If $a <_{\textit{pb}}^* b$ because of the forth enumeration, it is easy to see that $h_1$ is accepted by some register automaton in $\textit{Auts}_{\textit{1-eq}}^{4}$.
 
-\item[-] If $a <_{\textit{pb}}^* b$ because of the fifth enumeration, it is easy to see that $h_1$ is accepted by some witness automaton in $\textit{Auts}_{\textit{1-eq}}^{5}$.
+\item[-] If $a <_{\textit{pb}}^* b$ because of the fifth enumeration, it is easy to see that $h_1$ is accepted by some register automaton in $\textit{Auts}_{\textit{1-eq}}^{5}$.
 \end{itemize}
 
 This completes the proof of this lemma. \qed
@@ -1484,7 +1484,7 @@ The $\textit{if}$ direction is obvious.
 
 To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,\textit{pri})$ does not happen before $\textit{put}(y,\textit{pri})$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
 
-Let $x_1,\ldots,x_m$ be the set of items with priority $\textit{pri}$ and has unmatched $\textit{put}$ in $e$, let $y_1,\ldots,y_n$ be the set of items with priority $\textit{pri}$ and has matched $\textit{put}$ and $\textit{rm}$ in $e$. By assumption, we know that $\textit{cal}(\textit{put},y_i,\textit{pri})$ is before $\textit{ret}(\textit{put},x_j)$ for each $i,j$. Then we explicitly construction the linearization of $e$ by locating the linearization points of $e$ as follows:
+Let $x_1,\ldots,x_m$ be the set of items with priority $\textit{pri}$ and has unmatched $\textit{put}$ in $e$, let $y_1,\ldots,y_n$ be the set of items with priority $\textit{pri}$ and has matched $\textit{put}$ and $\textit{rm}$ in $e$. By assumption, we know that $\textit{call}(\textit{put},y_i,\textit{pri})$ is before $\textit{ret}(\textit{put},x_j)$ for each $i,j$. Then we explicitly construction the linearization of $e$ by locating the linearization points of $e$ as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -1584,7 +1584,7 @@ This completes the proof of the $\textit{only if}$ direction.
 \qed
 \end {proof}
 
-Let us begin to represent an automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\textit{last}(e')=\seqPQ_3$, $e'$ does not linearizable to $\textit{MS}(\seqPQ_3)$, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $c = \textit{cal}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{cal}(\textit{rm},d), \textit{ret}(\textit{rm},d),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{put},b,\textit{anyPri})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, and $c_3 = c + \textit{ret}(\textit{rm},b)$.
+Let us begin to represent an automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\textit{last}(e')=\seqPQ_3$, $e'$ does not linearizable to $\textit{MS}(\seqPQ_3)$, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $c = \textit{call}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{call}(\textit{rm},d), \textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{call}(\textit{put},b,\textit{anyPri})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, and $c_3 = c + \textit{ret}(\textit{rm},b)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1698,7 +1698,7 @@ If a differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}
 \begin {proof}
 Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{MSet}_1$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{MSet}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into method event is $l'$.
 
-Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ at an arbitrary time point between $\textit{cal}(\textit{insert},x)$ and $\textit{ret}(\textit{insert},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into method events.
+Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ at an arbitrary time point between $\textit{call}(\textit{insert},x)$ and $\textit{ret}(\textit{insert},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into method events.
 
 It is easy to see that $h \sqsubseteq l''$. Since $l''$ is obtained from $l'$ by adding one $\textit{insert}(x)$, we can see that $l''$ contains only $\textit{insert}$, and then $l'' \in \textit{MSet}$. \qed
 \end {proof}
@@ -1712,7 +1712,7 @@ If a differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}
 \begin {proof}
 Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{MSet}_1$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{MSet}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into method event is $l'$.
 
-It is easy to see that $\textit{delete}(x)$ does not happen before $\textit{insert}(x)$, and then $\textit{cal}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$ in $e$. Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ just after $\textit{cal}(\textit{insert},x)$ and adding $\textit{delete}(x)$ just before $\textit{ret}(\textit{delete},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into method events.
+It is easy to see that $\textit{delete}(x)$ does not happen before $\textit{insert}(x)$, and then $\textit{call}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$ in $e$. Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ just after $\textit{call}(\textit{insert},x)$ and adding $\textit{delete}(x)$ just before $\textit{ret}(\textit{delete},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into method events.
 
 It is easy to see that $h \sqsubseteq l''$. Since (1) $l' \in \textit{MSet}$, (2) $l''$ is obtained from $l'$ by adding one $\textit{insert}(x)$ and one $\textit{delete}(x)$, while $\textit{insert}(x)$ is before $\textit{delete}(x)$ (3)and $l'$ does not contain $\textit{delete}(\textit{empty})$, we can see that $l'' \in \textit{MSet}$. \qed
 \end {proof}
@@ -1768,15 +1768,15 @@ To prove the $\textit{if}$ direction, we prove its contrapositive. Assume that f
 \item[-] $\textit{delete}(x)$ does not happen before $\textit{insert}(x)$.
 \end{itemize}
 
-Assume by contradiction that there exists some $e' \in \textit{proj}(e)$, such that $\textit{last}(e') = \textit{MSet}_2$ and $e'$ doe not linearizable w.r.t $\textit{MS}(\textit{MSet}_2)$. Since $\textit{last}(e') = \textit{MSet}_2$, there exists $\textit{delete}$ in $e$. Let this $\textit{delete}$ operation be $\textit{delete}(a)$. By assumption, we know that in $e$ there exists one $\textit{insert}(a)$ and one $\textit{delete}(a)$, and $\textit{delete}(a)$ does not happen before $\textit{insert}(a)$. Then we know that $\textit{cal}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$.
+Assume by contradiction that there exists some $e' \in \textit{proj}(e)$, such that $\textit{last}(e') = \textit{MSet}_2$ and $e'$ doe not linearizable w.r.t $\textit{MS}(\textit{MSet}_2)$. Since $\textit{last}(e') = \textit{MSet}_2$, there exists $\textit{delete}$ in $e$. Let this $\textit{delete}$ operation be $\textit{delete}(a)$. By assumption, we know that in $e$ there exists one $\textit{insert}(a)$ and one $\textit{delete}(a)$, and $\textit{delete}(a)$ does not happen before $\textit{insert}(a)$. Then we know that $\textit{call}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$.
 
-Let $e_{\textit{lp}}$ be generated from $e$ by (1) put the linearization of $\textit{insert}(x)$ just after $\textit{cal}(\textit{insert},x)$, (2) put the linearization of $\textit{delete}(x)$ just before $\textit{ret}(\textit{insert},x)$, and (3) for other operations, put its linearization point at an arbitrary between its call and return actions. Let $l'$ be the projection of $e_{\textit{lp}}$ into method events. It is obvious that $h \sqsubseteq l'$. According to our construction of $e_{\textit{lp}}$, we can see that in $l'$, $\textit{insert}(x)$ is before $\textit{delete}(x)$. Therefore, we can see that $l' \in \textit{MS}(\textit{MSet}_2)$, which contradicts our assumption. This completes the proof of the $\textit{id}$ direction. \qed
+Let $e_{\textit{lp}}$ be generated from $e$ by (1) put the linearization of $\textit{insert}(x)$ just after $\textit{call}(\textit{insert},x)$, (2) put the linearization of $\textit{delete}(x)$ just before $\textit{ret}(\textit{insert},x)$, and (3) for other operations, put its linearization point at an arbitrary between its call and return actions. Let $l'$ be the projection of $e_{\textit{lp}}$ into method events. It is obvious that $h \sqsubseteq l'$. According to our construction of $e_{\textit{lp}}$, we can see that in $l'$, $\textit{insert}(x)$ is before $\textit{delete}(x)$. Therefore, we can see that $l' \in \textit{MS}(\textit{MSet}_2)$, which contradicts our assumption. This completes the proof of the $\textit{id}$ direction. \qed
 \end {proof}
 
 According to Lemma \ref{lemma:reduce MS2 into one value}, to check violation to $\textit{MS}(\textit{MSet}_2)$, we need to consider three cases for some $b \in \mathbb{D}$: (1) there is $\textit{delete}(b)$ but there is not $\textit{insert}(x)$, (2) there is more than one $\textit{delete}(b)$ and one $\textit{insert}(b)$ in $e$, and (3) $\textit{delete}(b) <_{\textit{hb}} \textit{insert}(b)$.
 
-For each such case, we construct a witness automata. We generate witness automata $\mathcal{A}_{\textit{MS}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata 1 for MS-2 in appendix}. Here $c_1 = \textit{cal}(\textit{insert},a),\textit{ret}(\textit{insert},a)$, $\textit{cal}(\textit{delete},a),\textit{ret}(\textit{delete},a),
-\textit{cal}(\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{cal}(\textit{delete},b) + \textit{ret}(\textit{delete},b)$.
+For each such case, we construct a register automata. We generate register automata $\mathcal{A}_{\textit{MS}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata 1 for MS-2 in appendix}. Here $c_1 = \textit{call}(\textit{insert},a),\textit{ret}(\textit{insert},a)$, $\textit{call}(\textit{delete},a),\textit{ret}(\textit{delete},a),
+\textit{call}(\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{call}(\textit{delete},b) + \textit{ret}(\textit{delete},b)$.
 
 
 \begin{figure}[htbp]
@@ -1788,7 +1788,7 @@ For each such case, we construct a witness automata. We generate witness automat
 \end{figure}
 
 
-We generate witness automata $\mathcal{A}_{\textit{MS}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata 2 for MS-2 in appendix}. Here $c_1 = \textit{cal}(\textit{insert},a),\textit{ret}(\textit{insert},a), \textit{cal}(\textit{delete},a),\textit{ret}(\textit{delete},a),\textit{cal}(\textit{delete},\textit{empty})$, $\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{insert},b)$, $c_3 = c_2 + \textit{ret}(\textit{delete},b)$, $c_4 = c_3 + \textit{cal}(\textit{delete},b)$, $c_5 = c_1 + \textit{ret}(\textit{delete},b)$, $c_6 = c_5 + \textit{cal}(\textit{delete},b)$.
+We generate register automata $\mathcal{A}_{\textit{MS}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata 2 for MS-2 in appendix}. Here $c_1 = \textit{call}(\textit{insert},a),\textit{ret}(\textit{insert},a), \textit{call}(\textit{delete},a),\textit{ret}(\textit{delete},a),\textit{call}(\textit{delete},\textit{empty})$, $\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{insert},b)$, $c_3 = c_2 + \textit{ret}(\textit{delete},b)$, $c_4 = c_3 + \textit{call}(\textit{delete},b)$, $c_5 = c_1 + \textit{ret}(\textit{delete},b)$, $c_6 = c_5 + \textit{call}(\textit{delete},b)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1799,7 +1799,7 @@ We generate witness automata $\mathcal{A}_{\textit{MS}}^2$ for the second case, 
 \end{figure}
 
 
-We generate witness automata $\mathcal{A}_{\textit{MS}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata 3 for MS-2 in appendix}. Here $c_1 = \textit{cal}(\textit{insert},a)$, $\textit{ret}(\textit{insert},a)$, $\textit{cal}(\textit{delete},a)$, $\textit{ret}(\textit{delete},a),\textit{cal}(\textit{delete},b)$, $\textit{cal}($ $\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{delete},b)$, $c_3 = c_2 + \textit{ret}(\textit{insert},b)$.
+We generate register automata $\mathcal{A}_{\textit{MS}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata 3 for MS-2 in appendix}. Here $c_1 = \textit{call}(\textit{insert},a)$, $\textit{ret}(\textit{insert},a)$, $\textit{call}(\textit{delete},a)$, $\textit{ret}(\textit{delete},a),\textit{call}(\textit{delete},b)$, $\textit{call}($ $\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{delete},b)$, $c_3 = c_2 + \textit{ret}(\textit{insert},b)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1834,7 +1834,7 @@ By Lemma \ref{lemma:reduce MS2 into one value}, we need to prove the following f
 \item[-] $\textit{delete}(x) <_{\textit{hb}} \textit{insert}(x)$ in $e$.
 \end{itemize}
 
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some witness automata in $\textit{Auts}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some witness automata in  $\textit{Auts}_{\textit{1-eq}}$, let $y$ be the item that are renamed into $b$ by $r$. Then it is not hard to see that $y$ satisfies one of three conditions in $e_2$.
+\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\textit{Auts}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\textit{Auts}_{\textit{1-eq}}$, let $y$ be the item that are renamed into $b$ by $r$. Then it is not hard to see that $y$ satisfies one of three conditions in $e_2$.
 
 \noindent The $\textit{if}$ direction: Assume that there exists such $e \in \mathcal{I}_{\neq}$ and $x$. Let renaming function $r$ maps $x$ into $b$ and all other items into $a$. By data-independence, we can see that $r(e) \in \mathcal{I}$. Then it is easy to see that $r(e)$ is accepted by some automaton in $\textit{Auts}_{\textit{2-ms}}$. \qed
 \end {proof}
@@ -1846,7 +1846,7 @@ Similar to Lemma \ref{lemma:EPQ3 is co-regular}, we can prove that $\textit{MSet
 $\textit{MSet}_3$ is co-regular.
 \end{restatable}
 
-Similar as witness automata for $\seqPQ_3$, we have witness automata $\mathcal{A}_{\textit{MS}}^4$ for $\textit{MSet}_3$, which is shown in \figurename~\ref{fig:automata 4 for MS-3 in appendix}. In \figurename~\ref{fig:automata 4 for MS-3 in appendix}, let $c = \textit{cal}(\textit{insert},d),\textit{ret}(\textit{insert},d), \textit{cal}(\textit{delete},d)$, $\textit{ret}(\textit{delete},d),\textit{cal}(\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{insert},b)$, $c_2 = c_1 + \textit{ret}(\textit{delete},b)$, and $c_3 = c + \textit{ret}(\textit{delete},b)$.
+Similar as register automata for $\seqPQ_3$, we have register automata $\mathcal{A}_{\textit{MS}}^4$ for $\textit{MSet}_3$, which is shown in \figurename~\ref{fig:automata 4 for MS-3 in appendix}. In \figurename~\ref{fig:automata 4 for MS-3 in appendix}, let $c = \textit{call}(\textit{insert},d),\textit{ret}(\textit{insert},d), \textit{call}(\textit{delete},d)$, $\textit{ret}(\textit{delete},d),\textit{call}(\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_1 = c + \textit{call}(\textit{insert},b)$, $c_2 = c_1 + \textit{ret}(\textit{delete},b)$, and $c_3 = c + \textit{ret}(\textit{delete},b)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1866,7 +1866,7 @@ For the $\textit{only if}$ direction, given an execution $e_m \in \mathcal{I}_m$
 
 For the $\textit{if}$ direction, given an execution $e_{\textit{epq}}$ of extended priority queue, such that $e_{\textit{epq}} = \textit{MStoEPQ}(e_m)$ for some $e_m$ of multi-set, and $e_{\textit{epq}}$ is accepted by some automaton in $\textit{Auts}_{\seqPQ}$.
 
-According to definition of $\textit{MStoEPQ}$, we can see that (1) in $e_{\textit{epq}}$ there does not exist two items with comparable priorities, and (2) in $e_{\textit{epq}}$, there does not exists two items with a same priority. Therefore, the witness automata for $\seqPQ_1$ and the witness automaton $\mathcal{A}_{\textit{SinPri}}^4$ can be safely ignored. Then, if $e_{\textit{epq}}$ is accepted by $\mathcal{A}_{\textit{SinPri}}^1$, $\mathcal{A}_{\textit{SinPri}}^2$, $\mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\seqPQ}^3$, then it is easy to see that $e_m$ is accepted by $\mathcal{A}_{\textit{MS}}^3$, $\mathcal{A}_{\textit{MS}}^1$, $\mathcal{A}_{\textit{MS}}^2$ and $\mathcal{A}_{\textit{MS}}^4$, respectively. \qed
+According to definition of $\textit{MStoEPQ}$, we can see that (1) in $e_{\textit{epq}}$ there does not exist two items with comparable priorities, and (2) in $e_{\textit{epq}}$, there does not exists two items with a same priority. Therefore, the register automata for $\seqPQ_1$ and the register automaton $\mathcal{A}_{\textit{SinPri}}^4$ can be safely ignored. Then, if $e_{\textit{epq}}$ is accepted by $\mathcal{A}_{\textit{SinPri}}^1$, $\mathcal{A}_{\textit{SinPri}}^2$, $\mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\seqPQ}^3$, then it is easy to see that $e_m$ is accepted by $\mathcal{A}_{\textit{MS}}^3$, $\mathcal{A}_{\textit{MS}}^1$, $\mathcal{A}_{\textit{MS}}^2$ and $\mathcal{A}_{\textit{MS}}^4$, respectively. \qed
 \end {proof}
 
 
