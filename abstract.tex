@@ -1,5 +1,6 @@
+%!TEX root = draft.tex
 \begin{abstract}
-I am abstract
+Efficient implementations of concurrent objects such as atomic collections are essential to modern computing. Programming such objects is error prone: in minimizing the synchronization overhead between concurrent object invocations, one risks the conformance to sequential specifications -- or in formal terms, one risks violating linearizability. Unfortunately, verifying linearizability is undecidable in general, even on classes of implementations where the usual control-state reachability is decidable. In this work we consider concurrent priority queues which are fundamental to many multi-threaded applications such as task scheduling or discrete event simulation, and show that verifying linearizability of such implementations can be reduced to control-state reachability. This reduction entails the first decidability results for verifying concurrent priority queues in the context of an unbounded number of threads, and it enables the application of existing safety-verification tools for establishing their correctness.
 \end{abstract}
 
 \forget{
