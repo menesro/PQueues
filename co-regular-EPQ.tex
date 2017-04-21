@@ -38,7 +38,7 @@ Formally, given a data-differentiated execution $e$ and $p$ a maximal priority i
 \label{lemma:pri execution is enough}
 Let $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$ and $e$ a data-differentiated execution. Then, $e$ is $\Gamma$-linearizable iff $e\vert_{\preceq p}$ is $\Gamma$-linearizable for some maximal priority $p$ in $e$.
 \end{restatable}
-\begin {proof} (Sketch) 
+\begin {proof} (Sketch)
 %{\color {blue}We prove an equivalent property: $e$ is $\Gamma$-linearizable if and only if $e\vert_{\preceq p}$ is $\Gamma$-linearizable for some maximal priority $p$ in $e$.} %We consider the case of $\mathsf{MatchedMaxPriority}$ and the case of $\mathsf{UnmatchedMaxPriority}$ is similar.
 To prove the $\textit{only if}$ direction, let $e$ be a data-differentiated execution linearizable w.r.t. $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$. Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$ imposes no restriction on the operations in $u$, $v$ and $w$ with priorities incomparable to $p$, erasing all these operations results in a sequential execution which still satisfies this property. Similarly, for $\Gamma=\mathsf{UnmatchedMaxPriority}$.
 
@@ -204,15 +204,15 @@ TODO UPDATE THE ARGUMENTS OF ACTIONS
 To formalize the scenario in \figurename~\ref{fig:introduce gap for EPQ1Lar} we use the notion of \emph{left-right constraint} defined below.
 
 \begin{definition}\label{def:left-right constraint for matched put and rm operations}
-Let $e$ be a data-differentiated execution which contains only one maximal priority $p$, and only one value $x$ of priority $p$ (and no $\textit{rm}(\textit{empty})$ operations). 
-% and let $\textit{put}(x,p)$ and $\textit{rm}(x)$ be the only operations with priority $p$. 
+Let $e$ be a data-differentiated execution which contains only one maximal priority $p$, and only one value $x$ of priority $p$ (and no $\textit{rm}(\textit{empty})$ operations).
+% and let $\textit{put}(x,p)$ and $\textit{rm}(x)$ be the only operations with priority $p$.
 The \emph{left-right constraint of $x$} is the graph $G$ where: %$\textit{put}(x,p)$ and $\textit{rm}(x)$ is the graph $G$ where:
 \begin{itemize}
 \item the nodes are the values occurring in $e$, %, to which we add a node,
 \item there is an edge from $d_1$ to $x$, if $\textit{put}(d_1,\_) <_{\textit{hb}} \textit{put}(x,p)$ or $\textit{put}(d_1,\_) <_{\textit{hb}} \textit{rm}(x)$,
 \item there is an edge from $x$ to $d_1$, if $\textit{rm}(x)<_{\textit{hb}}\textit{rm}(d_1)$ or $\textit{rm}(d_1)$ does not exists,
 \item there is an edge from $d_1$ to $d_2$, if $\textit{put}(d_1,\_) <_{\textit{hb}} \textit{rm}(d_2,\_)$.
-\end{itemize} 
+\end{itemize}
 \end{definition}
 
 The execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} is not $\mathsf{MatchedMaxPriority}^>$-linearizable because the left-right constraint of the maximal priority value $b$ contains a cycle: $f \rightarrow e \rightarrow d \rightarrow b \rightarrow f$. We prove that the presence of such a cycle is equivalent to the execution not being $\mathsf{MatchedMaxPriority}^>$-linearizable (see Appendix~\ref{}).
@@ -221,16 +221,8 @@ When the left-right constraint of the maximal priority value $x$ contains a cycl
 
 TODO WHY IT IS A SET OF AUTOMATA ? SAY WHAT ARE THE CASES THAT NEED TO BE COVERED. SAY WHAT IS THE CASE WE GIVE IN THE FIGURE. USE $\top$ AS MENTIONED AT THE BEGINNING OF THE SECTION INSTEAD OF 	$c$. USE BIG CAPS FOR SETS OF TRANSITION LABELS.
 
-Assume that $x$ is covered by $d_1,\ldots,d_m$, we can safely rename $x$ into $b$, rename $d_1,\ldots,d_m$ into $a$ and rename all other value into $c$ by data-independence. Such execution can be recognized by register automata, since between the first $\textit{ret}(\textit{put},a,\_)$ and the last $\textit{call}(\textit{rm},a)$ (if exists), $\textit{ret}(\textit{put},a,\_)$ and $\textit{call}(\textit{rm},a)$ occurs in pair and there is no need for count. In Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, we construct a set $\textit{Auts}_{\textit{1-lar}}$ of register automata, {\color {blue}and prove that $\textit{Auts}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete, as stated by the following lemma.
-
-\begin{restatable}{lemma}{EPQOneLarisCoRegular}
-\label{lemma:EPQ1Lar is co-regular}
-$\textit{Auts}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete.
-\end{restatable}
-} 
-
-{\color {blue}
-For example, to capture non-$\mathsf{MatchedMaxPriority}^{>}$-linearizable execution $e$ where $e \vert_{b} = \textit{call}(\textit{put},b,\_) \cdot \textit{ret}(\textit{put},b,\_) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{rm},b)$, we use the register automaton in \figurename~\ref{fig:automata APQ1Lar-1 in paper}. Here $c_1 = c + \textit{ret}(\textit{rm},a)$, $c_2 = c + \textit{call}(\textit{put},a,=r)$, $c_3 = c_2 + \textit{ret}(\textit{rm},a)$, where $c = \textit{call}(\textit{put},d,\top),\textit{ret}(\textit{put},d,\top), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. There are three paths in $\mathcal{A}_{\textit{l-lar}}^1$, since there are three possible position of  the first $\textit{ret}(\textit{put},a)$ in $e$. 
+{\color {blue} Assume that $x$ is covered by $d_1,\ldots,d_m$, we can safely rename $x$ into $b$, rename $d_1,\ldots,d_m$ into $a$ and rename all other value into $c$ by data-independence. Since there are four cases of projection of execution to $x$ when their is a cycle through $x$. To ease the reading, for each of such case we generate a register automata, and then let the $\mathsf{MatchedMaxPriority}^{>}$-complete automaton be the union of the four register automata. For example, for the case when the projection of $e$ to $x$ is as in \figurename~\ref{fig:introduce gap for EPQ1Lar} (rename $b$ into $x$), we construct a register automaton $\mathcal{A}_{\textit{l-lar}}^1$ in \figurename~\ref{fig:automata APQ1Lar-1 in paper}. Here transition labels $c_1 = c + \textit{ret}(\textit{rm},a)$, $c_2 = c + \textit{call}(\textit{put},a,=r)$, $c_3 = c_2 + \textit{ret}(\textit{rm},a)$, where $c = \textit{call}(\textit{put},d,\top),\textit{ret}(\textit{put},d,\top), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. There are three paths in \figurename~\ref{fig:introduce gap for EPQ1Lar} from $q_{\textit{init}}$ to $q_7$, and they comes from that there are three possible positions for the first $\textit{call}(\textit{put},a,\_)$ in the captured execution, which is shown in \figurename~\ref{fig:executions APQ1Lar-1 in paper}. In \figurename~\ref{fig:automata APQ1Lar-1 in paper}, the paths $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_7$, $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_{10}$ and $q_1 \rightarrow q_9 \rightarrow q_{10} \ldots \rightarrow q_7$ corresponds to the first, second and third cases in \figurename~\ref{fig:executions APQ1Lar-1 in paper}, respectively.
+}
 
 \begin{figure}[htbp]
   \centering
@@ -239,11 +231,27 @@ For example, to capture non-$\mathsf{MatchedMaxPriority}^{>}$-linearizable execu
   \caption{Automaton $\mathcal{A}_{\textit{l-lar}}^1$}
   \label{fig:automata APQ1Lar-1 in paper}
 \end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1 \textwidth]{figures/PIC_HIS_PQ1Lar-pprr-in-paper.pdf}
+%\vspace{-10pt}
+  \caption{Three possible positions of the first $\textit{call}(\textit{put},a,\_)$ in captured execution}
+  \label{fig:executions APQ1Lar-1 in paper}
+\end{figure}
+
+
+{\color {blue}
+Let $\mathcal{A}_{\textit{1-lar}}$ be the union of the four register automata mentioned above, then we prove that $\mathcal{A}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete. The detailed construction and proof can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}.
 }
-TODO GIVE THE AUTOMATON
+
+\begin{restatable}{lemma}{EPQOneLarisCoRegular}
+\label{lemma:EPQ1Lar is co-regular}
+$\textit{Auts}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete.
+\end{restatable}
 
 
-More details can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. %TODO MOVE THIS TO THE RELATED WORK 
+More details can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. %TODO MOVE THIS TO THE RELATED WORK
 
 
 \subsubsection{A $\mathsf{MatchedMaxPriority}^=$-complete automaton}
