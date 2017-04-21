@@ -45,15 +45,15 @@ We prove $\textit{SeqPQ}_f \subseteq \seqPQ_{\neq}$ by induction.
 
 \item[-] If $l_1 \in \seqPQ_{\neq}$ and $l_2 \xrightarrow{\mathsf{MatchedMaxPriority}} l_1$. Then we need to prove that $l_2 \in \seqPQ$. We know that $l_1 = u \cdot v \cdot w$, such that $\mathsf{MatchedMaxPriority\text{-}Seq}(l_2,x)$ holds and $l_2 = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$.
 
-    Assume that $u = \alpha_1 \cdot \ldots \cdot \alpha_i$, $v = \alpha_{\textit{i+1}} \cdot \ldots \cdot \alpha_j$ and $w = \alpha_{\textit{j+1}} \cdot \ldots \cdot \alpha_m$. Assume that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i \xrightarrow{\alpha_{\textit{i+1}}} q_{\textit{i+1}} \ldots  \xrightarrow{\alpha_j} q_j \xrightarrow{\alpha_{\textit{j+1}}} q_{\textit{j+1}} \ldots \xrightarrow{\alpha_m} q_m$ is the path of $l_1$ on $\textit{PQ}$. For each $i \leq k \leq j$, let $q'_k$ be the same as $q_k$, except that $q'_k$ maps $p$ into $\textit{item} \cdot l_k$ and $q_k$ maps $\textit{pri}$ into $l_k$ for some finite sequence $l_k$.
+    Assume that $u = \alpha_1 \cdot \ldots \cdot \alpha_i$, $v = \alpha_{\textit{i+1}} \cdot \ldots \cdot \alpha_j$ and $w = \alpha_{\textit{j+1}} \cdot \ldots \cdot \alpha_m$. Assume that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i \xrightarrow{\alpha_{\textit{i+1}}} q_{\textit{i+1}} \ldots  \xrightarrow{\alpha_j} q_j \xrightarrow{\alpha_{\textit{j+1}}} q_{\textit{j+1}} \ldots \xrightarrow{\alpha_m} q_m$ is the path of $l_1$ on $\textit{PQ}$. For each $i \leq k \leq j$, let $q'_k$ be the same as $q_k$, except that $q'_k$ maps $p$ into $x \cdot l_k$ and $q_k$ maps $p$ into $l_k$ for some finite sequence $l_k$.
 
-    We already know that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i$, and it is obvious that $q_i \xrightarrow{\textit{put}(x,p)} q'_i$. Since (1) all $\textit{put}$ with priority $p$ is in $u$, and (2) in $u \cdot v$, only items with priority either incomparable, or less, or equal than $p$ is removed, we can see that it is safe to add to each $q_k$ ($1 \leq k \leq j$) with a newest $x$ with priority $p$. Or we can say, $q'_i \xrightarrow{\alpha_{\textit{i+1}}} q'_{\textit{i+1}} \ldots \xrightarrow{\alpha_j} q'_j$ are transitions of $\textit{PQ}$. Since $\textit{matched}_{\prec}(u \cdot v,p)$ holds, we can see that $q_j$ maps each priority that is smaller than $p$ into $\epsilon$ and maps $p$ into $\epsilon$, and $q'_j$ maps each priority that is smaller than $p$ into $\epsilon$ and maps $p$ into $x$. Then, we can see that $q'_j \xrightarrow{\textit{rm}(x)} q_j$. We already know that that $q_j \xrightarrow{\alpha_{\textit{j+1}}} q_{\textit{j+1}} \ldots \xrightarrow{\alpha_m} q_m$. Therefore, we can see that $l_2 = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \in \seqPQ$.
+    We already know that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i$, and it is obvious that $q_i \xrightarrow{\textit{put}(x,p)} q'_i$. Since (1) all $\textit{put}$ with priority $p$ is in $u$, and (2) in $u \cdot v$, only values with priority either incomparable, or less, or equal than $p$ is removed, we can see that it is safe to add to each $q_k$ ($1 \leq k \leq j$) with a newest $x$ with priority $p$. Or we can say, $q'_i \xrightarrow{\alpha_{\textit{i+1}}} q'_{\textit{i+1}} \ldots \xrightarrow{\alpha_j} q'_j$ are transitions of $\textit{PQ}$. Since $\textit{matched}_{\prec}(u \cdot v,p)$ holds, we can see that $q_j$ maps each priority that is smaller than $p$ into $\epsilon$ and maps $p$ into $\epsilon$, and $q'_j$ maps each priority that is smaller than $p$ into $\epsilon$ and maps $p$ into $x$. Then, we can see that $q'_j \xrightarrow{\textit{rm}(x)} q_j$. We already know that that $q_j \xrightarrow{\alpha_{\textit{j+1}}} q_{\textit{j+1}} \ldots \xrightarrow{\alpha_m} q_m$. Therefore, we can see that $l_2 = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \in \seqPQ$.
 
 \item[-] If $l_1 \in \seqPQ_{\neq}$ and $l_2 \xrightarrow{\mathsf{UnmatchedMaxPriority}} l_1$. Then we need to prove that $l_2 \in \seqPQ$. We know that $l_1 = u \cdot v$, such that $\mathsf{UnmatchedMaxPriority\text{-}Seq}(l_2,x)$ holds and $l_2 = u \cdot \textit{put}(x,p) \cdot v$.
 
-    Assume that $u = \alpha_1 \cdot \ldots \cdot \alpha_i$ and $v = \alpha_{\textit{i+1}} \cdot \ldots \cdot \alpha_m$. Assume that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i \xrightarrow{\alpha_{\textit{i+1}}} q_{\textit{i+1}} \ldots  \xrightarrow{\alpha_m} q_m$ is the path of $l_1$ on $\textit{PQ}$. For each $i \leq k \leq m$, let $q'_k$ be the same as $q_k$, except that $q'_k$ maps $p$ into $\textit{item} \cdot l_k$ and $q_k$ maps $p$ into $l_k$ for some finite sequence $l_k$.
+    Assume that $u = \alpha_1 \cdot \ldots \cdot \alpha_i$ and $v = \alpha_{\textit{i+1}} \cdot \ldots \cdot \alpha_m$. Assume that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i \xrightarrow{\alpha_{\textit{i+1}}} q_{\textit{i+1}} \ldots  \xrightarrow{\alpha_m} q_m$ is the path of $l_1$ on $\textit{PQ}$. For each $i \leq k \leq m$, let $q'_k$ be the same as $q_k$, except that $q'_k$ maps $p$ into $x \cdot l_k$ and $q_k$ maps $p$ into $l_k$ for some finite sequence $l_k$.
 
-    We already know that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i$, and it is obvious that $q_i \xrightarrow{\textit{put}(x,p)} q'_i$. Since (1) all $\textit{put}$ with priority $p$ is in $u$, (2) in $u \cdot v$, only items with priority either incomparable, or less, or equal than $p$ is removed, we can see that it is safe to add to each $q_k$ ($1 \leq k \leq m$) with a newest $x$ with priority $p$. Or we can say, $q'_i \xrightarrow{\alpha_{\textit{i+1}}} q'_{\textit{i+1}} \ldots \xrightarrow{\alpha_m} q'_m$ are transitions of $\textit{PQ}$. Therefore, we can see that $l_2 = u \cdot \textit{put}(x,p) \cdot v \in \seqPQ$.
+    We already know that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i$, and it is obvious that $q_i \xrightarrow{\textit{put}(x,p)} q'_i$. Since (1) all $\textit{put}$ with priority $p$ is in $u$, (2) in $u \cdot v$, only values with priority either incomparable, or less, or equal than $p$ is removed, we can see that it is safe to add to each $q_k$ ($1 \leq k \leq m$) with a newest $x$ with priority $p$. Or we can say, $q'_i \xrightarrow{\alpha_{\textit{i+1}}} q'_{\textit{i+1}} \ldots \xrightarrow{\alpha_m} q'_m$ are transitions of $\textit{PQ}$. Therefore, we can see that $l_2 = u \cdot \textit{put}(x,p) \cdot v \in \seqPQ$.
 
 \item[-] If $l_1 \in \seqPQ_{\neq}$ and $l_2 \xrightarrow{\mathsf{EmptyRemove}} l_1$. Then we need to prove that $l_2 \in \seqPQ$. We know that $l_1 = u \cdot v$, such that $\mathsf{EmptyRemove\text{-}Seq}(l_2,o)$ holds, and $l_2 = u \cdot \textit{rm}(\textit{empty}) \cdot v$ with $o=\textit{rm}(\textit{empty})$. 
 
@@ -77,7 +77,7 @@ To prove that $\seqPQ_{\neq} \subseteq \textit{SeqPQ}_f$, we show that given $l_
 
 \item[-] If $\mathsf{Has\text{-}MatchedMaxPriority}(l_2)$: Assume that $l_2 = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, such that all $\textit{put}$ with priority $p$ of $u \cdot v \cdot w$ is in $u$. Let $l_1 = u \cdot v \cdot w$. According to construction of $\textit{PQ}$, we can see that $\mathsf{MatchedMaxPriority\text{-}Seq}(l_2,x)$ holds, and $l_2 \xrightarrow{\mathsf{MatchedMaxPriority}} l_1$. 
 
-    Assume that $u = \alpha_1 \cdot \ldots \cdot \alpha_i$, $v = \alpha_{\textit{i+1}} \cdot \ldots \cdot \alpha_j$ and $w = \alpha_{\textit{j+1}} \cdot \ldots \cdot \alpha_m$. We already know that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i \xrightarrow{\textit{put}(x,p)} q_{\textit{i+}} \xrightarrow{\alpha_{\textit{i+1}}} q_{\textit{i+1}} \ldots \xrightarrow{\alpha_j} q_j \xrightarrow{\textit{rm}(x)} q_{\textit{j+}} \xrightarrow{\alpha_{\textit{j+1}}} q_{\textit{j+1}} \ldots \xrightarrow{\alpha_m} q_m$. For each $\textit{i+1} \leq k \leq j$, let $q'_k$ be the same as $q_k$, except that $q_k$ maps $p$ into $x \cdot l_k$ for some finite sequence $l_k$, and $q'_k$ maps $p$ into $l_k$. Since (1) $p$ is one of maximal priority in $l_2$, (2) $x$ is the newest item with priority $p$ in $l_2$, and (3) $x$ is not removed until $\textit{rm}(x)$, we know that whether we keep $x$ or remove it will not influence transitions from $q_{\textit{i+1}}$ to $q_j$. Then we can see that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i \xrightarrow{\alpha_{\textit{i+1}}} q'_{\textit{i+1}} \ldots \xrightarrow{\alpha_j} q'_j \xrightarrow{\alpha_{\textit{j+1}}} q_{\textit{j+1}} \ldots \xrightarrow{\alpha_m} q_m$ are transitions of $\textit{PQ}$. Therefore, $l_1 \in \seqPQ$.
+    Assume that $u = \alpha_1 \cdot \ldots \cdot \alpha_i$, $v = \alpha_{\textit{i+1}} \cdot \ldots \cdot \alpha_j$ and $w = \alpha_{\textit{j+1}} \cdot \ldots \cdot \alpha_m$. We already know that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i \xrightarrow{\textit{put}(x,p)} q_{\textit{i+}} \xrightarrow{\alpha_{\textit{i+1}}} q_{\textit{i+1}} \ldots \xrightarrow{\alpha_j} q_j \xrightarrow{\textit{rm}(x)} q_{\textit{j+}} \xrightarrow{\alpha_{\textit{j+1}}} q_{\textit{j+1}} \ldots \xrightarrow{\alpha_m} q_m$. For each $\textit{i+1} \leq k \leq j$, let $q'_k$ be the same as $q_k$, except that $q_k$ maps $p$ into $x \cdot l_k$ for some finite sequence $l_k$, and $q'_k$ maps $p$ into $l_k$. Since (1) $p$ is one of maximal priority in $l_2$, (2) $x$ is the newest value with priority $p$ in $l_2$, and (3) $x$ is not removed until $\textit{rm}(x)$, we know that whether we keep $x$ or remove it will not influence transitions from $q_{\textit{i+1}}$ to $q_j$. Then we can see that $q_0 \xrightarrow{\alpha_1} q_1 \ldots \xrightarrow{\alpha_i} q_i \xrightarrow{\alpha_{\textit{i+1}}} q'_{\textit{i+1}} \ldots \xrightarrow{\alpha_j} q'_j \xrightarrow{\alpha_{\textit{j+1}}} q_{\textit{j+1}} \ldots \xrightarrow{\alpha_m} q_m$ are transitions of $\textit{PQ}$. Therefore, $l_1 \in \seqPQ$.
 \end{itemize}
 
 This completes the proof of this lemma. \qed
@@ -103,7 +103,7 @@ By Lemma \ref{lemma:EPQ rules and semantics}, $\seqPQ$ is equivalent to the set 
 
 \begin {proof}
 
-To prove the $\textit{only if}$ direction, given a data-differentiated execution $e \in \mathcal{I}_{\neq}$. By assumption, it is linearizable with respect to a sequential execution $l \in S$, and the bijection between the operations of $e$ and the method events of $l$ ensures that $l$ is differentiated and belongs to $S_{\neq}$.
+To prove the $\textit{only if}$ direction, given a data-differentiated execution $e \in \mathcal{I}_{\neq}$. By assumption, it is linearizable with respect to a sequential execution $l \in S$, and the bijection between the operations of $e$ and the operations of $l$ ensures that $l$ is differentiated and belongs to $S_{\neq}$.
 
 To prove the $\textit{if}$ direction, given an execution $e \in \mathcal{I}$. By data independence of $\mathcal{I}$, we know that there exists $e' \in \mathcal{I}_{\neq}$ and a renaming function $r$, such that $r(e') = e$. By assumption, $e'$ is linearizable with respect to a sequential execution $l' \in S_{\neq}$. Let $l=r(l')$. By data independence of $S$ it is easy to see that $l \in S$, and it is easy to see that $e \sqsubseteq l$  using the same bijection used for $e' \sqsubseteq l'$. \qed
 \end {proof}
@@ -112,105 +112,71 @@ To prove the $\textit{if}$ direction, given an execution $e \in \mathcal{I}$. By
 
 
 
-\section{Proofs in Section \ref{sec:step-by-step linearizability of extended priority queues}}
-\label{sec:appendix in section step-by-step linearizability of extended priority queues}
-
-
-\subsection{Proof of Lemma \ref{lemma:EPQ is closed under projection}}
+\section{Proofs in Section \ref{sec:checking inclusion by recursive procedure}}
+\label{sec:appendix in section checking lnclusion by recursive procedure} 
 
 
 
 
-\subsection{Proof of Lemma \ref{lemma:EPQ as multi in MRpri for sequence}}
+\subsection{Definition of Step-by-Step linearizablity}
+\label{sec:appendix definition of step-by-step linearizability}  
 
-%\EPQasMultiInMRpriforSequence*
 
-\begin{restatable}{lemma}{EPQasMultiInMRpriforSequence}
-\label{lemma:EPQ as multi in MRpri for sequence}
-Given a data-differentiated sequential execution $e$, $e \in \textit{EPQ}$, if and only if, $\forall e' \in \textit{proj}(e)$ and $\forall R \in \textit{last}(e')$, we have $e' \in \textit{MS}(R)$.
-\end{restatable}
+We introduce the notion of step-by-step linearizability, which means that from a linearization of $e \setminus x$ that satisfy the requirements of priority queue, we can obtain a linearization of $e$ that satisfy the requirements of priority queue. Its formal definition is as follows: 
+ 
+%\vspace{-6pt}
+\begin{definition}\label{def:step-by-step linearizability}
+Given $\Gamma\in \{\mathsf{EmptyRemove}, \mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, $\Gamma$ is step-by-step linearizability, if for each data-differentiated execution $e$ where $\Gamma\mathsf{\text{-}Conc}(e,\alpha)$ for some $\alpha$, then $e \setminus \alpha \sqsubseteq \seqPQ \Rightarrow e \sqsubseteq \seqPQ$. 
 
-\begin {proof}
+$\seqPQ$ is step-by-step linearizability, if each $\Gamma$ is step-by-step linearizability. 
+\end{definition} 
 
-The \textit{only if} direction is obvious and can be similarly proved as the $\textit{EPQ}_s \subseteq \textit{EPQ}$ direction of Lemma \ref{lemma:EPQ rules and semantics}.
+Our notion of step-by-step linearizability is inspired by the step-by-step linearizability in ~\cite{DBLP:conf/icalp/BouajjaniEEH15}.  
 
-To prove the $\textit{if}$ direction, we proceed as follows: From $e1=e$, we generate a sequence $e_2$ as follows:
 
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] If $\textit{PQ}_3 \in \textit{last}(e_1)$: Then we can see that $e_1$ contains at least one $\textit{rm}(\textit{empty})$. $e_2$ is generated from $e_1$ by erasing one $\textit{rm}(\textit{empty})$.
-
-\item[-] Else, if $\textit{PQ}_2^{=} \in \textit{last}(e_1)$: Then we can see that one of the maximal priority of $e_1$ is unmatched $\textit{put}$ and (possibly) matched $\textit{put}$. Assume the set of the items of these unmatched $\textit{put}$ is $S$. $e_2$ is generated from $e_1$ by erasing one unmatched $\textit{put}$ which use the item last putted in $S$.
-
-\item[-] Else, if $\textit{PQ}_2^{>} \in \textit{last}(e_1)$: Then we can see that one of the maximal priority in $e_1$ is unmatched $\textit{put}$. Assume the set of the items of these unmatched $\textit{put}$ is $S$. $e_2$ is generated from $e_1$ by erasing one unmatched $\textit{put}$ which use the item last putted in $S$.
-
-\item[-] Else, if $\textit{PQ}_1^{=} \in \textit{last}(e_1)$: Then we can see that one of the maximal priority in $e_1$ is of more than one pair of matched $\textit{put}$. Assume the set of the items of these matched $\textit{put}$ is $S$. $e_2$ is generated from $e_1$ by erasing matched $\textit{put}$ and $\textit{rm}$ of the item which is last putted in $S$.
-
-\item[-] Else, if $\textit{PQ}_1^{>} \in \textit{last}(e_1)$: Then we can see that one of the maximal priority in $e_1$ is of one pair of matched $\textit{put}$. $e_2$ is generated from $e_1$ by erasing this pair of matched $\textit{put}$ and $\textit{rm}$.
-\end{itemize}
-
-Similarly, for each $i > 1$, we obtain $e_{\textit{i+1}}$ from $e_i$, until we obtain $e_m = \epsilon$ for some $m$. It is obvious that $e_m \in \textit{EPQ}$. For $e_{\textit{m-1}}$, since
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $e_m \in \textit{EPQ}$,
-
-\item[-] By assumption, we know that $e_{\textit{m-1}} \in \textit{MS}(R_{\textit{m-1}})$, where $R_{\textit{m-1}} \in \textit{last}(e_{\textit{m-1}})$. This implies that the guard of $R_{\textit{m-1}}$ is satisfied.
-\end{itemize}
-
-Therefore, we know that $e_{\textit{m-1}} \in \textit{EPQ}$. Similarly, we can prove that $e_{\textit{m-2}},\ldots,e_1 = e \in \textit{EPQ}$. \qed
-\end {proof}
+Given a data-differentiated execution $e$, we can obtain a sequence $e'$ from $e$ by adding $\textit{put}(a,p)$ (resp., $\textit{rm}(a)$, $\textit{rm}(\textit{empty})$) between each pair of $\textit{call}(\textit{put},a,p)$ and $\textit{ret}(\textit{put},a,p)$ (resp., $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},a)$, $\textit{call}(\textit{rm},\textit{empty})$ and $\textit{ret}(\textit{rm},\textit{empty})$). Such $e'$ is called an execution with linearization points, and we call the projection of $e'$ into $m(a,b)$ the linearization of $e$. 
 
 
 
-\subsection{Proof of Lemma \ref{lemma:EPQ is step-by-step linearizability}}
+
+\subsection{Obtaining New Sequences while Ensuring that they are in $\seqPQ$}
+\label{sec:obtaining new sequences while ensureing that they are in SeqPQ}  
 
 
-The prove that $\textit{EPQ}$ is step-by-step linearizability, we investigate each rules individually.
+Before we prove the step-by-step linearizability of $\seqPQ$, we introduce several lemmas, which are used to ensure some sub-sequences of $\seqPQ$ still belongs to $\seqPQ$. Given a data-differentiated sequence $l$ and one of its maximal priority $p$, let $O_c(l,p)$ and $O_i(l,p)$ be the set of operations with priorities comparable with $p$ and incomparable with $p$ in $l$, respectively. Similarly we can define $D_c(l,p)$ and $D_i(l,p)$ for se of values instead of set of operations. We can see that each priority of values in $O_i(l,p)$ is either larger or incomparable with priorities of values in  $O_c(l,p)$.
 
-Given a data-differentiated execution and its history, we can abuse notation and mix labels and method events with operations themselves, since items are unique in a data-differentiated execution. For instance, we will reference an operation labeled by $\textit{put}(p,a)$ as $\textit{put}(p,a)$.
-
-
-Given an operation $o$ with call action $\textit{cal}_o (\textit{put},a,p)$ and return actions $\textit{ret}_o (\textit{put})$, its method event is $\textit{put}(a,p)$. Given an operation $o$ with call action $\textit{cal}_o (\textit{rm})$ and return actions $\textit{ret}_o (\textit{rm},a)$, its method event is $\textit{rm}(a)$.
-
-Given a data-differentiated execution $e$ and its history $h$, we can obtain a sequence $h'$ from $h$ by adding $\textit{put}(a,p)$ (resp., $\textit{rm}(a)$, $\textit{rm}(\textit{empty})$) between each pair of $\textit{cal}(\textit{put},a,p)$ and $\textit{ret}(\textit{put},a)$ (resp., $\textit{cal}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},a)$, $\textit{cal}(\textit{rm},\textit{empty})$ and $\textit{ret}(\textit{rm},\textit{empty})$). The projection of $h'$ into method events is called linearization of $e$ and $h$, and each method event we add in $h'$ can be considered as a linearization point of the corresponding method event. We call such $h'$ an execution with linearization points of $e$.
-
-
-Before we prove the step-by-step linearizability of $\textit{MS}(\textit{EPQ}_1)$ and $\textit{MS}(\textit{EPQ}_2)$, we introduce several lemmas, which are used to ensure some sub-sequences of $\textit{EPQ}$ still belongs to $\textit{EPQ}$. Given a data-differentiated sequence $l$ and one of its maximal priority $\textit{pri}$, let $O_c(l,\textit{pri})$ and $O_i(l,\textit{pri})$ be the set of operations with priorities comparable with $\textit{pri}$ and incomparable with $\textit{pri}$ in $l$, respectively. Similarly we can define $D_c(l,\textit{pri})$ and $D_i(l,\textit{pri})$ for items instead of operations. %Let $O_x(l)$ be the set of $\textit{put}(y,\textit{pri})$ with $y \neq x$ in $l$, where $\textit{pri}$ is the priority of $x$ in $l$.
-We can see that each priority of items in $O_i(l,\textit{pri})$ is either larger or incomparable with priorities of items in  $O_c(l,\textit{pri})$.
-
-The following lemma shows that if a new sequence is generated by erasing some operations in $O_c(l,\textit{pri})$ while keeping the remaining $O_c(l,\textit{pri})$ sub-sequences in $\textit{EPQ}$, then this new sequence is still in $\textit{EPQ}$. Note that this is different from projection on items.
+The following lemma shows that if a new sequence is generated by erasing some operations in $O_c(l,p)$ while keeping the remaining $O_c(l,p)$ sub-sequences in $\seqPQ$, then this new sequence is still in $\seqPQ$. Note that this is different from projection on value.
 
 \begin{restatable}{lemma}{EraseOcStillinEPQ}
 \label{lemma:erase Oc still in EPQ}
-Given a data-differentiated sequential execution $l \in \textit{EPQ}$ and a maximal priority $\textit{pri}$ in $l$, where $l$ does not contain $\textit{rm}(\textit{empty})$. Let $l'$ be generated from $l$ by discarding some operations in $O_c(l,\textit{pri})$, and $l' \vert_{ O_c(l,\textit{pri}) } \in \textit{EPQ}$. Then, $l' \in \textit{EPQ}$.
+Given a data-differentiated sequential execution $l \in \seqPQ$ and a maximal priority $p$ in $l$, where $l$ does not contain $\textit{rm}(\textit{empty})$. Let $l'$ be generated from $l$ by discarding some operations in $O_c(l,p)$, and $l' \vert_{ O_c(l,p) } \in \seqPQ$. Then, $l' \in \seqPQ$.
 \end{restatable}
 
 \begin {proof}
-Let $l=o_1 \cdot \ldots \cdot o_m$, and $q_0 \xrightarrow{o_1} q_1 \ldots \xrightarrow{o_m} q_m$ be the path of $l$ in $\textit{PQ}$. Assume that $l'$ is generated from $l$ by discarding $o_{\textit{ind1}},\ldots,o_{\textit{indn}}$. Let $D$ be the set such that $D$ contains $a$, if $\textit{put}(a,\_)$ is in $o_{\textit{ind1}},\ldots,o_{\textit{indn}}$. For each $i$, let $q'_i$ be generated from $q_i$ by erasing items in $D$.
+Let $l=o_1 \cdot \ldots \cdot o_m$, and $q_0 \xrightarrow{o_1} q_1 \ldots \xrightarrow{o_m} q_m$ be the path of $l$ in $\textit{PQ}$. Assume that $l'$ is generated from $l$ by discarding $o_{\textit{ind1}},\ldots,o_{\textit{indn}}$. Let $D$ be the set such that $D$ contains $a$, if $\textit{put}(a,\_)$ is in $o_{\textit{ind1}},\ldots,o_{\textit{indn}}$. For each $i$, let $q'_i$ be generated from $q_i$ by erasing values in $D$.
 
 For each $q'_j$ with $j \neq \textit{ind}\_\textit{-1}$, if $o_{\textit{j+1}}$ is $\textit{put}$, then it is obvious that $q'_j \xrightarrow{o_{\textit{j+1}}} q'_{\textit{j+1}}$. Else, assume $o_{\textit{j+1}} = \textit{rm}(a)$,
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If $\textit{rm}(a) \in O_c(l,\textit{pri})$: By assumption, $l' \vert_{ O_c(l,\textit{pri}) } \in \textit{EPQ}$. Therefore, $a$ is in $q'_j$ and is the should-be-removed item in $O_c(l,\textit{pri})$. Since each priority of items in $O_i(l,\textit{pri})$ is either larger or incomparable with priorities of items in $O_c(l,\textit{pri})$, we can removed $a_c$ from $q'_j$, and then $q'_j \xrightarrow{o_{\textit{j+1}}} q'_{\textit{j+1}}$.
+\item[-] If $\textit{rm}(a) \in O_c(l,p)$: By assumption, $l' \vert_{ O_c(l,p) } \in \seqPQ$. Therefore, $a$ is in $q'_j$ and is the should-be-removed value in $O_c(l,p)$. Since each priority of values in $O_i(l,p)$ is either larger or incomparable with priorities of values in $O_c(l,p)$, we can removed $a_c$ from $q'_j$, and then $q'_j \xrightarrow{o_{\textit{j+1}}} q'_{\textit{j+1}}$.
 
-\item[-] If $\textit{rm}(a) \in O_i(l,\textit{pri})$: By assumption we know that $q_j \xrightarrow{\textit{rm}(a)} q_{\textit{j+1}}$. Since $q'_j$ contains the same $D_i(l,\textit{pri})$ items as $q_j$ and $q'_j$ contains less $D_c(l,\textit{pri})$ items than $q_j$, we can see that $q'_j \xrightarrow{o_{\textit{j+1}}} q'_{\textit{j+1}}$.
+\item[-] If $\textit{rm}(a) \in O_i(l,p)$: By assumption we know that $q_j \xrightarrow{\textit{rm}(a)} q_{\textit{j+1}}$. Since $q'_j$ contains the same $D_i(l,p)$ values as $q_j$ and $q'_j$ contains less $D_c(l,p)$ values than $q_j$, we can see that $q'_j \xrightarrow{o_{\textit{j+1}}} q'_{\textit{j+1}}$.
 \end{itemize}
 
-For each $q'_{\textit{indj-1}}$, it is easy to see that $q'_{\textit{indj-1}} = q'_{\textit{indj}}$. Therefore, we can see that $l' = o_1 \cdot \ldots o_{\textit{ind1-1}} \cdot o_{\textit{ind1+1}} \cdot \ldots \in \textit{EPQ}$. \qed
+For each $q'_{\textit{indj-1}}$, it is easy to see that $q'_{\textit{indj-1}} = q'_{\textit{indj}}$. Therefore, we can see that $l' = o_1 \cdot \ldots o_{\textit{ind1-1}} \cdot o_{\textit{ind1+1}} \cdot \ldots \in \seqPQ$. \qed
 \end {proof}
 
 
-The following lemma shows that if a new sequence is generated by from some time point, erasing operations in $O_i(l,\textit{pri})$, then this new sequence is still in $\textit{EPQ}$.
+The following lemma shows that if a new sequence is generated by from some time point, erasing operations in $O_i(l,p)$, then this new sequence is still in $\seqPQ$.
 
 \begin{restatable}{lemma}{EraseOiFromSomeTimePointStillinEPQ}
 \label{lemma:erase Oi from some time point still in EPQ}
-Given a data-differentiated sequential execution $l \in \textit{EPQ}$ and a maximal priority $\textit{pri}$ in $l$, where $l$ does not contain $\textit{rm}(\textit{empty})$. Let $l'$ be generated from $l$ by discarding operations in $O_i(l,\textit{pri})$ from some time point, then, $l' \in \textit{EPQ}$.
+Given a data-differentiated sequential execution $l \in \seqPQ$ and a maximal priority $p$ in $l$, where $l$ does not contain $\textit{rm}(\textit{empty})$. Let $l'$ be generated from $l$ by discarding operations in $O_i(l,p)$ from some time point, then, $l' \in \seqPQ$.
 \end{restatable}
 
 \begin {proof}
-Let $l=o_1 \cdot \ldots \cdot o_m$, and $q_0 \xrightarrow{o_1} q_1 \ldots \xrightarrow{o_m} q_m$ be the path of $l$ in $\textit{PQ}$. Assume that $l'$ is generated from $l$ by discarding all operations $o_i$ if (1) $o_i \in O_i(l,\textit{pri})$ and (2) $i \geq k$ for a specific index $k$. Let $D$ be a set such that $a \in D$, if $\textit{put}(a,\_)$ is in $l$ and not in $l'$. For each $0 \leq i \leq m$, let $q'_i$ be generated from $q_i$ by erasing items in $D$.
+Let $l=o_1 \cdot \ldots \cdot o_m$, and $q_0 \xrightarrow{o_1} q_1 \ldots \xrightarrow{o_m} q_m$ be the path of $l$ in $\textit{PQ}$. Assume that $l'$ is generated from $l$ by discarding all operations $o_i$ if (1) $o_i \in O_i(l,p)$ and (2) $i \geq k$ for a specific index $k$. Let $D$ be a set such that $a \in D$, if $\textit{put}(a,\_)$ is in $l$ and not in $l'$. For each $0 \leq i \leq m$, let $q'_i$ be generated from $q_i$ by erasing values in $D$.
 
 Let $l'=o'_1 \cdot \ldots \cdot o'_n$, and let $f$ be a function, such that $f(i)=j$, if $o'_i = o_j$.
 
@@ -220,7 +186,7 @@ Let $l'=o'_1 \cdot \ldots \cdot o'_n$, and let $f$ be a function, such that $f(i
 
 \item[-] It is easy to see that $q'_{\textit{k-1}} = q'_{f(k)-1}$, and for each $i>k$, $q'_{f(k)} = q'_{f(k+1)-1}$.
 
-\item[-] If $o_{f(k)}$ is a $\textit{put}$ operation, then it is obvious that $q'_{f(k)-1} \xrightarrow{o_k} q'_{f(k)}$. Else, if $o_{f(k)} = \textit{rm}(a)$, we can see $a$ is in $q'_{f(k)-1}$, and since (1) $q'_{f(k)-1}$ contains the same $D_c(l,\textit{pri})$ items as $q_{f(k)-1}$ and $q'_{f(k)-1}$ contains less $D_i(l,\textit{pri})$ items than $q_{f(k)-1}$, and (2) each priority of items in $O_i(l,\textit{pri})$ is either larger or incomparable with priorities of items in  $O_c(l,\textit{pri})$, we can see that $q'_{f(k)-1} \xrightarrow{o_k} q'_{f(k)}$. Similarly we can prove the case of $o_{f(j)}$ with $j > k$.
+\item[-] If $o_{f(k)}$ is a $\textit{put}$ operation, then it is obvious that $q'_{f(k)-1} \xrightarrow{o_k} q'_{f(k)}$. Else, if $o_{f(k)} = \textit{rm}(a)$, we can see $a$ is in $q'_{f(k)-1}$, and since (1) $q'_{f(k)-1}$ contains the same $D_c(l,p)$ values as $q_{f(k)-1}$ and $q'_{f(k)-1}$ contains less $D_i(l,p)$ values than $q_{f(k)-1}$, and (2) each priority of values in $O_i(l,p)$ is either larger or incomparable with priorities of values in  $O_c(l,p)$, we can see that $q'_{f(k)-1} \xrightarrow{o_k} q'_{f(k)}$. Similarly we can prove the case of $o_{f(j)}$ with $j > k$.
 \end{itemize}
 
 This completes the proof of this lemma. \qed
@@ -230,7 +196,7 @@ The following lemma shows that we can make $\textit{put}$ with maximal priority 
 
 \begin{restatable}{lemma}{MakePutWithMaxPriorityHappenEarlier}
 \label{lemma:make put with maximal priority happen earlier}
-Given a data-differentiated sequential execution $l \in \textit{EPQ}$ and a maximal priority $\textit{pri}$ in $l$, where $l$ does not contain $\textit{rm}(\textit{empty})$. Let $l=l_1 \cdot l_2$. Let $l_3$ be the projection of $l_2$ into $\{ \textit{put}(\_,\textit{pri}) \}$, and $l_4$ be the projection of $l_2$ into other operations. Then, $l'=l_1 \cdot l_3 \cdot l_4 \in \textit{EPQ}$.
+Given a data-differentiated sequential execution $l \in \seqPQ$ and a maximal priority $p$ in $l$, where $l$ does not contain $\textit{rm}(\textit{empty})$. Let $l=l_1 \cdot l_2$. Let $l_3$ be the projection of $l_2$ into $\{ \textit{put}(\_,p) \}$, and $l_4$ be the projection of $l_2$ into other operations. Then, $l'=l_1 \cdot l_3 \cdot l_4 \in \seqPQ$.
 \end{restatable}
 
 \begin {proof}
@@ -242,9 +208,9 @@ Let $q'_i$ be constructed as follows:
 \setlength{\itemsep}{0.5pt}
 \item[-] For $0 \leq i \leq n$, let $q'_i = q_i$.
 
-\item[-] For $\textit{n+1} \leq i \leq k$, let $q'_i$ be obtained from $q_n$ by adding items in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ with priority $\textit{pri}$ and in the same order.
+\item[-] For $\textit{n+1} \leq i \leq k$, let $q'_i$ be obtained from $q_n$ by adding values in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ with priority $p$ and in the same order.
 
-\item[-] For $\textit{k+1} \leq i \leq m$, let $q'_i$ be obtained from $q_{f(i)}$ by adding items which are (1) with priority $\textit{pri}$, (2) in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ and not removed by $o_1 \cdot \ldots \cdot o_{f(i)}$. The order of adding them is the same as $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$.
+\item[-] For $\textit{k+1} \leq i \leq m$, let $q'_i$ be obtained from $q_{f(i)}$ by adding values which are (1) with priority $p$, (2) in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ and not removed by $o_1 \cdot \ldots \cdot o_{f(i)}$. The order of adding them is the same as $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$.
 \end{itemize}
 
 Then, our proof proceeds as follows:
@@ -253,26 +219,26 @@ Then, our proof proceeds as follows:
 \setlength{\itemsep}{0.5pt}
 \item[-] It is obvious that $q'_0 \xrightarrow{o_1} q'_1 \ldots \xrightarrow{o_n} q'_n$ and $q'_n \xrightarrow{o_{\textit{n+1}}} q'_{\textit{n+1}} \ldots \xrightarrow{o_k} q'_k$.
 
-\item[-] For $q'_{\textit{k+1}}$: We already know that $q_{f(k+1)-1} \xrightarrow{o_{f(k+1)}} q_{f(k+1)}$, and it is easy to see that $q_{f(k+1)-1}$ is obtained from $q_n$ by adding items in $o_{\textit{n+1}} \cdot \ldots \cdot o_{f(k+1)-1}$.
+\item[-] For $q'_{\textit{k+1}}$: We already know that $q_{f(k+1)-1} \xrightarrow{o_{f(k+1)}} q_{f(k+1)}$, and it is easy to see that $q_{f(k+1)-1}$ is obtained from $q_n$ by adding values in $o_{\textit{n+1}} \cdot \ldots \cdot o_{f(k+1)-1}$.
 
-    We can see that $q'_k$ is obtained from $q_n$ by adding items in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_k$, and $q'_{k+1}$ is obtained from $q_{f(k+1)}$ by adding items which are (1) with priority $\textit{pri}$, (2) in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ and not removed by $o_1 \cdot \ldots \cdot o_{f(k+1)}$.
+    We can see that $q'_k$ is obtained from $q_n$ by adding values in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_k$, and $q'_{k+1}$ is obtained from $q_{f(k+1)}$ by adding values which are (1) with priority $p$, (2) in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ and not removed by $o_1 \cdot \ldots \cdot o_{f(k+1)}$.
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $o_{f(k+1)}$ is an operation of non-$\textit{pri}$ items, then $q'_{k+1}$ is obtained from $q_{f(k+1)}$ by adding items in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$. Since non-$\textit{pri}$ priority is either smaller or incomparable with $\textit{pri}$, we can see that $q'_k \xrightarrow{o_{f(k+1)}} q'_{\textit{k+1}}$.
+    \item[-] If $o_{f(k+1)}$ is an operation of non-$p$ values, then $q'_{k+1}$ is obtained from $q_{f(k+1)}$ by adding values in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$. Since non-$p$ priority is either smaller or incomparable with $p$, we can see that $q'_k \xrightarrow{o_{f(k+1)}} q'_{\textit{k+1}}$.
 
-    \item[-] Otherwise, it is only possible that $o_{f(k+1)} = \textit{rm}(a)$ for some item $a$ with priority $\textit{pri}$. We can see that $q'_{k+1}$ is obtained from $q_{f(k+1)}$ by adding items in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_k$ and then remove $a$. Since $q_{f(k+1)-1} \xrightarrow{o_{f(k+1)}} q_{f(k+1)}$, in $q_{f(k+1)-1}$( and also in $q'_k$), there is no item with priority less than $\textit{pri}$, and $a$ is the first-input item of priority $\textit{pri}$. Therefore, we can see that $q'_k \xrightarrow{o_{f(k+1)}} q'_{\textit{k+1}}$.
+    \item[-] Otherwise, it is only possible that $o_{f(k+1)} = \textit{rm}(a)$ for some value $a$ with priority $p$. We can see that $q'_{k+1}$ is obtained from $q_{f(k+1)}$ by adding values in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_k$ and then remove $a$. Since $q_{f(k+1)-1} \xrightarrow{o_{f(k+1)}} q_{f(k+1)}$, in $q_{f(k+1)-1}$( and also in $q'_k$), there is no value with priority less than $p$, and $a$ is the first-input value of priority $p$. Therefore, we can see that $q'_k \xrightarrow{o_{f(k+1)}} q'_{\textit{k+1}}$.
     \end{itemize}
 
-\item[-] For $q'_{\textit{k+i}}$ with $i>1$: We already know that $q_{f(k+i)-1} \xrightarrow{o_{f(k+i)}} q_{f(k+i)}$, and $q_{f(k+i)-1}$ is obtained from $q_{f(k+i-1)}$ by adding items in $o_{f(k+i-1)+1} \cdot \ldots \cdot o_{f(k+i)-1}$.
+\item[-] For $q'_{\textit{k+i}}$ with $i>1$: We already know that $q_{f(k+i)-1} \xrightarrow{o_{f(k+i)}} q_{f(k+i)}$, and $q_{f(k+i)-1}$ is obtained from $q_{f(k+i-1)}$ by adding values in $o_{f(k+i-1)+1} \cdot \ldots \cdot o_{f(k+i)-1}$.
 
-    We can see that $q'_{\textit{k+i}-1}$ (resp., $q'_{\textit{k+i}}$) is obtained from $q_{f(k+i-1)}$ (resp., $q_{f(k+i)}$) by adding items which are (1) with priority $\textit{pri}$, (2) in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ and not removed by $o_1 \cdot \ldots \cdot o_{f(k+i-1)}$ (resp., $o_1 \cdot \ldots \cdot o_{f(k+i)}$).
+    We can see that $q'_{\textit{k+i}-1}$ (resp., $q'_{\textit{k+i}}$) is obtained from $q_{f(k+i-1)}$ (resp., $q_{f(k+i)}$) by adding values which are (1) with priority $p$, (2) in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ and not removed by $o_1 \cdot \ldots \cdot o_{f(k+i-1)}$ (resp., $o_1 \cdot \ldots \cdot o_{f(k+i)}$).
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $o_{f(k+i)}$ is an operation of non-$\textit{pri}$ items, then $q'_{k+i}$ is obtained from $q_{f(k+i)}$ by adding items which are (1) with priority $\textit{pri}$, (2) in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ and not removed by $o_1 \cdot \ldots \cdot o_{f(k+i-1)}$. Since non-$\textit{pri}$ priority is either smaller or incomparable with $\textit{pri}$, we can see that $q'_{\textit{k+i-1}} \xrightarrow{o_{f(k+i)}} q'_{\textit{k+i}}$.
+    \item[-] If $o_{f(k+i)}$ is an operation of non-$p$ values, then $q'_{k+i}$ is obtained from $q_{f(k+i)}$ by adding values which are (1) with priority $p$, (2) in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_i$ and not removed by $o_1 \cdot \ldots \cdot o_{f(k+i-1)}$. Since non-$p$ priority is either smaller or incomparable with $p$, we can see that $q'_{\textit{k+i-1}} \xrightarrow{o_{f(k+i)}} q'_{\textit{k+i}}$.
 
-    \item[-] Otherwise, it is only possible that $o_{f(k+i)} = \textit{rm}(a)$ for some item $a$ with priority $\textit{pri}$. We can see that $q'_{k+i}$ is obtained from $q_{f(k+i)}$ by adding items in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_k$ and then remove $a$. Since $q_{f(k+i)-1} \xrightarrow{o_{f(k+i)}} q_{f(k+i)}$, in $q_{f(k+i)-1}$( and also in $q'_{\textit{k+i-1}}$), there is no item with priority less than $\textit{pri}$, and $a$ is the first-input item of priority $\textit{pri}$. Therefore, we can see that $q'_{\textit{k+i-1}} \xrightarrow{o_{f(k+i)}} q'_{\textit{k+i}}$.
+    \item[-] Otherwise, it is only possible that $o_{f(k+i)} = \textit{rm}(a)$ for some value $a$ with priority $p$. We can see that $q'_{k+i}$ is obtained from $q_{f(k+i)}$ by adding values in $o'_{\textit{n+1}} \cdot \ldots \cdot o'_k$ and then remove $a$. Since $q_{f(k+i)-1} \xrightarrow{o_{f(k+i)}} q_{f(k+i)}$, in $q_{f(k+i)-1}$( and also in $q'_{\textit{k+i-1}}$), there is no value with priority less than $p$, and $a$ is the first-input value of priority $p$. Therefore, we can see that $q'_{\textit{k+i-1}} \xrightarrow{o_{f(k+i)}} q'_{\textit{k+i}}$.
     \end{itemize}
 \end{itemize}
 
@@ -281,23 +247,23 @@ This completes the proof of this lemma. \qed
 
 
 
-The following lemma shows that if a new sequence is generated by make some $O_i(l,\textit{pri})$ behaviors to happen earlier, then this new sequence is still in $\textit{EPQ}$.
+The following lemma shows that if a new sequence is generated by make some $O_i(l,p)$ behaviors to happen earlier, then this new sequence is still in $\seqPQ$.
 
 \begin{restatable}{lemma}{MakeOiHappenEarlierStillinEPQ}
 \label{lemma:make Oi happen earlier still in EPQ}
-Given a data-differentiated sequential execution $l \in \textit{EPQ}$ and a maximal priority $\textit{pri}$ in $l$, where $l$ does not contain $\textit{rm}(\textit{empty})$. Let $l \vert_{ O_i(l,\textit{pri}) } = l_1 \cdot l_2$, let $l' = l_1 \cdot l_3$, where $l_3$ is the projection of $l$ into non-$l_1$ operations. Then, $l' \in \textit{EPQ}$.
+Given a data-differentiated sequential execution $l \in \seqPQ$ and a maximal priority $p$ in $l$, where $l$ does not contain $\textit{rm}(\textit{empty})$. Let $l \vert_{ O_i(l,p) } = l_1 \cdot l_2$, let $l' = l_1 \cdot l_3$, where $l_3$ is the projection of $l$ into non-$l_1$ operations. Then, $l' \in \seqPQ$.
 \end{restatable}
 
 \begin {proof}
-Let $l=o_1 \cdot \ldots \cdot o_m$, and $q_0 \xrightarrow{o_1} q_1 \ldots \xrightarrow{o_m} q_m$ be the path of $l$ in $\textit{PQ}$. Let $l_1 = o'_1 \cdot \ldots \cdot o'_n$, let $l_3 = o'_{\textit{n+1}} \cdot \ldots \cdot o'_m$. Let $f$ be a function, such that $f(i)=j$, if $o'_i = o_j$. Let $D$ be the se of items which are added and not removed in $o'_1 \cdot \ldots \cdot o'_n$.
+Let $l=o_1 \cdot \ldots \cdot o_m$, and $q_0 \xrightarrow{o_1} q_1 \ldots \xrightarrow{o_m} q_m$ be the path of $l$ in $\textit{PQ}$. Let $l_1 = o'_1 \cdot \ldots \cdot o'_n$, let $l_3 = o'_{\textit{n+1}} \cdot \ldots \cdot o'_m$. Let $f$ be a function, such that $f(i)=j$, if $o'_i = o_j$. Let $D$ be the set of values which are added and not removed in $o'_1 \cdot \ldots \cdot o'_n$.
 
 Let $q'_i$ be constructed as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] It is easy to see that $l_1 \in \textit{EPQ}$, and let $q'_0 \xrightarrow{o'_1} q'_1 \ldots \xrightarrow{o'_n} q'_n$ be the path of $l_1$ in $\textit{PQ}$.
+\item[-] It is easy to see that $l_1 \in \seqPQ$, and let $q'_0 \xrightarrow{o'_1} q'_1 \ldots \xrightarrow{o'_n} q'_n$ be the path of $l_1$ in $\textit{PQ}$.
 
-\item[-] For $\textit{n+1} \leq i \leq m$, let $q'_i$ be obtained from $q_{f(i)}$ by adding items in $D$. The order of adding them is the same as $o'_1 \cdot \ldots \cdot o'_n$.
+\item[-] For $\textit{n+1} \leq i \leq m$, let $q'_i$ be obtained from $q_{f(i)}$ by adding values in $D$. The order of adding them is the same as $o'_1 \cdot \ldots \cdot o'_n$.
 \end{itemize}
 
 Then, our proof proceeds as follows:
@@ -306,72 +272,77 @@ Then, our proof proceeds as follows:
 \setlength{\itemsep}{0.5pt}
 \item[-] We already know that $q'_0 \xrightarrow{o'_1} q'_1 \ldots \xrightarrow{o'_n} q'_n$.
 
-\item[-] For $q'_{\textit{n+i}}$: We already know that $q_{f(n+i)-1} \xrightarrow{o_{f(n+i)}} q_{f(n+i)}$, and it is easy to see that $q_{f(n+i)-1}$ is obtained from $q_{f(n+i-1)}$ by adding $D$-items in $o_{f(n+i-1)+1} \cdot \ldots \cdot q_{f(n+i)-1}$.
+\item[-] For $q'_{\textit{n+i}}$: We already know that $q_{f(n+i)-1} \xrightarrow{o_{f(n+i)}} q_{f(n+i)}$, and it is easy to see that $q_{f(n+i)-1}$ is obtained from $q_{f(n+i-1)}$ by adding $D$-values in $o_{f(n+i-1)+1} \cdot \ldots \cdot q_{f(n+i)-1}$.
 
-     We can see that $q'_{\textit{n+i}-1}$ (resp., $q'_{\textit{n+i}}$) is obtained from $q_{f(n+i-1)}$ (resp., $q_{f(n+i)}$) by adding remanning items in $D$.
+     We can see that $q'_{\textit{n+i}-1}$ (resp., $q'_{\textit{n+i}}$) is obtained from $q_{f(n+i-1)}$ (resp., $q_{f(n+i)}$) by adding remanning values in $D$.
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $o_{f(n+1)}$ is an operation of $O_c(l,\textit{pri})$ items, since priority in $O_i(l,\textit{pri})$ is either larger or incomparable with priority in $O_c(l,\textit{pri})$, we can see that $q'_n \xrightarrow{o_{f(n+1)}} q'_{\textit{n+1}}$.
+    \item[-] If $o_{f(n+1)}$ is an operation of $O_c(l,p)$ values, since priority in $O_i(l,p)$ is either larger or incomparable with priority in $O_c(l,p)$, we can see that $q'_n \xrightarrow{o_{f(n+1)}} q'_{\textit{n+1}}$.
 
-    \item[-] Otherwise, it is only possible that $o_{f(k+1)} = \textit{rm}(a)$ for some item $a$ in $O_c(l,\textit{pri})$. Since $q_{f(n+i)-1} \xrightarrow{o_{f(n+i)}} q_{f(n+i)}$, in $q_{f(n+i)-1}$( and also in $q'_{\textit{n+i-1}}$), there is no item with priority less than $\textit{pri}$, and $a$ is the first-input item of priority $\textit{pri}$. Therefore, we can see that $q'_{\textit{n+i-1}} \xrightarrow{o_{f(n+i)}} q'_{\textit{n+i}}$.
+    \item[-] Otherwise, it is only possible that $o_{f(k+1)} = \textit{rm}(a)$ for some value $a$ in $O_c(l,p)$. Since $q_{f(n+i)-1} \xrightarrow{o_{f(n+i)}} q_{f(n+i)}$, in $q_{f(n+i)-1}$( and also in $q'_{\textit{n+i-1}}$), there is no value with priority less than $p$, and $a$ is the first-input value of priority $p$. Therefore, we can see that $q'_{\textit{n+i-1}} \xrightarrow{o_{f(n+i)}} q'_{\textit{n+i}}$.
     \end{itemize}
 \end{itemize}
 
 This completes the proof of this lemma. \qed
 \end {proof}
 
-The following lemma shows that if a new sequence is generated by replacing a prefix with another one which make the priority queue has same content, then this new sequence is still in $\textit{EPQ}$.
+The following lemma shows that if a new sequence is generated by replacing a prefix with another one which make the priority queue has same content, then this new sequence is still in $\seqPQ$.
 
 \begin{restatable}{lemma}{ReplaceEquivalentPrefixStillinEPQ}
 \label{lemma:replace equivalent prefix still in EPQ}
-Given a data-differentiated sequential execution $l \in \textit{EPQ}$. Let $l=l_1 \cdot l_2$. Given $l_3 \in \textit{EPQ}$. Assume that the priority queue has same content after executing $l_1$ and $l_3$. Let $l' = l_3 \cdot l_2$. Then, $l' \in \textit{EPQ}$.
+Given a data-differentiated sequential execution $l \in \seqPQ$. Let $l=l_1 \cdot l_2$. Given $l_3 \in \seqPQ$. Assume that the priority queue has same content after executing $l_1$ and $l_3$. Let $l' = l_3 \cdot l_2$. Then, $l' \in \seqPQ$.
 \end{restatable}
 
 \begin {proof}
 Let $l=o_1 \cdot \ldots \cdot o_m$ and let $q_0 \xrightarrow{o_1} q_1 \ldots \xrightarrow{o_m} q_m$ be the path of $l$ in $\textit{PQ}$. Let $l_1 = o_1 \cdot \ldots \cdot l_k$, $l_3 = o'_1 \cdot \ldots \cdot o'_n$ and let $q_0 \xrightarrow{o'_1} q'_1 \ldots \xrightarrow{o'_n} q'_n$ be the path of $l_3$ in $\textit{PQ}$.
 
-By assumption we know that $q_k = q'_n$. Then it is not hard to see that $q_0 \xrightarrow{o'_1} q'_1 \ldots \xrightarrow{o'_n} q'_n \xrightarrow{o_{\textit{k+1}}} q_{\textit{k+1}} \ldots \xrightarrow{o_m} q_m$ is a path in $\textit{PQ}$, and then $l' \in \textit{EPQ}_s$. By Lemma \ref{lemma:EPQ rules and semantics}, we know that $l' \in \textit{EPQ}$. \qed
+By assumption we know that $q_k = q'_n$. Then it is not hard to see that $q_0 \xrightarrow{o'_1} q'_1 \ldots \xrightarrow{o'_n} q'_n \xrightarrow{o_{\textit{k+1}}} q_{\textit{k+1}} \ldots \xrightarrow{o_m} q_m$ is a path in $\textit{PQ}$, and then $l' \in \seqPQ_s$. By Lemma \ref{lemma:EPQ rules and semantics}, we know that $l' \in \seqPQ$. \qed
 \end {proof}
 
-With the help of Lemma \ref{lemma:erase Oc still in EPQ}, Lemma \ref{lemma:erase Oi from some time point still in EPQ}, Lemma \ref{lemma:make put with maximal priority happen earlier}, Lemma \ref{lemma:make Oi happen earlier still in EPQ} and Lemma \ref{lemma:replace equivalent prefix still in EPQ}, we can now prove that $\textit{EPQ}_1$ is step-by-step linearizability.
 
+
+
+\subsection{Proving Step-by-Step Linearizability of $\seqPQ$}
+\label{sec:obtaining new sequences while ensureing that they are in SeqPQ}
+
+
+With the help of Lemma \ref{lemma:erase Oc still in EPQ}, Lemma \ref{lemma:erase Oi from some time point still in EPQ}, Lemma \ref{lemma:make put with maximal priority happen earlier}, Lemma \ref{lemma:make Oi happen earlier still in EPQ} and Lemma \ref{lemma:replace equivalent prefix still in EPQ}, we can now prove that $\mathsf{MatchedMaxPriority}$ is step-by-step linearizability. Here we use $\textit{call}(o)$ and $\textit{ret}(o)$ as the call and return action of operation $o$, respectively. 
 
 \begin{restatable}{lemma}{EPQ1isStepByStepLinearizability}
 \label{lemma:EPQ1 is step-by-step linearizability}
-If a data-differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{EPQ}_1)$ with witness $x$, then $e \setminus x \sqsubseteq \textit{EPQ} \Rightarrow e \sqsubseteq \textit{EPQ}$.
+For each data-differentiated execution $e$ where $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Conc}(e,x)$ for some $x$, then $e \setminus x \sqsubseteq \seqPQ \Rightarrow e \sqsubseteq \seqPQ$.
 \end{restatable}
 
-\begin {proof}
-Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{EPQ}_1$ with witness $x$. Let the priority of $x$ be $\textit{pri}_x$, and let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{EPQ}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into method event is $l'$.
+\begin {proof} 
 
-According to $\textit{MS}(\textit{EPQ}_1)$, there exist sequences $u$, $v$, and $w$, such that $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v \cdot \textit{rm}(x) \cdot w$ and $u$, $v$, $w$, $x$ and $\textit{pri}_x$ satisfy the guard of $\textit{EPQ}_1$. Let $l'_v$ be the shortest prefix of $l'$ that contains all method event of $u \cdot v$.
+By assumption we know that there exists $l$, such that $e \sqsubseteq l$ and $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds. Let $p$ be the priority of $x$, then $l=u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$ for some $u$, $v$ and $w$. Let $e' = e \setminus x$. By assumption there exists sequence $l'$, such that $e' \sqsubseteq l' \in \seqPQ$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into operations is $l'$. Let $l'_v$ be the shortest prefix of $l'$ that contains all operation of $u \cdot v$.
 
-Let $U$, $V$ and $W$ be the set of operations of $u$, $v$ and $w$, respectively. Let us change $O_i(l,\textit{pri}_x)$ elements in $U$, $V$ and $W$, while keep $O_c(l,\textit{pri}_x)$ elements unchanged. We proceed by several loops: In the first loop, we start from the first $O_i(l,\textit{pri}_x)$-element of $l'_v$, and let it be $o_h$,
+Let $U$, $V$ and $W$ be the set of operations of $u$, $v$ and $w$, respectively. Let us change $O_i(l,p)$ elements in $U$, $V$ and $W$, while keep $O_c(l,p)$ elements unchanged. We proceed by a loop: In the first round of the loop, we start from the first $O_i(l,p)$-value of $l'_v$, and let it be $o_h$,
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] Case $1$: If in $e_{\textit{lp}}$, the linearization point of $o_h$ is before $\textit{ret}(\textit{rm},x)$, and no $O_c(l,\textit{pri}_x)$-element in $W$ happens before $o_h$. Then, $o_h$ is in the new version of $U \cup V$.
+\item[-] Case $1$: If in $e_{\textit{lp}}$, the linearization point of $o_h$ is before $\textit{ret}(\textit{rm},x)$, and no $O_c(l,p)$-value in $W$ happens before $o_h$. Then, $o_h$ is in the new version of $U \cup V$.
 
-\item[-] Case $2$: Else, if in $e_{\textit{lp}}$, the linearization point of $o_h$ is before $\textit{ret}(\textit{rm},x)$, and there exists $O_c(l,\textit{pri}_x)$-element $o_w$ in $W$, such that $o_w <_{\textit{hb}} o_h$. Then, in $l'_v$, we put $o_h$ and all $O_i(l,\textit{pri}_x)$-element whose linearization points is after the linearization point of $o_h$ into new version of $W$, and then stop the process of changing $U$, $V$ and $W$.
+\item[-] Case $2$: Else, if in $e_{\textit{lp}}$, the linearization point of $o_h$ is before $\textit{ret}(\textit{rm},x)$, and there exists $O_c(l,p)$-value $o_w$ in $W$, such that $o_w <_{\textit{hb}} o_h$. Then, in $l'_v$, we put $o_h$ and all $O_i(l,p)$-value whose linearization points is after the linearization point of $o_h$ into new version of $W$, and then stop the process of changing $U$, $V$ and $W$.
 
-\item[-] Case $3$: Else, if in $e_{\textit{lp}}$, the linearization point of $o_h$ is after $\textit{ret}(\textit{rm},x)$. Then, in $l'_v$, we put $o_h$ and all $O_i(l,\textit{pri}_x)$-element whose linearization points is after the linearization point of $o_h$ into new version of $W$, and then stop the process of changing $U$, $V$ and $W$.
+\item[-] Case $3$: Else, if in $e_{\textit{lp}}$, the linearization point of $o_h$ is after $\textit{ret}(\textit{rm},x)$. Then, in $l'_v$, we put $o_h$ and all $O_i(l,p)$-value whose linearization points is after the linearization point of $o_h$ into new version of $W$, and then stop the process of changing $U$, $V$ and $W$.
 \end{itemize}
 
-In the next loop, we consider the second $O_i(l,\textit{pri}_x)$-element of $l'_v$, and so on. Our process proceed, until either all element in $l'_v$ are in new version of $U \cup V$, or case $2$ or case $3$ happens and this process terminates. Let $U' \cup V'$ and $W'$ be the new version of $U \cup V$ and $W$ after the process terminates, respectively. Let $O_+$ be the set of operations that are moved into $U' \cup V'$ in the process, and let $O_-$ be the set of operations that are moved into $W'$ in the process.
+In the next round of the loop, we consider the second $O_i(l,p)$-value of $l'_v$, and so on. Our process proceed, until either all element in $l'_v$ are in new version of $U \cup V$, or case $2$ or case $3$ happens and this process terminates. Let $U' \cup V'$ and $W'$ be the new version of $U \cup V$ and $W$ after the process terminates, respectively. Let $O_+$ be the set of operations that are moved into $U' \cup V'$ in the process, and let $O_-$ be the set of operations that are moved into $W'$ in the process.
 
-Let $l'_{\textit{u'v'}}$ be the projection of $l'$ into $U' \cup V'$, let $O_x$ be the set of $\textit{put}(\_,\textit{pri}_x)$ while the item is not $x$ in $h$. Let $l''_a$ be the longest prefix of $l'_{\textit{u'v'}}$, where linearization of each operation of $l''_a$ is before $\textit{ret}(\textit{put},b)$ in $e_{\textit{lp}}$. Let $l''_d$ be the projection of $l'$ into operations of $O_x$ that are not in $l''_a$. Let $l''_1 = l''_a \cdot l''_d$. Let $l''_2$ be the projection of $l'$ into operations of $l'_{\textit{u'v'}}$ that are not in $l''_1$. Let $l''_3$ be the projection of $l'$ into operations which are not in $l'_{\textit{u'v'}}$. Let $l'' = l''_1 \cdot \textit{put}(x,\textit{pri}_x) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$.
+Let $l'_{\textit{u'v'}}$ be the projection of $l'$ into $U' \cup V'$, let $O_x$ be the set of $\textit{put}(\_,p)$ while the item is not $x$ in $h$. Let $l''_a$ be the longest prefix of $l'_{\textit{u'v'}}$, where linearization of each operation of $l''_a$ is before $\textit{ret}(\textit{put},b)$ in $e_{\textit{lp}}$. Let $l''_d$ be the projection of $l'$ into operations of $O_x$ that are not in $l''_a$. Let $l''_1 = l''_a \cdot l''_d$. Let $l''_2$ be the projection of $l'$ into operations of $l'_{\textit{u'v'}}$ that are not in $l''_1$. Let $l''_3$ be the projection of $l'$ into operations which are not in $l'_{\textit{u'v'}}$. Let $l'' = l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$.
 
-To prove $h \sqsubseteq l''$, we define a graph $G$ whose nodes are the operations of $h$ and there is an edge from operation $o_1$ to $o_2$, if one of the following case holds
+To prove $e \sqsubseteq l''$, we define a graph $G$ whose nodes are the operations of $h$ and there is an edge from operation $o_1$ to $o_2$, if one of the following case holds
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
 \item[-] $o_1$ happens-before $o_2$ in h,
 
-\item[-] the method event corresponding to $o_1$ in $l''$ is before the one corresponding to $o_2$.
+\item[-] the operation corresponding to $o_1$ in $l''$ is before the one corresponding to $o_2$.
 \end{itemize}
 
-Assume there is a cycle in $G$. According the the property of interval order and the fact that the order of $l''$ is total, we know that there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we consider all possible case of $o_1$ and $o_2$ as follows: Let $O_a$ and $O_d$ be the set of operations in $l''_a$ and $l''_d$, respectively.
+Assume there is a cycle in $G$. According the the property of interval order and the fact that the order of $l''$ is total, we know that there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding operations are in the opposite order in $l''$. Then, we consider all possible case of $o_1$ and $o_2$ as follows: Let $O_a$ and $O_d$ be the set of operations in $l''_a$ and $l''_d$, respectively.
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -383,10 +354,10 @@ Assume there is a cycle in $G$. According the the property of interval order and
     \item[-] If $o_2 \in O_a \wedge o_1 \in O_d$: Then the order of linearization points of $e_{\textit{lp}}$ contradicts with happen before relation of $h$.
     \end{itemize}
 
-\item[-] If $o_2 \in l''_1 \wedge o_1 = \textit{put}(x,\textit{pri}_x)$:
+\item[-] If $o_2 \in l''_1 \wedge o_1 = \textit{put}(x,p)$:
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $o_2 \in O_a$: This is impossible, since the linearization point of operations in $O_a$ is before $\textit{ret}(\textit{put},b)$ in $e_{\textit{lp}}$.
+    \item[-] If $o_2 \in O_a$: This is impossible, since the linearization point of operations in $O_a$ is before $\textit{ret}(\textit{put},x,p)$ in $e_{\textit{lp}}$.
 
     \item[-] If $o_2 \in O_d$: Then $l$ contradicts with happen before relation of $h$.
     \end{itemize}
@@ -396,7 +367,7 @@ Assume there is a cycle in $G$. According the the property of interval order and
     \setlength{\itemsep}{0.5pt}
     \item[-] If $o_2 \in O_a$: This violates the order of linearization point in $e_{\textit{lp}}$.
 
-    \item[-] If $o_2 \in O_d$: According to $l$, we can see that $\textit{put}(x,\textit{pri}_x)$ does not happen before any operation in $O_x$. Then we can see that the linearization point of $o_1$ is before $\textit{ret}(\textit{put},x)$ and $o_1 \in O_a$. This violates that $o_1 \in l''_2$.
+    \item[-] If $o_2 \in O_d$: According to $l$, we can see that $\textit{put}(x,p)$ does not happen before any operation in $O_x$. Then we can see that the linearization point of $o_1$ is before $\textit{ret}(\textit{put},x,p)$ and $o_1 \in O_a$. This violates that $o_1 \in l''_2$.
     \end{itemize}
 
 \item[-] If $o_2 \in l''_1 \wedge o_1 = \textit{rm}(x)$:
@@ -416,26 +387,26 @@ Assume there is a cycle in $G$. According the the property of interval order and
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $o_1 \in O_i(l,\textit{pri}_x)$: Then according to the construction process of $U' \cup V'$ and $W'$, we can see that $o_1 \in O_+$ and then $o_1 \in U' \cup V'$, which contradicts that $o_1 \in l''_3$.
+    \item[-] If $o_1 \in O_i(l,p)$: Then according to the construction process of $U' \cup V'$ and $W'$, we can see that $o_1 \in O_+$ and then $o_1 \in U' \cup V'$, which contradicts that $o_1 \in l''_3$.
 
-    \item[-] If $o_1 \in O_c(l,\textit{pri}_x)$: Then according to the construction process of $U' \cup V'$ and $W'$, we can see that $o_2 \in O_-$, which contradicts that $o_2 \in O_+$.
+    \item[-] If $o_1 \in O_c(l,p)$: Then according to the construction process of $U' \cup V'$ and $W'$, we can see that $o_2 \in O_-$, which contradicts that $o_2 \in O_+$.
     \end{itemize}
 
     \item[-] If $o_1 \in O_- \wedge o_2 \in U \cup V$:
         \begin{itemize}
         \setlength{\itemsep}{0.5pt}
-        \item[-] If the reason of $o_1 \in O_-$ is case $2$: Let $o_h$ be as in case $2$. Then there exists $O_c(l,\textit{pri}_x)$-element $o_w \in W$, and in $e_{\textit{lp}}$, $\textit{ret}(o_w)$ is before $\textit{cal}(o_h)$, the linearization point of $o_h$ is before the linearization point of $o_1$, and $\textit{ret}(o_1)$ is before $\textit{cal}(o_2)$. Therefore, we can see that $o_w <_{\textit{hb}} o_2$, and then $l$ contradicts with happen before relation of $h$.
+        \item[-] If the reason of $o_1 \in O_-$ is case $2$: Let $o_h$ be as in case $2$. Then there exists $O_c(l,p)$-value $o_w \in W$, and in $e_{\textit{lp}}$, $\textit{ret}(o_w)$ is before $\textit{call}(o_h)$, the linearization point of $o_h$ is before the linearization point of $o_1$, and $\textit{ret}(o_1)$ is before $\textit{call}(o_2)$. Therefore, we can see that $o_w <_{\textit{hb}} o_2$, and then $l$ contradicts with happen before relation of $h$.
 
-        \item[-] If the reason of $o_1 \in O_-$ is case $3$: Let $o_h$ be as in case $3$. Then in $e_{\textit{lp}}$, $\textit{ret}(\textit{rm},x)$ is before the linearization point of $o_h$, the linearization point of $o_h$ is before the linearization point of $o_1$, and $\textit{ret}(o_1)$ is before $\textit{cal}(o_2)$. Therefore, we can see that $\textit{rm}(x) <_{\textit{hb}} o_2$, and then $l$ contradicts with happen before relation of $h$.
+        \item[-] If the reason of $o_1 \in O_-$ is case $3$: Let $o_h$ be as in case $3$. Then in $e_{\textit{lp}}$, $\textit{ret}(\textit{rm},x)$ is before the linearization point of $o_h$, the linearization point of $o_h$ is before the linearization point of $o_1$, and $\textit{ret}(o_1)$ is before $\textit{call}(o_2)$. Therefore, we can see that $\textit{rm}(x) <_{\textit{hb}} o_2$, and then $l$ contradicts with happen before relation of $h$.
         \end{itemize}
     \item[-] If $o_1 \in O_- \wedge O_2 \in O_+$: This is impossible, since in $e_{\textit{lp}}$, the linearization points of operations in $O_+$ is before the linearization points of operations in $O_-$.
     \end{itemize}
 
-\item[-] If $o_2 = \textit{put}(x,\textit{pri}_x) \wedge o_1 \in l''_2$: This is impossible, since in $e_{\textit{lp}}$, the linearization points of operations in $l''_2$ is after $\textit{ret}(\textit{put},x)$.
+\item[-] If $o_2 = \textit{put}(x,p) \wedge o_1 \in l''_2$: This is impossible, since in $e_{\textit{lp}}$, the linearization points of operations in $l''_2$ is after $\textit{ret}(\textit{put},x,p)$.
 
-\item[-] If $o_2 = \textit{put}(x,\textit{pri}_x) \wedge o_1 = \textit{rm}(x)$: Then $l$ contradicts with happen before relation of $h$.
+\item[-] If $o_2 = \textit{put}(x,p) \wedge o_1 = \textit{rm}(x)$: Then $l$ contradicts with happen before relation of $h$.
 
-\item[-] If $o_2 = \textit{put}(x,\textit{pri}_x) \wedge o_1 \in l''_3$:
+\item[-] If $o_2 = \textit{put}(x,p) \wedge o_1 \in l''_3$:
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
     \item[-] If $o_1 \in W$: Then $l$ contradicts with happen before relation of $h$.
@@ -443,9 +414,9 @@ Assume there is a cycle in $G$. According the the property of interval order and
     \item[-] If $o_1 \in O_-$:
          \begin{itemize}
          \setlength{\itemsep}{0.5pt}
-         \item[-] If the reason of $o_1 \in O_-$ is case $2$: Let $o_h$ be as in case $2$. Then there exists $O_c(l,\textit{pri}_x)$-element $o_w \in W$, and in $e_{\textit{lp}}$, $\textit{ret}(o_w)$ is before $\textit{cal}(o_h)$, the linearization point of $o_h$ is before the linearization point of $o_1$, and $\textit{ret}(o_1)$ is before $\textit{cal}(\textit{put},x,\textit{pri}_x)$. Therefore, we can see that $o_w <_{\textit{hb}} \textit{put}(x,\textit{pri}_x)$, and then $l$ contradicts with happen before relation of $h$.
+         \item[-] If the reason of $o_1 \in O_-$ is case $2$: Let $o_h$ be as in case $2$. Then there exists $O_c(l,p)$-value $o_w \in W$, and in $e_{\textit{lp}}$, $\textit{ret}(o_w)$ is before $\textit{call}(o_h)$, the linearization point of $o_h$ is before the linearization point of $o_1$, and $\textit{ret}(o_1)$ is before $\textit{call}(\textit{put},x,p)$. Therefore, we can see that $o_w <_{\textit{hb}} \textit{put}(x,p)$, and then $l$ contradicts with happen before relation of $h$.
 
-         \item[-] If the reason of $o_1 \in O_-$ is case $3$: Let $o_h$ be as in case $3$. Then in $e_{\textit{lp}}$, $\textit{ret}(\textit{rm},x)$ is before the linearization point of $o_h$, the linearization point of $o_h$ is before the linearization point of $o_1$, and $\textit{ret}(o_1)$ is before $\textit{cal}(\textit{put},x,\textit{pri}_x)$. Therefore, we can see that $\textit{rm}(x) <_{\textit{hb}} \textit{put}(x,\textit{pri}_x)$, and then $l$ contradicts with happen before relation of $h$.
+         \item[-] If the reason of $o_1 \in O_-$ is case $3$: Let $o_h$ be as in case $3$. Then in $e_{\textit{lp}}$, $\textit{ret}(\textit{rm},x)$ is before the linearization point of $o_h$, the linearization point of $o_h$ is before the linearization point of $o_1$, and $\textit{ret}(o_1)$ is before $\textit{call}(\textit{put},x,p)$. Therefore, we can see that $\textit{rm}(x) <_{\textit{hb}} \textit{put}(x,p)$, and then $l$ contradicts with happen before relation of $h$.
          \end{itemize}
     \end{itemize}
 
@@ -463,9 +434,9 @@ Assume there is a cycle in $G$. According the the property of interval order and
     \item[-] If $o_1 \in O_-$:
          \begin{itemize}
          \setlength{\itemsep}{0.5pt}
-         \item[-] If the reason of $o_1 \in O_-$ is case $2$: Let $o_h$ be as in case $2$. Then there exists $O_c(l,\textit{pri}_x)$-element $o_w \in W$, and in $e_{\textit{lp}}$, $\textit{ret}(o_w)$ is before $\textit{cal}(o_h)$, the linearization point of $o_h$ is before the linearization point of $o_1$.
+         \item[-] If the reason of $o_1 \in O_-$ is case $2$: Let $o_h$ be as in case $2$. Then there exists $O_c(l,p)$-value $o_w \in W$, and in $e_{\textit{lp}}$, $\textit{ret}(o_w)$ is before $\textit{call}(o_h)$, the linearization point of $o_h$ is before the linearization point of $o_1$.
 
-             Since $l$ is consistent with the happen before order of $h$, we can see that $\textit{cal}(\textit{rm},x)$ is before $\textit{ret}(o_w)$. Therefore, we can see that the linearization point of $o_1$ is after $\textit{cal}(\textit{rm},x)$, and then it is impossible that $o_1 <_{\textit{hb}} \textit{rm}(x)$.
+             Since $l$ is consistent with the happen before order of $h$, we can see that $\textit{call}(\textit{rm},x)$ is before $\textit{ret}(o_w)$. Therefore, we can see that the linearization point of $o_1$ is after $\textit{call}(\textit{rm},x)$, and then it is impossible that $o_1 <_{\textit{hb}} \textit{rm}(x)$.
 
          \item[-] If the reason of $o_1 \in O_-$ is case $3$: Let $o_h$ be as in case $3$. Then in $e_{\textit{lp}}$, $\textit{ret}(\textit{rm},x)$ is before the linearization point of $o_h$, and the linearization point of $o_h$ is before the linearization point of $o_1$. Therefore, we can see that the linearization point of $o_1$ is after $\textit{ret}(\textit{rm},x)$, and then it is impossible that $o_1 <_{\textit{hb}} \textit{rm}(x)$.
          \end{itemize}
@@ -476,52 +447,51 @@ Assume there is a cycle in $G$. According the the property of interval order and
 
 Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq l''$.
 
-It remains to prove that $l'' \in \textit{EPQ}$. The process for proving $l'' \in \textit{EPQ}$ is as follows:
+It remains to prove that $l'' \in \seqPQ$. The process for proving $l'' \in \seqPQ$ is as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] Since $l' \in \textit{EPQ}$ and $l'_v$ is a prefix of $l'$, it is obvious that $l'_v \in \textit{EPQ}$.
+\item[-] Since $l' \in \seqPQ$ and $l'_v$ is a prefix of $l'$, it is obvious that $l'_v \in \seqPQ$.
 
 \item[-] $l'_{\textit{u'v'}}$ can be obtained from $l'_v$ as follows:
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] Discard $O_c(l,\textit{pri}_x)$-element that are in $W$ and keep $O_c(l,\textit{pri}_x)$-element in $U \cup V$ unchanged.
+    \item[-] Discard $O_c(l,p)$-value that are in $W$ and keep $O_c(l,p)$-value in $U \cup V$ unchanged.
 
-    \item[-] From some time point, discard all the $O_i(l,\textit{pri}_x)$ operations after this time point.
+    \item[-] From some time point, discard all the $O_i(l,p)$ operations after this time point.
     \end{itemize}
 
-From $\textit{matched-C}(u \cdot v,\textit{pri}_x)$, we can see that $O_c(l,\textit{pri}_x)$-element in $U \cdot V$ is matched, and then it is easy to see that the projection of $l'_v$ in to $O_c(l,\textit{pri}_x)$-element in $U \cdot V$ is still in $\textit{EPQ}$. By Lemma \ref{lemma:erase Oc still in EPQ} and Lemma \ref{lemma:erase Oi from some time point still in EPQ}, we can see that $l'_{\textit{u'v'}} \in \textit{EPQ}$.
+From $\textit{matched}_{\prec}(u \cdot v,p)$, we can see that $O_c(l,p)$-value in $U \cdot V$ is matched, and then it is easy to see that the projection of $l'_v$ in to $O_c(l,p)$-value in $U \cdot V$ is still in $\seqPQ$. By Lemma \ref{lemma:erase Oc still in EPQ} and Lemma \ref{lemma:erase Oi from some time point still in EPQ}, we can see that $l'_{\textit{u'v'}} \in \seqPQ$.
 
-\item[-] $l''_1 \cdot l''_2$ can be obtained from $l'_{\textit{u'v'}}$ as follows: Execute until reaching some time point $t$, then first execute all $O_x$ operations after $t$, and then execute remanning operations. By Lemma \ref{lemma:make put with maximal priority happen earlier}, we can see that $l''_1 \cdot l''_2 \in \textit{EPQ}$.
+\item[-] $l''_1 \cdot l''_2$ can be obtained from $l'_{\textit{u'v'}}$ as follows: Execute until reaching some time point $t$, then first execute all $O_x$ operations after $t$, and then execute remanning operations. By Lemma \ref{lemma:make put with maximal priority happen earlier}, we can see that $l''_1 \cdot l''_2 \in \seqPQ$.
 
-\item[-] Let $l'_e$ be obtained from $l'$ by discarding $O_c(l,\textit{pri}_x)$-element in $U \cdot V$. By Lemma \ref{lemma:EPQ is closed under projection}, we can see that $l'_e \in \textit{EPQ}$.
+\item[-] Let $l'_e$ be obtained from $l'$ by discarding $O_c(l,p)$-value in $U \cdot V$. By Lemma \ref{lem:closure_proj}, we can see that $l'_e \in \seqPQ$.
 
-\item[-] Let $l'_e \vert_{O_i(l,\textit{pri}_x)}  = l'_f \cdot l'_g$, where $l'_f$ is the projection of $O_i(l,\textit{pri}_x)$-element in $U \cdot V$. Let $l'_h$ be obtained from $l'_e$ by discarding operations in $l'_f$. By Lemma \ref{lemma:make Oi happen earlier still in EPQ}, we can see that $l'_f \cdot l'_h \in \textit{EPQ}$.
+\item[-] Let $l'_e \vert_{O_i(l,p)}  = l'_f \cdot l'_g$, where $l'_f$ is the projection of $O_i(l,p)$-value in $U \cdot V$. Let $l'_h$ be obtained from $l'_e$ by discarding operations in $l'_f$. By Lemma \ref{lemma:make Oi happen earlier still in EPQ}, we can see that $l'_f \cdot l'_h \in \seqPQ$.
 
 
-\item[-] By Lemma \ref{lemma:EPQ is closed under projection}, it is obvious that $l'_f \in \textit{EPQ}$. From $\textit{matched-C}(u \cdot v,\textit{pri}_x)$, we can see that the content of priority queue after executing $l''_1 \cdot l''_2$ is the same as after executing $l'_f$. By Lemma \ref{lemma:replace equivalent prefix still in EPQ}, we can see that $l''_1 \cdot l''_2 \cdot l'_h \in \textit{EPQ}$. It is easy to see that $l'_h = l''_3$, and then $l''_1 \cdot l''_2 \cdot l''_3 \in \textit{EPQ}$.
+\item[-] By Lemma \ref{lem:closure_proj}, it is obvious that $l'_f \in \seqPQ$. From $\textit{matched}_{\prec}(u \cdot v,p)$, we can see that the content of priority queue after executing $l''_1 \cdot l''_2$ is the same as after executing $l'_f$. By Lemma \ref{lemma:replace equivalent prefix still in EPQ}, we can see that $l''_1 \cdot l''_2 \cdot l'_h \in \seqPQ$. It is easy to see that $l'_h = l''_3$, and then $l''_1 \cdot l''_2 \cdot l''_3 \in \seqPQ$.
 
-\item[-] Since $u$, $v$, $w$, $x$ and $\textit{pri}_x$ satisfy the guard of $\textit{EPQ}_1$, it is easy to see that $l'' = l''_1 \cdot \textit{put}(x,\textit{pri}_x) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3 \in \textit{EPQ}$.
+\item[-] Since $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds, it is easy to see that $l'' = l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3 \in \seqPQ$.
 \end{itemize}
 
-Therefore, we prove that $h \sqsubseteq l'' \in \textit{EPQ}$. This completes the proof of this lemma. \qed
+Therefore, we prove that $e \sqsubseteq l'' \in \seqPQ$. This completes the proof of this lemma. \qed
 \end {proof}
 
 
 \begin{restatable}{lemma}{EPQ2isStepByStepLinearizability}
 \label{lemma:EPQ2 is step-by-step linearizability}
-If a data-differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{EPQ}_2)$ with witness $x$, then $e \setminus x \sqsubseteq \textit{EPQ} \Rightarrow e \sqsubseteq \textit{EPQ}$.
+For each data-differentiated execution $e$ where $\mathsf{UnmatchedMaxPriority}\mathsf{\text{-}Conc}(e,x)$ for some $x$, then $e \setminus x \sqsubseteq \seqPQ \Rightarrow e \sqsubseteq \seqPQ$.
 \end{restatable}
 
-\begin {proof}
+\begin {proof} 
 
-Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{EPQ}_2$ with witness $x$. Let the priority of $x$ be $\textit{pri}_x$, and let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{EPQ}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into method event is $l'$.
+By assumption we know that there exists $l$, such that $e \sqsubseteq l$ and $\mathsf{UnmatchedMaxPriority\text{-}Seq}(l,x)$ holds. Let $p$ be the priority of $x$, then $l=u \cdot \textit{put}(x,p) \cdot v$ for some $u$ and $v$. Let $e' = e \setminus x$. By assumption there exists sequence $l'$, such that $e' \sqsubseteq l' \in \seqPQ$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into operations is $l'$. Let $l'_v$ be the shortest prefix of $l'$ that contains all operations of $u \cdot v$.
 
-According to $\textit{MS}(\textit{EPQ}_2)$, there exist sequences $u$ and $v$, such that $l=u \cdot \textit{put}(x,\textit{pri}_x) \cdot v$ and $u$, $v$, $x$ and $\textit{pri}_x$ satisfy the guard of $\textit{EPQ}_2$.
 
-Let $l''_a$ be the longest prefix of $l'$ such that linearization point of each operation of $l''_a$ is before $\textit{ret}(\textit{put},x)$ in $e_{\textit{lp}}$. Let $O_x$ be the set of $\textit{put}(\_,\textit{pri}_x)$ while the item is not $x$ in $h$. Let $l''_s$ be the projection of $l'$ into operations of $O_x$ that are not in $l''_a$. Let $l''_1 = l''_a \cdot l''_s$. Let $l''_2$ be the projection of $l'$ into operations of $l'$ that are not in $l''_1$. Let $l'' = l''_1 \cdot \textit{put}(x,\textit{pri}_x) \cdot l''_2$.
+Let $l''_a$ be the longest prefix of $l'$ such that linearization point of each operation of $l''_a$ is before $\textit{ret}(\textit{put},x,p)$ in $e_{\textit{lp}}$. Let $O_x$ be the set of $\textit{put}(\_,p)$ while the value is not $x$ in $h$. Let $l''_s$ be the projection of $l'$ into operations of $O_x$ that are not in $l''_a$. Let $l''_1 = l''_a \cdot l''_s$. Let $l''_2$ be the projection of $l'$ into operations of $l'$ that are not in $l''_1$. Let $l'' = l''_1 \cdot \textit{put}(x,p) \cdot l''_2$.
 
-To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:EPQ1 is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we consider all possible case of $o_1$ and $o_2$ as follows: Let $O_a$ and $O_s$ be the set of operations in $l''_a$ and $l''_s$, respectively.
+To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:EPQ1 is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding operations are in the opposite order in $l''$. Then, we consider all possible case of $o_1$ and $o_2$ as follows: Let $O_a$ and $O_s$ be the set of operations in $l''_a$ and $l''_s$, respectively.
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -530,15 +500,15 @@ To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:EPQ1 is
     \setlength{\itemsep}{0.5pt}
     \item[-] If $o_1,o_2 \in O_a$ or $o_1,o_2 \in O_s$: Then $l'$ contradicts with happen before relation of $h$.
 
-    \item[-] If $o_2 \in O_a \wedge o_1 \in O_s$: It is not hard to see that $\textit{put}(x,\textit{pri}_x) <_{\textit{hb}} o_2$. Then, it is impossible to locate the linearization point of $o_2$ before $\textit{ret}(\textit{put},x)$ in $e_{\textit{lp}}$.
+    \item[-] If $o_2 \in O_a \wedge o_1 \in O_s$: It is not hard to see that $\textit{put}(x,p) <_{\textit{hb}} o_2$. Then, it is impossible to locate the linearization point of $o_2$ before $\textit{ret}(\textit{put},x,p)$ in $e_{\textit{lp}}$.
     \end{itemize}
 
-\item[-] If $o_2 \in l''_1 \wedge o_1 = \textit{put}(x,\textit{pri}_x)$:
+\item[-] If $o_2 \in l''_1 \wedge o_1 = \textit{put}(x,p)$:
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $o_2 \in O_a$: This is impossible, since in $e_{\textit{lp}}$, the linearization point of $o_1$ is before $\textit{ret}(\textit{put},x)$.
+    \item[-] If $o_2 \in O_a$: This is impossible, since in $e_{\textit{lp}}$, the linearization point of $o_1$ is before $\textit{ret}(\textit{put},x,p)$.
 
-    \item[-] If $o_2 \in O_s$: This is impossible, since $o_2 = \textit{put}(\_,\textit{pri}_x)$, and $l$ is consistent with happen before relation of $h$.
+    \item[-] If $o_2 \in O_s$: This is impossible, since $o_2 = \textit{put}(\_,p)$, and $l$ is consistent with happen before relation of $h$.
     \end{itemize}
 
 \item[-] If $o_2 \in l''_1 \wedge o_1 \in l''_2$:
@@ -546,35 +516,34 @@ To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:EPQ1 is
     \setlength{\itemsep}{0.5pt}
     \item[-] If $o_2 \in O_a$: This is impossible, since in $e_{\textit{lp}}$, the linearization point of operation in $l''_a$ is before the linearization point of operations in $l''_2$.
 
-    \item[-] If $o_2 \in O_s$: Since no $\textit{put}(\_,\textit{pri}_x)$ happens before $\textit{put}(x,\textit{pri}_x)$ in $h$, $\textit{cal}(o_2)$ is before $\textit{ret}(\textit{put},x)$. Since $o_1 <_{\textit{hb}} o_2$, we can see that $\textit{ret}(o_1)$ is before $\textit{cal}(o_2)$, and then $\textit{ret}(o_1)$ is before $\textit{ret}(\textit{put},x)$. Then the linearization point of $o_1$ can only be before $\textit{ret}(\textit{put},x)$, and $o_1 \in l''_a$, which contradicts that $o_1 \in l''_2$.
+    \item[-] If $o_2 \in O_s$: Since no $\textit{put}(\_,p)$ happens before $\textit{put}(x,p)$ in $h$, $\textit{call}(o_2)$ is before $\textit{ret}(\textit{put},x,p)$. Since $o_1 <_{\textit{hb}} o_2$, we can see that $\textit{ret}(o_1)$ is before $\textit{call}(o_2)$, and then $\textit{ret}(o_1)$ is before $\textit{ret}(\textit{put},x,p)$. Then the linearization point of $o_1$ can only be before $\textit{ret}(\textit{put},x,p)$, and $o_1 \in l''_a$, which contradicts that $o_1 \in l''_2$.
     \end{itemize}
 
-\item[-] If $o_2 = \textit{put}(x,\textit{pri}_x) \wedge o_1 \in l''_2$: Then since the linearization point of $o_1$ can only be before $\textit{ret}(\textit{put},x)$, we can see that $o_1 \in l''_a$, which contradicts that $o_1 \in l''_2$.
+\item[-] If $o_2 = \textit{put}(x,p) \wedge o_1 \in l''_2$: Then since the linearization point of $o_1$ can only be before $\textit{ret}(\textit{put},x,p)$, we can see that $o_1 \in l''_a$, which contradicts that $o_1 \in l''_2$.
 
 \item[-] If $o_2 \in l''_2 \wedge o_1 \in l''_2$: Then $l'$ contradicts with happen before relation of $h$.
 \end{itemize}
 
-Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq l''$.
+Therefore, we know that $G$ is acyclic, and then we know that $e \sqsubseteq l''$.
 
-It remains to prove that $l'' \in \textit{EPQ}$. $l''_a \cdot l''_s \cdot l''_2$ can be obtained from $l'$ as follows: Execute until reaching some time point $t$, then first execute all $O_x$ operations after $t$, and then execute remanning operations. By Lemma \ref{lemma:make put with maximal priority happen earlier}, we can see that $l''_1 \cdot l''_2 = l''_a \cdot l''_s \cdot l''_2 \in \textit{EPQ}$. Since $u$, $v$, $x$ and $\textit{pri}_x$ satisfy the guard of $\textit{EPQ}_2$, it is easy to see that $l'' = l''_1 \cdot \textit{put}(x,\textit{pri}_x) \cdot l''_2 \in \textit{EPQ}$.
+It remains to prove that $l'' \in \seqPQ$. $l''_a \cdot l''_s \cdot l''_2$ can be obtained from $l'$ as follows: Execute until reaching some time point $t$, then first execute all $O_x$ operations after $t$, and then execute remanning operations. By Lemma \ref{lemma:make put with maximal priority happen earlier}, we can see that $l''_1 \cdot l''_2 = l''_a \cdot l''_s \cdot l''_2 \in \seqPQ$. Since $\mathsf{UnmatchedMaxPriority\text{-}Seq}(l,x)$ holds, it is easy to see that $l'' = l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \in \seqPQ$.
 
-Therefore, we prove that $h \sqsubseteq l'' \in \textit{EPQ}$. This completes the proof of this lemma.\qed
+Therefore, we prove that $e \sqsubseteq l'' \in \seqPQ$. This completes the proof of this lemma.\qed
 \end {proof}
 
 
 \begin{restatable}{lemma}{EPQ3isStepByStepLinearizability}
 \label{lemma:EPQ3 is step-by-step linearizability}
-If a data-differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{EPQ}_3)$ and $o$ is a $\textit{rm}(\textit{empty})$ event, then $e \setminus o \sqsubseteq \textit{PQueue} \Rightarrow e \sqsubseteq \textit{PQueue}$.
+For each data-differentiated execution $e$ where $\mathsf{EmptyRemove}\mathsf{\text{-}Conc}(e,x)$ for some $o=\textit{rm}(\textit{empty})$, then $e \setminus o \sqsubseteq \seqPQ \Rightarrow e \sqsubseteq \seqPQ$. 
 \end{restatable}
 
-\begin {proof}
-Let $h$ be the data-differentiated history of $e$, $l$ be an sequential execution such that $h \sqsubseteq l$, $l$ matches $\textit{EPQ}_3$ and $o$ is a $\textit{rm}$ method event in $h$. Let $h'=h \setminus o$ and assume that $h' \sqsubseteq l' \in \textit{EPQ}$.
+\begin {proof} 
 
-According to $\textit{EPQ}_3$, there exist sequences $u$ and $v$, such that $l=u \cdot \textit{rm}(\textit{empty}) \cdot v$, where all the $\textit{put}$ operations and $\textit{rm}$ in $u$ are matched.
+By assumption we know that there exists $l$, such that $e \sqsubseteq l$ and $\mathsf{EmptyRemove\text{-}Seq}(l,o)$ holds. Then $l=u \cdot o \cdot v$ for some $u$ and $v$. Let $e' = e \setminus o$. By assumption there exists sequence $l'$, such that $e' \sqsubseteq l' \in \seqPQ$. 
 
-Let $E_L$ be the set of method events in $u$ and $E_R$ be the set of method events in $v$. Let $l'_L = l' \vert_{E_L}$ and $l'_R = l' \vert_{E_R}$. Let sequence $l'' = l'_L \cdot o \cdot L'_R$. Since priority queue is closed under projection (Lemma \ref{lemma:EPQ is closed under projection}) and all the $\textit{put}$ operations and $\textit{rm}$ in $u$ are matched, we know that $l'_L \in \textit{EPQ}$ and the the priority queue is empty after executing $l'_L$. Then we know that $l'_L \cdot \textit{rm}(\textit{empty}) \in \textit{EPQ}$. Since $l'_R$ is obtained from $l'$ by discarding pairs of matched $\textit{put}$ and $\textit{rm}$ operations, it is easy to see that $L'_R \in \textit{EPQ}$, and then we know that $l'' = l'_L \cdot o \cdot L'_R \in \textit{EPQ}$.
+Let $E_L$ be the set of operations in $u$ and $E_R$ be the set of operations in $v$. Let $l'_L = l' \vert_{E_L}$ and $l'_R = l' \vert_{E_R}$. Let sequence $l'' = l'_L \cdot o \cdot L'_R$. Since priority queue is closed under projection (Lemma \ref{lem:closure_proj}) and all the $\textit{put}$ operations and $\textit{rm}$ in $u$ are matched, we know that $l'_L \in \seqPQ$ and the the priority queue is empty after executing $l'_L$. Then we know that $l'_L \cdot \textit{rm}(\textit{empty}) \in \seqPQ$. Since $l'_R$ is obtained from $l'$ by discarding pairs of matched $\textit{put}$ and $\textit{rm}$ operations, it is easy to see that $L'_R \in \seqPQ$, and then we know that $l'' = l'_L \cdot o \cdot L'_R \in \seqPQ$.
 
-It remains to prove that $h \sqsubseteq l''$. To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:EPQ1 is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding method events are in the opposite order in $l''$. Then, we consider all possible case of $o_1$ and $o_2$ as follows:
+It remains to prove that $h \sqsubseteq l''$. To prove $h \sqsubseteq l''$, we define graph $G$ as in Lemma \ref{lemma:EPQ1 is step-by-step linearizability}. Assume that there is a cycle in $G$, then there must exists $o_1$ and $o_2$, such that $o_1$ happens-before $o_2$ in $h$, but the corresponding operations are in the opposite order in $l''$. Then, we consider all possible case of $o_1$ and $o_2$ as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -583,22 +552,61 @@ It remains to prove that $h \sqsubseteq l''$. To prove $h \sqsubseteq l''$, we d
 \item[-] If $o_1=o \wedge o_2 \in l'_L$, or $o_1 \in l'_R \wedge o_2 \in l'_L$, or $o_1 \in l'_R \wedge o_2 = o$, then $l$ contradicts with happen before relation of $h$.
 \end{itemize}
 
-Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \textit{EPQ}$. \qed
+Therefore, we know that $G$ is acyclic, and then we know that $h \sqsubseteq \seqPQ$. \qed
 \end {proof}
 
-The following lemma states that $\textit{EPQ}$ is step-by-step linearizability, it is a direct consequence of Lemma \ref{lemma:EPQ1 is step-by-step linearizability}, Lemma \ref{lemma:EPQ2 is step-by-step linearizability} and Lemma \ref{lemma:EPQ3 is step-by-step linearizability}.
+The following lemma states that $\seqPQ$ is step-by-step linearizability, which is a direct consequence of Lemma \ref{lemma:EPQ1 is step-by-step linearizability}, Lemma \ref{lemma:EPQ2 is step-by-step linearizability} and Lemma \ref{lemma:EPQ3 is step-by-step linearizability}.
 
 
 %\EPQueueisStepByStepLinearizability*
 
 \begin{restatable}{lemma}{EPQueueisStepByStepLinearizability}
 \label{lemma:EPQ is step-by-step linearizability}
-$\textit{PQ}$ is step-by-step linearizability.
+$\seqPQ$ is step-by-step linearizability.
 \end{restatable}
 
 \begin {proof}
 This is a direct consequence of Lemma \ref{lemma:EPQ1 is step-by-step linearizability}, Lemma \ref{lemma:EPQ2 is step-by-step linearizability} and Lemma \ref{lemma:EPQ3 is step-by-step linearizability}. \qed
-\end {proof}
+\end {proof} 
+
+
+
+\subsection{Proof of Lemma \ref{lemma:con-check-EPQ is correct}}
+\label{sec:appendix subsection proof of lemma con-check-EPQ is correct}  
+
+
+\ConCheckEPQIsCorrect*
+
+\begin {proof}
+
+$\textit{Check-PQ-Conc}(e)=\mathsf{true}$ iff $e \sqsubseteq \seqPQ$, for every data-differentiated execution $e$. 
+
+To prove the $\textit{if}$ direction, given a data-differentiated $e \sqsubseteq l \in \seqPQ$. Then we being a loop as follows,
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If $\mathsf{Has\text{-}EmptyRemoves}(e)$, then $l = u \cdot o \cdot v$ for some $o=\textit{rm}(\textit{empty})$. It is not hard to see that $\mathsf{EmptyRemove\text{-}Seq}(l,o)$. Let $e'$ be the projection of $e$ into operations of $u \cdot v$. It is easy to see that $e' \sqsubseteq u \cdot v$ and then $e' \sqsubseteq \seqPQ$. Then we start the next round and choose $e'$ to be the ``$e$ in the next round''.
+
+\item[-] \item[-] If $\mathsf{Has\text{-}UnmatchedMaxPriority}(e)$, then there exists a maximal priority $p$ in $e$, such that $p$ has unmatched $\textit{put}$. Let $l = u \cdot \textit{put}(x,p) \cdot v$, where in $v$ there is no $\textit{put}$ with priority $p$. It is not hard to see that $\mathsf{UnmatchedMaxPriority\text{-}Seq}(l,x)$. Let $e'$ be the projection of $e$ into operations of $u \cdot v$. It is easy to see that $e' \sqsubseteq u \cdot v$ and then $e' \sqsubseteq \seqPQ$. Then we start the next round and choose $e'$ to be the ``$e$ in the next round''.
+    
+
+\end{itemize}
+
+where $\mathsf{Has\text{-}\Gamma}(e)$ holds and .
+
+The proof of the $\textit{if}$ direction is quite similar to the proof of $\seqPQ_{\neq} \subseteq \textit{SeqPQ}_f$ direction of Lemma \ref{lemma:EPQ rules and semantics} and is omitted here.
+
+
+To prove the $\textit{only if}$ direction, given a data-differentiated execution $e$ and assume that $\textit{Check-PQ-Conc}(e)=\mathsf{true}$. 
+
+
+$e \sqsubseteq \seqPQ$, according to the definition of $\textit{PQ}$, we can always find
+
+
+\qed
+\end {proof} 
+
+
 
 
 \subsection{Proof of Lemma \ref{lemma:EPQ as multi in MRpri for history}}
@@ -607,48 +615,91 @@ This is a direct consequence of Lemma \ref{lemma:EPQ1 is step-by-step linearizab
 
 \begin {proof}
 
-To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l \in \textit{EPQ}$. Given $e' = e \vert_{D}$ and $l' = l \vert_{D}$, it is easy to see that $e' \sqsubseteq l'$, and by Lemma \ref{lemma:EPQ is closed under projection}, we can see that $l' \in \textit{EPQ}$. Then by Lemma \ref{lemma:EPQ as multi in MRpri for sequence} we know that for each $R \in \textit{last}(l')$, we have $l' \in \textit{MS}(R)$.
+To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l \in \seqPQ$. Given $e' = e \vert_{D}$ and $l' = l \vert_{D}$, it is easy to see that $e' \sqsubseteq l'$, and by Lemma \ref{lemma:EPQ is closed under projection}, we can see that $l' \in \seqPQ$. Then by Lemma \ref{lemma:EPQ as multi in MRpri for sequence} we know that for each $R \in \textit{last}(l')$, we have $l' \in \textit{MS}(R)$.
 
 To prove the $\textit{if}$ direction, given $e_1 = e$, we generate sequence $e_2$ from $e_1$ as follows: Since $e_1 \in \textit{proj}(e)$, we know that for each $R_1 \in \textit{last}(e_1)$, we have $e_1 \sqsubseteq \textit{MS}(R_1)$. We choose an arbitrary $R_1$ in $\textit{last}(e_1)$,
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If $R_1 = \textit{EPQ}_3$: $e_2$ is generated from $e_1$ by erasing call and return of one $\textit{rm}(\textit{empty})$ operation.
+\item[-] If $R_1 = \seqPQ_3$: $e_2$ is generated from $e_1$ by erasing call and return of one $\textit{rm}(\textit{empty})$ operation.
 
-\item[-] Else, if $R_1 = \textit{EPQ}_2^{=}, \textit{EPQ}_2^{>}, \textit{EPQ}_1^{=}, \textit{EPQ}_1^{>}$, and the witness is $x$: $e_2$ is generated from $e_1$ by erasing call and return of method event of item $x$.
+\item[-] Else, if $R_1 = \seqPQ_2^{=}, \seqPQ_2^{>}, \seqPQ_1^{=}, \seqPQ_1^{>}$, and the witness is $x$: $e_2$ is generated from $e_1$ by erasing call and return of method event of item $x$.
 \end{itemize}
 
-Similarly, for each $i > 1$, we obtain $e_{\textit{i+1}}$ from $e_i$, until we obtain $e_m = \epsilon$ for some $m$. It is obvious that $e_m \sqsubseteq \textit{EPQ}$. For $e_{\textit{m-1}}$, since
+Similarly, for each $i > 1$, we obtain $e_{\textit{i+1}}$ from $e_i$, until we obtain $e_m = \epsilon$ for some $m$. It is obvious that $e_m \sqsubseteq \seqPQ$. For $e_{\textit{m-1}}$, since
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] $e_m \sqsubseteq \textit{EPQ}$,
+\item[-] $e_m \sqsubseteq \seqPQ$,
 
-\item[-] If $\textit{last}(e_{\textit{m-1}}) = R_{\textit{m-1}} \in \{ \textit{EPQ}_1^{>}, \textit{EPQ}_1^{=}, \textit{EPQ}_2^{>}, \textit{EPQ}_2^{=} \}$ and $e_{\textit{m-1}}$ matches $R_{\textit{m-1}}$ with witness $x$: We already know that $e_{\textit{m-1}} \sqsubseteq \textit{MS}(R_{\textit{m-1}})$, $e_m = e_{\textit{m-1}} \setminus x \sqsubseteq \textit{EPQ}$, and by step-by-step linearizability of $\textit{EPQ}$ (Lemma \ref{lemma:EPQ is step-by-step linearizability}), we can see that $e_{\textit{m-1}} \sqsubseteq \textit{EPQ}$.
+\item[-] If $\textit{last}(e_{\textit{m-1}}) = R_{\textit{m-1}} \in \{ \seqPQ_1^{>}, \seqPQ_1^{=}, \seqPQ_2^{>}, \seqPQ_2^{=} \}$ and $e_{\textit{m-1}}$ matches $R_{\textit{m-1}}$ with witness $x$: We already know that $e_{\textit{m-1}} \sqsubseteq \textit{MS}(R_{\textit{m-1}})$, $e_m = e_{\textit{m-1}} \setminus x \sqsubseteq \seqPQ$, and by step-by-step linearizability of $\seqPQ$ (Lemma \ref{lemma:EPQ is step-by-step linearizability}), we can see that $e_{\textit{m-1}} \sqsubseteq \seqPQ$.
 
 
-\item[-] If $\textit{last}(e_{\textit{m-1}}) = R_{\textit{m-1}} = \textit{EPQ}_3$ and $o$ is a $\textit{rm}(\textit{empty})$ in $e_{\textit{m-1}}$ that is removed in the process of constructing $e_m$: We already know that $e_{\textit{m-1}} \sqsubseteq \textit{MS}(R_{\textit{m-1}})$, $e_m = e_{\textit{m-1}} \setminus o \sqsubseteq \textit{EPQ}$, and by step-by-step linearizability of $\textit{EPQ}$ (Lemma \ref{lemma:EPQ is step-by-step linearizability}), we can see that $e_{\textit{m-1}} \sqsubseteq \textit{EPQ}$.
+\item[-] If $\textit{last}(e_{\textit{m-1}}) = R_{\textit{m-1}} = \seqPQ_3$ and $o$ is a $\textit{rm}(\textit{empty})$ in $e_{\textit{m-1}}$ that is removed in the process of constructing $e_m$: We already know that $e_{\textit{m-1}} \sqsubseteq \textit{MS}(R_{\textit{m-1}})$, $e_m = e_{\textit{m-1}} \setminus o \sqsubseteq \seqPQ$, and by step-by-step linearizability of $\seqPQ$ (Lemma \ref{lemma:EPQ is step-by-step linearizability}), we can see that $e_{\textit{m-1}} \sqsubseteq \seqPQ$.
 \end{itemize}
 
-Therefore, we know that $e_{\textit{m-1}} \in \textit{EPQ}$. Similarly, we can prove that $e_{\textit{m-2}},\ldots,e_1 = e \in \textit{EPQ}$. \qed
+Therefore, we know that $e_{\textit{m-1}} \in \seqPQ$. Similarly, we can prove that $e_{\textit{m-2}},\ldots,e_1 = e \in \seqPQ$. \qed
 \end {proof}
+
+
+\subsection{Proof of Lemma \ref{lemma:EPQ as multi in MRpri for sequence}}
+
+%\EPQasMultiInMRpriforSequence*
+
+\begin{restatable}{lemma}{EPQasMultiInMRpriforSequence}
+\label{lemma:EPQ as multi in MRpri for sequence}
+Given a data-differentiated sequential execution $e$, $e \in \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$ and $\forall R \in \textit{last}(e')$, we have $e' \in \textit{MS}(R)$.
+\end{restatable}
+
+\begin {proof}
+
+The \textit{only if} direction is obvious and can be similarly proved as the $\seqPQ_s \subseteq \seqPQ$ direction of Lemma \ref{lemma:EPQ rules and semantics}.
+
+To prove the $\textit{if}$ direction, we proceed as follows: From $e1=e$, we generate a sequence $e_2$ as follows:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If $\textit{PQ}_3 \in \textit{last}(e_1)$: Then we can see that $e_1$ contains at least one $\textit{rm}(\textit{empty})$. $e_2$ is generated from $e_1$ by erasing one $\textit{rm}(\textit{empty})$.
+
+\item[-] Else, if $\textit{PQ}_2^{=} \in \textit{last}(e_1)$: Then we can see that one of the maximal priority of $e_1$ is unmatched $\textit{put}$ and (possibly) matched $\textit{put}$. Assume the set of the items of these unmatched $\textit{put}$ is $S$. $e_2$ is generated from $e_1$ by erasing one unmatched $\textit{put}$ which use the item last putted in $S$.
+
+\item[-] Else, if $\textit{PQ}_2^{>} \in \textit{last}(e_1)$: Then we can see that one of the maximal priority in $e_1$ is unmatched $\textit{put}$. Assume the set of the items of these unmatched $\textit{put}$ is $S$. $e_2$ is generated from $e_1$ by erasing one unmatched $\textit{put}$ which use the item last putted in $S$.
+
+\item[-] Else, if $\textit{PQ}_1^{=} \in \textit{last}(e_1)$: Then we can see that one of the maximal priority in $e_1$ is of more than one pair of matched $\textit{put}$. Assume the set of the items of these matched $\textit{put}$ is $S$. $e_2$ is generated from $e_1$ by erasing matched $\textit{put}$ and $\textit{rm}$ of the item which is last putted in $S$.
+
+\item[-] Else, if $\textit{PQ}_1^{>} \in \textit{last}(e_1)$: Then we can see that one of the maximal priority in $e_1$ is of one pair of matched $\textit{put}$. $e_2$ is generated from $e_1$ by erasing this pair of matched $\textit{put}$ and $\textit{rm}$.
+\end{itemize}
+
+Similarly, for each $i > 1$, we obtain $e_{\textit{i+1}}$ from $e_i$, until we obtain $e_m = \epsilon$ for some $m$. It is obvious that $e_m \in \seqPQ$. For $e_{\textit{m-1}}$, since
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $e_m \in \seqPQ$,
+
+\item[-] By assumption, we know that $e_{\textit{m-1}} \in \textit{MS}(R_{\textit{m-1}})$, where $R_{\textit{m-1}} \in \textit{last}(e_{\textit{m-1}})$. This implies that the guard of $R_{\textit{m-1}}$ is satisfied.
+\end{itemize}
+
+Therefore, we know that $e_{\textit{m-1}} \in \seqPQ$. Similarly, we can prove that $e_{\textit{m-2}},\ldots,e_1 = e \in \seqPQ$. \qed
+\end {proof}
+
+
 
 
 \section{Proofs and Definitions in Section \ref{sec:co-regular of extended priority queues}}
 \label{sec:appendix proof and definition in section co-regular of extended priority queues}
 
-To facilitate our proof of latter sections, we need to separate $\textit{EPQ}_1$ into two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$.  Therefore, we separate $\textit{EPQ}_1$ into two cases:
+To facilitate our proof of latter sections, we need to separate $\seqPQ_1$ into two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v \cdot w$ has priority $\textit{pri}$.  Therefore, we separate $\seqPQ_1$ into two cases:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] $\textit{EPQ}_1^{>}(u,v,w,\textit{pri}) \equiv
+\item[-] $\seqPQ_1^{>}(u,v,w,\textit{pri}) \equiv
 (\textit{noRE}(u \cdot v \cdot w)) \wedge
 (\textit{LI}(\textit{pri}, u \cdot v \cdot w)) \wedge
 (\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
 (\textit{matched-C}(u \cdot v,\textit{pri}) )$
 
 
-\item[-] $\textit{EPQ}_1^{=}(u,v,w,\textit{pri}) \equiv
+\item[-] $\seqPQ_1^{=}(u,v,w,\textit{pri}) \equiv
 (\textit{noRE}(u \cdot v \cdot w)) \wedge
 (\textit{LE'I}(\textit{pri}, u \cdot v \cdot w)) \wedge
 (\textit{LI-U}(\textit{pri},u \cdot v \cdot w)) \wedge
@@ -657,17 +708,17 @@ To facilitate our proof of latter sections, we need to separate $\textit{EPQ}_1$
 \end{itemize}
 
 
-For $\textit{EPQ}_2$, we also need to distinguish two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$. Therefore, we separate $\textit{EPQ}_2$ into two rules:
+For $\seqPQ_2$, we also need to distinguish two cases: (1) no matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$, (2) some matched pair of $\textit{put}$ and $\textit{rm}$ in $u \cdot v$ has priority $\textit{pri}$. Therefore, we separate $\seqPQ_2$ into two rules:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] $\textit{EPQ}_2^{>}(u,v) \equiv
+\item[-] $\seqPQ_2^{>}(u,v) \equiv
 (\textit{noRE}(u \cdot v)) \wedge
 (\textit{LEI}(\textit{pri},u \cdot v)) \wedge
 (\textit{LI-M}(\textit{pri},u \cdot v)) \wedge
 (\textit{putInSeq}(u \cdot v,u,\textit{pri}))$.
 
-\item[-] $\textit{EPQ}_2^{=}(u,v) \equiv
+\item[-] $\seqPQ_2^{=}(u,v) \equiv
 (\textit{noRE}(u \cdot v)) \wedge
 (\textit{LEI}(\textit{pri},u \cdot v)) \wedge
 (\textit{LE'I-M}(\textit{pri},u \cdot v)) \wedge
@@ -678,7 +729,7 @@ For $\textit{EPQ}_2$, we also need to distinguish two cases: (1) no matched pair
 \subsection{Proofs and Definitions in Subsection \ref{subsec:definition of co-regular}}
 \label{sec:appendix proof and definition in section definition of co-regular}
 
-Before we go to investigate co-regular of each rules, we use the results in \cite{Bouajjani:2015} to simplify our work. \cite{Bouajjani:2015} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of items that does not use priority $i$ (does not influence $\textit{rm}(\textit{empty})$). We call a extended priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \textit{EPQ}$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property.
+Before we go to investigate co-regular of each rules, we use the results in \cite{Bouajjani:2015} to simplify our work. \cite{Bouajjani:2015} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of items that does not use priority $i$ (does not influence $\textit{rm}(\textit{empty})$). We call a extended priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \seqPQ$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property.
 
 Given an execution of queue, we say that it is differentiated \cite{Wolper:1986}, if each item is enqueued at most once. \cite{Bouajjani:2015} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a witness automata for extended priority queue.
 
@@ -794,11 +845,11 @@ Given a data-differentiated $\textit{pri}_x$-execution $e$ without $\textit{rm}(
 \end{itemize}
 \end{definition}
 
-When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ through item with maximal priority (for example, $x$) in $G$, we say that $x$ is covered by $d_1,\ldots,d_m$. To state the effectiveness of left-right constraint, take the execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} as an example, we can see that $b$ is covered by $f,e,d$. We need to prove that getting rid of cycle though item with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\textit{MS}(\textit{EPQ}_1^{>})$, as stated by the following lemma:
+When there is a cycle $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ through item with maximal priority (for example, $x$) in $G$, we say that $x$ is covered by $d_1,\ldots,d_m$. To state the effectiveness of left-right constraint, take the execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} as an example, we can see that $b$ is covered by $f,e,d$. We need to prove that getting rid of cycle though item with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\textit{MS}(\seqPQ_1^{>})$, as stated by the following lemma:
 
 \begin{restatable}{lemma}{LinEqualsConstraintforEPQOneLar}
 \label{lemma:Lin Equals Constraint for EPQ1Lar}
-Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x)$ and $\textit{rm}(x)$. $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$, if and only if $G$ has no cycle going through $x$.
+Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x)$ and $\textit{rm}(x)$. $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$, if and only if $G$ has no cycle going through $x$.
 \end{restatable}
 
 
@@ -840,11 +891,11 @@ With Lemma \ref{lemma:merge two linearization}, we can now prove Lemma \ref{lemm
 \priExecutionIsEnough*
 \begin {proof}
 
-We deal with the case of $R = \textit{EPQ}_1^{>}$ , and other cases can be similarly dealt with.
+We deal with the case of $R = \seqPQ_1^{>}$ , and other cases can be similarly dealt with.
 
-To prove the $\textit{only if}$ direction, given $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$ and such $\textit{pri}$ and $x$. Since $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$ with witness $x$, we know that $e \sqsubseteq u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, where $u$, $v$, $w$, $x$ and $\textit{pri}$ satisfy the guard of $\textit{EPQ}_1^{>}$. Let $u'$, $v'$ and $w'$ be obtained from $u$, $v$ and $w$ by erasing all items with priority incomparable with $\textit{pri}$, respectively. It is not hard to see that $u'$, $v'$, $w'$, $x$ and $\textit{pri}$ satisfy the guard of $\textit{EPQ}_1^{>}$, and then $e \sqsubseteq l = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w' \in \textit{MS}(\textit{EPQ}_1^{>})$.
+To prove the $\textit{only if}$ direction, given $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$ and such $\textit{pri}$ and $x$. Since $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$ with witness $x$, we know that $e \sqsubseteq u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, where $u$, $v$, $w$, $x$ and $\textit{pri}$ satisfy the guard of $\seqPQ_1^{>}$. Let $u'$, $v'$ and $w'$ be obtained from $u$, $v$ and $w$ by erasing all items with priority incomparable with $\textit{pri}$, respectively. It is not hard to see that $u'$, $v'$, $w'$, $x$ and $\textit{pri}$ satisfy the guard of $\seqPQ_1^{>}$, and then $e \sqsubseteq l = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w' \in \textit{MS}(\seqPQ_1^{>})$.
 
-To prove the $\textit{if}$ direction, given $e' = \textit{pri-Exec}(e)$ and such $x$ and $\textit{pri}$. Since $e' \sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$ with witness $x$, we know that $e' \sqsubseteq l_1 = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, where $u$, $v$, $w$, $x$ and $\textit{pri}$ satisfy the guard of $\textit{EPQ}_1^{>}$. Let $O_c$ be the set of operations in $e$ that have priorities comparable with $\textit{pri}$, and Let $O_i$ be the set of operations in $e$ that have priorities incomparable with $\textit{pri}$. It is obvious that $l_1$ is the linearization of $e \vert_{O_c}$. By Lemma \ref{lemma:merge two linearization}, there exists sequence $l$, such that $e \sqsubseteq l$, and $l \vert_{O_c} = l_1$. Then $l = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w'$, where $u' \vert_{O_c} = u$, $v' \vert_{O_c} = v$ and $w' \vert_{O_c} = w$. Since $\textit{pri}$ is one of maximal priorities in $e$, and the predicates of guards of $\textit{EPQ}_1^{>}$ does not restrict $O_i$, it is easy to see that $l \in \textit{MS}(\textit{EPQ}_1^{>})$ and then $e \sqsubseteq l$ with witness $x$. \qed
+To prove the $\textit{if}$ direction, given $e' = \textit{pri-Exec}(e)$ and such $x$ and $\textit{pri}$. Since $e' \sqsubseteq \textit{MS}(\seqPQ_1^{>})$ with witness $x$, we know that $e' \sqsubseteq l_1 = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, where $u$, $v$, $w$, $x$ and $\textit{pri}$ satisfy the guard of $\seqPQ_1^{>}$. Let $O_c$ be the set of operations in $e$ that have priorities comparable with $\textit{pri}$, and Let $O_i$ be the set of operations in $e$ that have priorities incomparable with $\textit{pri}$. It is obvious that $l_1$ is the linearization of $e \vert_{O_c}$. By Lemma \ref{lemma:merge two linearization}, there exists sequence $l$, such that $e \sqsubseteq l$, and $l \vert_{O_c} = l_1$. Then $l = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w'$, where $u' \vert_{O_c} = u$, $v' \vert_{O_c} = v$ and $w' \vert_{O_c} = w$. Since $\textit{pri}$ is one of maximal priorities in $e$, and the predicates of guards of $\seqPQ_1^{>}$ does not restrict $O_i$, it is easy to see that $l \in \textit{MS}(\seqPQ_1^{>})$ and then $e \sqsubseteq l$ with witness $x$. \qed
 \end {proof}
 
 
@@ -854,7 +905,7 @@ The following lemma states that $\textit{UVSet}(e,x)$ contains only matched $\te
 
 \begin{restatable}{lemma}{UVSetHasMatchedPutandRm}
 \label{lemma:UVSet has matched put and rm}
-Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
+Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
 \end{restatable}
 \begin {proof}
 
@@ -886,7 +937,7 @@ The following lemma states that $\textit{UVSet}(e,x)$ does not happen before $\t
 \begin{restatable}{lemma}{RmxDoesNotHappenBeforeUVSetForEPQ1Lar}
 \label{lemma:Rmx does not happen before UVSet for EPQ1Lar}
 
-Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}(e,x)$.
+Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}(e,x)$.
 \end{restatable}
 
 \begin {proof}
@@ -1000,7 +1051,7 @@ With Lemma \ref{lemma:UVSet has matched put and rm} and Lemma \ref{lemma:Rmx doe
 
 \begin {proof}
 
-To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{>})$. Let $u$, $v$ and $w$ be the sequences of method events in $\textit{EPQ}_1^{>}$, and let $U$, $V$ and $W$ be the set of method events of $u$, $v$ and $w$, respectively. Assume by contradiction that, there is a cycle $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ in $G$. It is obvious that the priority of each $d_i$ is smaller than $\textit{pri}_x$. Then our proof proceeds as follows:
+To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$. Let $u$, $v$ and $w$ be the sequences of method events in $\seqPQ_1^{>}$, and let $U$, $V$ and $W$ be the set of method events of $u$, $v$ and $w$, respectively. Assume by contradiction that, there is a cycle $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ in $G$. It is obvious that the priority of each $d_i$ is smaller than $\textit{pri}_x$. Then our proof proceeds as follows:
 
 According to the definition of left-right constraint, there are two possibilities. The first possibility is that, $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$. It is obvious that $\textit{rm}(d_1) \in W$, and then since $U \cup V$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that $\textit{put}(d_1),\textit{rm}(d_1) \in W$. Then,
 
@@ -1141,20 +1192,20 @@ $\mathcal{A}_{\textit{l-lar}}^4$ is used to recognize conditions in \figurename~
   \label{fig:his for APQ1Lar-4}
 \end{figure}
 
-Let $\textit{Auts}_{\textit{1-lar}} = \{ \mathcal{A}_{\textit{l-lar}}^1, \mathcal{A}_{\textit{l-lar}}^2, \mathcal{A}_{\textit{l-lar}}^3, \mathcal{A}_{\textit{l-lar}}^4 \}$. The following lemma states that $\textit{EPQ}_1^{>}$ is co-regular.
+Let $\textit{Auts}_{\textit{1-lar}} = \{ \mathcal{A}_{\textit{l-lar}}^1, \mathcal{A}_{\textit{l-lar}}^2, \mathcal{A}_{\textit{l-lar}}^3, \mathcal{A}_{\textit{l-lar}}^4 \}$. The following lemma states that $\seqPQ_1^{>}$ is co-regular.
 
 
 \EPQOneLarisCoRegular*
 
 \begin {proof}
 
-We need to prove that, given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$, if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e),$ $\textit{EPQ}_1^{>} \in last(e') \wedge e'$ does not linearizable w.r.t. $\textit{MS}(\textit{EPQ}_1^{>})$.
+We need to prove that, given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$, if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e),$ $\seqPQ_1^{>} \in last(e') \wedge e'$ does not linearizable w.r.t. $\textit{MS}(\seqPQ_1^{>})$.
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $last(e')=\textit{EPQ}_1^{>}$, $x$ is the item with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution. And there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $last(e')=\seqPQ_1^{>}$, $x$ is the item with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution. And there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $e'$.
 
-\noindent The $\textit{only if}$ direction: Let us consider the case of $\mathcal{A}_{\textit{l-lar}}^1$. Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$. By data-independence, there exists data-differentiated execution $e \in \mathcal{I}$ and renaming function $r_1$, such that $e_1 = r_1(e)$. Assume that $r_1$ maps $d$ into $b$ and maps $f_1,\ldots,f_m$ into $a$. Let $e'$ be obtained from $e$ by projection into $\{ d, f_1,\ldots,f_m \}$. Assume that the priority of $b$ is $p$. It is easy to see that $e'$ is a $p$-execution, $\textit{last}(e') = \textit{EPQ}_1^{>}$, and there is a cycle going through $d$ in $G$, where $G$ is the left-right constraint of $e'$. The case of $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$ can be similarly proved.
+\noindent The $\textit{only if}$ direction: Let us consider the case of $\mathcal{A}_{\textit{l-lar}}^1$. Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$. By data-independence, there exists data-differentiated execution $e \in \mathcal{I}$ and renaming function $r_1$, such that $e_1 = r_1(e)$. Assume that $r_1$ maps $d$ into $b$ and maps $f_1,\ldots,f_m$ into $a$. Let $e'$ be obtained from $e$ by projection into $\{ d, f_1,\ldots,f_m \}$. Assume that the priority of $b$ is $p$. It is easy to see that $e'$ is a $p$-execution, $\textit{last}(e') = \seqPQ_1^{>}$, and there is a cycle going through $d$ in $G$, where $G$ is the left-right constraint of $e'$. The case of $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$ can be similarly proved.
 
 \noindent The $\textit{if}$ direction: Given such $e$, $e'$ and $x$. Let renaming function $r$ maps $x$ into $b$, maps items cover $x$ into $a$, and maps other items into $d$. By data-independence, $r(e) \in \mathcal{I}$. Then depending on the cases of $r(e) \vert_{b}$, we can see that $r(e)$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$, $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ or $\mathcal{A}_{\textit{l-lar}}^4$. \qed
 \end {proof}
@@ -1164,11 +1215,11 @@ By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Con
 \subsection{Proofs and Definitions in Subsection \ref{subsec:co-regular of EPQ1Equal}}
 \label{sec:appendix proof and definition in section co-regular of EPQ1Equal}
 
-Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$. The following lemma states a method to choose $\textit{itm}$ of $\textit{EPQ}_1^{=}$.
+Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$. The following lemma states a method to choose $\textit{itm}$ of $\seqPQ_1^{=}$.
 
 \begin{restatable}{lemma}{MaximalInPBadGPMakePQ1Equal}
 \label{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{=}$. If there exists an item $x$ with priority $\textit{pri}$, such that for each $y \in \textit{Items}(e,\textit{pri})$, (1) $x$ does not $<_{\textit{pb}}$ to $y$, and (2) the right-most gap-point of $x$ is after $\textit{cal}(\textit{put},y,\_)$ and $\textit{cal}(\textit{rm},y)$. Then $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$.
+Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. If there exists an item $x$ with priority $\textit{pri}$, such that for each $y \in \textit{Items}(e,\textit{pri})$, (1) $x$ does not $<_{\textit{pb}}$ to $y$, and (2) the right-most gap-point of $x$ is after $\textit{cal}(\textit{put},y,\_)$ and $\textit{cal}(\textit{rm},y)$. Then $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
 \end{restatable}
 
 \begin {proof}
@@ -1186,27 +1237,27 @@ Let $o$ be the right-most gap-point of $x$. We locate linearization points of ea
 \item[-] For item $z$ with priority smaller than $\textit{pri}$. If both $\textit{cal}(\textit{put},z,\_)$ and $\textit{cal}(\textit{rm},z)$ is before $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just after their call actions. If both $\textit{ret}(\textit{put},z)$ and $\textit{ret}(\textit{rm},z)$ (if exists) is after $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just before their return actions. Otherwise, $x$ is in interval of $z$, which contradicts the definition of gap-point, and is impossible.
 \end{itemize}
 
-Let $l$ be the sequence of linearization points constructed above. It is obvious that $e \sqsubseteq l$. Since for each $y \in \textit{Items}(e,\textit{pri})$, $o$ is after $\textit{cal}(\textit{put},y,\_)$ and $\textit{cal}(\textit{rm},x)$, we can see that $\textit{rm}(x)$ is after $\textit{put}(y,\textit{pri})$ and $\textit{rm}(y)$ in $l$. It is obvious that $\textit{put}(x,\textit{pri})$ is before $\textit{rm}(x)$ in $l$. Since $x$ does not $<_{\textit{pb}}$ to $y$, we can see that no $\textit{put}(y,\textit{pri})$ happens before $\textit{put}(x,\textit{pri})$. Then it is easy to see that $\textit{put}(x,\textit{pri})$ is after $\textit{put}(y,\textit{pri})$ in $l$. Since $\textit{last}(e) = \textit{EPQ}_1^{=}$, all other items in $\textit{Items}(e,\textit{pri})$ has matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that their $\textit{put}$ and $\textit{rm}$ (except for that of $x$) are all before $\textit{rm}(x)$ in $l$.
+Let $l$ be the sequence of linearization points constructed above. It is obvious that $e \sqsubseteq l$. Since for each $y \in \textit{Items}(e,\textit{pri})$, $o$ is after $\textit{cal}(\textit{put},y,\_)$ and $\textit{cal}(\textit{rm},x)$, we can see that $\textit{rm}(x)$ is after $\textit{put}(y,\textit{pri})$ and $\textit{rm}(y)$ in $l$. It is obvious that $\textit{put}(x,\textit{pri})$ is before $\textit{rm}(x)$ in $l$. Since $x$ does not $<_{\textit{pb}}$ to $y$, we can see that no $\textit{put}(y,\textit{pri})$ happens before $\textit{put}(x,\textit{pri})$. Then it is easy to see that $\textit{put}(x,\textit{pri})$ is after $\textit{put}(y,\textit{pri})$ in $l$. Since $\textit{last}(e) = \seqPQ_1^{=}$, all other items in $\textit{Items}(e,\textit{pri})$ has matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that their $\textit{put}$ and $\textit{rm}$ (except for that of $x$) are all before $\textit{rm}(x)$ in $l$.
 
 For item $z$ with priority smaller than $\textit{pri}$, we can see that there are only two possibilities: (1) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ are both before $\textit{rm}(x)$ in $l$, and (2) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ (if exists) are after before $\textit{rm}(x)$ in $l$. Therefore, before $\textit{rm}(x)$ in $l$, the $\textit{put}$ and $\textit{rm}$ of $z$ are matched.
 
-Therefore, it is easy to see that $l \in \textit{MS}(\textit{EPQ}_1^{=})$. \qed
+Therefore, it is easy to see that $l \in \textit{MS}(\seqPQ_1^{=})$. \qed
 \end {proof}
 
-With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can prove the following lemma, which states that getting rid of case in \figurename~\ref{fig:introduce pb order} is enough for ensure $\textit{last}(e) = \textit{EPQ}_1^{=} \Rightarrow e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$.
+With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can prove the following lemma, which states that getting rid of case in \figurename~\ref{fig:introduce pb order} is enough for ensure $\textit{last}(e) = \seqPQ_1^{=} \Rightarrow e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
 
 
 \EPQOneEqualAsPBandGP*
 
 \begin {proof}
 
-To prove the $\textit{if}$ direction, let $e_{x,y}$ be the execution that is obtained from $e$ by erasing all actions of items that has same priority as $x$, except for actions of $x$ and $y$. It is obvious that $\textit{last}(e_{x,y}) = \textit{EPQ}_1^{=}$. Since $y <_{\textit{pb}}^* x$, according to $\textit{EPQ}_1^{=}$, we can see that $x$ should be chosen as $\textit{itm}$ in $\textit{EPQ}_1^{=}$.
+To prove the $\textit{if}$ direction, let $e_{x,y}$ be the execution that is obtained from $e$ by erasing all actions of items that has same priority as $x$, except for actions of $x$ and $y$. It is obvious that $\textit{last}(e_{x,y}) = \seqPQ_1^{=}$. Since $y <_{\textit{pb}}^* x$, according to $\seqPQ_1^{=}$, we can see that $x$ should be chosen as $\textit{itm}$ in $\seqPQ_1^{=}$.
 
 According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar} (Here we temporarily forget the existence of $y$), the only possible position for locating linearizaton point of $\textit{rm}(x)$ is at gap-point of $x$. Otherwise, if the linearizaton point of $\textit{rm}(x)$ is chosen at a position that is not a gap-point of $x$, then there exists unmatched method event before $\textit{rm}(x)$ with smaller priority. Since the rightmost gap-point of $x$ is before $\textit{cal}(\textit{put},y,\textit{pri})$ or $\textit{cal}(\textit{rm},y)$, if we locate linearizaton point of $\textit{rm}(x)$ at gap-point of $x$, then $\textit{rm}(x)$ will be before $\textit{cal}(\textit{put},y,\textit{pri})$ or $\textit{cal}(\textit{rm},x)$.
 
-Therefore, for every sequence $l = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched method events of priority smaller than $\textit{pri}$, or $w$ contains $\textit{put}(y,\textit{pri})$ or $\textit{rm}(y)$. In both cases, $l \notin \textit{MS}(\textit{EPQ}_1^{=})$.
+Therefore, for every sequence $l = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched method events of priority smaller than $\textit{pri}$, or $w$ contains $\textit{put}(y,\textit{pri})$ or $\textit{rm}(y)$. In both cases, $l \notin \textit{MS}(\seqPQ_1^{=})$.
 
-To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{cal}(\textit{put},y,\textit{pri})$ and $\textit{cal}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$. Recall that we already assume that each single-priority execution has FIFO property, and item with larger priority is not covered by items with smaller priority.
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{cal}(\textit{put},y,\textit{pri})$ and $\textit{cal}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. Recall that we already assume that each single-priority execution has FIFO property, and item with larger priority is not covered by items with smaller priority.
 
 Our proof proceed as follows:
 
@@ -1218,7 +1269,7 @@ Our proof proceed as follows:
 
     Step $1$: Check whether for each $b \in \textit{Items}(e,\textit{pri})$, (1) $a_1$ does not $<_{\textit{pb}}$ to $b$, and (2) the right-most gap-point of $a$ is after $\textit{cal}(\textit{put},b,\textit{pri})$ and $\textit{cal}(\textit{rm},b)$.
 
-    It is easy to see that $a_1$ is of priority $\textit{pri}$, and $a_1$ does not $<_{\textit{pb}}$ to any $b \in \textit{Items}(e,\textit{pri})$. If for each $b \in \textit{Items}(e,\textit{pri})$, the rightmost gap-point of $a_1$ is after $\textit{cal}(\textit{put},b,\textit{pri})$ and $\textit{cal}(\textit{rm},b)$. Then by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can obtain that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$.
+    It is easy to see that $a_1$ is of priority $\textit{pri}$, and $a_1$ does not $<_{\textit{pb}}$ to any $b \in \textit{Items}(e,\textit{pri})$. If for each $b \in \textit{Items}(e,\textit{pri})$, the rightmost gap-point of $a_1$ is after $\textit{cal}(\textit{put},b,\textit{pri})$ and $\textit{cal}(\textit{rm},b)$. Then by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can obtain that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
 
 
 \item[-] Otherwise, there exists $a_2 \in \textit{Items}(e,\textit{pri})$, such that the rightmost gap-point of $a_1$ is before $\textit{cal}(\textit{put},a_2,\textit{pri})$ or $\textit{cal}(\textit{rm},a_2)$ in $e$. We can see that each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.%, and thus, the right-most gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
@@ -1235,7 +1286,7 @@ Our proof proceed as follows:
     \end{itemize}
 \end{itemize}
 
-Let $a^i$ be the $a_1$ in the $\textit{i-th}$ loop of our proof. It is not hard to see that, given $i<j$, the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$. Therefore, the loop finally stop at some $a^f$. $a^f$ satisfies the check of Step $1$. By Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, this implies that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$. This completes the proof of $\textit{if}$ direction. \qed
+Let $a^i$ be the $a_1$ in the $\textit{i-th}$ loop of our proof. It is not hard to see that, given $i<j$, the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$. Therefore, the loop finally stop at some $a^f$. $a^f$ satisfies the check of Step $1$. By Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, this implies that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. This completes the proof of $\textit{if}$ direction. \qed
 \end {proof}
 
 
@@ -1307,7 +1358,7 @@ There are many enumerations of method events of $a$, $b$ and $a_1$ that may make
 
 \begin{restatable}{lemma}{FiveEnmuerationisEnoughForEPQOneEqual}
 \label{lemma:five enumeration is enough for EPQ1Equal}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{=}$. Let $a$ and $b$ be items with maximal priority $\textit{pri}$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$. Then, there are five possible enumeration of method events of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
+Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. Let $a$ and $b$ be items with maximal priority $\textit{pri}$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$. Then, there are five possible enumeration of method events of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
 \end{restatable}
 \begin {proof}
 
@@ -1396,7 +1447,7 @@ This completes the proof of this lemma. \qed
 \end{figure}
 
 
-Let us begin to represent several witness automata that is used to capture the existence of a data-differentiated $\_$-execution $e$, $e$ has a projection $e'$, $\textit{last}(e') = \textit{EPQ}_1^{=}$, there exists items $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\_)$ or $\textit{cal}(\textit{rm},a)$.
+Let us begin to represent several witness automata that is used to capture the existence of a data-differentiated $\_$-execution $e$, $e$ has a projection $e'$, $\textit{last}(e') = \seqPQ_1^{=}$, there exists items $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\_)$ or $\textit{cal}(\textit{rm},a)$.
 
 Given a data-differentiated $\_$-execution $e$, two actions $\textit{act}_1$, $\textit{act}_2$ of maximal priority in $e$, and assume that $\textit{act}_1$ is before $\textit{act}_2$ in $e$.
 we say that $\textit{act}_1$, $\textit{act}_2$ is covered by items $d_1,\ldots,d_m$ in $e$, if the priorities of $d_1,\ldots,d_m$ is smaller than that of $\textit{act}_1$ and $\textit{act}_2$, and
@@ -1410,7 +1461,7 @@ we say that $\textit{act}_1$, $\textit{act}_2$ is covered by items $d_1,\ldots,d
 \item[-] $\textit{act}_2$ is before $\textit{cal}(\textit{rm},d_1)$.
 \end{itemize}
 
-According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{lemma:ob order has bounded length} and Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, it is not hard to prove that, given a data-differentiated $\_$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_1^{=}$, $e$ does not linearizable with respect to $\textit{EMS}(\textit{PQ}_1^{=})$, if and only if, one of enumerations holds in $e$ (permit renaming), while $\textit{cal}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ is covered by some $d_1,\ldots,d_m$, $\textit{cal}(\textit{rm},b)$ is before $\textit{ret}(\textit{put},d_m,\_)$, and $\textit{cal}(\textit{rm},d_1)$ is before $\textit{ret}(\textit{rm},a)$. We say that such $d_1,\ldots,d_m$ constitute the rightmost gap of $b$.
+According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{lemma:ob order has bounded length} and Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, it is not hard to prove that, given a data-differentiated $\_$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$, $e$ does not linearizable with respect to $\textit{EMS}(\textit{PQ}_1^{=})$, if and only if, one of enumerations holds in $e$ (permit renaming), while $\textit{cal}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ is covered by some $d_1,\ldots,d_m$, $\textit{cal}(\textit{rm},b)$ is before $\textit{ret}(\textit{put},d_m,\_)$, and $\textit{cal}(\textit{rm},d_1)$ is before $\textit{ret}(\textit{rm},a)$. We say that such $d_1,\ldots,d_m$ constitute the rightmost gap of $b$.
 
 
 An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the items that covers $\textit{cal}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $d$, and rename the remanning items into $e$. In this figure, $c = \textit{cal}(\textit{put},e,\textit{anyPri}),\textit{ret}(\textit{put},e)$, $\textit{cal}(\textit{rm},e), \textit{ret}(\textit{rm},e),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{put},d,\textit{les}_p)$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{cal}(\textit{put},d),\textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{rm},d)$.
@@ -1470,17 +1521,17 @@ Let $\textit{Auts}_{\textit{1-eq}} = \{ \mathcal{A}_{\textit{l-eq}}^1, \mathcal{
 
 \begin {proof}
 
-We need to prove that, given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$, if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e),$ $\textit{EPQ}_1^{=} \in \textit{last}(e') \wedge e'$ does not linearizable w.r.t. $\textit{MS}(\textit{EPQ}_1^{=})$.
+We need to prove that, given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$, if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e),$ $\seqPQ_1^{=} \in \textit{last}(e') \wedge e'$ does not linearizable w.r.t. $\textit{MS}(\seqPQ_1^{=})$.
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $\textit{last}(e')=\textit{EPQ}_1^{=}$, $a$ and $b$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$ in $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $\textit{last}(e')=\seqPQ_1^{=}$, $a$ and $b$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$ in $e'$.
 
 \noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some witness automata in $\textit{Auts}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some witness automata in  $\textit{Auts}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the items that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the items that are renamed into $d$ by $r$.
 
-let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$ is a $\textit{pri}$-execution, $\textit{last}(e'') = \textit{EPQ}_1^{=}$. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{cal}(\textit{put},y,\textit{pri})$ or $\textit{cal}(\textit{rm},y)$ in $e''$.
+let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$ is a $\textit{pri}$-execution, $\textit{last}(e'') = \seqPQ_1^{=}$. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{cal}(\textit{put},y,\textit{pri})$ or $\textit{cal}(\textit{rm},y)$ in $e''$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $last(e')=\textit{PQ}_1^{=}$, $a'$ and $b'$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{cal}(\textit{put},a',\textit{pri})$ or $\textit{cal}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $e$. It is easy to see that $\textit{last}(e_1) = \textit{EPQ}_1^{=}$, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
+\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $last(e')=\textit{PQ}_1^{=}$, $a'$ and $b'$ are two items with maximal priority $\textit{pri}$ in $e'$, $e'$ is a $\textit{pri}$-execution, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{cal}(\textit{put},a',\textit{pri})$ or $\textit{cal}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $e$. It is easy to see that $\textit{last}(e_1) = \seqPQ_1^{=}$, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{cal}(\textit{put},a,\textit{pri})$ or $\textit{cal}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
 
 
 \begin{itemize}
@@ -1503,35 +1554,35 @@ This completes the proof of this lemma. \qed
 
 
 
-\subsection{Co-Regular of $\textit{EPQ}_2^{>}$}
+\subsection{Co-Regular of $\seqPQ_2^{>}$}
 \label{subsec:appendix co-regular of EPQ2Lar}
 
 
 \begin{restatable}{lemma}{EPQ2LarIsAlwaysCoRegular}
 \label{lemma:EPQ2Lar is always co-regular}
-Given a data-differentiated $\_$-execution $e$, if $\textit{last}(e) = \textit{EPQ}_2^{>}$, then $e \sqsubseteq \textit{MS}(\textit{EPQ}_2^{>})$.
+Given a data-differentiated $\_$-execution $e$, if $\textit{last}(e) = \seqPQ_2^{>}$, then $e \sqsubseteq \textit{MS}(\seqPQ_2^{>})$.
 \end{restatable}
 
 \begin {proof}
-Since $\textit{last}(e) = \textit{EPQ}_2^{>}$, the actions with maximal priority in $e$ is some unmatched $\textit{put}$. Therefore, no matter how we locate linearization points, we can always obtain a sequence $l$ of method events that contains unmatched $\textit{put}$ with maximal priority, and this satisfy the guard of $\textit{MS}(\textit{EPQ}_2^{>})$. This completes the proof of this lemma. \qed
+Since $\textit{last}(e) = \seqPQ_2^{>}$, the actions with maximal priority in $e$ is some unmatched $\textit{put}$. Therefore, no matter how we locate linearization points, we can always obtain a sequence $l$ of method events that contains unmatched $\textit{put}$ with maximal priority, and this satisfy the guard of $\textit{MS}(\seqPQ_2^{>})$. This completes the proof of this lemma. \qed
 \end {proof}
 
 
 
 
-\subsection{Co-Regular of $\textit{EPQ}_2^{=}$}
+\subsection{Co-Regular of $\seqPQ_2^{=}$}
 \label{subsec:appendix co-regular of EPQ2Equal}
 
 \begin{restatable}{lemma}{EPQ2EqualAsHappenBefore}
 \label{lemma:EPQ2Equal as happen before}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \textit{EPQ}_2^{=}$. $e$ does not linearizable to $\textit{MS}(\textit{EPQ}_2^{=})$, if and only if there exists $x$ and $y$ with priority $\textit{pri}$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, and $\textit{put}(x,\textit{pri}) <_{\textit{hb}} \textit{put}(y,\textit{pri})$.
+Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_2^{=}$. $e$ does not linearizable to $\textit{MS}(\seqPQ_2^{=})$, if and only if there exists $x$ and $y$ with priority $\textit{pri}$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, and $\textit{put}(x,\textit{pri}) <_{\textit{hb}} \textit{put}(y,\textit{pri})$.
 \end{restatable}
 
 \begin {proof}
 
 The $\textit{if}$ direction is obvious.
 
-To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,\textit{pri})$ does not happen before $\textit{put}(y,\textit{pri})$. We need to prove that $e \sqsubseteq \textit{MS}(\textit{EPQ}_2^{=})$.
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,\textit{pri})$ does not happen before $\textit{put}(y,\textit{pri})$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
 
 Let $x_1,\ldots,x_m$ be the set of items with priority $\textit{pri}$ and has unmatched $\textit{put}$ in $e$, let $y_1,\ldots,y_n$ be the set of items with priority $\textit{pri}$ and has matched $\textit{put}$ and $\textit{rm}$ in $e$. By assumption, we know that $\textit{cal}(\textit{put},y_i,\textit{pri})$ is before $\textit{ret}(\textit{put},x_j)$ for each $i,j$. Then we explicitly construction the linearization of $e$ by locating the linearization points of $e$ as follows:
 
@@ -1544,28 +1595,28 @@ Let $x_1,\ldots,x_m$ be the set of items with priority $\textit{pri}$ and has un
 \item[-] For other method events, locate their linearization points at an arbitrary location after its call action and before its return action.
 \end{itemize}
 
-Let $l$ be the sequence of linearization points. It is easy to see that $e \sqsubseteq l$. Since linearization points of $\textit{put}(x_i,\textit{pri})$ is after the linearization point of $\textit{put}(y_j,\textit{pri})$ for each $i,j$, it is easy to see that $l \in \textit{MS}(\textit{EPQ}_2^{=})$. This completes the proof of this lemma. \qed
+Let $l$ be the sequence of linearization points. It is easy to see that $e \sqsubseteq l$. Since linearization points of $\textit{put}(x_i,\textit{pri})$ is after the linearization point of $\textit{put}(y_j,\textit{pri})$ for each $i,j$, it is easy to see that $l \in \textit{MS}(\seqPQ_2^{=})$. This completes the proof of this lemma. \qed
 \end {proof}
 
-Lemma \ref{lemma:EPQ2Equal as happen before} shows how to check violation to $\textit{MS}(\textit{EPQ}_2^{=})$. However, the case in Lemma \ref{lemma:EPQ2Equal as happen before} violates our assumption that each single-priority execution is FIFO. Therefore, we know that $\textit{EPQ}_2^{=}$ is always co-regular, as states by the following lemma.
+Lemma \ref{lemma:EPQ2Equal as happen before} shows how to check violation to $\textit{MS}(\seqPQ_2^{=})$. However, the case in Lemma \ref{lemma:EPQ2Equal as happen before} violates our assumption that each single-priority execution is FIFO. Therefore, we know that $\seqPQ_2^{=}$ is always co-regular, as states by the following lemma.
 
 \begin{restatable}{lemma}{EPQ2EqualIsAlwaysCoRegular}
 \label{lemma:EPQ2Equal is always co-regular}
-Given a data-differentiated $\textit{pri}$-execution $e$, if $\textit{last}(e) = \textit{EPQ}_2^{=}$, then $e \sqsubseteq \textit{MS}(\textit{EPQ}_2^{=})$.
+Given a data-differentiated $\textit{pri}$-execution $e$, if $\textit{last}(e) = \seqPQ_2^{=}$, then $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
 \end{restatable}
 
 \begin {proof}
 
-According to Lemma \ref{lemma:EPQ2Equal as happen before}, if $\textit{last}(e) = \textit{EPQ}_2^{=}$ and $e$ does not linearizable to $\textit{MS}(\textit{EPQ}_2^{=})$, then there exists $x$ and $y$ with priority $\textit{pri}$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$, and $\textit{put}(x,\textit{pri}) <_{\textit{hb}} \textit{put}(y,\textit{pri})$. Let $e_1 = e \vert_{ \{ x,y \} }$. It is obvious that $e_1$ does not satisfy FIFO property. This contradicts the assumption that every single-priority execution has FIFO property, and thus, we can safely ignore this case. \qed
+According to Lemma \ref{lemma:EPQ2Equal as happen before}, if $\textit{last}(e) = \seqPQ_2^{=}$ and $e$ does not linearizable to $\textit{MS}(\seqPQ_2^{=})$, then there exists $x$ and $y$ with priority $\textit{pri}$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$, and $\textit{put}(x,\textit{pri}) <_{\textit{hb}} \textit{put}(y,\textit{pri})$. Let $e_1 = e \vert_{ \{ x,y \} }$. It is obvious that $e_1$ does not satisfy FIFO property. This contradicts the assumption that every single-priority execution has FIFO property, and thus, we can safely ignore this case. \qed
 \end {proof}
 
 
 
 
-\subsection{Co-Regular of $\textit{EPQ}_3$}
+\subsection{Co-Regular of $\seqPQ_3$}
 \label{subsec:co-regular of EPQ3}
 
-In this subsection we prove that $\textit{EPQ}_3$ is co-regular. The notion of left-right constraint of $\textit{rm}(\textit{empty})$ is inspired by left-right constraint of queue \cite{Bouajjani:2015}.
+In this subsection we prove that $\seqPQ_3$ is co-regular. The notion of left-right constraint of $\textit{rm}(\textit{empty})$ is inspired by left-right constraint of queue \cite{Bouajjani:2015}.
 
 \begin{definition}\label{def:left-right constraint for rmEmpty operation}
 Given a data-differentiated execution $e$, and $o = \textit{rm}(\textit{empty})$ of $e$. The left-right constraint of $o$ is the graph $G$ where:
@@ -1583,14 +1634,14 @@ Given a data-differentiated execution $e$, and $o = \textit{rm}(\textit{empty})$
 \end{definition}
 
 
-Given a data-differentiated execution $e$ and $o = \textit{rm}(\textit{empty})$ of $e$, it is obvious that $\textit{last}(e) = \textit{EPQ}_3$. Let $\textit{USet}_1(e,o) = \{ \textit{op} \vert$ $\textit{op}$ is an operation of some item, and either $\textit{op} <_{\textit{hb}} o$, or there is $\textit{op}'$ with the same item of $\textit{op}$, such that $\textit{op}' <_{\textit{hb}} o \}$. For each $i \geq 1$, let $\textit{USet}_{\textit{i+1}}(e,o) = \{ \textit{op} \vert$ $\textit{op}$ is an operation of some item, $\textit{op}$ is not in $\textit{USet}_k(e,o)$ for each $k \leq i$, and either $\textit{op}$ happens before some $o' \in \textit{USet}_i(e,o)$, or there is $\textit{op}''$ with the same item of $o$ and $\textit{op}''$ happens before some $o' \in \textit{USet}_i(e,o) \}$. We can see that $\textit{USet}_i(e,o) \cap \textit{USet}_j(e,o) = \emptyset$ for any $i \neq j$. Let $\textit{USet}(e,o) = \textit{USet}_1(e,o) \cup \textit{USet}_2(e,o) \cup \ldots$.
+Given a data-differentiated execution $e$ and $o = \textit{rm}(\textit{empty})$ of $e$, it is obvious that $\textit{last}(e) = \seqPQ_3$. Let $\textit{USet}_1(e,o) = \{ \textit{op} \vert$ $\textit{op}$ is an operation of some item, and either $\textit{op} <_{\textit{hb}} o$, or there is $\textit{op}'$ with the same item of $\textit{op}$, such that $\textit{op}' <_{\textit{hb}} o \}$. For each $i \geq 1$, let $\textit{USet}_{\textit{i+1}}(e,o) = \{ \textit{op} \vert$ $\textit{op}$ is an operation of some item, $\textit{op}$ is not in $\textit{USet}_k(e,o)$ for each $k \leq i$, and either $\textit{op}$ happens before some $o' \in \textit{USet}_i(e,o)$, or there is $\textit{op}''$ with the same item of $o$ and $\textit{op}''$ happens before some $o' \in \textit{USet}_i(e,o) \}$. We can see that $\textit{USet}_i(e,o) \cap \textit{USet}_j(e,o) = \emptyset$ for any $i \neq j$. Let $\textit{USet}(e,o) = \textit{USet}_1(e,o) \cup \textit{USet}_2(e,o) \cup \ldots$.
 
 
 Similarly as $\textit{UVSet}$, we can prove the following two lemmas for $\textit{USet}$.
 
 \begin{restatable}{lemma}{USetHasMatchedPutandRm}
 \label{lemma:USet has matched put and rm}
-Given a data-differentiated execution $e$ with $\textit{last}(e) = \textit{EPQ}_3$. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $\textit{USet}(e,o)$ contains only matched $\textit{put}$ and $\textit{rm}$.
+Given a data-differentiated execution $e$ with $\textit{last}(e) = \seqPQ_3$. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $\textit{USet}(e,o)$ contains only matched $\textit{put}$ and $\textit{rm}$.
 \end{restatable}
 
 This Lemma can be similarly proved as Lemma \ref{lemma:UVSet has matched put and rm}.
@@ -1598,22 +1649,22 @@ This Lemma can be similarly proved as Lemma \ref{lemma:UVSet has matched put and
 
 \begin{restatable}{lemma}{RmxDoesNotHappenBeforeUSetForEPQ3}
 \label{lemma:Rmx does not happen before USet for EPQ3}
-Given a data-differentiated $\_$execution $e$ with $\textit{last}(e) = \textit{EPQ}_3$. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $o$ does not happen before any operation in $\textit{USet}(e,o)$.
+Given a data-differentiated $\_$execution $e$ with $\textit{last}(e) = \seqPQ_3$. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $o$ does not happen before any operation in $\textit{USet}(e,o)$.
 \end{restatable}
 
 This Lemma can be similarly proved as Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}.
 
-Then we can prove that getting rid of cycle though $o$ in left-right constraint is enough for ensure linearizable w.r.t $\textit{MS}(\textit{EPQ}_3)$, as stated by the following lemma.
+Then we can prove that getting rid of cycle though $o$ in left-right constraint is enough for ensure linearizable w.r.t $\textit{MS}(\seqPQ_3)$, as stated by the following lemma.
 
 
 \begin{restatable}{lemma}{LINEqualsConstraintforEPQ3}
 \label{lemma:Lin Equals Constraint for EPQ3}
-Given a data-differentiated execution $e$ with $\textit{last}(e) = \textit{EPQ}_3$. $e$ does not linearizable w.r.t $\textit{MS}(\textit{PQ}_3)$, if and only if there exists $o = \textit{rm}(\textit{empty})$ in $e$, $G$ has a cycle going through $o$, where $G$ is the graph representing the left-right constraint of $o$.
+Given a data-differentiated execution $e$ with $\textit{last}(e) = \seqPQ_3$. $e$ does not linearizable w.r.t $\textit{MS}(\textit{PQ}_3)$, if and only if there exists $o = \textit{rm}(\textit{empty})$ in $e$, $G$ has a cycle going through $o$, where $G$ is the graph representing the left-right constraint of $o$.
 \end{restatable}
 
 \begin {proof}
 
-To prove the $\textit{if}$ direction, assume that there is such a cycle. Assume by contradiction that $e \sqsubseteq \textit{MS}(\textit{EPQ}_3)$, and let $U$ and $V$ be the set of operations in $u$ and $v$. Let the cycle be $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow o \rightarrow d_1$ in $G$. Since $d_m \rightarrow o$, $\textit{put}(d_m,\_)$ happens before $o$, and it is easy to see that $\textit{put}(d_m,\_)$ is in $U$. Since $U$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that operations of $d_m$ is in $U$. Similarly, we can see that method events of $d_{\textit{m-1}},\ldots,d_1$ is in $U$. If $\textit{rm}(d_1)$ does not exists, then this contradicts that $U$ contains matched $\textit{put}$ and $\textit{rm}$. Else, if $\textit{rm}(d_1)$ exists, since $o$ happens before $\textit{rm}(d_1)$, we can see that $\textit{rm}(d_1) \in V$, which contradicts that $\textit{rm}(d_1) \in U$. This completes the proof of the $\textit{if}$ direction.
+To prove the $\textit{if}$ direction, assume that there is such a cycle. Assume by contradiction that $e \sqsubseteq \textit{MS}(\seqPQ_3)$, and let $U$ and $V$ be the set of operations in $u$ and $v$. Let the cycle be $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow o \rightarrow d_1$ in $G$. Since $d_m \rightarrow o$, $\textit{put}(d_m,\_)$ happens before $o$, and it is easy to see that $\textit{put}(d_m,\_)$ is in $U$. Since $U$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that operations of $d_m$ is in $U$. Similarly, we can see that method events of $d_{\textit{m-1}},\ldots,d_1$ is in $U$. If $\textit{rm}(d_1)$ does not exists, then this contradicts that $U$ contains matched $\textit{put}$ and $\textit{rm}$. Else, if $\textit{rm}(d_1)$ exists, since $o$ happens before $\textit{rm}(d_1)$, we can see that $\textit{rm}(d_1) \in V$, which contradicts that $\textit{rm}(d_1) \in U$. This completes the proof of the $\textit{if}$ direction.
 
 To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each such $o$ and $G$, $G$ has no cycle going through $o$. Let $O$ be the set of operations of $e$, except for $\textit{rm}(\textit{empty})$. Let $O_L = \textit{USet}(e,o)$, $O_R = O \setminus O_L$.
 
@@ -1633,13 +1684,13 @@ This completes the proof of the $\textit{only if}$ direction.
 \qed
 \end {proof}
 
-Let us begin to represent an automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\textit{last}(e')=\textit{EPQ}_3$, $e'$ does not linearizable to $\textit{MS}(\textit{EPQ}_3)$, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\textit{EPQ}}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $c = \textit{cal}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{cal}(\textit{rm},d), \textit{ret}(\textit{rm},d),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{put},b,\textit{anyPri})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, and $c_3 = c + \textit{ret}(\textit{rm},b)$.
+Let us begin to represent an automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\textit{last}(e')=\seqPQ_3$, $e'$ does not linearizable to $\textit{MS}(\seqPQ_3)$, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $c = \textit{cal}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{cal}(\textit{rm},d), \textit{ret}(\textit{rm},d),\textit{cal}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{put},b,\textit{anyPri})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, and $c_3 = c + \textit{ret}(\textit{rm},b)$.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8 \textwidth]{figures/PIC_AUTO_PQ3.pdf}
 %\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{EPQ}}^3$}
+  \caption{Automaton $\mathcal{A}_{\seqPQ}^3$}
   \label{fig:automata for PQ3}
 \end{figure}
 
@@ -1659,21 +1710,21 @@ According to the definition of left-right constraint for $o$, in a data-differen
 
 \begin{restatable}{lemma}{EPQ3IsCoRegular}
 \label{lemma:EPQ3 is co-regular}
-$\textit{EPQ}_3$ is co-regular.
+$\seqPQ_3$ is co-regular.
 \end{restatable}
 
 \begin {proof}
 
-We need to prove that, given a data-independence implementation $\mathcal{I}$, $\mathcal{A}_{\textit{EPQ}}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=\textit{EPQ}_3 \wedge e$ does not linearizable w.r.t. $\textit{MS}(\textit{EPQ}_3)$.
+We need to prove that, given a data-independence implementation $\mathcal{I}$, $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=\seqPQ_3 \wedge e$ does not linearizable w.r.t. $\textit{MS}(\seqPQ_3)$.
 
 By Lemma \ref{lemma:Lin Equals Constraint for EPQ3}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\mathcal{A}_{\textit{EPQ}}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=\textit{EPQ}_3$, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some items $d_1,\ldots,d_m$ in $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=\seqPQ_3$, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some items $d_1,\ldots,d_m$ in $e'$.
 
 
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{EPQ}}^3$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Let $d_1,\ldots,d_m$ be the items in $e_2$ such that $r(d_i)=b$ for each $1 \leq i \leq m$. Let $e_3 = e_2 \vert_{ \{ o, d_1, \ldots, d_m \} }$. It is obvious that $e_3 \in \textit{proj}(e_2)$ and $\textit{last}(e_3) = \textit{EPQ}_3$. It is easy to see that $o$ is covered by $d_1,\ldots,d_m$.
+\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\seqPQ}^3$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Let $d_1,\ldots,d_m$ be the items in $e_2$ such that $r(d_i)=b$ for each $1 \leq i \leq m$. Let $e_3 = e_2 \vert_{ \{ o, d_1, \ldots, d_m \} }$. It is obvious that $e_3 \in \textit{proj}(e_2)$ and $\textit{last}(e_3) = \seqPQ_3$. It is easy to see that $o$ is covered by $d_1,\ldots,d_m$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists such $e$, $e'$, $o$ and $d_1,\ldots,d_m$. Then, let $e_1$ be obtained from $e$ by renaming $d_1,\ldots,d_m$ into $b$ and renaming other items into $d$. By data-independence, $e_1 \in \mathcal{I}$. It is easy to see that $e_1$ is accepted by $\mathcal{A}_{\textit{EPQ}}^3$.
+\noindent The $\textit{if}$ direction: Assume that there exists such $e$, $e'$, $o$ and $d_1,\ldots,d_m$. Then, let $e_1$ be obtained from $e$ by renaming $d_1,\ldots,d_m$ into $b$ and renaming other items into $d$. By data-independence, $e_1 \in \mathcal{I}$. It is easy to see that $e_1$ is accepted by $\mathcal{A}_{\seqPQ}^3$.
 
 This completes the proof of this lemma. \qed
 \end {proof}
@@ -1895,7 +1946,7 @@ Similar to Lemma \ref{lemma:EPQ3 is co-regular}, we can prove that $\textit{MSet
 $\textit{MSet}_3$ is co-regular.
 \end{restatable}
 
-Similar as witness automata for $\textit{EPQ}_3$, we have witness automata $\mathcal{A}_{\textit{MS}}^4$ for $\textit{MSet}_3$, which is shown in \figurename~\ref{fig:automata 4 for MS-3 in appendix}. In \figurename~\ref{fig:automata 4 for MS-3 in appendix}, let $c = \textit{cal}(\textit{insert},d),\textit{ret}(\textit{insert},d), \textit{cal}(\textit{delete},d)$, $\textit{ret}(\textit{delete},d),\textit{cal}(\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{insert},b)$, $c_2 = c_1 + \textit{ret}(\textit{delete},b)$, and $c_3 = c + \textit{ret}(\textit{delete},b)$.
+Similar as witness automata for $\seqPQ_3$, we have witness automata $\mathcal{A}_{\textit{MS}}^4$ for $\textit{MSet}_3$, which is shown in \figurename~\ref{fig:automata 4 for MS-3 in appendix}. In \figurename~\ref{fig:automata 4 for MS-3 in appendix}, let $c = \textit{cal}(\textit{insert},d),\textit{ret}(\textit{insert},d), \textit{cal}(\textit{delete},d)$, $\textit{ret}(\textit{delete},d),\textit{cal}(\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_1 = c + \textit{cal}(\textit{insert},b)$, $c_2 = c_1 + \textit{ret}(\textit{delete},b)$, and $c_3 = c + \textit{ret}(\textit{delete},b)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1911,11 +1962,11 @@ The following lemma shows that our transformation from multi-set into extended p
 
 \begin {proof}
 
-For the $\textit{only if}$ direction, given an execution $e_m \in \mathcal{I}_m$ of multi-set, such that $e_m$ is accepted by some automaton in $\textit{Auts}_{\textit{MS}}$. If $e_m$ is accepted by $\mathcal{A}_{\textit{MS}}^1$, $\mathcal{A}_{\textit{MS}}^2$, $\mathcal{A}_{\textit{MS}}^3$ or $\mathcal{A}_{\textit{MS}}^4$, then it is easy to see that $\textit{MStoEPQ}(e_m)$ is accepted by $\mathcal{A}_{\textit{SinPri}}^2$, $\mathcal{A}_{\textit{SinPri}}^3$, $\mathcal{A}_{\textit{SinPri}}^1$ or $\mathcal{A}_{\textit{EPQ}}^3$, respectively.
+For the $\textit{only if}$ direction, given an execution $e_m \in \mathcal{I}_m$ of multi-set, such that $e_m$ is accepted by some automaton in $\textit{Auts}_{\textit{MS}}$. If $e_m$ is accepted by $\mathcal{A}_{\textit{MS}}^1$, $\mathcal{A}_{\textit{MS}}^2$, $\mathcal{A}_{\textit{MS}}^3$ or $\mathcal{A}_{\textit{MS}}^4$, then it is easy to see that $\textit{MStoEPQ}(e_m)$ is accepted by $\mathcal{A}_{\textit{SinPri}}^2$, $\mathcal{A}_{\textit{SinPri}}^3$, $\mathcal{A}_{\textit{SinPri}}^1$ or $\mathcal{A}_{\seqPQ}^3$, respectively.
 
-For the $\textit{if}$ direction, given an execution $e_{\textit{epq}}$ of extended priority queue, such that $e_{\textit{epq}} = \textit{MStoEPQ}(e_m)$ for some $e_m$ of multi-set, and $e_{\textit{epq}}$ is accepted by some automaton in $\textit{Auts}_{\textit{EPQ}}$.
+For the $\textit{if}$ direction, given an execution $e_{\textit{epq}}$ of extended priority queue, such that $e_{\textit{epq}} = \textit{MStoEPQ}(e_m)$ for some $e_m$ of multi-set, and $e_{\textit{epq}}$ is accepted by some automaton in $\textit{Auts}_{\seqPQ}$.
 
-According to definition of $\textit{MStoEPQ}$, we can see that (1) in $e_{\textit{epq}}$ there does not exist two items with comparable priorities, and (2) in $e_{\textit{epq}}$, there does not exists two items with a same priority. Therefore, the witness automata for $\textit{EPQ}_1$ and the witness automaton $\mathcal{A}_{\textit{SinPri}}^4$ can be safely ignored. Then, if $e_{\textit{epq}}$ is accepted by $\mathcal{A}_{\textit{SinPri}}^1$, $\mathcal{A}_{\textit{SinPri}}^2$, $\mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\textit{EPQ}}^3$, then it is easy to see that $e_m$ is accepted by $\mathcal{A}_{\textit{MS}}^3$, $\mathcal{A}_{\textit{MS}}^1$, $\mathcal{A}_{\textit{MS}}^2$ and $\mathcal{A}_{\textit{MS}}^4$, respectively. \qed
+According to definition of $\textit{MStoEPQ}$, we can see that (1) in $e_{\textit{epq}}$ there does not exist two items with comparable priorities, and (2) in $e_{\textit{epq}}$, there does not exists two items with a same priority. Therefore, the witness automata for $\seqPQ_1$ and the witness automaton $\mathcal{A}_{\textit{SinPri}}^4$ can be safely ignored. Then, if $e_{\textit{epq}}$ is accepted by $\mathcal{A}_{\textit{SinPri}}^1$, $\mathcal{A}_{\textit{SinPri}}^2$, $\mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\seqPQ}^3$, then it is easy to see that $e_m$ is accepted by $\mathcal{A}_{\textit{MS}}^3$, $\mathcal{A}_{\textit{MS}}^1$, $\mathcal{A}_{\textit{MS}}^2$ and $\mathcal{A}_{\textit{MS}}^4$, respectively. \qed
 \end {proof}
 
 
