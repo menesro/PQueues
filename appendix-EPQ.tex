@@ -627,7 +627,7 @@ Before we go to investigate $\Gamma$-linearizable, we can use the result in \cit
 
 Given an execution of queue, we say that it is differentiated, if each item is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue.
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top)$, $\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\top) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true})$, $\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$.
 
 
 \begin{figure}[htbp]
@@ -639,7 +639,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first ca
 \end{figure}
 
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top),\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{call}(\textit{rm},b) + \textit{ret}(\textit{rm},b) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true}),\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{call}(\textit{rm},b) + \textit{ret}(\textit{rm},b) \}$.
 
 
 \begin{figure}[htbp]
@@ -650,7 +650,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second c
   \label{fig:automata for FIFO-2}
 \end{figure}
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $C_1 = \{ \textit{call}(\textit{put},a,\top),\textit{ret}(\textit{put},a,\top), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,\top) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_4 = C_3 \cup \{ \textit{call}(\textit{rm},b) \}$, $C_5 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_6 = C_5 \cup \{ \textit{call}(\textit{rm},b) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true}),\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_4 = C_3 \cup \{ \textit{call}(\textit{rm},b) \}$, $C_5 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_6 = C_5 \cup \{ \textit{call}(\textit{rm},b) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -660,7 +660,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third ca
   \label{fig:automata for FIFO-3}
 \end{figure}
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $C_1 = C \cup \{ \textit{call}(\textit{rm},b) \}$, and $C_2 = C \cup \{ \textit{ret}(\textit{put},b,\top), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\top),\textit{ret}(\textit{put},d,\top), \textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $C_1 = C \cup \{ \textit{call}(\textit{rm},b) \}$, and $C_2 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\textit{true}),\textit{ret}(\textit{put},d,\textit{true}), \textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -762,6 +762,10 @@ To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l$, $\math
 To prove the $\textit{if}$ direction, given $e' = e \vert_{\prec p}$. By assumption, $e' \sqsubseteq l$, $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds and $p$ is the priority of $x$, and then we can see that $e' \sqsubseteq l_1 = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$. Let $O_c$ be the set of operations in $e$ that have priorities comparable with $p$, and Let $O_i$ be the set of operations in $e$ that have priorities incomparable with $p$. It is obvious that $l_1$ is the linearization of $e \vert_{O_c}$. By Lemma \ref{lemma:merge two linearization}, there exists sequence $l$, such that $e \sqsubseteq l$, and $l \vert_{O_c} = l_1$. Then $l = u' \cdot \textit{put}(x,p) \cdot v' \cdot \textit{rm}(x) \cdot w'$, where $u' \vert_{O_c} = u$, $v' \vert_{O_c} = v$ and $w' \vert_{O_c} = w$. Since $p$ is one of maximal priorities in $e$, and the predicates in $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ does not restrict the values with priority $O_i$, it is easy to see that $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds. \qed
 \end {proof}
 
+Therefore, from now on, it is safe to consider only the data-differentiated sequences with only one maximal priority. 
+
+
+
 
 
 \subsection{Proofs and Definitions in Subsection \ref{subsec:co-regular of EPQ1Lar}}
@@ -774,7 +778,7 @@ The following lemma states that $\textit{UVSet}(e,x)$ contains only matched $\te
 
 \begin{restatable}{lemma}{UVSetHasMatchedPutandRm}
 \label{lemma:UVSet has matched put and rm}
-Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, let $p$ be its maximal priority and $\textit{put}(x,p),\textit{rm}(x)$ are only operations of priority $p$ in $e$. Let $G$ be the graph representing the left-right constraint of $x$. Assume that $G$ has no cycle going through $x$. Then, $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
 \end{restatable}
 \begin {proof}
 
@@ -782,7 +786,7 @@ We prove this lemma by contradiction. Assume that there exists a value, such tha
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] For each $1 \leq i \leq j$, method events of $d_i$ belongs to $\textit{UVSet}_i(e,x)$.
+\item[-] For each $1 \leq i \leq j$, operations of $d_i$ belongs to $\textit{UVSet}_i(e,x)$.
 
 \item[-] For each $i \neq j$, $\textit{put}(d_i,\_),\textit{rm}(d_i) \in \textit{UVSet}_i(e,x)$. $\textit{put}(d_j,\_) \in \textit{UVSet}_j(e,x)$, and $e$ does not contain $\textit{rm}(d_j)$.
 
@@ -795,7 +799,7 @@ According to the definition of $\textit{UVSet}(e,x)$, it is easy to see that suc
 
 \noindent {\bf $\textit{fact}_1$}: Given $1 \leq i < j$, it can not be the case that $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap.
 
-Proof of $\textit{fact}_1$: We prove $\textit{fact}_1$ by contradiction. Assume that for some $i \neq j$, $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap. Since $\textit{put}(d_i,\_), \textit{rm}(d_i) \in \textit{UVSet}_i(h,x)$, we know that an operation $o_i$ of $d_i$ happens before operation $o_{\textit{i-1}}$ of $d_{\textit{i-1}}$. Moreover, since $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap, it is not hard to see that the call action of $\textit{put}(d_i,\_)$ and the call action of $\textit{rm}(d_i)$ is before the call action of $o_{\textit{i-1}}$. Since method events of $d_{\textit{i+1}}$ is in $\textit{UVSet}_{\textit{i+1}}(e,x)$, we know that an operation $o'_{\textit{i+1}}$ of $d_{\textit{i+1}}$ happens before operation $o'_i$ of $d_i$. Then, it is not hard to see that $o'_{\textit{i+1}}$ also happens before $o_{\textit{i-1}}$, which contradicts that for each $k > \textit{ind+1}$, no operation of $d_k$ happens before operation of $d_{\textit{ind}}$.
+Proof of $\textit{fact}_1$: We prove $\textit{fact}_1$ by contradiction. Assume that for some $i \neq j$, $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap. Since $\textit{put}(d_i,\_), \textit{rm}(d_i) \in \textit{UVSet}_i(h,x)$, we know that an operation $o_i$ of $d_i$ happens before operation $o_{\textit{i-1}}$ of $d_{\textit{i-1}}$. Moreover, since $\textit{put}(d_i,\_)$ and $\textit{rm}(d_i)$ overlap, it is not hard to see that the call action of $\textit{put}(d_i,\_)$ and the call action of $\textit{rm}(d_i)$ is before the call action of $o_{\textit{i-1}}$. Since operations of $d_{\textit{i+1}}$ is in $\textit{UVSet}_{\textit{i+1}}(e,x)$, we know that an operation $o'_{\textit{i+1}}$ of $d_{\textit{i+1}}$ happens before operation $o'_i$ of $d_i$. Then, it is not hard to see that $o'_{\textit{i+1}}$ also happens before $o_{\textit{i-1}}$, which contradicts that for each $k > \textit{ind+1}$, no operation of $d_k$ happens before operation of $d_{\textit{ind}}$.
 
 We already know that an operation of $d_1$ happens before an operation of $x$. By $\textit{fact}_1$, we can ensure that $\textit{put}(d_1,\_)$ happens before an operation of $x$, and then $d_1 \rightarrow x$ in $G$. For each $1 < i \leq j$, we know that an operation $o_i$ of $d_i$ happens before an operation $o_{\textit{i-1}}$ of $d_{\textit{i-1}}$. By $\textit{fact}_1$, we can ensure that $o_i=\textit{put}(d_i,\_)$ and $o_{\textit{i-1}}=\textit{rm}(d_{\textit{i-1}})$, and then $d_i \rightarrow d_{\textit{i-1}}$ in $G$. Since $h$ contains $\textit{put}(d_j,\_)$ and does not contain $\textit{rm}(d_j)$, we know that $x \rightarrow d_j$ in $G$. Then $G$ has a cycle going through $x$, contradicts that $G$ has no cycle going through $x$. \qed
 \end {proof}
@@ -806,39 +810,39 @@ The following lemma states that $\textit{UVSet}(e,x)$ does not happen before $\t
 \begin{restatable}{lemma}{RmxDoesNotHappenBeforeUVSetForEPQ1Lar}
 \label{lemma:Rmx does not happen before UVSet for EPQ1Lar}
 
-Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$. Assume that $G$ has no cycle going through $x$. Then, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}(e,x)$.
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, let $p$ be its maximal priority and $\textit{put}(x,p),\textit{rm}(x)$ are only operations of priority $p$ in $e$. Let $G$ be the graph representing the left-right constraint of x. Assume that $G$ has no cycle going through $x$. Then, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}(e,x)$.
 \end{restatable}
 
 \begin {proof}
 
 We prove this lemma by induction, and prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x)$, in $\textit{UVSet}_2(e,x)$, $\ldots$. Note that, by Lemma \ref{lemma:UVSet has matched put and rm}, $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that for each $i$, $\textit{UVSet}_i(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
 
-\noindent (1) Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_1(e,x)$ is an operation of item $d$. %(according to the definition of $\textit{UVSet}_1(h,x)$, the priority of $d$ does not equals $\textit{pri}_x$).
+\noindent (1) Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_1(e,x)$ is an operation of item $d$. 
 
-We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ method event or a $\textit{rm}$ method event. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_1(e,x)$: $o \in \textit{UVSet}_1(e,x)$, since an operation (of kind $t_2$) of $d$ happens before an operation (of kind $t_3$) of $x$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
+We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ operation or a $\textit{rm}$ operation. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_1(e,x)$: $o \in \textit{UVSet}_1(e,x)$, since an operation (of kind $t_2$) of $d$ happens before an operation (of kind $t_3$) of $x$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] $(\textit{put},\textit{put},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d,\_) <_{hb} \textit{put}(x,\textit{pri}_x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{put}(x,\textit{pri}_x)$.
+\item[-] $(\textit{put},\textit{put},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d,\_) <_{hb} \textit{put}(x,p)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{put}(x,p)$.
 
 \item[-] $(\textit{put},\textit{put},\textit{rm})$: Then $\textit{rm}(x) <_{hb} \textit{put}(d,\_) <_{hb} \textit{rm}(x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{rm}(x)$.
 
-\item[-] $(\textit{put},\textit{rm},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d,\_) ) \wedge ( \textit{rm}(d) <_{hb} \textit{put}(x,\textit{pri}_x) )$. By interval order, we know that $( \textit{rm}(x) <_{hb} \textit{put}(x,\textit{pri}_x) ) \vee ( \textit{rm}(d) <_{hb} \textit{put}(d,\_) )$, which is impossible.
+\item[-] $(\textit{put},\textit{rm},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d,\_) ) \wedge ( \textit{rm}(d) <_{hb} \textit{put}(x,p) )$. By interval order, we know that $( \textit{rm}(x) <_{hb} \textit{put}(x,p) ) \vee ( \textit{rm}(d) <_{hb} \textit{put}(d,\_) )$, which is impossible.
 
 \item[-] $(\textit{put},\textit{rm},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{put}(d,\_) ) \wedge ( \textit{rm}(d) <_{hb} \textit{rm}(x) )$. We can see that $\textit{rm}(d) <_{hb} \textit{rm}(x) <_{hb} \textit{put}(d,\_)$, which contradicts that $\textit{rm}(d)$ does not happen before $\textit{put}(d,\_)$.
 
-\item[-] $(\textit{rm},\textit{put},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d) ) \wedge ( \textit{put}(d,\_) <_{hb} \textit{put}(x,\textit{pri}_x) )$. We can see that $x$ and $d$ has circle in $G$, contradicts that $G$ has no cycle going through $x$.
+\item[-] $(\textit{rm},\textit{put},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d) ) \wedge ( \textit{put}(d,\_) <_{hb} \textit{put}(x,p) )$. We can see that $x$ and $d$ has circle in $G$, contradicts that $G$ has no cycle going through $x$.
 
 \item[-] $(\textit{rm},\textit{put},\textit{rm})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d) ) \wedge ( \textit{put}(d,\_) <_{hb} \textit{rm}(x) )$. We can see that $x$ and $d$ has circle in $G$, contradicts that $G$ has no cycle going through $x$.
 
-\item[-] $(\textit{rm},\textit{rm},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{rm}(d) <_{hb} \textit{put}(x,\textit{pri}_x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{put}(x,\textit{pri}_x)$.
+\item[-] $(\textit{rm},\textit{rm},\textit{put})$: Then $\textit{rm}(x) <_{hb} \textit{rm}(d) <_{hb} \textit{put}(x,p)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{put}(x,p)$.
 
 \item[-] $(\textit{rm},\textit{rm},\textit{rm})$: Then $\textit{rm}(x) <_{hb} \textit{rm}(d) <_{hb} \textit{rm}(x)$, contradicts that $\textit{rm}(x)$ does not happen before $\textit{rm}(x)$.
 \end{itemize}
 
 This completes the proof for $\textit{UVSet}_1(e,x)$.
 
-\noindent (2) Assume we already prove that for some $j \geq 1$, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$. Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_{\textit{j+1}}(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$ is an operation of item $d_{\textit{j+1}}$. We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ method event or a $\textit{rm}$ method event. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$: $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$, since an operation (of kind $t_2$) of $d_{\textit{j+1}}$ happens before an operation (of kind $t_3$) of $d_j$, where $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{UVSet}_j(e,x)$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
+\noindent (2) Assume we already prove that for some $j \geq 1$, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$. Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_{\textit{j+1}}(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$ is an operation of item $d_{\textit{j+1}}$. We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ operation or a $\textit{rm}$ operation. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$: $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$, since an operation (of kind $t_2$) of $d_{\textit{j+1}}$ happens before an operation (of kind $t_3$) of $d_j$, where $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{UVSet}_j(e,x)$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -914,16 +918,16 @@ This completes the proof for $\textit{UVSet}_1(e,x)$.
 This completes the proof for $\textit{UVSet}_{\textit{j+1}}(e,x)$. Therefore, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}(e,x) = \textit{UVSet}_1(e,x) \cup \textit{UVSet}_2(e,x) \cup \ldots$. \qed
 \end {proof}
 
-With Lemma \ref{lemma:UVSet has matched put and rm} and Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}, we can now prove Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}.
+With Lemma \ref{lemma:UVSet has matched put and rm} and Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}, we can now prove Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, which give the equivalent characterization of non $\mathsf{MatchedMaxPriority}$-linearizable executions. 
 
 \begin{restatable}{lemma}{LinEqualsConstraintforEPQOneLar}
 \label{lemma:Lin Equals Constraint for EPQ1Lar}
-Given a data-differentiated $\textit{pri}_x$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{>}$. Let $\textit{put}(x,\textit{pri}_x)$ and $\textit{rm}(x)$ be method events of $e$ with maximal priority. Let $G$ be the graph representing the left-right constraint of $\textit{put}(x)$ and $\textit{rm}(x)$. $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$, if and only if $G$ has no cycle going through $x$.
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, let $p$ be its maximal priority and $\textit{put}(x,p),\textit{rm}(x)$ are only operations of priority $p$ in $e$. Let $G$ be the graph representing the left-right constraint of $x$. $e$ is $\mathsf{MatchedMaxPriority}$-linearizable, if and only if $G$ has no cycle going through $x$. 
 \end{restatable}
 
 \begin {proof}
 
-To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq \textit{MS}(\seqPQ_1^{>})$. Let $u$, $v$ and $w$ be the sequences of method events in $\seqPQ_1^{>}$, and let $U$, $V$ and $W$ be the set of method events of $u$, $v$ and $w$, respectively. Assume by contradiction that, there is a cycle $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ in $G$. It is obvious that the priority of each $d_i$ is smaller than $\textit{pri}_x$. Then our proof proceeds as follows:
+To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l$ and $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds. Then $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, and let $U$, $V$ and $W$ be the set of operations of $u$, $v$ and $w$, respectively. Assume by contradiction that, there is a cycle $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ in $G$. It is obvious that the priority of each $d_i$ is smaller than $p$. Then our proof proceeds as follows:
 
 According to the definition of left-right constraint, there are two possibilities. The first possibility is that, $\textit{rm}(x)$ happens before $\textit{rm}(d_1)$. It is obvious that $\textit{rm}(d_1) \in W$, and then since $U \cup V$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that $\textit{put}(d_1),\textit{rm}(d_1) \in W$. Then,
 
@@ -946,7 +950,7 @@ This completes the proof of the $\textit{only if}$ direction.
 
 To prove the $\textit{if}$ direction, assume that $G$ has no cycle going through $x$. Let $E_u$ be the set of operations that happen before $\textit{put}(x)$ in $e$. It is easy to see that $E_u \subseteq \textit{UVSet}(e,x)$. Let $E_v = \textit{UVSet}(e,x) \setminus E_u$. Let $E_e$ be the set of operations of $e$, and let $E_w = E_e \setminus \textit{UVSet}(e,x)$.
 
-By Lemma \ref{lemma:UVSet has matched put and rm}, we can see that $E_u \cup E_v$ contains matched $\textit{put}$ and $\textit{rm}$ operations. It remains to prove that for $E_u$, $\{ \textit{put}(x,\textit{pri}_x) \}$, $E_v$, $\{ \textit{rm}(x) \}$, $E_w$, no elements of the latter set happens before elements of the former set. We prove this by showing that all the following cases are impossible:
+By Lemma \ref{lemma:UVSet has matched put and rm}, we can see that $E_u \cup E_v$ contains matched $\textit{put}$ and $\textit{rm}$ operations. It remains to prove that for $E_u$, $\{ \textit{put}(x,p) \}$, $E_v$, $\{ \textit{rm}(x) \}$, $E_w$, no elements of the latter set happens before elements of the former set. We prove this by showing that all the following cases are impossible:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -973,9 +977,9 @@ This completes the proof of the $\textit{if}$ direction.
 \end {proof}
 
 
-Let us begin to represent register automata that is used for capture the existence of a data-differentiated execution $e$, $e$ has a $\_$-projection $e'$, $\textit{last}(e') = \textit{PQ}_1^{>}$, and there exists a cycle going through the item with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such item to be $b$, maps items that cover it to be $a$, and maps other items into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b)$ and $\textit{rm}(b)$. For each of them, we generate a register automaton.
+Let us begin to represent register automata that is used for capture the existence of a data-differentiated execution $e$, let $p$ be a maximal priority of $e$, and $e'$ be the projection of $e$ into values with priorities comparable with $p$. We also require that $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds and there exists a cycle going through the value with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such item to be $b$, maps items that cover it to be $a$, and maps other items into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b,p)$ and $\textit{rm}(b)$. For each of them, we generate a register automaton.
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put}) \cdot \textit{call}(\textit{rm}) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $c_1 = c + \textit{ret}(\textit{rm},a)$, $c_2 = c + \textit{call}(\textit{put},a,\textit{les}_p)$, $c_3 = c_2 + \textit{ret}(\textit{rm},a)$, where $c = \textit{call}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $C_1 = C \cup \{ \textit{ret}(\textit{rm},a) \}$, $C_2 = C \cup \{ \textit{call}(\textit{put},a,<r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{call}(\textit{rm},d)$, $\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1101,7 +1105,7 @@ Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) 
 
 \begin {proof}
 
-Let $o$ be the right-most gap-point of $x$. We locate linearization points of each method event as follows:
+Let $o$ be the right-most gap-point of $x$. We locate linearization points of each operation as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -1109,7 +1113,7 @@ Let $o$ be the right-most gap-point of $x$. We locate linearization points of ea
 
 \item[-] If $\textit{put}(x,\textit{pri})$ overlaps with $\textit{rm}(x)$, then locate the linearization point of $\textit{put}(x,\textit{pri})$ just before the linearization point of $\textit{rm}(x)$. Otherwise, $\textit{put}(x,\textit{pri}) <_{\textit{hb}} \textit{rm}(x)$, and we locate the linearization point of $\textit{put}(x,\textit{pri})$ just before its return action.
 
-\item[-] Locate linearization points of method event of each $y \in \textit{Items}(e,\textit{pri})$ (except for $x$) just after the call action of the method event.
+\item[-] Locate linearization points of operation of each $y \in \textit{Items}(e,\textit{pri})$ (except for $x$) just after the call action of the operation.
 
 \item[-] For item $z$ with priority smaller than $\textit{pri}$. If both $\textit{call}(\textit{put},z,\_)$ and $\textit{call}(\textit{rm},z)$ is before $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just after their call actions. If both $\textit{ret}(\textit{put},z)$ and $\textit{ret}(\textit{rm},z)$ (if exists) is after $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just before their return actions. Otherwise, $x$ is in interval of $z$, which contradicts the definition of gap-point, and is impossible.
 \end{itemize}
@@ -1130,9 +1134,9 @@ With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
 
 To prove the $\textit{if}$ direction, let $e_{x,y}$ be the execution that is obtained from $e$ by erasing all actions of items that has same priority as $x$, except for actions of $x$ and $y$. It is obvious that $\textit{last}(e_{x,y}) = \seqPQ_1^{=}$. Since $y <_{\textit{pb}}^* x$, according to $\seqPQ_1^{=}$, we can see that $x$ should be chosen as $\textit{itm}$ in $\seqPQ_1^{=}$.
 
-According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar} (Here we temporarily forget the existence of $y$), the only possible position for locating linearizaton point of $\textit{rm}(x)$ is at gap-point of $x$. Otherwise, if the linearizaton point of $\textit{rm}(x)$ is chosen at a position that is not a gap-point of $x$, then there exists unmatched method event before $\textit{rm}(x)$ with smaller priority. Since the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},y)$, if we locate linearizaton point of $\textit{rm}(x)$ at gap-point of $x$, then $\textit{rm}(x)$ will be before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},x)$.
+According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar} (Here we temporarily forget the existence of $y$), the only possible position for locating linearizaton point of $\textit{rm}(x)$ is at gap-point of $x$. Otherwise, if the linearizaton point of $\textit{rm}(x)$ is chosen at a position that is not a gap-point of $x$, then there exists unmatched operation before $\textit{rm}(x)$ with smaller priority. Since the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},y)$, if we locate linearizaton point of $\textit{rm}(x)$ at gap-point of $x$, then $\textit{rm}(x)$ will be before $\textit{call}(\textit{put},y,\textit{pri})$ or $\textit{call}(\textit{rm},x)$.
 
-Therefore, for every sequence $l = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched method events of priority smaller than $\textit{pri}$, or $w$ contains $\textit{put}(y,\textit{pri})$ or $\textit{rm}(y)$. In both cases, $l \notin \textit{MS}(\seqPQ_1^{=})$.
+Therefore, for every sequence $l = u \cdot \textit{put}(x,\textit{pri}) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched operations of priority smaller than $\textit{pri}$, or $w$ contains $\textit{put}(y,\textit{pri})$ or $\textit{rm}(y)$. In both cases, $l \notin \textit{MS}(\seqPQ_1^{=})$.
 
 To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{call}(\textit{put},y,\textit{pri})$ and $\textit{call}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. Recall that we already assume that each single-priority execution has FIFO property, and item with larger priority is not covered by items with smaller priority.
 
@@ -1230,12 +1234,12 @@ Based on above results, given $a <_{\textit{pb}}^{b_1} a_1 <_{\textit{pb}} \ldot
 This completes the proof of this lemma. \qed
 \end {proof}
 
-There are many enumerations of method events of $a$, $b$ and $a_1$ that may makes $a <_{\textit{pb}}^* b$. The following lemma states that with the help of gap-points, the number of potential enumerations can be further reduced into only five.
+There are many enumerations of operations of $a$, $b$ and $a_1$ that may makes $a <_{\textit{pb}}^* b$. The following lemma states that with the help of gap-points, the number of potential enumerations can be further reduced into only five.
 
 
 \begin{restatable}{lemma}{FiveEnmuerationisEnoughForEPQOneEqual}
 \label{lemma:five enumeration is enough for EPQ1Equal}
-Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. Let $a$ and $b$ be items with maximal priority $\textit{pri}$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\textit{pri})$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of method events of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
+Given a data-differentiated $\textit{pri}$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. Let $a$ and $b$ be items with maximal priority $\textit{pri}$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\textit{pri})$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
 \end{restatable}
 \begin {proof}
 
@@ -1444,7 +1448,7 @@ Given a data-differentiated $\_$-execution $e$, if $\textit{last}(e) = \seqPQ_2^
 \end{restatable}
 
 \begin {proof}
-Since $\textit{last}(e) = \seqPQ_2^{>}$, the actions with maximal priority in $e$ is some unmatched $\textit{put}$. Therefore, no matter how we locate linearization points, we can always obtain a sequence $l$ of method events that contains unmatched $\textit{put}$ with maximal priority, and this satisfy the guard of $\textit{MS}(\seqPQ_2^{>})$. This completes the proof of this lemma. \qed
+Since $\textit{last}(e) = \seqPQ_2^{>}$, the actions with maximal priority in $e$ is some unmatched $\textit{put}$. Therefore, no matter how we locate linearization points, we can always obtain a sequence $l$ of operations that contains unmatched $\textit{put}$ with maximal priority, and this satisfy the guard of $\textit{MS}(\seqPQ_2^{>})$. This completes the proof of this lemma. \qed
 \end {proof}
 
 
@@ -1472,7 +1476,7 @@ Let $x_1,\ldots,x_m$ be the set of items with priority $\textit{pri}$ and has un
 
 \item[-] For each $y_j$, locate the lineariztion point of $\textit{put}(y_j,\textit{pri})$ jest after its call action.
 
-\item[-] For other method events, locate their linearization points at an arbitrary location after its call action and before its return action.
+\item[-] For other operations, locate their linearization points at an arbitrary location after its call action and before its return action.
 \end{itemize}
 
 Let $l$ be the sequence of linearization points. It is easy to see that $e \sqsubseteq l$. Since linearization points of $\textit{put}(x_i,\textit{pri})$ is after the linearization point of $\textit{put}(y_j,\textit{pri})$ for each $i,j$, it is easy to see that $l \in \textit{MS}(\seqPQ_2^{=})$. This completes the proof of this lemma. \qed
@@ -1544,7 +1548,7 @@ Given a data-differentiated execution $e$ with $\textit{last}(e) = \seqPQ_3$. $e
 
 \begin {proof}
 
-To prove the $\textit{if}$ direction, assume that there is such a cycle. Assume by contradiction that $e \sqsubseteq \textit{MS}(\seqPQ_3)$, and let $U$ and $V$ be the set of operations in $u$ and $v$. Let the cycle be $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow o \rightarrow d_1$ in $G$. Since $d_m \rightarrow o$, $\textit{put}(d_m,\_)$ happens before $o$, and it is easy to see that $\textit{put}(d_m,\_)$ is in $U$. Since $U$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that operations of $d_m$ is in $U$. Similarly, we can see that method events of $d_{\textit{m-1}},\ldots,d_1$ is in $U$. If $\textit{rm}(d_1)$ does not exists, then this contradicts that $U$ contains matched $\textit{put}$ and $\textit{rm}$. Else, if $\textit{rm}(d_1)$ exists, since $o$ happens before $\textit{rm}(d_1)$, we can see that $\textit{rm}(d_1) \in V$, which contradicts that $\textit{rm}(d_1) \in U$. This completes the proof of the $\textit{if}$ direction.
+To prove the $\textit{if}$ direction, assume that there is such a cycle. Assume by contradiction that $e \sqsubseteq \textit{MS}(\seqPQ_3)$, and let $U$ and $V$ be the set of operations in $u$ and $v$. Let the cycle be $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow o \rightarrow d_1$ in $G$. Since $d_m \rightarrow o$, $\textit{put}(d_m,\_)$ happens before $o$, and it is easy to see that $\textit{put}(d_m,\_)$ is in $U$. Since $U$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that operations of $d_m$ is in $U$. Similarly, we can see that operations of $d_{\textit{m-1}},\ldots,d_1$ is in $U$. If $\textit{rm}(d_1)$ does not exists, then this contradicts that $U$ contains matched $\textit{put}$ and $\textit{rm}$. Else, if $\textit{rm}(d_1)$ exists, since $o$ happens before $\textit{rm}(d_1)$, we can see that $\textit{rm}(d_1) \in V$, which contradicts that $\textit{rm}(d_1) \in U$. This completes the proof of the $\textit{if}$ direction.
 
 To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each such $o$ and $G$, $G$ has no cycle going through $o$. Let $O$ be the set of operations of $e$, except for $\textit{rm}(\textit{empty})$. Let $O_L = \textit{USet}(e,o)$, $O_R = O \setminus O_L$.
 
@@ -1624,11 +1628,11 @@ Let us first define three predicates:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] Given a sequential execution $l$ of multi-set, $\textit{noDE}(l)$ is satisfied when each method event of $l$ is not $\textit{delete}(\textit{empty})$.
+\item[-] Given a sequential execution $l$ of multi-set, $\textit{noDE}(l)$ is satisfied when each operation of $l$ is not $\textit{delete}(\textit{empty})$.
 
 \item[-] Given a sequential execution $l$ of multi-set, $\textit{matched-MS}(l)$ is satisfied, if (1) for each item $a \in \mathbb{D}$, if $\textit{insert}(a)$ is in $l$, then $\textit{delete}(a)$ is in $l$, and (2) for each item $a \in \mathbb{D}$, if $\textit{delete}(a)$ is in $l$, then $\textit{insert}(a)$ is in $l$.
 
-\item[-] Given a sequential execution $l$ of multi-set, $l \in \textit{Insert}^*$ is satisfied when each method event of $l$ is a $\textit{insert}$ event.
+\item[-] Given a sequential execution $l$ of multi-set, $l \in \textit{Insert}^*$ is satisfied when each operation of $l$ is a $\textit{insert}$ event.
 \end{itemize}
 
 Let $\textit{MSet}$ be the set of sequential executions $w$ which can be derived from the empty word by inductive rules of multi-set. $\textit{MSet}$ is defined by the following inductive rules:
@@ -1676,9 +1680,9 @@ If a differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}
 \end{restatable}
 
 \begin {proof}
-Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{MSet}_1$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{MSet}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into method event is $l'$.
+Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{MSet}_1$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{MSet}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into operation is $l'$.
 
-Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ at an arbitrary time point between $\textit{call}(\textit{insert},x)$ and $\textit{ret}(\textit{insert},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into method events.
+Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ at an arbitrary time point between $\textit{call}(\textit{insert},x)$ and $\textit{ret}(\textit{insert},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into operations.
 
 It is easy to see that $h \sqsubseteq l''$. Since $l''$ is obtained from $l'$ by adding one $\textit{insert}(x)$, we can see that $l''$ contains only $\textit{insert}$, and then $l'' \in \textit{MSet}$. \qed
 \end {proof}
@@ -1690,9 +1694,9 @@ If a differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}
 \end{restatable}
 
 \begin {proof}
-Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{MSet}_1$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{MSet}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into method event is $l'$.
+Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{MSet}_1$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{MSet}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into operation is $l'$.
 
-It is easy to see that $\textit{delete}(x)$ does not happen before $\textit{insert}(x)$, and then $\textit{call}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$ in $e$. Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ just after $\textit{call}(\textit{insert},x)$ and adding $\textit{delete}(x)$ just before $\textit{ret}(\textit{delete},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into method events.
+It is easy to see that $\textit{delete}(x)$ does not happen before $\textit{insert}(x)$, and then $\textit{call}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$ in $e$. Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ just after $\textit{call}(\textit{insert},x)$ and adding $\textit{delete}(x)$ just before $\textit{ret}(\textit{delete},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into operations.
 
 It is easy to see that $h \sqsubseteq l''$. Since (1) $l' \in \textit{MSet}$, (2) $l''$ is obtained from $l'$ by adding one $\textit{insert}(x)$ and one $\textit{delete}(x)$, while $\textit{insert}(x)$ is before $\textit{delete}(x)$ (3)and $l'$ does not contain $\textit{delete}(\textit{empty})$, we can see that $l'' \in \textit{MSet}$. \qed
 \end {proof}
@@ -1750,7 +1754,7 @@ To prove the $\textit{if}$ direction, we prove its contrapositive. Assume that f
 
 Assume by contradiction that there exists some $e' \in \textit{proj}(e)$, such that $\textit{last}(e') = \textit{MSet}_2$ and $e'$ doe not linearizable w.r.t $\textit{MS}(\textit{MSet}_2)$. Since $\textit{last}(e') = \textit{MSet}_2$, there exists $\textit{delete}$ in $e$. Let this $\textit{delete}$ operation be $\textit{delete}(a)$. By assumption, we know that in $e$ there exists one $\textit{insert}(a)$ and one $\textit{delete}(a)$, and $\textit{delete}(a)$ does not happen before $\textit{insert}(a)$. Then we know that $\textit{call}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$.
 
-Let $e_{\textit{lp}}$ be generated from $e$ by (1) put the linearization of $\textit{insert}(x)$ just after $\textit{call}(\textit{insert},x)$, (2) put the linearization of $\textit{delete}(x)$ just before $\textit{ret}(\textit{insert},x)$, and (3) for other operations, put its linearization point at an arbitrary between its call and return actions. Let $l'$ be the projection of $e_{\textit{lp}}$ into method events. It is obvious that $h \sqsubseteq l'$. According to our construction of $e_{\textit{lp}}$, we can see that in $l'$, $\textit{insert}(x)$ is before $\textit{delete}(x)$. Therefore, we can see that $l' \in \textit{MS}(\textit{MSet}_2)$, which contradicts our assumption. This completes the proof of the $\textit{id}$ direction. \qed
+Let $e_{\textit{lp}}$ be generated from $e$ by (1) put the linearization of $\textit{insert}(x)$ just after $\textit{call}(\textit{insert},x)$, (2) put the linearization of $\textit{delete}(x)$ just before $\textit{ret}(\textit{insert},x)$, and (3) for other operations, put its linearization point at an arbitrary between its call and return actions. Let $l'$ be the projection of $e_{\textit{lp}}$ into operations. It is obvious that $h \sqsubseteq l'$. According to our construction of $e_{\textit{lp}}$, we can see that in $l'$, $\textit{insert}(x)$ is before $\textit{delete}(x)$. Therefore, we can see that $l' \in \textit{MS}(\textit{MSet}_2)$, which contradicts our assumption. This completes the proof of the $\textit{id}$ direction. \qed
 \end {proof}
 
 According to Lemma \ref{lemma:reduce MS2 into one value}, to check violation to $\textit{MS}(\textit{MSet}_2)$, we need to consider three cases for some $b \in \mathbb{D}$: (1) there is $\textit{delete}(b)$ but there is not $\textit{insert}(x)$, (2) there is more than one $\textit{delete}(b)$ and one $\textit{insert}(b)$ in $e$, and (3) $\textit{delete}(b) <_{\textit{hb}} \textit{insert}(b)$.
