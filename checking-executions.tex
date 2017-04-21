@@ -7,7 +7,7 @@ While checking linearizability of a given execution is known to be NP-complete i
 
 \subsection{Characterizing Data-Differentiated Sequential Executions}\label{ssec:seq_exec}
 
-Checking whether a data-differentiated sequential execution belongs to $\seqPQ$ could be implemented by checking membership into the language accepted by $LTS??$. The recursive procedure $\textit{Check-PQ-Seq}$ outlined in Algorithm~\ref{alg:seq_check} is an alternative to this membership test. Roughly, it selects one or two operations in the input execution, checks whether their return values are correct by ignoring the order between the other operations other than how they are ordered w.r.t. the selected ones, and calls itself recursively on the execution without the selected operations. {\color {blue} Here we implicitly mix operation $o$ (when $\textit{call}_o(m,a)$, $\textit{ret}_o(m,b)$ in $e$) with $m(a,b)$.} 
+Checking whether a data-differentiated sequential execution belongs to $\seqPQ$ could be implemented by checking membership into the language accepted by $LTS??$. The recursive procedure $\textit{Check-PQ-Seq}$ outlined in Algorithm~\ref{alg:seq_check} is an alternative to this membership test. Roughly, it selects one or two operations in the input execution, checks whether their return values are correct by ignoring the order between the other operations other than how they are ordered w.r.t. the selected ones, and calls itself recursively on the execution without the selected operations. {\color {blue} Here we implicitly mix operation $o$ (when $\textit{call}_o(m,a)$, $\textit{ret}_o(m,b)$ in $e$) with $m(a,b)$.}
 
 We explain how the procedure works on the following execution:
 \begin{align}
@@ -287,7 +287,7 @@ Proving soundness is highly non-trivial and one of the main technical contributi
 
 TODO UPDATE THE NOTATIONS IN THIS EXAMPLE
 
-Let us briefly explain the idea of proving this property when $\mathsf{MatchedMaxPriority}$ holds with an example. Assume $e \sqsubseteq l=u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, $\mathsf{MatchedMaxPriority}(l,x)$ holds, and $e \setminus x \sqsubseteq l' \in \textit{PQ}$, as shown in \figurename~\ref{fig:concurrent execution for EPQ1} (a), we explicitly construct a sequence $l''= l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$ and prove that $e \sqsubseteq l'' \in \textit{PQ}$. In this example, $p_1 \prec p$, $p_1 \prec p_2$, $u=\epsilon$, $w$ contains $\textit{rm}(z_2), \textit{put}(x_3,p_2), \textit{rm}(z_1)$ (emphasize by $\textit{rm}(z_2)-w$), and the remanning operations are in $v$. We also explicitly draw the linearization points according to $l'$. We construct $l''$ as follows, and this method does not rely on the locations of linearization points of $l'$ and operations of $x$. 
+Let us briefly explain the idea of proving this property when $\mathsf{MatchedMaxPriority}$ holds with an example. Assume $e \sqsubseteq l=u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, $\mathsf{MatchedMaxPriority}(l,x)$ holds, and $e \setminus x \sqsubseteq l' \in \textit{PQ}$, as shown in \figurename~\ref{fig:concurrent execution for EPQ1} (a), we explicitly construct a sequence $l''= l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$ and prove that $e \sqsubseteq l'' \in \textit{PQ}$. In this example, $p_1 \prec p$, $p_1 \prec p_2$, $u=\epsilon$, $w$ contains $\textit{rm}(z_2), \textit{put}(x_3,p_2), \textit{rm}(z_1)$ (emphasize by $\textit{rm}(z_2)-w$), and the remanning operations are in $v$. We also explicitly draw the linearization points according to $l'$. We construct $l''$ as follows, and this method does not rely on the locations of linearization points of $l'$ and operations of $x$.
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -295,7 +295,7 @@ Let us briefly explain the idea of proving this property when $\mathsf{MatchedMa
 
 \item[-] Let us construct sets $U'$, $V'$ and $W'$, such then make $l''_1$, $l''_2$ and $l''_3$ the projections of $l'$ into $U'$, $V'$ and $W'$, respectively. This contains two steps:
 
-\item[-] The first step is to define $W'$. The $p$-comparable operations in $W'$ is same as that in $w$. To obtain $p$-incomparable operations in $W'$, we try to find a $p$-incomparable operation $o$ which either happens before some $p$-comparable operations in $w$, or with linearization points after $\textit{rm}(x)$. Then, we put $o$ and all $p$-incomparable operations after $o$ in $l'$ into $W'$ (emphasized by boxes in example). In this example, $o$ is $\textit{rm}(z_1)$, and $p$-incomparable operations after $o$ in $l'$ is $\textit{rm}(z_2)$, which are emphasized by adding boxes. In this process, whether a $p$-incomparable operation is in $W'$ or not only relies whether it is before or after $o$ in $l'$. 
+\item[-] The first step is to define $W'$. The $p$-comparable operations in $W'$ is same as that in $w$. To obtain $p$-incomparable operations in $W'$, we try to find a $p$-incomparable operation $o$ which either happens before some $p$-comparable operations in $w$, or with linearization points after $\textit{rm}(x)$. Then, we put $o$ and all $p$-incomparable operations after $o$ in $l'$ into $W'$ (emphasized by boxes in example). In this example, $o$ is $\textit{rm}(z_1)$, and $p$-incomparable operations after $o$ in $l'$ is $\textit{rm}(z_2)$, which are emphasized by adding boxes. In this process, whether a $p$-incomparable operation is in $W'$ or not only relies whether it is before or after $o$ in $l'$.
 
 \item[-] The second step is to define $U'$ and $V'$. $U'$ contains the following two kinds of operations: (1) Operations whose linearization points are before $\textit{ret}(\textit{put},x)$, and (2) other $\textit{put}$ operations with priority $p$. $V'$ contains the remanning operations. In this example, $U'$ contains $\textit{put}(z_1,p_3)$ and $\textit{put}(x_2,p_2)$.
 
@@ -327,7 +327,7 @@ Section~\ref{sec:co-regular of extended priority queues} introduces a characteri
 
 \begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
 \label{lemma:EPQ as multi in MRpri for history}
-Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$ if and only if for each $e' \in \textit{proj}(e)$, $\textit{Check-PQ-Conc-NonRec}(e)$ returns $\mathsf{true}$.
+Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$ if and only if for each $e' \in \textit{proj}(e)$, $\textit{Check-PQ-Conc-NonRec}(e')$ returns $\mathsf{true}$.
 \end{restatable}
 
 %The following section shows that the linearizability check in the above lemma can be implemented using a set of register automata.
@@ -341,7 +341,7 @@ Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$ if and only if
 %\label{lemma:EPQ as multi in MRpri for history}
 %Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$ if and only if for each $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}}\Gamma(e')$ implies $\Gamma\mathsf{\text{-}Conc}(e')$.
 %
-%$\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$. 
+%$\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$.
 %\end{restatable}
 %
 %
@@ -353,7 +353,7 @@ Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$ if and only if
 %
 %\begin{restatable}{lemma}{EPQasMultiInMRpriforHistory}
 %\label{lemma:EPQ as multi in MRpri for history}
-%Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$. 
+%Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$, if and only if, $\forall e' \in \textit{proj}(e)$, $\forall \Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$ $,\mathsf{MatchedMaxPriority}\}$,  $\Gamma\mathsf{\text{-}Condition}(e)$ $\Rightarrow$ $e$ is linearizable w.r.t $\Gamma$.
 %\end{restatable}
 
 
