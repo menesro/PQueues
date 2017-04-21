@@ -81,13 +81,22 @@ To prove that $\seqPQ_{\neq} \subseteq \textit{SeqPQ}_f$, we show that given $l_
 \end{itemize}
 
 This completes the proof of this lemma. \qed
+\end {proof} 
+
+
+
+
+
+
+\section{Proofs in Section \ref{sec:priority queue and data-independence}}
+\label{sec:appendix proofs in section priority queue and data-independence}
+
+\EPQClosedUnderProjection*
+
+\begin {proof}
+
+By Lemma \ref{lemma:EPQ rules and semantics}, $\seqPQ$ is equivalent to the set of sequences obtained by renaming sequences accepted by $\textit{Check-PQ-Seq}$. It is easy to see that for the predicates of $\textit{Check-PQ-Seq}$, if a sequential execution satisfy it, then its sub-sequence also satisfy it. For example, if $\textit{matched}(u)$ holds, then $\textit{matched}(u \vert D)$ holds for each set $D$ of values. This completes the proof of this lemma. \qed
 \end {proof}
-
-
-
-
-\section{Proof in Section \ref{sec:data-independence of extended priority queue}}
-\label{sec:appendix in section data-independence of EPQ}
 
 
 \DataDifferentiatedisEnoughforPQ*
@@ -109,15 +118,7 @@ To prove the $\textit{if}$ direction, given an execution $e \in \mathcal{I}$. By
 
 \subsection{Proof of Lemma \ref{lemma:EPQ is closed under projection}}
 
-\begin{restatable}{lemma}{EPQisClosedUnderProjection}
-\label{lemma:EPQ is closed under projection}
-$\textit{EPQ}$ is closed under projection.
-\end{restatable}
 
-\begin {proof}
-
-This is obvious, since for each conditions in the $\textit{Guard}$ part of the rules of priority queue, if a sequence of sequential executions satisfy it, then its sub-sequence also satisfy it. For example, if $\textit{noRE}(l)$ holds for some $l = u \cdot v \cdot w$ and let $D_l$ be the set of items of $l$, then for each subset $D' \subseteq D_l$, it is obvious that $\textit{rm}(\textit{empty}) \notin l \vert_{ D' }$ and $\textit{noRE}(l')$ holds. Similar cases hold for other predicates of the four rules of $\textit{EPQ}$, such as $\textit{LEI}$, $\textit{LI-U}$, $\textit{matched-C}$, $\textit{putInSeq}(l,l_1,\textit{pri})$ and $\textit{matched-All}$. This completes the proof of this lemma. \qed
-\end {proof}
 
 
 \subsection{Proof of Lemma \ref{lemma:EPQ as multi in MRpri for sequence}}
