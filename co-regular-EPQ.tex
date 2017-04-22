@@ -299,7 +299,7 @@ Then, to model the time intervals in which a remove operation like $\textit{rm}(
 Let $e$ be a data-differentiated execution which contains only one maximal priority $p$, and $\textit{put}(x,p)$ and $\textit{rm}(x)$ two operations in $e$. An index $i\in [0,|e|-1]$ is a \emph{gap-point of $x$} if $i$ is greater than or equal to the index of both $\textit{call}(\textit{put},x,p)$ and $\textit{call}(\textit{rm},x)$, smaller than the index of $\textit{ret}(\textit{rm},x)$, and it is not included in the interval of some value with priority smaller than $p$.
 \end{definition}
 
-The case of \figurename~\ref{fig:introduce pb order} can be formally described as follows: $a <_{\textit{pb}}^* b$ while the right-most gap-point of $b$ is before $\textit{call}(\textit{rm},a)$ or $\textit{call}(\textit{put},a,p_4)$. The following lemma states that these conditions are enough to characterize non-linearizability w.r.t $\mathsf{MatchedMaxPriority}^{=}$ (see Appendix\ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}).
+The case of \figurename~\ref{fig:introduce pb order} can be formally described as follows: $a <_{\textit{pb}}^* b$ while the right-most gap-point of $b$ is before $\textit{call}(\textit{rm},a)$ or $\textit{call}(\textit{put},a,p_4)$. The following lemma states that these conditions are enough to characterize non-linearizability w.r.t $\mathsf{MatchedMaxPriority}^{=}$ (see Appendix~\ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}).
 
 \begin{restatable}{lemma}{EPQOneEqualAsPBandGP}
 \label{lemma:EPQ1Equal as pb order and gap-point}
@@ -351,6 +351,7 @@ Let $e$ be a data-differentiated execution such that $a <_{\textit{pb}} a_1 <_{\
 \end{itemize}
 \end{restatable}
 
+\smallskip
 To characterize violations to linearizability w.r.t. $\mathsf{MatchedMaxPriority}^{=}$, one has to consider all the possible orders between call/return actions of the operations on values $a$, $b$, and $a_i$ in Lemma \ref{lemma:ob order has bounded length}, and the right-most gap point of $b$. Excluding the inconsistent cases, we are left with 5 possible orders that are listed in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}. For each case, we define an automaton recognizing the induced set of violations. For instance, one such case and the corresponding register automaton is shown in \figurename~\ref{fig:an enumeration and its witness automaton} ($o$ denotes the rightmost gap-point of $b$). In this case, the conditions in Lemma~\ref{lemma:EPQ1Equal as pb order and gap-point} are equivalent to the fact that intuitively, the time interval from $\textit{call}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$ is covered by lower priority values (and thus, there is no gap-point of $b$ which occurs after $\textit{call}(\textit{rm},a)$). Using again the data-independence property, these lower priority values can all be renamed to a fixed value $d$, and the other values to a fixed value $\top$.
 
 %We denote by $o$ the rightmost gap-point of $b$, we rename the values that ``cover the time interval from $\textit{call}(\textit{rm},a)$ to $\textit{ret}(\textit{rm},b)$'' (see Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}) into $d$, and rename the renaming values into $e$.
