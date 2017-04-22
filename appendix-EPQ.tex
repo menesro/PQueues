@@ -27,7 +27,11 @@ Let us model priority queue as an LTS $\textit{PQ} = (Q,\Sigma,\rightarrow,q_0)$
 
 A path of an LTS is a finite transition sequence $q_0\xrightarrow{\beta_1}q_1\overset{\beta_2}{\longrightarrow}\ldots\overset{\beta_k}{\longrightarrow}q_k$ for $k\geq 0$, where $q_0$ is the initial state of the LTS. A trace of an LTS is a finite sequence $\beta_1 \cdot \beta_2 \cdot \ldots \cdot \beta_k$, where $k \geq 0$ if there exists a path $q_0\overset{\beta_1}{\longrightarrow}q_1\overset{\beta_2}{\longrightarrow}\ldots\overset{\beta_k}{\longrightarrow}q_k$ of the LTS. Let $\seqPQ$ be the set of traces of $\textit{PQ}$. The following lemma states that $\seqPQ$ is indeed the set of sequences obtained by renaming sequences accepted by $\textit{Check-PQ-Seq}$. Given $\Gamma\in \{\mathsf{EmptyRemove}, \mathsf{Unmatched-}$ $\mathsf{MaxPriority}, \mathsf{MatchedMaxPriority}\}$, let us use $l_2 \xrightarrow{\Gamma} l_1$ to mean that when we use $\textit{Check-PQ-Seq}$ to check $l_2$, we choose the branch of $\mathsf{Has\text{-}\Gamma}$ and finally recursively call $\textit{Check-PQ-Seq}$ to check $l_1$.
 
-\EPQRulesAndSemantics*
+%\EPQRulesAndSemantics*
+
+$\newline$
+
+{\noindent \bf Lemma \ref{lemma:EPQ rules and semantics}}: $\textit{Check-PQ-Seq}(e)=\mathsf{true}$ iff $e\in \seqPQ$, for every data-differentiated sequential execution $e$.
 
 \begin {proof}
 
@@ -86,7 +90,9 @@ This completes the proof of this lemma. \qed
 \section{Proofs in Section \ref{sec:priority queue and data-independence}}
 \label{sec:appendix proofs in section priority queue and data-independence}
 
-\EPQClosedUnderProjection*
+%\EPQClosedUnderProjection*
+
+{\noindent \bf Lemma \ref{lem:closure_proj}:} $\seqPQ$ is closed under projection, i.e., $\textit{proj}(e)\subseteq \seqPQ$ for each $e\in \seqPQ$.
 
 \begin {proof}
 
@@ -94,7 +100,9 @@ By Lemma \ref{lemma:EPQ rules and semantics}, $\seqPQ$ is equivalent to the set 
 \end {proof}
 
 
-\DataDifferentiatedisEnoughforPQ*
+%\DataDifferentiatedisEnoughforPQ*
+
+{\noindent \bf Lemma \ref{lemma:data differentiated is enough for PQ}:} A data-independent implementation $\mathcal{I}$ is linearizable w.r.t a data-independent set $S$ of sequential executions, if and only if $\mathcal{I}_{\neq}$ is linearizable w.r.t. $S_{\neq}$.
 
 \begin {proof}
 
@@ -570,7 +578,9 @@ This is a direct consequence of Lemma \ref{lemma:EPQ1 is step-by-step linearizab
 \label{sec:appendix subsection proof of lemma con-check-EPQ is correct}
 
 
-\ConCheckEPQIsCorrect*
+%\ConCheckEPQIsCorrect* 
+
+{\noindent \bf Lemma \ref{lemma:con-check-EPQ is correct}}: $\textit{Check-PQ-Conc}(e)=\mathsf{true}$ iff $e \sqsubseteq \seqPQ$, for every data-differentiated execution $e$.
 
 \begin {proof}
 
@@ -595,7 +605,10 @@ To prove the $\textit{only if}$ direction, given a data-differentiated execution
 
 \subsection{Proof of Lemma \ref{lemma:EPQ as multi in MRpri for history}}
 
-\EPQasMultiInMRpriforHistory*
+
+{\noindent \bf Lemma \ref{lemma:EPQ as multi in MRpri for history}}: Given a data-differentiated execution $e$, $e \sqsubseteq \seqPQ$ if and only if for each $e' \in \textit{proj}(e)$, $\textit{Check-PQ-Conc-NonRec}(e')$ returns $\mathsf{true}$.
+
+%\EPQasMultiInMRpriforHistory*
 
 \begin {proof}
 
@@ -752,7 +765,11 @@ This completes the proof of this lemma. \qed
 
 With Lemma \ref{lemma:merge two linearization}, we can now prove Lemma \ref{lemma:pri execution is enough}.
 
-\priExecutionIsEnough*
+$\newline$
+
+{\noindent \bf Lemma \ref{lemma:pri execution is enough}}: Let $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$ and $e$ a data-differentiated execution. Then, $e$ is $\Gamma$-linearizable iff $e\vert_{\preceq p}$ is $\Gamma$-linearizable for some maximal priority $p$ in $e$. 
+
+%\priExecutionIsEnough*
 \begin {proof}
 
 We deal with the case of $\Gamma = \mathsf{MatchedMaxPriority}^{>}$ , and other cases can be similarly dealt with.
@@ -1084,7 +1101,7 @@ We need to prove that, given a data-independent implementation $\mathcal{I}$. $\
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, and there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $x$ in $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, and there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $x$ in $e'$.
 
 \noindent The $\textit{only if}$ direction: Let us consider the case of $\mathcal{A}_{\textit{l-lar}}^1$. Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$. By data-independence, there exists data-differentiated execution $e \in \mathcal{I}$ and renaming function $r_1$, such that $e_1 = r_1(e)$. Assume that $r_1$ maps $d$ into $b$ and maps $f_1,\ldots,f_m$ into $a$. Let $e'$ be obtained from $e$ by projection into $\{ d, f_1,\ldots,f_m \}$. Assume that the priority of $b$ is $p$. It is easy to see that $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds, and there is a cycle going through $d$ in $G$, where $G$ is the left-right constraint of $e'$. The case of $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$ can be similarly proved.
 
@@ -1128,7 +1145,12 @@ Therefore, it is easy to see that $\mathsf{MatchedMaxPriority^{=}\text{-}Seq}(l,
 With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can prove the following lemma, which states that getting rid of case in \figurename~\ref{fig:introduce pb order} is enough for ensure that $\mathsf{MatchedMaxPriority}^{=}(e)$ holds.
 
 
-\EPQOneEqualAsPBandGP*
+%\EPQOneEqualAsPBandGP*
+
+$\newline$
+{\noindent \bf Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}}: Let $e$ be a data-differentiated execution which contains only one maximal priority $p$ such that $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds.
+%Given a data-differentiated $p$-execution $e$ where $\mathsf{MatchedMaxPriority}^{=}\mathsf{\text{-}Condition}(e)$ holds.
+Then, $e$ is not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ iff $e$ contains two values $x$ and $y$ of maximal priority $p$ such that $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is strictly smaller than the index of both $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},y)$.
 
 
 \begin {proof}
@@ -1174,7 +1196,17 @@ Let $a^i$ be the $a_1$ in the $\textit{i-th}$ loop of our proof. It is not hard 
 
 According to the definition of $<_{\textit{ob}}^*$, if $a <_{\textit{pb}}^* b$, then there exists $a_1,\ldots,a_m$, such that $a <_{\textit{pb}} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}} a_m <_{\textit{pb}} b$. The following lemma states that, the number of intermediate items $a_i$ is in fact bounded.
 
-\OBOrderHasBoundedLength*
+%\OBOrderHasBoundedLength*
+
+$\newline$
+{\noindent \bf Lemma \ref{lemma:ob order has bounded length}}: Let $e$ be a data-differentiated execution such that $a <_{\textit{pb}} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}} a_m <_{\textit{pb}} b$ holds for some set of values $a$, $a_1$,$\ldots$,$a_m$, $b$. Then, one of the following holds:
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $a <_{\textit{pb}}^A b$, $a <_{\textit{pb}}^B b$, or $a <_{\textit{pb}}^C b$,
+
+\item[-] $a <_{\textit{pb}}^A a_i <_{\textit{pb}}^B b$ or $a <_{\textit{pb}}^B a_i <_{\textit{pb}}^A b$, for some $i$.
+%\item[-] $a <_{\textit{pb}}^B a_i <_{\textit{pb}}^A a_j <_{\textit{pb}}^B b$, for some $i$ and $j$,
+\end{itemize}
 
 \begin {proof}
 
@@ -1345,7 +1377,7 @@ According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{l
 Let us begin to represent several register automata that is used to capture the existence of a data-differentiated execution $e$, $e$ has a projection $e'$, $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMax-}$ $\mathsf{Priority}(e')$ holds, there exists items $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\_)$ or $\textit{call}(\textit{rm},a)$.
 
 
-An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the items that covers $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $d$, and rename the remanning items into $e$. In this figure, $c = \textit{call}(\textit{put},e,\textit{anyPri}),\textit{ret}(\textit{put},e)$, $\textit{call}(\textit{rm},e), \textit{ret}(\textit{rm},e),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{call}(\textit{put},d,\textit{les}_p)$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{call}(\textit{put},d),\textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{rm},d)$.
+An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the values that cover $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $d$, and rename the remanning values into $\top$. In this figure, $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true})$, $\textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),$ $\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_1 = C \cup \{ \textit{call}(\textit{put},d,<r) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,=r) \}$, $C_3 = C_2 \cup \{ \textit{call}(\textit{put},d,<r),\textit{ret}(\textit{rm},d) \}$, $C_4 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{ret}(\textit{rm},d) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -1356,7 +1388,7 @@ An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:au
 \end{figure}
 
 
-An automaton $\mathcal{A}_{\textit{l-eq}}^2$ is given in \figurename~\ref{fig:automata for second enumeration of PQ1Equal}, and it is constructed for the second enumeration in \figurename~\ref{fig:history enumeration 2 for PQ1Equal}. In \figurename~\ref{fig:automata for second enumeration of PQ1Equal}, $c_1$, $c_2$, $c_3$ and $c_4$ is same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}.
+An automaton $\mathcal{A}_{\textit{l-eq}}^2$ is given in \figurename~\ref{fig:automata for second enumeration of PQ1Equal}, and it is constructed for the second enumeration in \figurename~\ref{fig:history enumeration 2 for PQ1Equal}. In \figurename~\ref{fig:automata for second enumeration of PQ1Equal}, $C_1$, $C_2$, $C_3$ and $C_4$ is same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}.
 
 \begin{figure}[htbp]
   \centering
@@ -1370,20 +1402,20 @@ For the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1E
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{rm},b)$ and before $\textit{call}(\textit{rm},a)$: There are two possible positions of $\textit{call}(\textit{put},a,p)$: (1) before $\textit{call}(\textit{rm},a_1)$, and (2) after $\textit{call}(\textit{rm},a_1)$, and before $\textit{ret}(\textit{put},a)$.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{rm},b)$ and before $\textit{call}(\textit{rm},a)$: There are two possible positions of $\textit{call}(\textit{put},a,p)$: (1) before $\textit{call}(\textit{rm},a_1)$, and (2) after $\textit{call}(\textit{rm},a_1)$, and before $\textit{ret}(\textit{put},a,p)$.
 
 \item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$ and before $\textit{call}(\textit{rm},b)$: same as above case.
 
-\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{put},a_1,\_)$ and before $\textit{ret}(\textit{rm},a_1)$: same as above case.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{put},a_1,p)$ and before $\textit{ret}(\textit{rm},a_1)$: same as above case.
 
-\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{put},a)$ and before $\textit{call}(\textit{put},a_1,p)$: same as above case.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{put},a,p)$ and before $\textit{call}(\textit{put},a_1,p)$: same as above case.
 
-\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a)$: There are three possible positions of $\textit{call}(\textit{put},a,p)$: (1) after $\textit{call}(\textit{put},b,p)$ and before $\textit{ret}(\textit{put},a)$, (2) after $\textit{call}(\textit{rm},a_1)$ and before $\textit{call}(\textit{put},b,p)$, and (3) before $\textit{call}(\textit{rm},a_1)$.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is after $\textit{call}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a,p)$: There are three possible positions of $\textit{call}(\textit{put},a,p)$: (1) after $\textit{call}(\textit{put},b,p)$ and before $\textit{ret}(\textit{put},a,p)$, (2) after $\textit{call}(\textit{rm},a_1)$ and before $\textit{call}(\textit{put},b,p)$, and (3) before $\textit{call}(\textit{rm},a_1)$.
 
-\item[-] If $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},a_1)$: There are three possible positions of $\textit{call}(\textit{put},a,p)$: (1) after $\textit{call}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a)$, (2) after $\textit{call}(\textit{put},b,p)$ and before $\textit{call}(\textit{rm},a_1)$, and (3) before $\textit{call}(\textit{put},b,p)$.
+\item[-] If $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},a_1)$: There are three possible positions of $\textit{call}(\textit{put},a,p)$: (1) after $\textit{call}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a,p)$, (2) after $\textit{call}(\textit{put},b,p)$ and before $\textit{call}(\textit{rm},a_1)$, and (3) before $\textit{call}(\textit{put},b,p)$.
 \end{itemize}
 
-Therefore, there are fourteen possible cases that satisfy the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}. For each case, we construct an finite automaton. Let $\textit{Auts}_{\textit{1-eq}}^{3}$ be the set of finite automata that is constructed for above fourteen cases. For example, for the case $\textit{ca}_1$ when $\textit{call}(\textit{put},a,p)$ is before $\textit{call}(\textit{rm},a_1)$, $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$, and $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},b)$, we construct a finite automaton $\mathcal{A}_{\textit{l-eq}}^{\textit{3-1}}$ in \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}. In \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}, let $c$ and $c_1 = c + \textit{call}(\textit{put},d,\textit{les}_p)$ the same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}. Let $c_2 = c_1 + \textit{ret}(\textit{put},a_1)$, $c_3 = c_2 + \textit{ret}(\textit{put},b)$, $c_4 = c_3 + \textit{call}(\textit{put},d) + \textit{ret}(\textit{rm},d)$, and $c_5 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{put},a_1) + \textit{ret}(\textit{rm},d)$. The other register automata in $\textit{Auts}_{\textit{1-eq}}^{3}$ can be similarly constructed.
+Therefore, there are fourteen possible cases that satisfy the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}. For each case, we construct an finite automaton. Let $\mathcal{A}_{\textit{1-eq}}^{3}$ be the union of register automata that is constructed for above fourteen cases. For example, for the case $\textit{ca}_1$ when $\textit{call}(\textit{put},a,p)$ is before $\textit{call}(\textit{rm},a_1)$, $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$, and $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},b)$, we construct a finite automaton $\mathcal{A}_{\textit{l-eq}}^{\textit{3-1}}$ in \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}. In \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}, let $C$ and $C_1$ the same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}. Let $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},a_1,=r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,=r) \}$, $C_4 = C_3 \cup \{ \textit{call}(\textit{put},d,<r), \textit{ret}(\textit{rm},d) \}$, and $C_5 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{ret}(\textit{put},a_1,=r), \textit{ret}(\textit{rm},d) \}$. Other register automata can be similarly constructed.
 
 \begin{figure}[htbp]
   \centering
@@ -1393,42 +1425,42 @@ Therefore, there are fourteen possible cases that satisfy the third enumeration 
   \label{fig:automata for ca1 of third enumeration of Rpr2}
 \end{figure}
 
-Similarly, we construct sets $\textit{Auts}_{\textit{1-eq}}^{4}$ and $\textit{Auts}_{\textit{1-eq}}^{5}$ of register automata for the forth enumeration in \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and the fifth enumeration in \figurename~\ref{fig:history enumeration 5 for PQ1Equal}, respectively.
+Similarly, we construct sets $\mathcal{A}_{\textit{1-eq}}^{4}$ and $\mathcal{A}_{\textit{1-eq}}^{5}$ of union of register automata for the forth enumeration in \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and the fifth enumeration in \figurename~\ref{fig:history enumeration 5 for PQ1Equal}, respectively.
 
-Let $\textit{Auts}_{\textit{1-eq}} = \{ \mathcal{A}_{\textit{l-eq}}^1, \mathcal{A}_{\textit{l-eq}}^2 \} \cup \textit{Auts}_{\textit{1-eq}}^{3} \cup \textit{Auts}_{\textit{1-eq}}^{4} \cup \textit{Auts}_{\textit{1-eq}}^{5}$. The following lemma states that $\textit{PQ}_1^{=}$ is co-regular.
+Let $\mathcal{A}_{\textit{1-eq}}$ be the union of $\mathcal{A}_{\textit{l-eq}}^1, \mathcal{A}_{\textit{l-eq}}^2,\mathcal{A}_{\textit{1-eq}}^{3}, \mathcal{A}_{\textit{1-eq}}^{4}$ and $\mathcal{A}_{\textit{1-eq}}^{5}$. The following lemma states that $\mathcal{A}_{\textit{1-eq}}$ is $\mathsf{MatchedMaxPriority}^{=}$-complete.
 
 
 \begin{restatable}{lemma}{EPQOneEqualIsCoRegular}
 \label{lemma:EPQ1Equal is co-regular}
-$\mathsf{MatchedMaxPriority}^{=}$ is co-regular.
+$\mathcal{A}_{\textit{1-eq}}$ is $\mathsf{MatchedMaxPriority}^{=}$-complete.
 \end{restatable}
 
-\begin {proof}
+\begin {proof} 
 
-We need to prove that, given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$, if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e),$ $\seqPQ_1^{=} \in \textit{last}(e') \wedge e'$ does not linearizable w.r.t. $\textit{MS}(\seqPQ_1^{=})$.
+We need to prove that, given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\mathsf{MatchedMaxPriority}^{=}$-linearizable.
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e)$, $\textit{last}(e')=\seqPQ_1^{=}$, $a$ and $b$ are two items with maximal priority $p$ in $e'$, $e'$ is a $p$-execution, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, $a$ and $b$ are two items with maximal priority $p$ in $e'$, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e'$. 
 
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\textit{Auts}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\textit{Auts}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the items that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the items that are renamed into $d$ by $r$.
+\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\mathcal{A}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\mathcal{A}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the items that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the items that are renamed into $d$ by $r$.
 
-let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$ is a $p$-execution, $\textit{last}(e'') = \seqPQ_1^{=}$. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$ in $e''$.
+let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$, $e''$ has only one maximal priority, and $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e'')$ holds. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$ in $e''$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $last(e')=\textit{PQ}_1^{=}$, $a'$ and $b'$ are two items with maximal priority $p$ in $e'$, $e'$ is a $p$-execution, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',p)$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $e$. It is easy to see that $\textit{last}(e_1) = \seqPQ_1^{=}$, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
+\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds $e'$ has only one maximal priority, $a'$ and $b'$ are two items with maximal priority $p$ in $e'$, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',p)$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $\top$. It is easy to see that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e_1)$ holds, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
 
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If $a <_{\textit{pb}}^* b$ because of the first enumeration, it is easy to see that $h_1$ is accepted by $\mathcal{A}_{\textit{l-eq}}^1$.
+\item[-] If $a <_{\textit{pb}}^* b$ because of the first enumeration, it is easy to see that $e_1$ is accepted by $\mathcal{A}_{\textit{l-eq}}^1$.
 
-\item[-] If $a <_{\textit{pb}}^* b$ because of the second enumeration, it is easy to see that $h_1$ is accepted by $\mathcal{A}_{\textit{l-eq}}^2$.
+\item[-] If $a <_{\textit{pb}}^* b$ because of the second enumeration, it is easy to see that $e_1$ is accepted by $\mathcal{A}_{\textit{l-eq}}^2$.
 
-\item[-] If $a <_{\textit{pb}}^* b$ because of the third enumeration, it is easy to see that $h_1$ is accepted by some register automaton in $\textit{Auts}_{\textit{1-eq}}^{3}$.
+\item[-] If $a <_{\textit{pb}}^* b$ because of the third enumeration, it is easy to see that $e_1$ is accepted by some register automaton in $\mathcal{A}_{\textit{1-eq}}^{3}$.
 
-\item[-] If $a <_{\textit{pb}}^* b$ because of the forth enumeration, it is easy to see that $h_1$ is accepted by some register automaton in $\textit{Auts}_{\textit{1-eq}}^{4}$.
+\item[-] If $a <_{\textit{pb}}^* b$ because of the forth enumeration, it is easy to see that $e_1$ is accepted by some register automaton in $\mathcal{A}_{\textit{1-eq}}^{4}$.
 
-\item[-] If $a <_{\textit{pb}}^* b$ because of the fifth enumeration, it is easy to see that $h_1$ is accepted by some register automaton in $\textit{Auts}_{\textit{1-eq}}^{5}$.
+\item[-] If $a <_{\textit{pb}}^* b$ because of the fifth enumeration, it is easy to see that $e_1$ is accepted by some register automaton in $\mathcal{A}_{\textit{1-eq}}^{5}$.
 \end{itemize}
 
 This completes the proof of this lemma. \qed
@@ -1438,37 +1470,38 @@ This completes the proof of this lemma. \qed
 
 
 
-\subsection{Co-Regular of $\seqPQ_2^{>}$}
+\subsection{$\mathsf{UnmatchedMaxPriority}^{>}(e)$ Always Holds}
 \label{subsec:appendix co-regular of EPQ2Lar}
 
 
 \begin{restatable}{lemma}{EPQ2LarIsAlwaysCoRegular}
 \label{lemma:EPQ2Lar is always co-regular}
-Given a data-differentiated $\_$-execution $e$, if $\textit{last}(e) = \seqPQ_2^{>}$, then $e \sqsubseteq \textit{MS}(\seqPQ_2^{>})$.
+
+Given a data-differentiated execution $e$ with only one maximal priority, if $\mathsf{Has\text{-}}\mathsf{Unmat-}$ $\mathsf{chedMaxPriority}^{>}(e)$ holds, then $e \sqsubseteq l$ for some $l$ where $\mathsf{UnmatchedMaxPriority}^{>}\mathsf{\text{-}Seq}(l,x)$ holds. 
 \end{restatable}
 
 \begin {proof}
-Since $\textit{last}(e) = \seqPQ_2^{>}$, the actions with maximal priority in $e$ is some unmatched $\textit{put}$. Therefore, no matter how we locate linearization points, we can always obtain a sequence $l$ of operations that contains unmatched $\textit{put}$ with maximal priority, and this satisfy the guard of $\textit{MS}(\seqPQ_2^{>})$. This completes the proof of this lemma. \qed
+Since $\mathsf{Has\text{-}}\mathsf{UnmatchedMaxPriority}^{>}(e)$ holds, the actions with maximal priority in $e$ is some unmatched $\textit{put}$. Therefore, no matter how we locate linearization points, we can always obtain a sequence $l$ of operations that contains unmatched $\textit{put}$ with maximal priority, and this satisfy the requirements of $\mathsf{UnmatchedMaxPriority}^{>}$. This completes the proof of this lemma. \qed
 \end {proof}
 
 
 
 
-\subsection{Co-Regular of $\seqPQ_2^{=}$}
+\subsection{$\mathsf{UnmatchedMaxPriority}^{=}(e)$ Always Holds}
 \label{subsec:appendix co-regular of EPQ2Equal}
 
 \begin{restatable}{lemma}{EPQ2EqualAsHappenBefore}
 \label{lemma:EPQ2Equal as happen before}
-Given a data-differentiated $p$-execution $e$ with $\textit{last}(e) = \seqPQ_2^{=}$. $e$ does not linearizable to $\textit{MS}(\seqPQ_2^{=})$, if and only if there exists $x$ and $y$ with priority $p$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, and $\textit{put}(x,p) <_{\textit{hb}} \textit{put}(y,p)$.
+Given a data-differentiated execution $e$ with only one priority and $\mathsf{Has\text{-}}\mathsf{Unmatched-}$ $\mathsf{MaxPriority}^{=}(e)$ holds. $e$ is not $\mathsf{UnmatchedMaxPriority}^{=}(e)$-linearizable, if and only if there exists $x$ and $y$ with maximal priority $p$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, and $\textit{put}(x,p) <_{\textit{hb}} \textit{put}(y,p)$.
 \end{restatable}
 
 \begin {proof}
 
 The $\textit{if}$ direction is obvious.
 
-To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,p)$ does not happen before $\textit{put}(y,p)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,p)$ does not happen before $\textit{put}(y,p)$. We need to prove that $e$ is $\mathsf{UnmatchedMaxPriority}^{=}(e)$-linearizable. 
 
-Let $x_1,\ldots,x_m$ be the set of items with priority $p$ and has unmatched $\textit{put}$ in $e$, let $y_1,\ldots,y_n$ be the set of items with priority $p$ and has matched $\textit{put}$ and $\textit{rm}$ in $e$. By assumption, we know that $\textit{call}(\textit{put},y_i,p)$ is before $\textit{ret}(\textit{put},x_j)$ for each $i,j$. Then we explicitly construction the linearization of $e$ by locating the linearization points of $e$ as follows:
+Let $x_1,\ldots,x_m$ be the set of values with priority $p$ and has unmatched $\textit{put}$ in $e$, let $y_1,\ldots,y_n$ be the set of values with priority $p$ and has matched $\textit{put}$ and $\textit{rm}$ in $e$. By assumption, we know that $\textit{call}(\textit{put},y_i,p)$ is before $\textit{ret}(\textit{put},x_j,p)$ for each $i,j$. Then we explicitly construction the linearization of $e$ by locating the linearization points of $e$ as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -1479,61 +1512,62 @@ Let $x_1,\ldots,x_m$ be the set of items with priority $p$ and has unmatched $\t
 \item[-] For other operations, locate their linearization points at an arbitrary location after its call action and before its return action.
 \end{itemize}
 
-Let $l$ be the sequence of linearization points. It is easy to see that $e \sqsubseteq l$. Since linearization points of $\textit{put}(x_i,p)$ is after the linearization point of $\textit{put}(y_j,p)$ for each $i,j$, it is easy to see that $l \in \textit{MS}(\seqPQ_2^{=})$. This completes the proof of this lemma. \qed
+Let $l$ be the sequence of linearization points. It is easy to see that $e \sqsubseteq l$. Since linearization points of $\textit{put}(x_i,p)$ is after the linearization point of $\textit{put}(y_j,p)$ for each $i,j$, it is easy to see that $\mathsf{UnmatchedMaxPriority}^{=}\mathsf{\text{-}Seq}(l,x')$ holds where $x' = x_{\_}$ and its return action is after other values in $x_1,\ldots,x_m$. This completes the proof of this lemma. \qed
 \end {proof}
 
-Lemma \ref{lemma:EPQ2Equal as happen before} shows how to check violation to $\textit{MS}(\seqPQ_2^{=})$. However, the case in Lemma \ref{lemma:EPQ2Equal as happen before} violates our assumption that each single-priority execution is FIFO. Therefore, we know that $\seqPQ_2^{=}$ is always co-regular, as states by the following lemma.
+Lemma \ref{lemma:EPQ2Equal as happen before} shows how to check non $\mathsf{UnmatchedMaxPriority}^{=}(e)$-linearizable exections. However, the case in Lemma \ref{lemma:EPQ2Equal as happen before} violates our assumption that each single-priority execution is FIFO. Therefore, we know that $\mathsf{UnmatchedMaxPriority}^{=}(e)$ always holds, as states by the following lemma.
 
 \begin{restatable}{lemma}{EPQ2EqualIsAlwaysCoRegular}
 \label{lemma:EPQ2Equal is always co-regular}
-Given a data-differentiated $p$-execution $e$, if $\textit{last}(e) = \seqPQ_2^{=}$, then $e \sqsubseteq \textit{MS}(\seqPQ_2^{=})$.
+Given a data-differentiated execution $e$ with only one maximal priority, if $\mathsf{Has\text{-}}\mathsf{Unmat-}$ $\mathsf{chedMaxPriority}^{=}(e)$ holds, then $e \sqsubseteq l$ for some $l$ where $\mathsf{UnmatchedMaxPriority}^{=}\mathsf{\text{-}Seq}(l,x)$ holds. 
 \end{restatable}
 
 \begin {proof}
 
-According to Lemma \ref{lemma:EPQ2Equal as happen before}, if $\textit{last}(e) = \seqPQ_2^{=}$ and $e$ does not linearizable to $\textit{MS}(\seqPQ_2^{=})$, then there exists $x$ and $y$ with priority $p$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$, and $\textit{put}(x,p) <_{\textit{hb}} \textit{put}(y,p)$. Let $e_1 = e \vert_{ \{ x,y \} }$. It is obvious that $e_1$ does not satisfy FIFO property. This contradicts the assumption that every single-priority execution has FIFO property, and thus, we can safely ignore this case. \qed
+According to Lemma \ref{lemma:EPQ2Equal as happen before}, if $\mathsf{Has\text{-}}\mathsf{UnmatchedMaxPriority}^{=}(e)$ holds and $e$ is not $\mathsf{Unmatched-}$ $\mathsf{MaxPriority}^{=}$-linearizable, then there exists $x$ and $y$ with maximal priority $p$, $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$, and $\textit{put}(x,p) <_{\textit{hb}} \textit{put}(y,p)$. Let $e_1 = e \vert_{ \{ x,y \} }$. It is obvious that $e_1$ does not satisfy FIFO property. This contradicts the assumption that every single-priority execution has FIFO property, and thus, we can safely ignore this case. \qed
 \end {proof}
 
 
 
 
-\subsection{Co-Regular of $\seqPQ_3$}
+\subsection{Proofs, Definitions and Register Automata for $\mathsf{EmptyRemove}$}
 \label{subsec:co-regular of EPQ3}
 
-In this subsection we prove that $\seqPQ_3$ is co-regular. The notion of left-right constraint of $\textit{rm}(\textit{empty})$ is inspired by left-right constraint of queue \cite{Bouajjani:2015}.
+In this subsection we construct $\mathsf{EmptyRemove}$-complete register automata. The notion of left-right constraint of $\textit{rm}(\textit{empty})$ is inspired by left-right constraint of queue \cite{DBLP:conf/icalp/BouajjaniEEH15}.
 
 \begin{definition}\label{def:left-right constraint for rmEmpty operation}
 Given a data-differentiated execution $e$, and $o = \textit{rm}(\textit{empty})$ of $e$. The left-right constraint of $o$ is the graph $G$ where:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] the nodes are the items of $e$ or $o$, to which we add a node,
+\item[-] the nodes are the values of $e$ or $o$, to which we add a node,
 
-\item[-] there is an edge from item $d_1$ to $o$, if $\textit{put}(d_1,\_)$ happens before $o$,
+\item[-] there is an edge from value $d_1$ to $o$, if $\textit{put}(d_1,\_)$ happens before $o$,
 
-\item[-] there is an edge from $o$ to item $d_1$, if $o$ happens before $\textit{rm}(d_1)$ or $\textit{rm}(d_1)$ does not exists in $h$,
+\item[-] there is an edge from $o$ to value $d_1$, if $o$ happens before $\textit{rm}(d_1)$ or $\textit{rm}(d_1)$ does not exists in $h$,
 
-\item[-] there is an edge from item $d_1$ to item $d_2$, if $\textit{put}(d_1,\_)$ happens before $\textit{rm}(d_2,\_)$.
+\item[-] there is an edge from value $d_1$ to value $d_2$, if $\textit{put}(d_1,\_)$ happens before $\textit{rm}(d_2,\_)$.
 \end{itemize}
 \end{definition}
 
 
-Given a data-differentiated execution $e$ and $o = \textit{rm}(\textit{empty})$ of $e$, it is obvious that $\textit{last}(e) = \seqPQ_3$. Let $\textit{USet}_1(e,o) = \{ \textit{op} \vert$ $\textit{op}$ is an operation of some item, and either $\textit{op} <_{\textit{hb}} o$, or there is $\textit{op}'$ with the same item of $\textit{op}$, such that $\textit{op}' <_{\textit{hb}} o \}$. For each $i \geq 1$, let $\textit{USet}_{\textit{i+1}}(e,o) = \{ \textit{op} \vert$ $\textit{op}$ is an operation of some item, $\textit{op}$ is not in $\textit{USet}_k(e,o)$ for each $k \leq i$, and either $\textit{op}$ happens before some $o' \in \textit{USet}_i(e,o)$, or there is $\textit{op}''$ with the same item of $o$ and $\textit{op}''$ happens before some $o' \in \textit{USet}_i(e,o) \}$. We can see that $\textit{USet}_i(e,o) \cap \textit{USet}_j(e,o) = \emptyset$ for any $i \neq j$. Let $\textit{USet}(e,o) = \textit{USet}_1(e,o) \cup \textit{USet}_2(e,o) \cup \ldots$.
+Given a data-differentiated execution $e$ and $o = \textit{rm}(\textit{empty})$ of $e$, it is obvious that $\mathsf{Has\text{-}}\mathsf{EmptyRe-}$ $\mathsf{move}^{=}(e)$ holds. Let $\textit{USet}_1(e,o) = \{ \textit{op} \vert$ $\textit{op}$ is an operation of some value, and either $\textit{op} <_{\textit{hb}} o$, or there is $\textit{op}'$ with the same value of $\textit{op}$, such that $\textit{op}' <_{\textit{hb}} o \}$. For each $i \geq 1$, let $\textit{USet}_{\textit{i+1}}(e,o) = \{ \textit{op} \vert$ $\textit{op}$ is an operation of some value, $\textit{op}$ is not in $\textit{USet}_k(e,o)$ for each $k \leq i$, and either $\textit{op}$ happens before some $o' \in \textit{USet}_i(e,o)$, or there is $\textit{op}''$ with the same value of $o$ and $\textit{op}''$ happens before some $o' \in \textit{USet}_i(e,o) \}$. We can see that $\textit{USet}_i(e,o) \cap \textit{USet}_j(e,o) = \emptyset$ for any $i \neq j$. Let $\textit{USet}(e,o) = \textit{USet}_1(e,o) \cup \textit{USet}_2(e,o) \cup \ldots$.
 
 
 Similarly as $\textit{UVSet}$, we can prove the following two lemmas for $\textit{USet}$.
 
 \begin{restatable}{lemma}{USetHasMatchedPutandRm}
-\label{lemma:USet has matched put and rm}
-Given a data-differentiated execution $e$ with $\textit{last}(e) = \seqPQ_3$. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $\textit{USet}(e,o)$ contains only matched $\textit{put}$ and $\textit{rm}$.
+\label{lemma:USet has matched put and rm} 
+
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $\textit{USet}(e,o)$ contains only matched $\textit{put}$ and $\textit{rm}$. 
 \end{restatable}
 
 This Lemma can be similarly proved as Lemma \ref{lemma:UVSet has matched put and rm}.
 
 
 \begin{restatable}{lemma}{RmxDoesNotHappenBeforeUSetForEPQ3}
-\label{lemma:Rmx does not happen before USet for EPQ3}
-Given a data-differentiated $\_$execution $e$ with $\textit{last}(e) = \seqPQ_3$. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $o$ does not happen before any operation in $\textit{USet}(e,o)$.
+\label{lemma:Rmx does not happen before USet for EPQ3} 
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $o$ does not happen before any operation in $\textit{USet}(e,o)$. 
 \end{restatable}
 
 This Lemma can be similarly proved as Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}.
@@ -1543,12 +1577,12 @@ Then we can prove that getting rid of cycle though $o$ in left-right constraint 
 
 \begin{restatable}{lemma}{LINEqualsConstraintforEPQ3}
 \label{lemma:Lin Equals Constraint for EPQ3}
-Given a data-differentiated execution $e$ with $\textit{last}(e) = \seqPQ_3$. $e$ does not linearizable w.r.t $\textit{MS}(\textit{PQ}_3)$, if and only if there exists $o = \textit{rm}(\textit{empty})$ in $e$, $G$ has a cycle going through $o$, where $G$ is the graph representing the left-right constraint of $o$.
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. $e$ is not $\mathsf{EmptyRemove}$-linearizable, if and only if there exists $o = \textit{rm}(\textit{empty})$ in $e$, $G$ has a cycle going through $o$, where $G$ is the graph representing the left-right constraint of $o$. 
 \end{restatable}
 
 \begin {proof}
 
-To prove the $\textit{if}$ direction, assume that there is such a cycle. Assume by contradiction that $e \sqsubseteq \textit{MS}(\seqPQ_3)$, and let $U$ and $V$ be the set of operations in $u$ and $v$. Let the cycle be $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow o \rightarrow d_1$ in $G$. Since $d_m \rightarrow o$, $\textit{put}(d_m,\_)$ happens before $o$, and it is easy to see that $\textit{put}(d_m,\_)$ is in $U$. Since $U$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that operations of $d_m$ is in $U$. Similarly, we can see that operations of $d_{\textit{m-1}},\ldots,d_1$ is in $U$. If $\textit{rm}(d_1)$ does not exists, then this contradicts that $U$ contains matched $\textit{put}$ and $\textit{rm}$. Else, if $\textit{rm}(d_1)$ exists, since $o$ happens before $\textit{rm}(d_1)$, we can see that $\textit{rm}(d_1) \in V$, which contradicts that $\textit{rm}(d_1) \in U$. This completes the proof of the $\textit{if}$ direction.
+To prove the $\textit{if}$ direction, assume that there is such a cycle. Assume by contradiction that $e \sqsubseteq l= u \cdot o \cdot v$ and $\mathsf{EmptyRemove\text{-}Seq}(l,o)$ holds. Let $U$ and $V$ be the set of operations in $u$ and $v$. Let the cycle be $d_1 \rightarrow d_2 \rightarrow \ldots \rightarrow d_m \rightarrow o \rightarrow d_1$ in $G$. Since $d_m \rightarrow o$, $\textit{put}(d_m,\_)$ happens before $o$, and it is easy to see that $\textit{put}(d_m,\_)$ is in $U$. Since $U$ contains matched $\textit{put}$ and $\textit{rm}$, we can see that operations of $d_m$ is in $U$. Similarly, we can see that operations of $d_{\textit{m-1}},\ldots,d_1$ is in $U$. If $\textit{rm}(d_1)$ does not exists, then this contradicts that $U$ contains matched $\textit{put}$ and $\textit{rm}$. Else, if $\textit{rm}(d_1)$ exists, since $o$ happens before $\textit{rm}(d_1)$, we can see that $\textit{rm}(d_1) \in V$, which contradicts that $\textit{rm}(d_1) \in U$. This completes the proof of the $\textit{if}$ direction.
 
 To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each such $o$ and $G$, $G$ has no cycle going through $o$. Let $O$ be the set of operations of $e$, except for $\textit{rm}(\textit{empty})$. Let $O_L = \textit{USet}(e,o)$, $O_R = O \setminus O_L$.
 
@@ -1568,7 +1602,7 @@ This completes the proof of the $\textit{only if}$ direction.
 \qed
 \end {proof}
 
-Let us begin to represent an automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\textit{last}(e')=\seqPQ_3$, $e'$ does not linearizable to $\textit{MS}(\seqPQ_3)$, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $c = \textit{call}(\textit{put},d,\textit{anyPri}),\textit{ret}(\textit{put},d), \textit{call}(\textit{rm},d), \textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{call}(\textit{put},b,\textit{anyPri})$, $c_2 = c_1 + \textit{ret}(\textit{rm},b)$, and $c_3 = c + \textit{ret}(\textit{rm},b)$.
+Let us begin to represent a register automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $e'$ is not $\mathsf{EmptyRemove}$-linearizable, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}($ $\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_1 = C \cup \{ \textit{call}(\textit{put},b,\textit{true}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, and $C_3 = C \cup \{ \textit{ret}(\textit{rm},b) \}$. 
 
 \begin{figure}[htbp]
   \centering
@@ -1578,7 +1612,7 @@ Let us begin to represent an automaton that is used for capture the case that, i
   \label{fig:automata for PQ3}
 \end{figure}
 
-Given a data-differentiated execution $e$, we say that $o = \textit{rm}(\textit{empty})$ in $e$ is covered by items $d_1,\ldots,d_m$ in $h$, if
+Given a data-differentiated execution $e$, we say that $o = \textit{rm}(\textit{empty})$ in $e$ is covered by items $d_1,\ldots,d_m$, if
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -1594,270 +1628,25 @@ According to the definition of left-right constraint for $o$, in a data-differen
 
 \begin{restatable}{lemma}{EPQ3IsCoRegular}
 \label{lemma:EPQ3 is co-regular}
-$\seqPQ_3$ is co-regular.
+$\mathcal{A}_{\seqPQ}^3$ is $\mathsf{EmptyRemove}^{=}$-complete. 
 \end{restatable}
 
-\begin {proof}
+\begin {proof} 
 
-We need to prove that, given a data-independence implementation $\mathcal{I}$, $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=\seqPQ_3 \wedge e$ does not linearizable w.r.t. $\textit{MS}(\seqPQ_3)$.
+We need to prove that, given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\mathsf{EmptyRemove}^{=}$-linearizable.
 
 By Lemma \ref{lemma:Lin Equals Constraint for EPQ3}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independence implementation $\mathcal{I}$, $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e), last(e')=\seqPQ_3$, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some items $d_1,\ldots,d_m$ in $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some items $d_1,\ldots,d_m$ in $e'$. 
 
 
 \noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\seqPQ}^3$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Let $d_1,\ldots,d_m$ be the items in $e_2$ such that $r(d_i)=b$ for each $1 \leq i \leq m$. Let $e_3 = e_2 \vert_{ \{ o, d_1, \ldots, d_m \} }$. It is obvious that $e_3 \in \textit{proj}(e_2)$ and $\textit{last}(e_3) = \seqPQ_3$. It is easy to see that $o$ is covered by $d_1,\ldots,d_m$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists such $e$, $e'$, $o$ and $d_1,\ldots,d_m$. Then, let $e_1$ be obtained from $e$ by renaming $d_1,\ldots,d_m$ into $b$ and renaming other items into $d$. By data-independence, $e_1 \in \mathcal{I}$. It is easy to see that $e_1$ is accepted by $\mathcal{A}_{\seqPQ}^3$.
+\noindent The $\textit{if}$ direction: Assume that there exists such $e$, $e'$, $o$ and $d_1,\ldots,d_m$. Then, let $e_1$ be obtained from $e$ by renaming $d_1,\ldots,d_m$ into $b$ and renaming other items into $\top$. By data-independence, $e_1 \in \mathcal{I}$. It is easy to see that $e_1$ is accepted by $\mathcal{A}_{\seqPQ}^3$.
 
 This completes the proof of this lemma. \qed
 \end {proof}
 
-
-\forget{
-\section{Proofs and Definitions in Section \ref{sec:relate other data structures with extended priority queue}}
-\label{sec:appendix proof and definition in section relate other data structures with extended priority queue}
-
-
-\subsection{Proofs and Definitions in Subsection \ref{subsec:relate multiSet with extended priority queue}}
-\label{subsec:appendix proof and definition in section relate multiset with extended priority queue}
-
-In this section, we use the notions of inductive rules, $\textit{last}$ of a sequential execution, step-by-step and co-regular in \cite{Bouajjani:2015}. Since they are quite similar to the corresponding notions of extended priority queues in Section \ref{sec:inductive rules of extended priority queue}, Section \ref{sec:step-by-step linearizability of extended priority queues} and Section \ref{sec:co-regular of extended priority queues}, we do not introduce their definitions here.
-
-Let us first define three predicates:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] Given a sequential execution $l$ of multi-set, $\textit{noDE}(l)$ is satisfied when each operation of $l$ is not $\textit{delete}(\textit{empty})$.
-
-\item[-] Given a sequential execution $l$ of multi-set, $\textit{matched-MS}(l)$ is satisfied, if (1) for each item $a \in \mathbb{D}$, if $\textit{insert}(a)$ is in $l$, then $\textit{delete}(a)$ is in $l$, and (2) for each item $a \in \mathbb{D}$, if $\textit{delete}(a)$ is in $l$, then $\textit{insert}(a)$ is in $l$.
-
-\item[-] Given a sequential execution $l$ of multi-set, $l \in \textit{Insert}^*$ is satisfied when each operation of $l$ is a $\textit{insert}$ event.
-\end{itemize}
-
-Let $\textit{MSet}$ be the set of sequential executions $w$ which can be derived from the empty word by inductive rules of multi-set. $\textit{MSet}$ is defined by the following inductive rules:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $\textit{MSet}_0 \equiv \epsilon \in \textit{MSet}$.
-
-\item[-] $\textit{MSet}_1 \equiv (u \in \textit{MSet}) \wedge
-(u \in \textit{Insert}^*)
-\Rightarrow
-(u \cdot \textit{insert}(\textit{itm}) \in \textit{MSet})$.
-
-\item[-] $\textit{MSet}_2 \equiv
-(u \cdot v \cdot w \in \textit{MSet}) \wedge
-(\textit{noDE}(u \cdot v \cdot w))
-\Rightarrow
-(u \cdot \textit{insert}(\textit{itm}) \cdot v \cdot \textit{delete}(\textit{itm}) \cdot w \in \textit{MSet})$.
-
-\item[-] $\textit{MSet}_3 \equiv
-(u \cdot v \in \textit{MSet}) \wedge
-(\textit{matched-MS}(u) )
-\Rightarrow
-(u \cdot \textit{delete}(\textit{empty}) \cdot v \in \textit{MSet})$.
-\end{itemize}
-
-Thus, given a sequential execution $e$, we define $\textit{last}(e)$ as the last possible rule to generate $e$ according to the rules of multi-set:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] If $e$ contains $\textit{delete}(\textit{empty})$, then $\textit{last}(e) = \textit{MS}_3$.
-
-\item[-] Else, if $e$ contains $\textit{delete}$, then $\textit{last}(e) = \textit{MSet}_2$.
-
-\item[-] Else, if $e$ contains only $\textit{insert}$, then $\textit{last}(e) = \textit{MSet}_1$.
-
-\item[-] Else ($e = \epsilon$), $\textit{last}(e) = \textit{MSet}_0$.
-\end{itemize}
-
-The following three lemmas state that the rules for multi-set are step-by-step linearizability.
-
-\begin{restatable}{lemma}{MS1isStepByStepLinearizability}
-\label{lemma:MS1 is step-by-step linearizability}
-If a differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{MSet}_1)$ with witness $x$, then $e \setminus x \sqsubseteq \textit{MSet} \Rightarrow e \sqsubseteq \textit{MSet}$.
-\end{restatable}
-
-\begin {proof}
-Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{MSet}_1$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{MSet}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into operation is $l'$.
-
-Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ at an arbitrary time point between $\textit{call}(\textit{insert},x)$ and $\textit{ret}(\textit{insert},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into operations.
-
-It is easy to see that $h \sqsubseteq l''$. Since $l''$ is obtained from $l'$ by adding one $\textit{insert}(x)$, we can see that $l''$ contains only $\textit{insert}$, and then $l'' \in \textit{MSet}$. \qed
-\end {proof}
-
-
-\begin{restatable}{lemma}{MS2isStepByStepLinearizability}
-\label{lemma:MS2 is step-by-step linearizability}
-If a differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{MSet}_2)$ with witness $x$, then $e \setminus x \sqsubseteq \textit{MSet} \Rightarrow e \sqsubseteq \textit{MSet}$.
-\end{restatable}
-
-\begin {proof}
-Let $h$ be the data-differentiated history of $e$, and $l$ be an sequential execution such that $h \sqsubseteq l$ and $l$ matches $\textit{MSet}_1$ with witness $x$. Let $h'=h \setminus x$ and assume that $h' \sqsubseteq l' \in \textit{MSet}$. Let $e_{\textit{lp}}$ be an execution with linearization points of $e$ and the linearization points is added according to $l'$. Or we can say, $e_{\textit{lp}}$ is generated from $e$ by instrumenting linearization points, and the projection of $e_{\textit{lp}}$ into operation is $l'$.
-
-It is easy to see that $\textit{delete}(x)$ does not happen before $\textit{insert}(x)$, and then $\textit{call}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$ in $e$. Let sequence $e'_{\textit{lp}}$ be generated from $e_{\textit{lp}}$ by adding $\textit{insert}(x)$ just after $\textit{call}(\textit{insert},x)$ and adding $\textit{delete}(x)$ just before $\textit{ret}(\textit{delete},x)$. Let $l''$ be the projection of $e'_{\textit{lp}}$ into operations.
-
-It is easy to see that $h \sqsubseteq l''$. Since (1) $l' \in \textit{MSet}$, (2) $l''$ is obtained from $l'$ by adding one $\textit{insert}(x)$ and one $\textit{delete}(x)$, while $\textit{insert}(x)$ is before $\textit{delete}(x)$ (3)and $l'$ does not contain $\textit{delete}(\textit{empty})$, we can see that $l'' \in \textit{MSet}$. \qed
-\end {proof}
-
-
-\begin{restatable}{lemma}{MS3isStepByStepLinearizability}
-\label{lemma:MS3 is step-by-step linearizability}
-If a differentiated concurrent execution $e$ is linearizable w.r.t. $\textit{MS}(\textit{MSet}_3)$ and $o$ is a $\textit{delete}(\textit{empty})$ event, then $e \setminus o \sqsubseteq \textit{MSet} \Rightarrow e \sqsubseteq \textit{MSet}$.
-\end{restatable}
-
-\begin {proof}
-This Lemma can be similarly proved as Lemma \ref{lemma:EPQ3 is step-by-step linearizability}. \qed
-\end {proof}
-
-The following lemma states that $\textit{MSet}_1$ is always co-regular.
-
-\begin{restatable}{lemma}{MS1IsAlwaysCoRegular}
-\label{lemma:MS1 is always co-regular}
-Given a differentiated execution $e$, if $\textit{last}(e) = \textit{MSet}_1$, then $e \sqsubseteq \textit{MS}(\textit{MSet}_1)$.
-\end{restatable}
-
-\begin {proof}
-Since $\textit{last}(e) = \textit{MSet}_1$, there are only $\textit{insert}$ in $e$. Then no matter how we locate linearization points of operations of $e$, we can always obtain a sequence in $\textit{MS}(\textit{MSet}_1)$. This completes the proof of this lemma. \qed
-\end {proof}
-
-The following lemma shows how to detect violation to $\textit{MS}(\textit{MSet}_2)$.
-
-\begin{restatable}{lemma}{ReduceMS2intoOneValue}
-\label{lemma:reduce MS2 into one value}
-Given a differentiated execution $e$, there exists some $e' \in \textit{proj}(e)$, such that $\textit{last}(e') = \textit{MSet}_2$ and $e'$ doe not linearizable w.r.t $\textit{MS}(\textit{MSet}_2)$, if and only if one of the following case holds for some $x \in \mathbb{D}$.
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $\textit{delete}(x)$ is in $e$ while $\textit{insert}(x)$ is not in $e$.
-
-\item[-] there is more than one $\textit{delete}(x)$ in $e$ and one $\textit{insert}(x)$ in $e$.
-
-\item[-] $\textit{delete}(x) <_{\textit{hb}} \textit{insert}(x)$ in $e$.
-\end{itemize}
-\end{restatable}
-
-\begin {proof}
-
-The $\textit{only if}$ is obvious and omitted here.
-
-To prove the $\textit{if}$ direction, we prove its contrapositive. Assume that for each item $x$ of $e$, the following conditions are satisfied:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] If $\textit{delete}(x)$ is in $e$, then $\textit{insert}(x)$ is also in $e$.
-
-\item[-] There is at most $\textit{delete}(x)$ in $e$.
-
-\item[-] $\textit{delete}(x)$ does not happen before $\textit{insert}(x)$.
-\end{itemize}
-
-Assume by contradiction that there exists some $e' \in \textit{proj}(e)$, such that $\textit{last}(e') = \textit{MSet}_2$ and $e'$ doe not linearizable w.r.t $\textit{MS}(\textit{MSet}_2)$. Since $\textit{last}(e') = \textit{MSet}_2$, there exists $\textit{delete}$ in $e$. Let this $\textit{delete}$ operation be $\textit{delete}(a)$. By assumption, we know that in $e$ there exists one $\textit{insert}(a)$ and one $\textit{delete}(a)$, and $\textit{delete}(a)$ does not happen before $\textit{insert}(a)$. Then we know that $\textit{call}(\textit{insert},x)$ is before $\textit{ret}(\textit{delete},x)$.
-
-Let $e_{\textit{lp}}$ be generated from $e$ by (1) put the linearization of $\textit{insert}(x)$ just after $\textit{call}(\textit{insert},x)$, (2) put the linearization of $\textit{delete}(x)$ just before $\textit{ret}(\textit{insert},x)$, and (3) for other operations, put its linearization point at an arbitrary between its call and return actions. Let $l'$ be the projection of $e_{\textit{lp}}$ into operations. It is obvious that $h \sqsubseteq l'$. According to our construction of $e_{\textit{lp}}$, we can see that in $l'$, $\textit{insert}(x)$ is before $\textit{delete}(x)$. Therefore, we can see that $l' \in \textit{MS}(\textit{MSet}_2)$, which contradicts our assumption. This completes the proof of the $\textit{id}$ direction. \qed
-\end {proof}
-
-According to Lemma \ref{lemma:reduce MS2 into one value}, to check violation to $\textit{MS}(\textit{MSet}_2)$, we need to consider three cases for some $b \in \mathbb{D}$: (1) there is $\textit{delete}(b)$ but there is not $\textit{insert}(x)$, (2) there is more than one $\textit{delete}(b)$ and one $\textit{insert}(b)$ in $e$, and (3) $\textit{delete}(b) <_{\textit{hb}} \textit{insert}(b)$.
-
-For each such case, we construct a register automata. We generate register automata $\mathcal{A}_{\textit{MS}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata 1 for MS-2 in appendix}. Here $c_1 = \textit{call}(\textit{insert},a),\textit{ret}(\textit{insert},a)$, $\textit{call}(\textit{delete},a),\textit{ret}(\textit{delete},a),
-\textit{call}(\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{call}(\textit{delete},b) + \textit{ret}(\textit{delete},b)$.
-
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.3 \textwidth]{figures/PIC_AUTO_MS_1.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{MS}}^1$}
-  \label{fig:automata 1 for MS-2 in appendix}
-\end{figure}
-
-
-We generate register automata $\mathcal{A}_{\textit{MS}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata 2 for MS-2 in appendix}. Here $c_1 = \textit{call}(\textit{insert},a),\textit{ret}(\textit{insert},a), \textit{call}(\textit{delete},a),\textit{ret}(\textit{delete},a),\textit{call}(\textit{delete},\textit{empty})$, $\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{insert},b)$, $c_3 = c_2 + \textit{ret}(\textit{delete},b)$, $c_4 = c_3 + \textit{call}(\textit{delete},b)$, $c_5 = c_1 + \textit{ret}(\textit{delete},b)$, $c_6 = c_5 + \textit{call}(\textit{delete},b)$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7 \textwidth]{figures/PIC_AUTO_MS_2.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{MS}}^2$}
-  \label{fig:automata 2 for MS-2 in appendix}
-\end{figure}
-
-
-We generate register automata $\mathcal{A}_{\textit{MS}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata 3 for MS-2 in appendix}. Here $c_1 = \textit{call}(\textit{insert},a)$, $\textit{ret}(\textit{insert},a)$, $\textit{call}(\textit{delete},a)$, $\textit{ret}(\textit{delete},a),\textit{call}(\textit{delete},b)$, $\textit{call}($ $\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_2 = c_1 + \textit{ret}(\textit{delete},b)$, $c_3 = c_2 + \textit{ret}(\textit{insert},b)$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.6 \textwidth]{figures/PIC_AUTO_MS_3.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{MS}}^3$}
-  \label{fig:automata 3 for MS-2 in appendix}
-\end{figure}
-
-
-Let $\textit{Auts}_{\textit{2-ms}} = \{ \mathcal{A}_{\textit{MS}}^1, \mathcal{A}_{\textit{MS}}^2, \mathcal{A}_{\textit{MS}}^3 \}$. The following lemma states that $\textit{MS}_2$ is co-regular.
-
-
-\begin{restatable}{lemma}{MS2IsCoRegular}
-\label{lemma:MS2 is co-regular}
-$\textit{MSet}_2$ is co-regular.
-\end{restatable}
-
-\begin {proof}
-
-According to \cite{Bouajjani:2015}, we need to prove that, given a independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{2-ms}} \cap \mathcal{I} \neq \emptyset$, if and only if $\exists e \in \mathcal{I}_{\neq},$ $e' \in \textit{proj}(e),$ $\textit{last}(e') = \textit{MSet}_2 \wedge e'$ does not linearizable w.r.t. $\textit{MS}(\textit{MSet}_2)$.
-
-By Lemma \ref{lemma:reduce MS2 into one value}, we need to prove the following fact:
-
-\noindent {\bf $\textit{fact}_1$}: given a independence implementation $\mathcal{I}$, $\textit{Auts}_{\textit{2-ms}} \cap \mathcal{I} \neq \emptyset$, if and only if $\exists e \in \mathcal{I}_{\neq}$, and one of the following case holds for some $x \in \mathbb{D}$.
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] $\textit{delete}(x)$ is in $e$ while $\textit{insert}(x)$ is not in $e$.
-
-\item[-] there is more than one $\textit{delete}(x)$ in $e$ and one $\textit{insert}(x)$ in $e$.
-
-\item[-] $\textit{delete}(x) <_{\textit{hb}} \textit{insert}(x)$ in $e$.
-\end{itemize}
-
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\textit{Auts}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\textit{Auts}_{\textit{1-eq}}$, let $y$ be the item that are renamed into $b$ by $r$. Then it is not hard to see that $y$ satisfies one of three conditions in $e_2$.
-
-\noindent The $\textit{if}$ direction: Assume that there exists such $e \in \mathcal{I}_{\neq}$ and $x$. Let renaming function $r$ maps $x$ into $b$ and all other items into $a$. By data-independence, we can see that $r(e) \in \mathcal{I}$. Then it is easy to see that $r(e)$ is accepted by some automaton in $\textit{Auts}_{\textit{2-ms}}$. \qed
-\end {proof}
-
-Similar to Lemma \ref{lemma:EPQ3 is co-regular}, we can prove that $\textit{MSet}_3$ is co-regular, as stated by the following lemma.
-
-\begin{restatable}{lemma}{MSet3IsCoRegular}
-\label{lemma:MSet3 is co-regular}
-$\textit{MSet}_3$ is co-regular.
-\end{restatable}
-
-Similar as register automata for $\seqPQ_3$, we have register automata $\mathcal{A}_{\textit{MS}}^4$ for $\textit{MSet}_3$, which is shown in \figurename~\ref{fig:automata 4 for MS-3 in appendix}. In \figurename~\ref{fig:automata 4 for MS-3 in appendix}, let $c = \textit{call}(\textit{insert},d),\textit{ret}(\textit{insert},d), \textit{call}(\textit{delete},d)$, $\textit{ret}(\textit{delete},d),\textit{call}(\textit{delete},\textit{empty}),\textit{ret}(\textit{delete},\textit{empty})$, $c_1 = c + \textit{call}(\textit{insert},b)$, $c_2 = c_1 + \textit{ret}(\textit{delete},b)$, and $c_3 = c + \textit{ret}(\textit{delete},b)$.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.8 \textwidth]{figures/PIC_AUTO_MS_4.pdf}
-%\vspace{-10pt}
-  \caption{Automaton $\mathcal{A}_{\textit{MS}}^4$}
-  \label{fig:automata 4 for MS-3 in appendix}
-\end{figure}
-
-The following lemma shows that our transformation from multi-set into extended priority queue is correct.
-
-\RelateMultiSetwithEPQ*
-
-\begin {proof}
-
-For the $\textit{only if}$ direction, given an execution $e_m \in \mathcal{I}_m$ of multi-set, such that $e_m$ is accepted by some automaton in $\textit{Auts}_{\textit{MS}}$. If $e_m$ is accepted by $\mathcal{A}_{\textit{MS}}^1$, $\mathcal{A}_{\textit{MS}}^2$, $\mathcal{A}_{\textit{MS}}^3$ or $\mathcal{A}_{\textit{MS}}^4$, then it is easy to see that $\textit{MStoEPQ}(e_m)$ is accepted by $\mathcal{A}_{\textit{SinPri}}^2$, $\mathcal{A}_{\textit{SinPri}}^3$, $\mathcal{A}_{\textit{SinPri}}^1$ or $\mathcal{A}_{\seqPQ}^3$, respectively.
-
-For the $\textit{if}$ direction, given an execution $e_{\textit{epq}}$ of extended priority queue, such that $e_{\textit{epq}} = \textit{MStoEPQ}(e_m)$ for some $e_m$ of multi-set, and $e_{\textit{epq}}$ is accepted by some automaton in $\textit{Auts}_{\seqPQ}$.
-
-According to definition of $\textit{MStoEPQ}$, we can see that (1) in $e_{\textit{epq}}$ there does not exist two items with comparable priorities, and (2) in $e_{\textit{epq}}$, there does not exists two items with a same priority. Therefore, the register automata for $\seqPQ_1$ and the register automaton $\mathcal{A}_{\textit{SinPri}}^4$ can be safely ignored. Then, if $e_{\textit{epq}}$ is accepted by $\mathcal{A}_{\textit{SinPri}}^1$, $\mathcal{A}_{\textit{SinPri}}^2$, $\mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\seqPQ}^3$, then it is easy to see that $e_m$ is accepted by $\mathcal{A}_{\textit{MS}}^3$, $\mathcal{A}_{\textit{MS}}^1$, $\mathcal{A}_{\textit{MS}}^2$ and $\mathcal{A}_{\textit{MS}}^4$, respectively. \qed
-\end {proof}
-
-
-
-\subsection{Proofs and Definitions in Subsection \ref{subsec:relate stack with extended priority queue}}
-\label{subsec:appendix proof and definition in section relate stack with extended priority queue}
-}
 
 
 
