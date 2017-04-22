@@ -19,11 +19,11 @@ where $p_1$, $p_2$, $p_3$ are priorities such that $p_1 \prec p_2$ and $p_1 \pre
 \begin{align*}
 \textit{put}(c,p_2) \cdot \textit{put}(a,p_1) \cdot \textit{rm}(a) \cdot \textit{rm}(c) \cdot \textit{put}(d,p_2) \cdot \textit{put}(e,p_3) \cdot \textit{rm}(e) \cdot \textit{put}(b,p_1)
 \end{align*}
-When there are no more $\textit{rm}(\textit{empty})$ operations, the procedure selects a $\textit{put}$ operation adding a value with maximal priority which is not removed, and then a pair of $\textit{put}$ and $\textit{rm}$ operations adding and removing the same maximal priority value. For instance, since $p_2$ is a maximal priority, it may select the operation $\textit{put}(d,p_2)$. {This operation is correct if $d$ is the last value with priority $p_2$, and the correctness of (\ref{eq:ex_rec1}) reduces to the correctness of
+When there are no more $\textit{rm}(\textit{empty})$ operations, the procedure selects a $\textit{put}$ operation adding a value with maximal priority which is not removed, and then a pair of $\textit{put}$ and $\textit{rm}$ operations adding and removing the same maximal priority value. For instance, since $p_2$ is a maximal priority, it selects the operation $\textit{put}(d,p_2)$. {This operation is correct if $d$ is the last value with priority $p_2$, and the correctness of (\ref{eq:ex_rec1}) reduces to the correctness of
 \begin{align*}
 \textit{put}(c,p_2) \cdot \textit{put}(a,p_1) \cdot \textit{rm}(a) \cdot \textit{rm}(c) \cdot \textit{put}(e,p_3) \cdot \textit{rm}(e) \cdot \textit{put}(b,p_1)
 \end{align*}
-Since there is no other value of priority $p_2$ which is not removed, the procedure selects a pair of $\textit{put}$/$\textit{rm}$ operations with an argument of priority $p_2$,} for instance, $\textit{put}(c,p_2)$ and $\textit{rm}(c)$. The value returned by $\textit{rm}$ is correct if all the values of priority smaller than $p_2$ added before $\textit{rm}(c)$ are also removed before $\textit{rm}(c)$. In this case, $a$ is the only value of priority smaller than $p_2$ and it satisfies this property. Applying a similar reasoning for all the remaining values, it can be proved that this execution is correct.
+Since there is no other value of maximal priority which is not removed, the procedure selects a pair of $\textit{put}$/$\textit{rm}$ operations with an argument of maximal priority $p_2$,} for instance, $\textit{put}(c,p_2)$ and $\textit{rm}(c)$. The value returned by $\textit{rm}$ is correct if all the values of priority smaller than $p_2$ added before $\textit{rm}(c)$ are also removed before $\textit{rm}(c)$. In this case, $a$ is the only value of priority smaller than $p_2$ and it satisfies this property. Applying a similar reasoning for all the remaining values, it can be proved that this execution is correct.
 
 \begin{algorithm}[t]
 \KwIn {A data-differentiated sequential execution $e$}
@@ -215,7 +215,7 @@ When $o$ is a $\textit{rm}(\textit{empty})$ operation, we write $e\setminus o$ f
 %$\xrightarrow{\textit{EPQ}_1}$ $\epsilon$
 %\end{example}
 
-The following lemma states the correctness of $\textit{Check-PQ-Seq}$ (the proof can be found in Appendix~\ref{sec:appendix definition of seqPQ and proof of Lemma EQP rules and semantics}).
+The following lemma states the correctness of $\textit{Check-PQ-Seq}$ (see Appendix~\ref{sec:appendix definition of seqPQ and proof of Lemma EQP rules and semantics} for the proof).
 
 \begin{restatable}{lemma}{EPQRulesAndSemantics}
 \label{lemma:EPQ rules and semantics}
@@ -287,19 +287,23 @@ Proving soundness is highly non-trivial and one of the main technical contributi
 %With this property, we can build a linearization of a whole execution by increasingly construct linearization of sub-execution from $\epsilon$, and this convince us that $\textit{check-PQ}(e) = \textit{true} \Rightarrow e \sqsubseteq \textit{PQ}$.
 %
 
-Let us briefly explain the idea of proving this property when $\mathsf{MatchedMaxPriority}$ holds with an example. Assume $e \sqsubseteq l=u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, $\mathsf{MatchedMaxPriority}(l,x)$ holds, and $e \setminus x \sqsubseteq l' \in \textit{PQ}$, as shown in \figurename~\ref{fig:concurrent execution for EPQ1} (a), we explicitly construct a sequence $l''= l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$ and prove that $e \sqsubseteq l'' \in \textit{PQ}$. In this example, $p_1 \prec p$, $p_1 \prec p_2$, $u=\epsilon$, $w$ contains $\textit{rm}(z_2), \textit{put}(x_3,p_2), \textit{rm}(z_1)$ (emphasize by $\textit{rm}(z_2)-w$), and the remanning operations are in $v$. We also explicitly draw the linearization points according to $l'$. We construct $l''$ as follows, and this method does not rely on the locations of linearization points of $l'$ and operations of $x$.
 
+
+We explain the proof of this property on the execution $e$ in \figurename~\ref{fig:concurrent execution for EPQ1}(a) where $p_1 \prec p$, $p_1 \prec p_2$, and the predicate $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds. Assume that there exist two sequential executions $l$ and $l'$ such that $e \sqsubseteq l=u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds, and $e \setminus x \sqsubseteq l' \in \seqPQ$. Let $u=\epsilon$, $w$ be any sequence containing the set of operations $\textit{rm}(z_2)$, $\textit{put}(x_3,p_2)$, and $\textit{rm}(z_1)$ (we distinguish them by adding the suffix $-w$ to their name, e.g., $\textit{rm}(z_2)-w$), and $v$ be any sequence containing the remaining operations. In general, the linearization $l'$ can be defined by choosing for each operation, a point in time between its call and return actions, called \emph{linearization point}. The order between the linearization points defines the sequence $l'$. \figurename~\ref{fig:concurrent execution for EPQ1}(a) draws linearization points for the operations in $e \setminus x$ defining the linearization $l'$~\footnote{In general, there may exist multiple ways of choosing linearization points to define the same linearization. Our construction is agnostic to this choice.}.
+%(the order of these linearization points defines the sequence $l'$). 
+We show how to construct a sequence $l''= l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3\in\seqPQ$ such that $e \sqsubseteq l''$. 
+%In this example, . We also explicitly draw the linearization points according to $l'$. We construct $l''$ as follows, and this method does not rely on the locations of linearization points of $l'$ and operations of $x$.
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] Let $p$-comparable operations (resp., $p$-incomparable operations) be the set of operations with items whose priority is comparable with $p$ (resp., incomparable with $p$). It seems that we can construct $l''_1$, $l''_2$ and $l''_3$ as the projection of $l'$ into operations of $u$, $v$ and $w$, respectively. However, this is incorrect, since $\mathsf{MatchedMaxPriority}(l,x)$ has no restriction to $p$-incomparable operations operations in $u \cdot v$, and thus, there is no guarantee that the projection of $l'$ into $p$-incomparable operations operations in $u \cdot v$ being correct. In this example, such projection is $\textit{put}(z_1,p_3) \cdot \textit{rm}(z_2)$ and is incorrect.
+\item[-] An operation is called $p$-comparable (resp., $p$-incomparable) when it receives as argument a value of priority comparable to $p$ (resp., incomparable to $p$). We could try to define $l''_1$, $l''_2$ and $l''_3$ as the projection of $l'$ to the operations in $u$, $v$ and $w$, respectively. However, this is incorrect, since $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ imposes no restriction on  $p$-incomparable operations in $u \cdot v$, and thus, there is no guarantee that the projection of $l'$ to $p$-incomparable operations in $u \cdot v$ is correct. In this example, this projection is $\textit{put}(z_1,p_3) \cdot \textit{rm}(z_2)$ which is incorrect.
 
-\item[-] Let us construct sets $U'$, $V'$ and $W'$, such then make $l''_1$, $l''_2$ and $l''_3$ the projections of $l'$ into $U'$, $V'$ and $W'$, respectively. This contains two steps:
+\item[-] We define the sets of operations $U'$, $V'$ and $W'$ such that $l''_1$, $l''_2$ and $l''_3$ are the projections of $l'$ to $U'$, $V'$, and $W'$, respectively. This is done in two steps:
 
-\item[-] The first step is to define $W'$. The $p$-comparable operations in $W'$ is same as that in $w$. To obtain $p$-incomparable operations in $W'$, we try to find a $p$-incomparable operation $o$ which either happens before some $p$-comparable operations in $w$, or with linearization points after $\textit{rm}(x)$. Then, we put $o$ and all $p$-incomparable operations after $o$ in $l'$ into $W'$ (emphasized by boxes in example). In this example, $o$ is $\textit{rm}(z_1)$, and $p$-incomparable operations after $o$ in $l'$ is $\textit{rm}(z_2)$, which are emphasized by adding boxes. In this process, whether a $p$-incomparable operation is in $W'$ or not only relies whether it is before or after $o$ in $l'$.
+\item[-] The first step is to define $W'$. The $p$-comparable operations in $W'$ are the same as in $w$. To identify the $p$-incomparable operations in $W'$, we search for a $p$-incomparable operation $o$ which either happens before some $p$-comparable operation in $w$, or whose linearization point occurs after $\textit{rm}(x)$. We add to $W'$ the operation $o$ and all the $p$-incomparable operations occurring after $o$ in $l'$. In this example, $o$ is $\textit{rm}(z_1)$ and the only $p$-incomparable operation occurring after $o$ in $l'$ is $\textit{rm}(z_2)$ (they are surrounded by boxes in the figure). In this process, whether a $p$-incomparable operation is in $W'$ or not only relies on whether it is before or after $o$ in $l'$.
 
-\item[-] The second step is to define $U'$ and $V'$. $U'$ contains the following two kinds of operations: (1) Operations whose linearization points are before $\textit{ret}(\textit{put},x)$, and (2) other $\textit{put}$ operations with priority $p$. $V'$ contains the remanning operations. In this example, $U'$ contains $\textit{put}(z_1,p_3)$ and $\textit{put}(x_2,p_2)$.
+\item[-] The second step is to define $U'$ and $V'$. $U'$ contains two kinds of operations: (1) operations whose linearization points are before $\textit{ret}(\textit{put},x)$, and (2) other $\textit{put}$ operations with priority $p$. $V'$ contains the remaining operations. In this example, $U'$ contains $\textit{put}(z_1,p_3)$ and $\textit{put}(x_2,p_2)$.
 
-\item[-] In this example, $l''_1 = \textit{put}(z_1,p_2) \cdot \textit{put}(x_2,p)$, $l''_2 = \textit{put}(z_2,p_2) \cdot \textit{rm}(x_2) \cdot \textit{put}(y_1,p_1) \cdot \textit{rm}(y_1)$, and $l''_3 = \textit{put}(x_3,p) \cdot \textit{rm}(z_1) \cdot \textit{rm}(z_2)$. In \figurename~\ref{fig:concurrent execution for EPQ1} (b), we add linarization points according to $l''$, and we can see that $l''$ holds as required.
+\item[-] In conclusion, we have that $l''_1 = \textit{put}(z_1,p_2) \cdot \textit{put}(x_2,p)$, $l''_2 = \textit{put}(z_2,p_2) \cdot \textit{rm}(x_2) \cdot \textit{put}(y_1,p_1) \cdot \textit{rm}(y_1)$, and $l''_3 = \textit{put}(x_3,p) \cdot \textit{rm}(z_1) \cdot \textit{rm}(z_2)$. \figurename~\ref{fig:concurrent execution for EPQ1}(b) draws linearization points for each operation in $e$ defining the linearization $l''$.
 \end{itemize}
 
 
@@ -312,9 +316,6 @@ Let us briefly explain the idea of proving this property when $\mathsf{MatchedMa
 %
 %\qed
 %\end {proof}
-
-
-
 \begin{figure}[t]
   \centering
   \includegraphics[width=1 \textwidth]{figures/PIC-HIS-EPQ1-TwoHis.pdf}
@@ -322,6 +323,9 @@ Let us briefly explain the idea of proving this property when $\mathsf{MatchedMa
   \caption{The process of obtaining linearization of $e$}
   \label{fig:concurrent execution for EPQ1}
 \end{figure}
+
+
+
 
 Section~\ref{sec:co-regular of extended priority queues} introduces a characterization of concurrent priority queue violations using a set of \emph{non-recursive} automata (i.e., whose states consist of a fixed number of registers) whose product is equivalent to $\textit{Check-PQ-Conc}$ (modulo renaming of values which is possible by data-independence). Since $\seqPQ$ is closed under projection (Lemma~\ref{lem:closure_proj}), the recursion in $\textit{Check-PQ-Conc}$ can be eliminated by checking that each projection of a given execution $e$ passes a non-recursive version of $\textit{Check-PQ-Conc}$ where every recursive call is replaced by $\mathsf{true}$. More precisely, every occurrence of $\text{{\bf return}}\ \textit{Check-PQ-Conc}$ is replaced by  $\text{{\bf return}}\ \mathsf{true}$. Let $\textit{Check-PQ-Conc-NonRec}$ be the thus obtained procedure.
 
