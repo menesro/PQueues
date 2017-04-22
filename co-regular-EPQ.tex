@@ -18,7 +18,7 @@ For $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$, $\maths
 $A \cap \mathcal{I} \neq \emptyset$ if and only if there exists $ e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\Gamma$-linearizable.
 \end{definition}
 
-Section~\ref{ssec:aut} describes a $\mathsf{MatchedMaxPriority}$-complete automaton, the other automata being defined in Appendix~\ref{sec:appendix lemma and register automata for FIFO of single-priority executions}, %Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, 
+Section~\ref{ssec:aut} describes a $\mathsf{MatchedMaxPriority}$-complete automaton, the other automata being defined in Appendix~\ref{sec:appendix lemma and register automata for FIFO of single-priority executions} %Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}, 
 %Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Equal} 
 and Appendix \ref{subsec:co-regular of EPQ3}. Therefore, the following holds.
 
@@ -30,7 +30,7 @@ When defining $\Gamma$-complete automata, we assume that every implementation $\
 
 Also, we consider $\Gamma$-complete automata for $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, recognizing executions which contain only one maximal priority. This is possible because any data-differentiated execution for which $\Gamma(e)$ is false has such a projection.
 %Also, we consider $\Gamma$-complete automata for $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$, recognizing executions where any two occurring priorities are comparable (w.r.t. $\prec$). This is possible because any data-differentiated execution which is not $\Gamma$-linearizable has such a projection.
-Formally, given a data-differentiated execution $e$ and $p$ a maximal priority in $e$, $e\vert_{\preceq p}$ is the projection of $e$ to the set of values with priorities comparable to $p$. Then,
+Formally, given a data-differentiated execution $e$ and $p$ a maximal priority in $e$, $e\vert_{\preceq p}$ is the projection of $e$ to the set of values with priorities smaller than $p$. Then,
 
 \begin{restatable}{lemma}{priExecutionIsEnough}
 \label{lemma:pri execution is enough}
@@ -47,15 +47,15 @@ Thus, let $e$ be an execution such that $e\vert_{\preceq p}$ is linearizable w.r
 Since $\mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,x)$ does not have a condition on values of priority incomparable to $p$, we obtain that $l' \in \mathsf{MatchedMaxPriority}\mathsf{\text{-}Seq}(s,\alpha)$.
 \end {proof}
 
-The following result shows that $\Gamma$-complete automata enable an effective reduction of checking linearizability of concurrent priority queue implementations to state reachability. It is a direct consequence of the above definitions.
+The following shows that $\Gamma$-complete automata enable an effective reduction of checking linearizability of concurrent priority queue implementations to state reachability. It is a direct consequence of the above definitions. Section~\ref{subsec:combine step-by-step linearizability and co-regular} discusses decidability results implied by this reduction.
 
 \begin{restatable}{theorem}{ReduceEPQIntoStateReachability}
 \label{lemma:reduce EPQ into state reachability}
-Let $\mathcal{I}$ be a data-independent implementation, and $A(\Gamma)$ a $\Gamma$-complete automaton for each $\Gamma$. Then,
+Let $\mathcal{I}$ be a data-independent implementation, and $A(\Gamma)$ be a $\Gamma$-complete automaton for each $\Gamma$. Then,
 $\mathcal{I} \sqsubseteq \seqPQ$ if and only if $\mathcal{I} \cap A(\Gamma) = \emptyset$ for all $\Gamma$.
 \end{restatable}
 
-Section~\ref{subsec:combine step-by-step linearizability and co-regular} discusses decidability results implied by the theorem above.
+
 
 %Section~\ref{ssec:aut} discusses
 
@@ -122,12 +122,12 @@ Section~\ref{subsec:combine step-by-step linearizability and co-regular} discuss
 %}
 
 A differentiated execution $e$ is not $\mathsf{MatchedMaxPriority}$-linearizable when all the $\textit{put}$ operations in $e$ using the maximal priority $p$ are matched, and $e$ is not linearizable w.r.t. the set of sequential executions satisfying $\mathsf{MatchedMaxPriority\text{-}Seq}(e,x)$ for each value $x$ of priority $p$. We consider two cases depending on whether $e$ contains exactly one value with priority $p$ or at least two values. We denote by $\mathsf{MatchedMaxPriority}^{>}$ the strengthening of $\mathsf{MatchedMaxPriority}$ with the condition that all the values other than $x$ have a priority strictly smaller than $p$ (corresponding to the first case), and by $\mathsf{MatchedMaxPriority}^{=}$ the strengthening of the same formula with the negation of this condition (corresponding to the second case).
-We use particular instances of register automata~\cite{finite-memory, the paper I found} whose states include only two registers, one for storing a priority guessed at the initial state, and one for storing the priority of the current action in the execution. The transitions can check equality or the order relation $\prec$ between the values stored in the two registers. Instead of formalizing the full class of register automata, we consider a simpler class which suffices our needs. More precisely, we consider a class of labeled transition systems whose states consist of a finite control part and a register $r$ interpreted to elements of $\mathbb{P}$. The transition labels can be one of the following:
+We use particular instances of register automata~\cite{DBLP:journals/tcs/KaminskiF94,DBLP:conf/icalp/Cerans94,DBLP:conf/stacs/SegoufinT11} whose states include only two registers, one for storing a priority guessed at the initial state, and one for storing the priority of the current action in the execution. The transitions can check equality or the order relation $\prec$ between the values stored in the two registers. Instead of formalizing the full class of register automata, we consider a simpler class which suffices our needs. More precisely, we consider a class of labeled transition systems whose states consist of a finite control part and a register $r$ interpreted to elements of $\mathbb{P}$. The transition labels can be one of the following:
 \begin{itemize}
 	\item $r=*$ for storing an arbitrary value to $r$,
 	\item $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},a)$ for reading call/return actions of a remove,
 	\item $\textit{call}(\textit{put},d,g)$ where $g\in\{=r,\prec r,true\}$ is a guard, for reading a call action $\textit{call}(\textit{put},d,p)$ of a put and checking whether $p$ is either equal to or smaller than the value stored in $r$, or arbitrary,
-	\item $\textit{ret}(\textit{put},d,true)$ for reading a return action $\textit{ret}(\textit{put},d,p)$ for some $p$.
+	\item $\textit{ret}(\textit{put},d,true)$ for reading a return action $\textit{ret}(\textit{put},d,p)$ for any $p$.
 \end{itemize}
 The set of words accepted by such a transition system can be defined as usual.
 
@@ -224,12 +224,12 @@ The \emph{left-right constraint of $x$} is the graph $G$ where: %$\textit{put}(x
 \end{itemize}
 \end{definition}
 
-The execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} is not $\mathsf{MatchedMaxPriority}^>$-linearizable because the left-right constraint of the maximal priority value $b$ contains a cycle: $f \rightarrow e \rightarrow d \rightarrow b \rightarrow f$. We prove that the presence of such a cycle is equivalent to the execution not being $\mathsf{MatchedMaxPriority}^>$-linearizable (see Appendix~\ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}).
+The execution in \figurename~\ref{fig:introduce gap for EPQ1Lar} is not $\mathsf{MatchedMaxPriority}^>$-linearizable because the left-right constraint of the maximal priority value $b$ contains a cycle: $f \rightarrow e \rightarrow d \rightarrow b \rightarrow f$. The presence of such a cycle is equivalent to the execution not being $\mathsf{MatchedMaxPriority}^>$-linearizable (see Appendix~\ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}).
 %The existence of cycle though value with maximal priority in left-right constraint formally modelled the phenomenon in \figurename~\ref{fig:introduce gap for EPQ1Lar}. For example, in \figurename~\ref{fig:introduce gap for EPQ1Lar}, $f \rightarrow e \rightarrow d \rightarrow b \rightarrow f$ is a cycle in left-right constraint. We then prove that getting rid of cycle though value with maximal priority in left-right constraint is enough for ensure linearizable w.r.t $\mathsf{MatchedMaxPriority}^{>}$.
-When the left-right constraint of the maximal priority value $x$ contains a cycle of the form $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ for some $d_1$,$\ldots$,$d_n\in \mathbb{D}$, we say that $x$ is \emph{covered} by $d_1,\ldots,d_m$. The shape of such a cycle (i.e., the alternation between call/return actions of $\textit{put}$/$\textit{rm}$ operations) can be detected using our class of automata, the only complication being the unbounded number of values $d_1$,$\ldots$,$d_n$. However, by data independence, whenever an implementation contains such an execution it also contains an execution where all the values $d_1$,$\ldots$,$d_n$ are renamed to the same value $a$, and $x$ is renamed to $b$. Therefore, our automata can be defined over a fixed set of values $a$, $b$, and $\top$ (for the operations outside of the non-linearizable projection).
+When the left-right constraint of the maximal priority value $x$ contains a cycle of the form $d_1 \rightarrow \ldots \rightarrow d_m \rightarrow x \rightarrow d_1$ for some $d_1$,$\ldots$,$d_n\in \mathbb{D}$, we say that $x$ is \emph{covered} by $d_1,\ldots,d_m$. The shape of such a cycle (i.e., the alternation between call/return actions of $\textit{put}$/$\textit{rm}$ operations) can be detected using our class of automata, the only complication being the unbounded number of values $d_1$,$\ldots$,$d_n$. However, by data independence, whenever an implementation contains such an execution it also contains an execution where all the values $d_1$,$\ldots$,$d_n$ are renamed to the same value $a$, and $x$ is renamed to $b$. Therefore, our automata can be defined over a fixed set of values $a$, $b$, and $\top$ (recall that $\top$ is used for the operations outside of the non-linearizable projection).
 
 %TODO WHY IT IS A SET OF AUTOMATA ? SAY WHAT ARE THE CASES THAT NEED TO BE COVERED. SAY WHAT IS THE CASE WE GIVE IN THE FIGURE. USE $\top$ AS MENTIONED AT THE BEGINNING OF THE SECTION INSTEAD OF 	$c$. USE BIG CAPS FOR SETS OF TRANSITION LABELS.
-To define a $\mathsf{MatchedMaxPriority}^>$-complete automaton we need to consider several cases depending on the order between the call/return actions of the $\textit{put}$/$\textit{rm}$ operations that add and respectively, remove the value $b$. For example, the case where the put happens-before the remove (as in \figurename~\ref{fig:introduce gap for EPQ1Lar}) is pictured in \figurename~\ref{fig:automata APQ1Lar-1 in paper}. This automaton captures the three possible ways of ordering the first action $\textit{ret}(\textit{put},a,\_)$ w.r.t. the actions with value $b$, which are pictured in \figurename~\ref{fig:executions APQ1Lar-1 in paper} (this action cannot occur after $\textit{call}(\textit{rm},b,\_)$ since $b$ must be covered by the $a$s). The paths corresponding to these three possible orders are: $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_7$, $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_{10}$ and $q_1 \rightarrow q_9 \rightarrow q_{10} \ldots \rightarrow q_7$. Automata for the other cases can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. 
+To define a $\mathsf{MatchedMaxPriority}^>$-complete automaton we need to consider several cases depending on the order between the call/return actions of the $\textit{put}$/$\textit{rm}$ operations that add and respectively, remove the value $b$. For example, the case where the put happens-before the remove (as in \figurename~\ref{fig:introduce gap for EPQ1Lar}) is pictured in \figurename~\ref{fig:automata APQ1Lar-1 in paper}. This automaton captures the three possible ways of ordering the first action $\textit{ret}(\textit{put},a,\_)$ w.r.t. the actions with value $b$, which are pictured in \figurename~\ref{fig:executions APQ1Lar-1 in paper} (this action cannot occur after $\textit{call}(\textit{rm},b,\_)$ since $b$ must be covered by the $a$-s). The paths corresponding to these three possible orders are: $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_7$, $q_1 \rightarrow q_2 \rightarrow q_3 \ldots \rightarrow q_{10}$ and $q_1 \rightarrow q_9 \rightarrow q_{10} \ldots \rightarrow q_7$. Automata for the other cases can be found in Appendix \ref{sec:appendix proof and definition in section co-regular of EPQ1Lar}. 
 
 
 %For each case, we define an automaton recognizing the induced set of violations. 
@@ -299,7 +299,7 @@ Then, to model the time intervals in which a remove operation like $\textit{rm}(
 Let $e$ be a data-differentiated execution which contains only one maximal priority $p$, and $\textit{put}(x,p)$ and $\textit{rm}(x)$ two operations in $e$. An index $i\in [0,|e|-1]$ is a \emph{gap-point of $x$} if $i$ is greater than or equal to the index of both $\textit{call}(\textit{put},x,p)$ and $\textit{call}(\textit{rm},x)$, smaller than the index of $\textit{ret}(\textit{rm},x)$, and it is not included in the interval of some value with priority smaller than $p$.
 \end{definition}
 
-The case of \figurename~\ref{fig:introduce pb order} can be formally described as follows: $a <_{\textit{pb}}^* b$ while the right-most gap-point of $b$ is before $\textit{call}(\textit{rm},a)$ or $\textit{call}(\textit{put},a,p_4)$. The following lemma states that these conditions are enough to characterize non-linearizability w.r.t $\mathsf{MatchedMaxPriority}^{=}$.
+The case of \figurename~\ref{fig:introduce pb order} can be formally described as follows: $a <_{\textit{pb}}^* b$ while the right-most gap-point of $b$ is before $\textit{call}(\textit{rm},a)$ or $\textit{call}(\textit{put},a,p_4)$. The following lemma states that these conditions are enough to characterize non-linearizability w.r.t $\mathsf{MatchedMaxPriority}^{=}$ (see Appendix\ref{sec:appendix proof and definition in section co-regular of EPQ1Equal}).
 
 \begin{restatable}{lemma}{EPQOneEqualAsPBandGP}
 \label{lemma:EPQ1Equal as pb order and gap-point}
@@ -308,29 +308,29 @@ Let $e$ be a data-differentiated execution which contains only one maximal prior
 Then, $e$ is not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ iff $e$ contains two values $x$ and $y$ of maximal priority $p$ such that $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is strictly smaller than the index of both $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},y)$.
 \end{restatable}
 
-\begin {proof} (Sketch)
-We have already intuitively explain the proof of the $\textit{if}$ direction. To prove the $\textit{only if}$ direction, we prove its contrapositive. %, where we already know that $\forall x, y$ with maximal priority, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{cal}(\textit{put},y,\textit{pri})$ and $\textit{cal}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$. %Or we can say, we need to explicitly construct linearization of $e$.
-
-Let $\textit{Items}(e,p)$ be the set of values with priority $p$ in $e$. We introduce another lemma (Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal} in Appendix), which states that if we can find a value $\exists g_1 \in \textit{Items}(e,p)$, such that $\forall g_2 \in \textit{Items}(e,p)$, (1) $g_1 \nless_{\textit{pb}} g_2$, and (2) the right-most gap-point of $g_1$ is after $\textit{call}(\textit{put},g_2,p)$ and $\textit{call}(\textit{rm},g_2)$. Then $e$ is linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$.
-The remaining of our proof is a loop for searching such $g_1$ in $e$. Let $e_p$ be the projection of $e$ into values of priority $p$, and let $l_p$ be the linearization of $e$ which satisfy the requirements of queue. Let the initial value of $a_1$ be the last inserted value in $l_p$.
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] check if $a_1$ satisfy the conditions of Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}. If it does, then this loop terminates.
-
-\item[-] Otherwise, $\exists a_2 \in \textit{Items}(e,p)$, such that the rightmost gap-point of $a_1$ is before $\textit{cal}(\textit{put},a_2,p)$ or $\textit{cal}(\textit{rm},a_2)$ in $e$. By assumption, we know that $a_2 \nless_{\textit{pb}} a_1$, and each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
-
-    \begin{itemize}
-    \setlength{\itemsep}{0.5pt}
-    \item[-] If $\forall b \in \textit{Items}(e,p)$, $a_2\not<_{\textit{pb}}b$. Then we go to next round of the loop and make $a_2$ to be the ``new-round $a_1$''.
-    \item[-] Otherwise, there exists $a_3 \in \textit{Items}(e,p)$ such that $a_2 <_{\textit{pb}}^* a_3$. It is not hard to see that there is no cycle in $<_{\textit{pb}}$, and it is safe to assume that $a_3$ is maximal w.r.t $<_{\textit{pb}}^*$.
-
-        By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{call}(\textit{put},a_2,p)$ and $\textit{call}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to next round of the loop and make $a_3$ to be the ``new-round $a_1$''.
-    \end{itemize}
-\end{itemize}
-
-Let $a^i$ be the $a_1$ in the $\textit{i-th}$ round of loop. We can see that the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$ for each $i<j$. Therefore, the loop finally terminates at some $a^f$ that satisfies the condition of Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}. This implies that $e$ is linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ and completes the proof of the $\textit{only if}$ direction.
-\end {proof}
+%\begin {proof} (Sketch)
+%We have already gave an intuitive explanation for the $\textit{if}$ direction. To prove the $\textit{only if}$ direction, we prove its contrapositive. %, where we already know that $\forall x, y$ with maximal priority, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{cal}(\textit{put},y,\textit{pri})$ and $\textit{cal}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\textit{EPQ}_1^{=})$. %Or we can say, we need to explicitly construct linearization of $e$.
+%
+%Let $\textit{values}(e,p)$ be the set of values with priority $p$ in $e$. We introduce another lemma (Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal} in Appendix), which states that if we can find a value $\exists g_1 \in \textit{values}(e,p)$, such that $\forall g_2 \in \textit{values}(e,p)$, (1) $g_1 \nless_{\textit{pb}} g_2$, and (2) the right-most gap-point of $g_1$ is after $\textit{call}(\textit{put},g_2,p)$ and $\textit{call}(\textit{rm},g_2)$. Then $e$ is linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$.
+%The remaining of our proof is a loop for searching such $g_1$ in $e$. Let $e_p$ be the projection of $e$ into values of priority $p$, and let $l_p$ be the linearization of $e$ which satisfy the requirements of queue. Let the initial value of $a_1$ be the last inserted value in $l_p$.
+%
+%\begin{itemize}
+%\setlength{\itemsep}{0.5pt}
+%\item[-] check if $a_1$ satisfy the conditions of Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}. If it does, then this loop terminates.
+%
+%\item[-] Otherwise, $\exists a_2 \in \textit{values}(e,p)$, such that the rightmost gap-point of $a_1$ is before $\textit{cal}(\textit{put},a_2,p)$ or $\textit{cal}(\textit{rm},a_2)$ in $e$. By assumption, we know that $a_2 \nless_{\textit{pb}} a_1$, and each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
+%
+%    \begin{itemize}
+%    \setlength{\itemsep}{0.5pt}
+%    \item[-] If $\forall b \in \textit{values}(e,p)$, $a_2\not<_{\textit{pb}}b$. Then we go to next round of the loop and make $a_2$ to be the ``new-round $a_1$''.
+%    \item[-] Otherwise, there exists $a_3 \in \textit{values}(e,p)$ such that $a_2 <_{\textit{pb}}^* a_3$. It is not hard to see that there is no cycle in $<_{\textit{pb}}$, and it is safe to assume that $a_3$ is maximal w.r.t $<_{\textit{pb}}^*$.
+%
+%        By assumption,we know that the rightmost gap-point of $a_3$ is after $\textit{call}(\textit{put},a_2,p)$ and $\textit{call}(\textit{rm},a_2)$. Therefore, we can see that the rightmost gap-point of $a_3$ is after the rightmost gap-point of $a_1$. Then we go to next round of the loop and make $a_3$ to be the ``new-round $a_1$''.
+%    \end{itemize}
+%\end{itemize}
+%
+%Let $a^i$ be the $a_1$ in the $\textit{i-th}$ round of loop. We can see that the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$ for each $i<j$. Therefore, the loop finally terminates at some $a^f$ that satisfies the condition of Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}. This implies that $e$ is linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ and completes the proof of the $\textit{only if}$ direction.
+%\end {proof}
 
 To characterize violations to linearizability w.r.t. $\mathsf{MatchedMaxPriority}^{=}$ using an automaton that tracks a bounded number of values, we show that the number of values needed to witness that $y <_{\textit{pb}}^* x$ for some $x$ and $y$ is bounded.
 %
