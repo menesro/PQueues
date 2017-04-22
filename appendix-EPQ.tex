@@ -326,7 +326,7 @@ Let $U$, $V$ and $W$ be the set of operations of $u$, $v$ and $w$, respectively.
 
 In the next round of the loop, we consider the second $O_i(l,p)$-value of $l'_v$, and so on. Our process proceed, until either all element in $l'_v$ are in new version of $U \cup V$, or case $2$ or case $3$ happens and this process terminates. Let $U' \cup V'$ and $W'$ be the new version of $U \cup V$ and $W$ after the process terminates, respectively. Let $O_+$ be the set of operations that are moved into $U' \cup V'$ in the process, and let $O_-$ be the set of operations that are moved into $W'$ in the process.
 
-Let $l'_{\textit{u'v'}}$ be the projection of $l'$ into $U' \cup V'$, let $O_x$ be the set of $\textit{put}(\_,p)$ while the item is not $x$ in $h$. Let $l''_a$ be the longest prefix of $l'_{\textit{u'v'}}$, where linearization of each operation of $l''_a$ is before $\textit{ret}(\textit{put},b)$ in $e_{\textit{lp}}$. Let $l''_d$ be the projection of $l'$ into operations of $O_x$ that are not in $l''_a$. Let $l''_1 = l''_a \cdot l''_d$. Let $l''_2$ be the projection of $l'$ into operations of $l'_{\textit{u'v'}}$ that are not in $l''_1$. Let $l''_3$ be the projection of $l'$ into operations which are not in $l'_{\textit{u'v'}}$. Let $l'' = l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$.
+Let $l'_{\textit{u'v'}}$ be the projection of $l'$ into $U' \cup V'$, let $O_x$ be the set of $\textit{put}(\_,p)$ while the value is not $x$ in $h$. Let $l''_a$ be the longest prefix of $l'_{\textit{u'v'}}$, where linearization of each operation of $l''_a$ is before $\textit{ret}(\textit{put},b)$ in $e_{\textit{lp}}$. Let $l''_d$ be the projection of $l'$ into operations of $O_x$ that are not in $l''_a$. Let $l''_1 = l''_a \cdot l''_d$. Let $l''_2$ be the projection of $l'$ into operations of $l'_{\textit{u'v'}}$ that are not in $l''_1$. Let $l''_3$ be the projection of $l'$ into operations which are not in $l'_{\textit{u'v'}}$. Let $l'' = l''_1 \cdot \textit{put}(x,p) \cdot l''_2 \cdot \textit{rm}(x) \cdot l''_3$.
 
 To prove $e \sqsubseteq l''$, we define a graph $G$ whose nodes are the operations of $h$ and there is an edge from operation $o_1$ to $o_2$, if one of the following case holds
 
@@ -625,7 +625,7 @@ Similarly, we consider two cases of $\mathsf{UnmatchedMaxPriority\text{-}Seq}(e,
 
 Before we go to investigate $\Gamma$-linearizable, we can use the result in \cite{DBLP:conf/icalp/BouajjaniEEH15} to simplify our work. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that checking linearizability w.r.t queue can be reduced into checking emptiness of intersection between $\mathcal{I}$ and a set of automata. Given a data-differentiated execution $e$, let $e \vert_{i}$ be an execution generated from $e$ by erasing call and return actions of values that does not use priority $i$ (does not influence $\textit{rm}(\textit{empty})$). We call a extended priority queue execution with only one priority a single-priority execution. Let $\textit{transToQueue}(e)$ be an execution generated from $e$ by transforming $\textit{put}$ and $\textit{rm}$ into $\textit{enq}$ and $\textit{deq}$, respectively, and then discarding priorities. We can see that for each $e \in \seqPQ$ and each priority $i$, $\textit{transToQueue}(e \vert_{i})$ satisfy FIFO (first in first out) property.
 
-Given an execution of queue, we say that it is differentiated, if each item is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue.
+Given an execution of queue, we say that it is differentiated, if each value is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue.
 
 We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true})$, $\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$.
 
@@ -692,9 +692,9 @@ Let us prove the $\textit{only if}$ direction. Assume that there exists executio
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If $e_0$ is accepted by $\mathcal{A}_{\textit{SinPri}}^1$, $\mathcal{A}_{\textit{SinPri}}^2$ or $\mathcal{A}_{\textit{SinPri}}^3$: Then remove all items that are not renamed into $b$ by $r$.
+\item[-] If $e_0$ is accepted by $\mathcal{A}_{\textit{SinPri}}^1$, $\mathcal{A}_{\textit{SinPri}}^2$ or $\mathcal{A}_{\textit{SinPri}}^3$: Then remove all values that are not renamed into $b$ by $r$.
 
-\item[-] If $e_0$ is accepted by $\mathcal{A}_{\textit{SinPri}}^4$: Then remove all items that are not renamed into $a$ or $b$ by $r$.
+\item[-] If $e_0$ is accepted by $\mathcal{A}_{\textit{SinPri}}^4$: Then remove all values that are not renamed into $a$ or $b$ by $r$.
 \end{itemize}
 
 It is obvious that $e' \in \textit{proj}(e)$. It is easy to see that $\textit{transToQueue}(e')$ satisfies one of above conditions, and then $\textit{transToQueue}(e')$ is not linearizable w.r.t queue.
@@ -757,12 +757,12 @@ With Lemma \ref{lemma:merge two linearization}, we can now prove Lemma \ref{lemm
 
 We deal with the case of $\Gamma = \mathsf{MatchedMaxPriority}^{>}$ , and other cases can be similarly dealt with.
 
-To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l$, $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds and $p$ is the priority of $x$. We can see that $e \sqsubseteq u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$. Let $u'$, $v'$ and $w'$ be obtained from $u$, $v$ and $w$ by erasing all items with priority incomparable with $p$, respectively. Since the predicates in $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ does not restrict the values of priorities incomparable with $p$, is not hard to see that $e \sqsubseteq l'$ and $\mathsf{MatchedMaxPriority\text{-}Seq}(l',x)$ holds, where $l' = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w'$.
+To prove the $\textit{only if}$ direction, assume that $e \sqsubseteq l$, $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds and $p$ is the priority of $x$. We can see that $e \sqsubseteq u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$. Let $u'$, $v'$ and $w'$ be obtained from $u$, $v$ and $w$ by erasing all values with priority incomparable with $p$, respectively. Since the predicates in $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ does not restrict the values of priorities incomparable with $p$, is not hard to see that $e \sqsubseteq l'$ and $\mathsf{MatchedMaxPriority\text{-}Seq}(l',x)$ holds, where $l' = u' \cdot \textit{put}(x,\textit{pri}) \cdot v' \cdot \textit{rm}(x) \cdot w'$.
 
 To prove the $\textit{if}$ direction, given $e' = e \vert_{\prec p}$. By assumption, $e' \sqsubseteq l$, $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds and $p$ is the priority of $x$, and then we can see that $e' \sqsubseteq l_1 = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$. Let $O_c$ be the set of operations in $e$ that have priorities comparable with $p$, and Let $O_i$ be the set of operations in $e$ that have priorities incomparable with $p$. It is obvious that $l_1$ is the linearization of $e \vert_{O_c}$. By Lemma \ref{lemma:merge two linearization}, there exists sequence $l$, such that $e \sqsubseteq l$, and $l \vert_{O_c} = l_1$. Then $l = u' \cdot \textit{put}(x,p) \cdot v' \cdot \textit{rm}(x) \cdot w'$, where $u' \vert_{O_c} = u$, $v' \vert_{O_c} = v$ and $w' \vert_{O_c} = w$. Since $p$ is one of maximal priorities in $e$, and the predicates in $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ does not restrict the values with priority $O_i$, it is easy to see that $\mathsf{MatchedMaxPriority\text{-}Seq}(l,x)$ holds. \qed
 \end {proof}
 
-Therefore, from now on, it is safe to consider only the data-differentiated sequences with only one maximal priority. 
+Therefore, from now on, it is safe to consider only the data-differentiated sequences with only one maximal priority.
 
 
 
@@ -817,7 +817,7 @@ Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPr
 
 We prove this lemma by induction, and prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x)$, in $\textit{UVSet}_2(e,x)$, $\ldots$. Note that, by Lemma \ref{lemma:UVSet has matched put and rm}, $\textit{UVSet}(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that for each $i$, $\textit{UVSet}_i(e,x)$ contains only matched $\textit{put}$ and $\textit{rm}$.
 
-\noindent (1) Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_1(e,x)$ is an operation of item $d$. 
+\noindent (1) Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_1(e,x)$ is an operation of value $d$.
 
 We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ operation or a $\textit{rm}$ operation. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_1(e,x)$: $o \in \textit{UVSet}_1(e,x)$, since an operation (of kind $t_2$) of $d$ happens before an operation (of kind $t_3$) of $x$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
 
@@ -842,7 +842,7 @@ We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ 
 
 This completes the proof for $\textit{UVSet}_1(e,x)$.
 
-\noindent (2) Assume we already prove that for some $j \geq 1$, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$. Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_{\textit{j+1}}(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$ is an operation of item $d_{\textit{j+1}}$. We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ operation or a $\textit{rm}$ operation. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$: $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$, since an operation (of kind $t_2$) of $d_{\textit{j+1}}$ happens before an operation (of kind $t_3$) of $d_j$, where $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{UVSet}_j(e,x)$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
+\noindent (2) Assume we already prove that for some $j \geq 1$, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_1(e,x) \cup \ldots \cup \textit{UVSet}_j(e,x)$. Let us prove that $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}_{\textit{j+1}}(e,x)$ by contradiction. Assume that $\textit{rm}(x) <_{hb} o$, where $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$ is an operation of value $d_{\textit{j+1}}$. We use a triple $(t_1,t_2,t_3)$ to represent related information. $t_1,t_2,t_3$ are chosen from $\{ \textit{put},\textit{rm} \}$. $t_1$ represents whether $o$ is a $\textit{put}$ operation or a $\textit{rm}$ operation. $t_2$ and $t_3$ is used for the reason of $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$: $o \in \textit{UVSet}_{\textit{j+1}}(e,x)$, since an operation (of kind $t_2$) of $d_{\textit{j+1}}$ happens before an operation (of kind $t_3$) of $d_j$, where $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{UVSet}_j(e,x)$. Let us consider all the possible cases of $(t_1,t_2,t_3)$:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -857,16 +857,16 @@ This completes the proof for $\textit{UVSet}_1(e,x)$.
 \item[-] $(\textit{rm},\textit{put},\textit{put})$: Then $( \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}) ) \wedge ( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) )$. Let us consider the reason of $\textit{put}(d_j,\_), \textit{rm}(d_j) \in \textit{UVSet}_j(e,x)$:
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If $( j > 1 ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, where $o''$ is an operation of item $d_{\textit{j-1}}$ and $\textit{put}(d_{\textit{j-1}},\_), \textit{rm}(d_{\textit{j-1}}) \in \textit{UVSet}_{\textit{j-1}}(e,x)$: Then since $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, we can see that $\textit{put}(d_{\textit{j+1}},\_) <_{hb} o''$, and then operations of $d_{\textit{j+1}}$ is in $\textit{UVSet}_j(e,x)$, contradicts that operations of $d_{\textit{j+1}}$ is in $\textit{UVSet}_{\textit{j+1}}(e,x)$.
+    \item[-] If $( j > 1 ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, where $o''$ is an operation of value $d_{\textit{j-1}}$ and $\textit{put}(d_{\textit{j-1}},\_), \textit{rm}(d_{\textit{j-1}}) \in \textit{UVSet}_{\textit{j-1}}(e,x)$: Then since $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, we can see that $\textit{put}(d_{\textit{j+1}},\_) <_{hb} o''$, and then operations of $d_{\textit{j+1}}$ is in $\textit{UVSet}_j(e,x)$, contradicts that operations of $d_{\textit{j+1}}$ is in $\textit{UVSet}_{\textit{j+1}}(e,x)$.
 
     \item[-] If $( j = 1 ) \wedge ( \textit{put}(d_j,\_) <_{hb} o'' )$, where $o''$ is an operation of $x$: Similar to above case.
 
-    \item[-] If $( j > 1 ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, where $o''$ is an operation of item $d_{\textit{j-1}}$ and $\textit{put}(d_{\textit{j-1}},\_), \textit{rm}(d_{\textit{j-1}}) \in \textit{UVSet}_{\textit{j-1}}(e,x)$: Then since $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, we can see that $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} o'' ) \vee ( \textit{rm}(d_j) <_{hb} \textit{put}(d_j,\_) )$, which is impossible.
+    \item[-] If $( j > 1 ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, where $o''$ is an operation of value $d_{\textit{j-1}}$ and $\textit{put}(d_{\textit{j-1}},\_), \textit{rm}(d_{\textit{j-1}}) \in \textit{UVSet}_{\textit{j-1}}(e,x)$: Then since $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{put}(d_j,\_) ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, we can see that $( \textit{put}(d_{\textit{j+1}},\_) <_{hb} o'' ) \vee ( \textit{rm}(d_j) <_{hb} \textit{put}(d_j,\_) )$, which is impossible.
 
     \item[-] If $( j > 1 ) \wedge ( \textit{rm}(d_j) <_{hb} o'' )$, where $o''$ is an operation of $x$: Similar to above case.
     \end{itemize}
 
-\item[-] $(\textit{rm},\textit{put},\textit{rm})$: Let $T_{\textit{ind}}$ be the set of sentences $\{ \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}), \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{rm}(d_j),\ldots, \textit{put}(d_{\textit{ind+1}},\_) <_{hb} \textit{rm}(d_{\textit{ind}}) \}$. Here each $d_i$ is a item of some operation in $\textit{UVSet}_i(e,x)$. Let us prove that from $T_j$ we can obtain contradiction by induction:
+\item[-] $(\textit{rm},\textit{put},\textit{rm})$: Let $T_{\textit{ind}}$ be the set of sentences $\{ \textit{rm}(x) <_{hb} \textit{rm}(d_{\textit{j+1}}), \textit{put}(d_{\textit{j+1}},\_) <_{hb} \textit{rm}(d_j),\ldots, \textit{put}(d_{\textit{ind+1}},\_) <_{hb} \textit{rm}(d_{\textit{ind}}) \}$. Here each $d_i$ is a value of some operation in $\textit{UVSet}_i(e,x)$. Let us prove that from $T_j$ we can obtain contradiction by induction:
 
     {\bf Base case $1$}: From $T_1$ we can obtain contradiction.
 
@@ -918,11 +918,11 @@ This completes the proof for $\textit{UVSet}_1(e,x)$.
 This completes the proof for $\textit{UVSet}_{\textit{j+1}}(e,x)$. Therefore, $\textit{rm}(x)$ does not happen before any operation in $\textit{UVSet}(e,x) = \textit{UVSet}_1(e,x) \cup \textit{UVSet}_2(e,x) \cup \ldots$. \qed
 \end {proof}
 
-With Lemma \ref{lemma:UVSet has matched put and rm} and Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}, we can now prove Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, which give the equivalent characterization of non $\mathsf{MatchedMaxPriority}$-linearizable executions. 
+With Lemma \ref{lemma:UVSet has matched put and rm} and Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}, we can now prove Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, which give the equivalent characterization of non $\mathsf{MatchedMaxPriority}$-linearizable executions.
 
 \begin{restatable}{lemma}{LinEqualsConstraintforEPQOneLar}
 \label{lemma:Lin Equals Constraint for EPQ1Lar}
-Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, let $p$ be its maximal priority and $\textit{put}(x,p),\textit{rm}(x)$ are only operations of priority $p$ in $e$. Let $G$ be the graph representing the left-right constraint of $x$. $e$ is $\mathsf{MatchedMaxPriority}$-linearizable, if and only if $G$ has no cycle going through $x$. 
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, let $p$ be its maximal priority and $\textit{put}(x,p),\textit{rm}(x)$ are only operations of priority $p$ in $e$. Let $G$ be the graph representing the left-right constraint of $x$. $e$ is $\mathsf{MatchedMaxPriority}$-linearizable, if and only if $G$ has no cycle going through $x$.
 \end{restatable}
 
 \begin {proof}
@@ -977,7 +977,7 @@ This completes the proof of the $\textit{if}$ direction.
 \end {proof}
 
 
-Let us begin to represent register automata that is used for capture the existence of a data-differentiated execution $e$, let $p$ be a maximal priority of $e$, and $e'$ be the projection of $e$ into values with priorities comparable with $p$. We also require that $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds and there exists a cycle going through the value with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such item to be $b$, maps items that cover it to be $a$, and maps other items into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b,p)$ and $\textit{rm}(b)$. For each of them, we generate a register automaton.
+Let us begin to represent register automata that is used for capture the existence of a data-differentiated execution $e$, let $p$ be a maximal priority of $e$, and $e'$ be the projection of $e$ into values with priorities comparable with $p$. We also require that $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds and there exists a cycle going through the value with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such value to be $b$, maps values that cover it to be $a$, and maps other values into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b,p)$ and $\textit{rm}(b)$. For each of them, we generate a register automaton.
 
 For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $C_1 = C \cup \{ \textit{ret}(\textit{rm},a) \}$, $C_2 = C \cup \{ \textit{call}(\textit{put},a,<r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top)$, $\textit{ret}(\textit{rm},\top),$ $\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
@@ -1068,7 +1068,7 @@ $\mathcal{A}_{\textit{l-lar}}^4$ is used to recognize conditions in \figurename~
   \label{fig:his for APQ1Lar-4}
 \end{figure}
 
-Let $\mathcal{A}_{\textit{1-lar}}$ be the union of $\mathcal{A}_{\textit{l-lar}}^1, \mathcal{A}_{\textit{l-lar}}^2, \mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$. The following lemma states that $\mathcal{A}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete. 
+Let $\mathcal{A}_{\textit{1-lar}}$ be the union of $\mathcal{A}_{\textit{l-lar}}^1, \mathcal{A}_{\textit{l-lar}}^2, \mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$. The following lemma states that $\mathcal{A}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete.
 
 
 %\EPQOneLarisCoRegular*
@@ -1078,17 +1078,17 @@ $\mathcal{A}_{\textit{1-lar}}$ is $\mathsf{MatchedMaxPriority}^{>}$-complete.
 \end{restatable}
 
 
-\begin {proof} 
+\begin {proof}
 
-We need to prove that, given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\mathsf{MatchedMaxPriority}^{>}$-linearizable. 
+We need to prove that, given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\mathsf{MatchedMaxPriority}^{>}$-linearizable.
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, and there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $x$ in $e'$. 
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-lar}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, and there is a cycle going through $x$ in $G$, where $G$ is the left-right constraint of $x$ in $e'$.
 
 \noindent The $\textit{only if}$ direction: Let us consider the case of $\mathcal{A}_{\textit{l-lar}}^1$. Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$. By data-independence, there exists data-differentiated execution $e \in \mathcal{I}$ and renaming function $r_1$, such that $e_1 = r_1(e)$. Assume that $r_1$ maps $d$ into $b$ and maps $f_1,\ldots,f_m$ into $a$. Let $e'$ be obtained from $e$ by projection into $\{ d, f_1,\ldots,f_m \}$. Assume that the priority of $b$ is $p$. It is easy to see that $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds, and there is a cycle going through $d$ in $G$, where $G$ is the left-right constraint of $e'$. The case of $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$ can be similarly proved.
 
-\noindent The $\textit{if}$ direction: Given such $e$, $e'$ and $x$. Let renaming function $r$ maps $x$ into $b$, maps items cover $x$ into $a$, and maps other items into $d$. By data-independence, $r(e) \in \mathcal{I}$. Then depending on the cases of $r(e) \vert_{b}$, we can see that $r(e)$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$, $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ or $\mathcal{A}_{\textit{l-lar}}^4$. \qed
+\noindent The $\textit{if}$ direction: Given such $e$, $e'$ and $x$. Let renaming function $r$ maps $x$ into $b$, maps values cover $x$ into $a$, and maps other values into $d$. By data-independence, $r(e) \in \mathcal{I}$. Then depending on the cases of $r(e) \vert_{b}$, we can see that $r(e)$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$, $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ or $\mathcal{A}_{\textit{l-lar}}^4$. \qed
 \end {proof}
 
 
@@ -1096,11 +1096,11 @@ By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Con
 \subsection{Proofs, Definitions and Register Automata in Subsection \ref{subsec:co-regular of EPQ1Equal}}
 \label{sec:appendix proof and definition in section co-regular of EPQ1Equal}
 
-Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$. The following lemma states a method to build the linearization of $e$ w.r.t $\mathsf{MatchedMaxPriority}^{=}$. 
+Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$. The following lemma states a method to build the linearization of $e$ w.r.t $\mathsf{MatchedMaxPriority}^{=}$.
 
 \begin{restatable}{lemma}{MaximalInPBadGPMakePQ1Equal}
 \label{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
-Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds and $p$ is its maximal priority. If there exists a value $x$ with priority $p$, such that for each $y \in \textit{Items}(e,p)$, (1) $x\not<_{\textit{pb}}y$, and (2) the right-most gap-point of $x$ is after $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},y)$. Then $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable. 
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds and $p$ is its maximal priority. If there exists a value $x$ with priority $p$, such that for each $y \in \textit{Items}(e,p)$, (1) $x\not<_{\textit{pb}}y$, and (2) the right-most gap-point of $x$ is after $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},y)$. Then $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable.
 \end{restatable}
 
 \begin {proof}
@@ -1122,23 +1122,23 @@ Let $l$ be the sequence of linearization points constructed above. It is obvious
 
 For item $z$ with priority smaller than $p$, we can see that there are only two possibilities: (1) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ are both before $\textit{rm}(x)$ in $l$, and (2) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ (if exists) are after before $\textit{rm}(x)$ in $l$. Therefore, before $\textit{rm}(x)$ in $l$, the $\textit{put}$ and $\textit{rm}$ of $z$ are matched.
 
-Therefore, it is easy to see that $\mathsf{MatchedMaxPriority^{=}\text{-}Seq}(l,x)$ holds and $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable. \qed 
+Therefore, it is easy to see that $\mathsf{MatchedMaxPriority^{=}\text{-}Seq}(l,x)$ holds and $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable. \qed
 \end {proof}
 
-With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can prove the following lemma, which states that getting rid of case in \figurename~\ref{fig:introduce pb order} is enough for ensure that $\mathsf{MatchedMaxPriority}^{=}(e)$ holds. 
+With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can prove the following lemma, which states that getting rid of case in \figurename~\ref{fig:introduce pb order} is enough for ensure that $\mathsf{MatchedMaxPriority}^{=}(e)$ holds.
 
 
 \EPQOneEqualAsPBandGP*
 
-\begin {proof}
 
-To prove the $\textit{if}$ direction, let $e_{x,y}$ be the execution that is obtained from $e$ by erasing all actions of items that has same priority as $x$, except for actions of $x$ and $y$. It is obvious that $\textit{last}(e_{x,y}) = \seqPQ_1^{=}$. Since $y <_{\textit{pb}}^* x$, according to $\seqPQ_1^{=}$, we can see that $x$ should be chosen as $\textit{itm}$ in $\seqPQ_1^{=}$.
+\begin {proof}
+To prove the $\textit{if}$ direction, let $e_{x,y}$ be the execution that is obtained from $e$ by erasing all actions of values that has same priority as $x$, except for actions of $x$ and $y$. It is obvious that $\mathsf{Has\text{-}MatchedMaxP-}$ $\mathsf{riority}^{=}(e_{x,y})$ holds. Since $y <_{\textit{pb}}^* x$, we can see that $x$ should be chosen as $\alpha$ in $\mathsf{MatchedMaxPriority}^{=}$ .
 
 According to Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar} (Here we temporarily forget the existence of $y$), the only possible position for locating linearizaton point of $\textit{rm}(x)$ is at gap-point of $x$. Otherwise, if the linearizaton point of $\textit{rm}(x)$ is chosen at a position that is not a gap-point of $x$, then there exists unmatched operation before $\textit{rm}(x)$ with smaller priority. Since the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$, if we locate linearizaton point of $\textit{rm}(x)$ at gap-point of $x$, then $\textit{rm}(x)$ will be before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},x)$.
 
-Therefore, for every sequence $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched operations of priority smaller than $p$, or $w$ contains $\textit{put}(y,p)$ or $\textit{rm}(y)$. In both cases, $l \notin \textit{MS}(\seqPQ_1^{=})$.
+Therefore, for every sequence $l = u \cdot \textit{put}(x,p) \cdot v \cdot \textit{rm}(x) \cdot w$, if $e_{x,y} \sqsubseteq l$, then either $u \cdot v$ contains some unmatched operations of priority smaller than $p$, or $w$ contains $\textit{put}(y,p)$ or $\textit{rm}(y)$. In both cases, $\mathsf{MatchedMaxPriority^{=}\text{-}Seq}(l,x)$ does not hold.
 
-To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},x)$. We need to prove that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. Recall that we already assume that each single-priority execution has FIFO property, and item with larger priority is not covered by items with smaller priority.
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume we already know that for each $x$ and $y$ has maximal priority in $e$, if $y <_{\textit{pb}}^* x$, then the rightmost gap-point of $x$ is after $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},x)$. We need to prove that $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable. Recall that we already assume that each single-priority execution has FIFO property, and value with larger priority is not covered by values with smaller priority.
 
 Our proof proceed as follows:
 
@@ -1146,11 +1146,11 @@ Our proof proceed as follows:
 \setlength{\itemsep}{0.5pt}
 \item[-] Let $e_{p}$ be the projection of $e$ into operations of priority $p$. Since each single-priority execution has FIFO property, there exists sequence $l_{p}$, such that $e_{p} \sqsubseteq l_{p}$, and when we treat $\textit{put}$ as $\textit{enq}$ and $\textit{rm}$ as $\textit{deq}$, $l_{p}$ belongs to queue.
 
-\item[-] Let $a_1$ be the last inserted item of $l_{p}$.
+\item[-] Let $a_1$ be the last inserted value of $l_{p}$.
 
     Step $1$: Check whether for each $b \in \textit{Items}(e,p)$, (1) $a_1$ does not $<_{\textit{pb}}$ to $b$, and (2) the right-most gap-point of $a$ is after $\textit{call}(\textit{put},b,p)$ and $\textit{call}(\textit{rm},b)$.
 
-    It is easy to see that $a_1$ is of priority $p$, and $a_1$ does not $<_{\textit{pb}}$ to any $b \in \textit{Items}(e,p)$. If for each $b \in \textit{Items}(e,p)$, the rightmost gap-point of $a_1$ is after $\textit{call}(\textit{put},b,p)$ and $\textit{call}(\textit{rm},b)$. Then by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can obtain that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$.
+    It is easy to see that $a_1$ is of priority $p$, and $a_1$ does not $<_{\textit{pb}}$ to any $b \in \textit{Items}(e,p)$. If for each $b \in \textit{Items}(e,p)$, the rightmost gap-point of $a_1$ is after $\textit{call}(\textit{put},b,p)$ and $\textit{call}(\textit{rm},b)$. Then by Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, we can obtain that $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable.
 
 
 \item[-] Otherwise, there exists $a_2 \in \textit{Items}(e,p)$, such that the rightmost gap-point of $a_1$ is before $\textit{call}(\textit{put},a_2,p)$ or $\textit{call}(\textit{rm},a_2)$ in $e$. We can see that each gap-point of $a_2$ is after the rightmost gap-point of $a_1$.%, and thus, the right-most gap-point of $a_2$ is after the rightmost gap-point of $a_1$.
@@ -1158,7 +1158,7 @@ Our proof proceed as follows:
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] If for each item $b \in \textit{Items}(e,p)$, $a_2$ does not $<_{\textit{pb}}$ to $b$. Then we go to step $1$ and treat $a_2$ similarly as $a_1$.
+    \item[-] If for each value $b \in \textit{Items}(e,p)$, $a_2$ does not $<_{\textit{pb}}$ to $b$. Then we go to step $1$ and treat $a_2$ similarly as $a_1$.
     \item[-] Otherwise, there exists $a_3$ with priority $p$ such that $a_2 <_{\textit{pb}}^* a_3$.
 
     Since $l_{p}$ has FIFO property, it is easy to see that there is no cycle in $<_{\textit{pb}}$ order. It is safe to assume that $a_3$ is maximal in the sense of $<_{\textit{pb}}^*$. Or we can say, there does not exists $a_4$, such that $a_3 <_{\textit{pb}}^* a_4$.
@@ -1167,7 +1167,7 @@ Our proof proceed as follows:
     \end{itemize}
 \end{itemize}
 
-Let $a^i$ be the $a_1$ in the $\textit{i-th}$ loop of our proof. It is not hard to see that, given $i<j$, the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$. Therefore, the loop finally stop at some $a^f$. $a^f$ satisfies the check of Step $1$. By Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, this implies that $e \sqsubseteq \textit{MS}(\seqPQ_1^{=})$. This completes the proof of $\textit{if}$ direction. \qed
+Let $a^i$ be the $a_1$ in the $\textit{i-th}$ loop of our proof. It is not hard to see that, given $i<j$, the rightmost gap-point of $a^j$ is after the rightmost gap-point of $a^i$. Therefore, the loop finally stop at some $a^f$. $a^f$ satisfies the check of Step $1$. By Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}, this implies that $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable. This completes the proof of $\textit{if}$ direction. \qed
 \end {proof}
 
 
@@ -1194,9 +1194,9 @@ Our proof proceed as follows:
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
-    \item[-] ($<_{\textit{pb}}^A \cdot <_{\textit{pb}}^C$): If $c_3 <_{\textit{pb}}^A c_2 <_{\textit{pb}}^C c_1$. Since $c_2 <_{\textit{pb}}^C c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$. Since $\textit{rm}(c_2)$ does not happen before $\textit{put}(c_2,\_)$, $\textit{call}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^A c_2$, $\textit{ret}(\textit{put},c_3)$ is before $\textit{call}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{put},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^A c_1$.
+    \item[-] ($<_{\textit{pb}}^A \cdot <_{\textit{pb}}^C$): If $c_3 <_{\textit{pb}}^A c_2 <_{\textit{pb}}^C c_1$. Since $c_2 <_{\textit{pb}}^C c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$. Since $\textit{rm}(c_2)$ does not happen before $\textit{put}(c_2,\_)$, $\textit{call}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_3 <_{\textit{pb}}^A c_2$, $\textit{ret}(\textit{put},c_3,\_)$ is before $\textit{call}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{put},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^A c_1$.
 
-    \item[-] ($<_{\textit{pb}}^C \cdot <_{\textit{pb}}^A$): If $c_3 <_{\textit{pb}}^C c_2 <_{\textit{pb}}^A c_1$. Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{ret}(\textit{put},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$. It is obvious that $\textit{call}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{put},c_2)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
+    \item[-] ($<_{\textit{pb}}^C \cdot <_{\textit{pb}}^A$): If $c_3 <_{\textit{pb}}^C c_2 <_{\textit{pb}}^A c_1$. Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{ret}(\textit{put},c_2,\_)$ is before $\textit{call}(\textit{put},c_1,\_)$. It is obvious that $\textit{call}(\textit{put},c_2,\_)$ is before $\textit{ret}(\textit{put},c_2,\_)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_2,\_)$. Therefore, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
 
     %Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{put}(c_2,\_)$ happens before $\textit{put}(c_1,\_)$. Since $c_3 <_{\textit{pb}}^C c_2$, $\textit{rm}(c_3)$ happens before $\textit{put}(c_2,\_)$. Therefore, $\textit{rm}(c_3)$ happens before $\textit{put}(c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$.
     \end{itemize}
@@ -1215,14 +1215,14 @@ Our proof proceed as follows:
     \setlength{\itemsep}{0.5pt}
     \item[-] If $\textit{call}(\textit{rm},c_2)$ is before $\textit{call}(\textit{put},c_1,\_)$: Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{rm},c_2)$. Then $\textit{ret}(\textit{rm},c_3)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_3 <_{\textit{pb}}^C c_1$. This implies that $c_4 <_{\textit{pb}}^A c_3 <_{\textit{pb}}^C c_1$. According to the fact for $<_{\textit{pb}}^A \cdot <_{\textit{pb}}^C$, we know that $c_4  <_{\textit{pb}}^A c_1$.
 
-    \item[-] If $\textit{call}(\textit{rm},c_2)$ is after $\textit{call}(\textit{put},c_1,\_)$: Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{ret}(\textit{put},c_2,\_)$ is before $\textit{call}(\textit{put},c_1,\_)$. Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{rm}(c_3)$ happens before $\textit{rm}(c_2)$, and then we know that $\textit{put}(c_2,\_)$ can not happen before $\textit{put}(c_3,\_)$. Since $\textit{put}(c_2,\_)$ does not happen before $\textit{put}(c_3,\_)$, $\textit{call}(\textit{put},c_3,\_)$ is before $\textit{ret}(\textit{put},c_2,\_)$. Since $c_4 <_{\textit{pb}}^A c_3$, $\textit{ret}(\textit{put},c_4)$ is before $\textit{call}(\textit{put},c_3,\_)$. Therefore, $\textit{ret}(\textit{put},c_4)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_4 <_{\textit{pb}}^A c_1$.
+    \item[-] If $\textit{call}(\textit{rm},c_2)$ is after $\textit{call}(\textit{put},c_1,\_)$: Since $c_2 <_{\textit{pb}}^A c_1$, $\textit{ret}(\textit{put},c_2,\_)$ is before $\textit{call}(\textit{put},c_1,\_)$. Since $c_3 <_{\textit{pb}}^B c_2$, $\textit{rm}(c_3)$ happens before $\textit{rm}(c_2)$, and then we know that $\textit{put}(c_2,\_)$ can not happen before $\textit{put}(c_3,\_)$. Since $\textit{put}(c_2,\_)$ does not happen before $\textit{put}(c_3,\_)$, $\textit{call}(\textit{put},c_3,\_)$ is before $\textit{ret}(\textit{put},c_2,\_)$. Since $c_4 <_{\textit{pb}}^A c_3$, $\textit{ret}(\textit{put},c_4,\_)$ is before $\textit{call}(\textit{put},c_3,\_)$. Therefore, $\textit{ret}(\textit{put},c_4,\_)$ is before $\textit{call}(\textit{put},c_1,\_)$, and $c_4 <_{\textit{pb}}^A c_1$.
     \end{itemize}
 
 \item[-]  ($<_{\textit{pb}}^B \cdot <_{\textit{pb}}^A \cdot <_{\textit{pb}}^B$): If $c_4 <_{\textit{pb}}^B c_3 <_{\textit{pb}}^A c_2 <_{\textit{pb}}^B c_1$: Since $c_2 <_{\textit{pb}}^B c_1$, $\textit{ret}(\textit{rm},c_2)$ is before $\textit{call}(\textit{rm},c_1)$. Since $c_3 <_{\textit{pb}}^A c_2$, we can see that $\textit{put}(c_3,\_) <_{\textit{hb}} \textit{put}(c_2,\_)$. Since each single-priority execution has FIFO property, we know that $\textit{rm}(c_2)$ does not happen before $\textit{rm}(c_3)$, and thus, $\textit{call}(\textit{rm},c_3)$ is before $\textit{ret}(\textit{rm},c_2)$. Since $c_4 <_{\textit{pb}}^B c_3$, $\textit{ret}(\textit{rm},c_4)$ is before $\textit{call}(\textit{rm},c_3)$. Therefore, $\textit{ret}(\textit{rm},c_4)$ is before $\textit{call}(\textit{rm},c_1)$, and $c_4 <_{\textit{pb}}^B c_1$.
 
 \end{itemize}
 
-Based on above results, given $a <_{\textit{pb}}^{b_1} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}}^{b_m} a_m <_{\textit{pb}}^{b_{\textit{m+1}}} b$, where each $b_i$ is in $\{ A,B,C \}$, we can merge relations, until we got one of the following facts:
+Based on above results, given $a <_{\textit{pb}}^{b_1} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}}^{b_m} a_m <_{\textit{pb}}^{b_{\textit{m+1}}} b$, where each $b_i$ is in $\{ A,B,C \}$, we can merge relations, until we get one of the following facts:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -1234,16 +1234,16 @@ Based on above results, given $a <_{\textit{pb}}^{b_1} a_1 <_{\textit{pb}} \ldot
 This completes the proof of this lemma. \qed
 \end {proof}
 
-There are many enumerations of operations of $a$, $b$ and $a_1$ that may makes $a <_{\textit{pb}}^* b$. The following lemma states that with the help of gap-points, the number of potential enumerations can be further reduced into only five.
+There are many enumerations of operations of $a$, $b$ and $a_1$ that may makes $a <_{\textit{pb}}^* b$. The following lemma states that since some of them is not consistent with the requirements of gap-point, the number of potential enumerations can be further reduced into only five. 
 
 
 \begin{restatable}{lemma}{FiveEnmuerationisEnoughForEPQOneEqual}
 \label{lemma:five enumeration is enough for EPQ1Equal}
-Given a data-differentiated $p$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$. Let $a$ and $b$ be items with maximal priority $p$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate items for obtain $a <_{\textit{pb}}^* b$.
+Given a data-differentiated $p$-execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds. Let $a$ and $b$ be items with maximal priority $p$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate value for obtain $a <_{\textit{pb}}^* b$.
 \end{restatable}
 \begin {proof}
 
-Let us prove by consider all the possible reason of $a <_{\textit{pb}}^* b$. According to Lemma \ref{lemma:ob order has bounded length}, we need to consider five reasons: Let $o$ be the right-most gap-point of $b$.
+Let us prove by consider all the possible reasons of $a <_{\textit{pb}}^* b$. According to Lemma \ref{lemma:ob order has bounded length}, we need to consider five reasons: Let $o$ be the right-most gap-point of $b$.
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -1251,9 +1251,9 @@ Let us prove by consider all the possible reason of $a <_{\textit{pb}}^* b$. Acc
 
     Since $a <_{\textit{pb}}^A b$, $\textit{put}(a,p) <_{\textit{hb}} \textit{put}(b,p)$. Since $o$ is after $\textit{call}(\textit{put},b,p)$, and thus, after $\textit{call}(\textit{put},a,p)$, we can see that $o$ is before $\textit{call}(\textit{rm},b)$.
 
-    Since single-priority execution must satisfy the FIFO property, $\textit{rm}(b)$ does not happen before $\textit{rm}(a)$, and thus, $\textit{call}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. If $\textit{call}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},b)$, then $o$ is also a gap-point of $a$ and contradicts our assumption. So we know that $\textit{call}(\textit{rm},a)$ is after $\textit{call}(\textit{rm},b)$. If $\textit{ret}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$, since we already assume that there exists gap-point of $a$, this gap-point is also a gap-point of $b$, and is after $o$, which contradicts that $o$ is the rightmost gap-point of $b$. Therefore, $\textit{ret}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$.
+    Since single-priority execution must satisfy the FIFO property, $\textit{rm}(b) \not <_{\textit{hb}} \textit{rm}(a)$, and thus, $\textit{call}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. If $\textit{call}(\textit{rm},a)$ is before $\textit{call}(\textit{rm},b)$, then $o$ is also a gap-point of $a$ and contradicts our assumption. So we know that $\textit{call}(\textit{rm},a)$ is after $\textit{call}(\textit{rm},b)$. If $\textit{ret}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$, since we already assume that there exists gap-point of $a$, this gap-point is also a gap-point of $b$, and is after $o$, which contradicts that $o$ is the rightmost gap-point of $b$. Therefore, $\textit{ret}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$.
 
-    According to above discussion, there are two possible enumeration of operations of $a$ and $b$, as shown in \figurename~\ref{fig:history enumeration 1 for PQ1Equal} and \figurename~\ref{fig:history enumeration 2 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},b)$ does not influence the correctness, we can simply ignore it.
+    According to above discussion, there are two possible enumeration of operations of $a$ and $b$, as shown in \figurename~\ref{fig:history enumeration 1 for PQ1Equal} and \figurename~\ref{fig:history enumeration 2 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},b,\_)$ does not influence the correctness, we can simply ignore it.
 
 \item[-] Reason $2$, $a <_{\textit{pb}}^B b$:
 
@@ -1269,11 +1269,11 @@ Let us prove by consider all the possible reason of $a <_{\textit{pb}}^* b$. Acc
 
     If $\textit{call}(\textit{rm},a)$ is after $\textit{ret}(\textit{rm},b)$, then $e \vert_{ \{ a,a_1,b \} }$ violates the FIFO property. Therefore, $\textit{call}(\textit{rm},a)$ is before $\textit{ret}(\textit{rm},b)$. Similarly as the case of reason $1$, we can see that $\textit{ret}(\textit{rm},b)$ is before $\textit{ret}(\textit{rm},a)$.
 
-    According to above discussion, there are three possible enumeration of operations of $a$, $a_1$ and $b$, as shown in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}, \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and \figurename~\ref{fig:history enumeration 5 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},a_1,p)$ and $\textit{call}(\textit{put},a,p)$ do not influence the correctness, we can simply ignore it. We also ignore $\textit{call}(\textit{put},b,p)$ and $\textit{ret}(\textit{put},b)$, since the only requirements of them are (1) $\textit{rm}(b)$ does not happen before $\textit{put}(b)$ and (2) $\textit{call}(\textit{put},b,p)$ is before $o$.
+    According to above discussion, there are three possible enumeration of operations of $a$, $a_1$ and $b$, as shown in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}, \figurename~\ref{fig:history enumeration 4 for PQ1Equal} and \figurename~\ref{fig:history enumeration 5 for PQ1Equal}. Here we explicitly draw the leftmost gap-point of $a$ as $o'$. Since the position of $\textit{ret}(\textit{put},a_1,p)$ and $\textit{call}(\textit{put},a,p)$ do not influence the correctness, we can simply ignore it. We also ignore $\textit{call}(\textit{put},b,p)$ and $\textit{ret}(\textit{put},b,\_)$, since the only requirements of them are (1) $\textit{rm}(b) \not <_{\textit{hb}} \textit{put}(b)$ and (2) $\textit{call}(\textit{put},b,p)$ is before $o$.
 
 \item[-] Reason $5$, $a <_{\textit{pb}}^B a_1 <_{\textit{pb}}^A b$:
 
-    Since $a_1 <_{\textit{pb}}^A b$, $\textit{ret}(\textit{put},a_1)$ is before $\textit{call}(\textit{put},b,p)$. Since $\textit{call}(\textit{put},b,p)$ is before $o$, we can see that $\textit{ret}(\textit{put},a_1)$ is before $o$.
+    Since $a_1 <_{\textit{pb}}^A b$, $\textit{ret}(\textit{put},a_1)$ is before $\textit{call}(\textit{put},b,p)$. Since $\textit{call}(\textit{put},b,p)$ is before $o$, we can see that $\textit{ret}(\textit{put},a_1,\_)$ is before $o$.
 
     \begin{itemize}
     \setlength{\itemsep}{0.5pt}
@@ -1327,22 +1327,22 @@ This completes the proof of this lemma. \qed
   \label{fig:history enumeration 5 for PQ1Equal}
 \end{figure}
 
-
-Let us begin to represent several register automata that is used to capture the existence of a data-differentiated $\_$-execution $e$, $e$ has a projection $e'$, $\textit{last}(e') = \seqPQ_1^{=}$, there exists items $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\_)$ or $\textit{call}(\textit{rm},a)$.
-
-Given a data-differentiated $\_$-execution $e$, two actions $\textit{act}_1$, $\textit{act}_2$ of maximal priority in $e$, and assume that $\textit{act}_1$ is before $\textit{act}_2$ in $e$.
+Given a data-differentiated execution $e$ with only one maximal priority, two actions $\textit{act}_1$, $\textit{act}_2$ of maximal priority in $e$, and assume that $\textit{act}_1$ is before $\textit{act}_2$ in $e$.
 we say that $\textit{act}_1$, $\textit{act}_2$ is covered by items $d_1,\ldots,d_m$ in $e$, if the priorities of $d_1,\ldots,d_m$ is smaller than that of $\textit{act}_1$ and $\textit{act}_2$, and
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
 \item[-] $\textit{ret}(\textit{put},d_m,\_)$ is before $\textit{act}_1$,
 
-\item[-] For each $i < 1 \leq m$,$\textit{put}(d_{\textit{i-1}},\_)$ happens before $\textit{rm}(d_i)$,
+\item[-] For each $i < 1 \leq m$,$\textit{put}(d_{\textit{i-1}},\_) <_{\textit{hb}} \textit{rm}(d_i)$,
 
 \item[-] $\textit{act}_2$ is before $\textit{call}(\textit{rm},d_1)$.
 \end{itemize}
 
-According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{lemma:ob order has bounded length} and Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, it is not hard to prove that, given a data-differentiated $\_$-execution $e$ with $\textit{last}(e) = \seqPQ_1^{=}$, $e$ does not linearizable with respect to $\textit{EMS}(\textit{PQ}_1^{=})$, if and only if, one of enumerations holds in $e$ (permit renaming), while $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ is covered by some $d_1,\ldots,d_m$, $\textit{call}(\textit{rm},b)$ is before $\textit{ret}(\textit{put},d_m,\_)$, and $\textit{call}(\textit{rm},d_1)$ is before $\textit{ret}(\textit{rm},a)$. We say that such $d_1,\ldots,d_m$ constitute the rightmost gap of $b$.
+According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{lemma:ob order has bounded length} and Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, it is not hard to prove that, given a data-differentiated execution $e$ with only one maximal priority and $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds. $e$ is not $\mathsf{MatchedMaxPriority}$-linearizable, if and only if, one of enumerations holds in $e$ (permit renaming), while $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ is covered by some $d_1,\ldots,d_m$, $\textit{call}(\textit{rm},b)$ is before $\textit{ret}(\textit{put},d_m,\_)$, and $\textit{call}(\textit{rm},d_1)$ is before $\textit{ret}(\textit{rm},a)$. We say that such $d_1,\ldots,d_m$ constitute the rightmost gap of $b$.
+
+
+Let us begin to represent several register automata that is used to capture the existence of a data-differentiated execution $e$, $e$ has a projection $e'$, $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMax-}$ $\mathsf{Priority}(e')$ holds, there exists items $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\_)$ or $\textit{call}(\textit{rm},a)$.
 
 
 An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the items that covers $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $d$, and rename the remanning items into $e$. In this figure, $c = \textit{call}(\textit{put},e,\textit{anyPri}),\textit{ret}(\textit{put},e)$, $\textit{call}(\textit{rm},e), \textit{ret}(\textit{rm},e),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$, $c_1 = c + \textit{call}(\textit{put},d,\textit{les}_p)$, $c_2 = c_1 + \textit{ret}(\textit{put},b)$, $c_3 = c_2 + \textit{call}(\textit{put},d),\textit{ret}(\textit{rm},d)$, $c_4 = c + \textit{ret}(\textit{put},b) + \textit{ret}(\textit{rm},d)$.
