@@ -1113,7 +1113,7 @@ By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Con
 \subsection{Proofs, Definitions and Register Automata in Subsection \ref{subsec:co-regular of EPQ1Equal}}
 \label{sec:appendix proof and definition in section co-regular of EPQ1Equal}
 
-Let $\textit{Items}(e,p)$ be the set of items with priority $p$ in execution $e$. The following lemma states a method to build the linearization of $e$ w.r.t $\mathsf{MatchedMaxPriority}^{=}$.
+Let $\textit{Items}(e,p)$ be the set of values with priority $p$ in execution $e$. The following lemma states a method to build the linearization of $e$ w.r.t $\mathsf{MatchedMaxPriority}^{=}$.
 
 \begin{restatable}{lemma}{MaximalInPBadGPMakePQ1Equal}
 \label{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
@@ -1132,12 +1132,12 @@ Let $o$ be the right-most gap-point of $x$. We locate linearization points of ea
 
 \item[-] Locate linearization points of operation of each $y \in \textit{Items}(e,p)$ (except for $x$) just after the call action of the operation.
 
-\item[-] For item $z$ with priority smaller than $p$. If both $\textit{call}(\textit{put},z,\_)$ and $\textit{call}(\textit{rm},z)$ is before $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just after their call actions. If both $\textit{ret}(\textit{put},z)$ and $\textit{ret}(\textit{rm},z)$ (if exists) is after $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just before their return actions. Otherwise, $x$ is in interval of $z$, which contradicts the definition of gap-point, and is impossible.
+\item[-] For value $z$ with priority smaller than $p$. If both $\textit{call}(\textit{put},z,\_)$ and $\textit{call}(\textit{rm},z)$ is before $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just after their call actions. If both $\textit{ret}(\textit{put},z)$ and $\textit{ret}(\textit{rm},z)$ (if exists) is after $o$, then locate the linearization points of $\textit{put}(z,\_)$ and $\textit{rm}(z)$ just before their return actions. Otherwise, $x$ is in interval of $z$, which contradicts the definition of gap-point, and is impossible.
 \end{itemize}
 
-Let $l$ be the sequence of linearization points constructed above. It is obvious that $e \sqsubseteq l$. Since for each $y \in \textit{Items}(e,p)$, $o$ is after $\textit{call}(\textit{put},y,\_)$ and $\textit{call}(\textit{rm},x)$, we can see that $\textit{rm}(x)$ is after $\textit{put}(y,p)$ and $\textit{rm}(y)$ in $l$. It is obvious that $\textit{put}(x,p)$ is before $\textit{rm}(x)$ in $l$. Since $x$ does not $<_{\textit{pb}}$ to $y$, we can see that no $\textit{put}(y,p)$ happens before $\textit{put}(x,p)$. Then it is easy to see that $\textit{put}(x,p)$ is after $\textit{put}(y,p)$ in $l$. Since $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds, all other items in $\textit{Items}(e,p)$ has matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that their $\textit{put}$ and $\textit{rm}$ (except for that of $x$) are all before $\textit{rm}(x)$ in $l$.
+Let $l$ be the sequence of linearization points constructed above. It is obvious that $e \sqsubseteq l$. Since for each $y \in \textit{Items}(e,p)$, $o$ is after $\textit{call}(\textit{put},y,\_)$ and $\textit{call}(\textit{rm},x)$, we can see that $\textit{rm}(x)$ is after $\textit{put}(y,p)$ and $\textit{rm}(y)$ in $l$. It is obvious that $\textit{put}(x,p)$ is before $\textit{rm}(x)$ in $l$. Since $x$ does not $<_{\textit{pb}}$ to $y$, we can see that no $\textit{put}(y,p)$ happens before $\textit{put}(x,p)$. Then it is easy to see that $\textit{put}(x,p)$ is after $\textit{put}(y,p)$ in $l$. Since $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds, all other values in $\textit{Items}(e,p)$ has matched $\textit{put}$ and $\textit{rm}$, and it is easy to see that their $\textit{put}$ and $\textit{rm}$ (except for that of $x$) are all before $\textit{rm}(x)$ in $l$.
 
-For item $z$ with priority smaller than $p$, we can see that there are only two possibilities: (1) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ are both before $\textit{rm}(x)$ in $l$, and (2) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ (if exists) are after before $\textit{rm}(x)$ in $l$. Therefore, before $\textit{rm}(x)$ in $l$, the $\textit{put}$ and $\textit{rm}$ of $z$ are matched.
+For value $z$ with priority smaller than $p$, we can see that there are only two possibilities: (1) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ are both before $\textit{rm}(x)$ in $l$, and (2) $\textit{put}(z,\_)$ and $\textit{rm}(z)$ (if exists) are after before $\textit{rm}(x)$ in $l$. Therefore, before $\textit{rm}(x)$ in $l$, the $\textit{put}$ and $\textit{rm}$ of $z$ are matched.
 
 Therefore, it is easy to see that $\mathsf{MatchedMaxPriority^{=}\text{-}Seq}(l,x)$ holds and $e$ is $\mathsf{MatchedMaxPriority}^{=}$-linearizable. \qed
 \end {proof}
@@ -1194,7 +1194,7 @@ Let $a^i$ be the $a_1$ in the $\textit{i-th}$ loop of our proof. It is not hard 
 
 
 
-According to the definition of $<_{\textit{ob}}^*$, if $a <_{\textit{pb}}^* b$, then there exists $a_1,\ldots,a_m$, such that $a <_{\textit{pb}} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}} a_m <_{\textit{pb}} b$. The following lemma states that, the number of intermediate items $a_i$ is in fact bounded.
+According to the definition of $<_{\textit{ob}}^*$, if $a <_{\textit{pb}}^* b$, then there exists $a_1,\ldots,a_m$, such that $a <_{\textit{pb}} a_1 <_{\textit{pb}} \ldots <_{\textit{pb}} a_m <_{\textit{pb}} b$. The following lemma states that, the number of intermediate values $a_i$ is in fact bounded.
 
 %\OBOrderHasBoundedLength*
 
@@ -1271,7 +1271,7 @@ There are many enumerations of operations of $a$, $b$ and $a_1$ that may makes $
 
 \begin{restatable}{lemma}{FiveEnmuerationisEnoughForEPQOneEqual}
 \label{lemma:five enumeration is enough for EPQ1Equal}
-Given a data-differentiated $p$-execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds. Let $a$ and $b$ be items with maximal priority $p$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate value for obtain $a <_{\textit{pb}}^* b$.
+Given a data-differentiated $p$-execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds. Let $a$ and $b$ be values with maximal priority $p$. Assume that $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$. Then, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists), where $a_1$ is the possible intermediate value for obtain $a <_{\textit{pb}}^* b$.
 \end{restatable}
 \begin {proof}
 
@@ -1360,7 +1360,7 @@ This completes the proof of this lemma. \qed
 \end{figure}
 
 Given a data-differentiated execution $e$ with only one maximal priority, two actions $\textit{act}_1$, $\textit{act}_2$ of maximal priority in $e$, and assume that $\textit{act}_1$ is before $\textit{act}_2$ in $e$.
-we say that $\textit{act}_1$, $\textit{act}_2$ is covered by items $d_1,\ldots,d_m$ in $e$, if the priorities of $d_1,\ldots,d_m$ is smaller than that of $\textit{act}_1$ and $\textit{act}_2$, and
+we say that $\textit{act}_1$, $\textit{act}_2$ is covered by values $d_1,\ldots,d_m$ in $e$, if the priorities of $d_1,\ldots,d_m$ is smaller than that of $\textit{act}_1$ and $\textit{act}_2$, and
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -1374,7 +1374,7 @@ we say that $\textit{act}_1$, $\textit{act}_2$ is covered by items $d_1,\ldots,d
 According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{lemma:ob order has bounded length} and Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, it is not hard to prove that, given a data-differentiated execution $e$ with only one maximal priority and $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e)$ holds. $e$ is not $\mathsf{MatchedMaxPriority}$-linearizable, if and only if, one of enumerations holds in $e$ (permit renaming), while $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ is covered by some $d_1,\ldots,d_m$, $\textit{call}(\textit{rm},b)$ is before $\textit{ret}(\textit{put},d_m,\_)$, and $\textit{call}(\textit{rm},d_1)$ is before $\textit{ret}(\textit{rm},a)$. We say that such $d_1,\ldots,d_m$ constitute the rightmost gap of $b$.
 
 
-Let us begin to represent several register automata that is used to capture the existence of a data-differentiated execution $e$, $e$ has a projection $e'$, $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMax-}$ $\mathsf{Priority}(e')$ holds, there exists items $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\_)$ or $\textit{call}(\textit{rm},a)$.
+Let us begin to represent several register automata that is used to capture the existence of a data-differentiated execution $e$, $e$ has a projection $e'$, $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMax-}$ $\mathsf{Priority}(e')$ holds, there exists values $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\_)$ or $\textit{call}(\textit{rm},a)$.
 
 
 An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the values that cover $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $d$, and rename the remanning values into $\top$. In this figure, $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true})$, $\textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),$ $\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_1 = C \cup \{ \textit{call}(\textit{put},d,<r) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,=r) \}$, $C_3 = C_2 \cup \{ \textit{call}(\textit{put},d,<r),\textit{ret}(\textit{rm},d) \}$, $C_4 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{ret}(\textit{rm},d) \}$.
@@ -1441,13 +1441,13 @@ We need to prove that, given a data-independent implementation $\mathcal{I}$. $\
 
 By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, $a$ and $b$ are two items with maximal priority $p$ in $e'$, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e'$. 
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, $a$ and $b$ are two values with maximal priority $p$ in $e'$, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e'$.
 
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\mathcal{A}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\mathcal{A}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the items that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the items that are renamed into $d$ by $r$.
+\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\mathcal{A}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\mathcal{A}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the values that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the values that are renamed into $d$ by $r$.
 
 let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$, $e''$ has only one maximal priority, and $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e'')$ holds. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$ in $e''$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds $e'$ has only one maximal priority, $a'$ and $b'$ are two items with maximal priority $p$ in $e'$, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',p)$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the items $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other items into $\top$. It is easy to see that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e_1)$ holds, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
+\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds $e'$ has only one maximal priority, $a'$ and $b'$ are two values with maximal priority $p$ in $e'$, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',p)$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the values $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other values into $\top$. It is easy to see that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e_1)$ holds, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
 
 
 \begin{itemize}
@@ -1612,7 +1612,7 @@ Let us begin to represent a register automaton that is used for capture the case
   \label{fig:automata for PQ3}
 \end{figure}
 
-Given a data-differentiated execution $e$, we say that $o = \textit{rm}(\textit{empty})$ in $e$ is covered by items $d_1,\ldots,d_m$, if
+Given a data-differentiated execution $e$, we say that $o = \textit{rm}(\textit{empty})$ in $e$ is covered by values $d_1,\ldots,d_m$, if
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
@@ -1623,7 +1623,7 @@ Given a data-differentiated execution $e$, we say that $o = \textit{rm}(\textit{
 \item[-] $o$ happens before $\textit{rm}(d_1)$, or $\textit{rm}(d_1)$ does not exists in $e$
 \end{itemize}
 
-According to the definition of left-right constraint for $o$, in a data-differentiated execution $e$, there is a cycle going through $o$, if and only if there exists items $d_1,\ldots,d_m$, such that $o$ is covered by $d_1,\ldots,d_m$.
+According to the definition of left-right constraint for $o$, in a data-differentiated execution $e$, there is a cycle going through $o$, if and only if there exists values $d_1,\ldots,d_m$, such that $o$ is covered by $d_1,\ldots,d_m$.
 
 
 \begin{restatable}{lemma}{EPQ3IsCoRegular}
@@ -1637,12 +1637,12 @@ We need to prove that, given a data-independent implementation $\mathcal{I}$. $\
 
 By Lemma \ref{lemma:Lin Equals Constraint for EPQ3}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some items $d_1,\ldots,d_m$ in $e'$. 
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some values $d_1,\ldots,d_m$ in $e'$. 
 
 
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\seqPQ}^3$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Let $d_1,\ldots,d_m$ be the items in $e_2$ such that $r(d_i)=b$ for each $1 \leq i \leq m$. Let $e_3 = e_2 \vert_{ \{ o, d_1, \ldots, d_m \} }$. It is obvious that $e_3 \in \textit{proj}(e_2)$ and $\textit{last}(e_3) = \seqPQ_3$. It is easy to see that $o$ is covered by $d_1,\ldots,d_m$.
+\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\seqPQ}^3$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Let $d_1,\ldots,d_m$ be the values in $e_2$ such that $r(d_i)=b$ for each $1 \leq i \leq m$. Let $e_3 = e_2 \vert_{ \{ o, d_1, \ldots, d_m \} }$. It is obvious that $e_3 \in \textit{proj}(e_2)$ and $\textit{last}(e_3) = \seqPQ_3$. It is easy to see that $o$ is covered by $d_1,\ldots,d_m$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists such $e$, $e'$, $o$ and $d_1,\ldots,d_m$. Then, let $e_1$ be obtained from $e$ by renaming $d_1,\ldots,d_m$ into $b$ and renaming other items into $\top$. By data-independence, $e_1 \in \mathcal{I}$. It is easy to see that $e_1$ is accepted by $\mathcal{A}_{\seqPQ}^3$.
+\noindent The $\textit{if}$ direction: Assume that there exists such $e$, $e'$, $o$ and $d_1,\ldots,d_m$. Then, let $e_1$ be obtained from $e$ by renaming $d_1,\ldots,d_m$ into $b$ and renaming other values into $\top$. By data-independence, $e_1 \in \mathcal{I}$. It is easy to see that $e_1$ is accepted by $\mathcal{A}_{\seqPQ}^3$.
 
 This completes the proof of this lemma. \qed
 \end {proof}
