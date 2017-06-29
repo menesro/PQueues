@@ -578,7 +578,7 @@ This is a direct consequence of Lemma \ref{lemma:EPQ1 is step-by-step linearizab
 \label{sec:appendix subsection proof of lemma con-check-EPQ is correct}
 
 
-%\ConCheckEPQIsCorrect* 
+%\ConCheckEPQIsCorrect*
 
 {\noindent \bf Lemma \ref{lemma:con-check-EPQ is correct}}: $\textit{Check-PQ-Conc}(e)=\mathsf{true}$ iff $e \sqsubseteq \seqPQ$, for every data-differentiated execution $e$.
 
@@ -767,7 +767,7 @@ With Lemma \ref{lemma:merge two linearization}, we can now prove Lemma \ref{lemm
 
 $\newline$
 
-{\noindent \bf Lemma \ref{lemma:pri execution is enough}}: Let $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$ and $e$ a data-differentiated execution. Then, $e$ is $\Gamma$-linearizable iff $e\vert_{\preceq p}$ is $\Gamma$-linearizable for some maximal priority $p$ in $e$. 
+{\noindent \bf Lemma \ref{lemma:pri execution is enough}}: Let $\Gamma\in \{\mathsf{UnmatchedMaxPriority}, \mathsf{MatchedMaxPriority}\}$ and $e$ a data-differentiated execution. Then, $e$ is $\Gamma$-linearizable iff $e\vert_{\preceq p}$ is $\Gamma$-linearizable for some maximal priority $p$ in $e$.
 
 %\priExecutionIsEnough*
 \begin {proof}
@@ -937,10 +937,16 @@ This completes the proof for $\textit{UVSet}_{\textit{j+1}}(e,x)$. Therefore, $\
 
 With Lemma \ref{lemma:UVSet has matched put and rm} and Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}, we can now prove Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}, which give the equivalent characterization of non $\mathsf{MatchedMaxPriority}$-linearizable executions.
 
-\begin{restatable}{lemma}{LinEqualsConstraintforEPQOneLar}
-\label{lemma:Lin Equals Constraint for EPQ1Lar}
-Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, let $p$ be its maximal priority and $\textit{put}(x,p),\textit{rm}(x)$ are only operations of priority $p$ in $e$. Let $G$ be the graph representing the left-right constraint of $x$. $e$ is $\mathsf{MatchedMaxPriority}$-linearizable, if and only if $G$ has no cycle going through $x$.
-\end{restatable}
+%\begin{restatable}{lemma}{LinEqualsConstraintforEPQOneLar}
+%\label{lemma:Lin Equals Constraint for EPQ1Lar}
+%Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, let $p$ be its maximal priority and $\textit{put}(x,p),\textit{rm}(x)$ are only operations of priority $p$ in $e$. Let $G$ be the graph representing the left-right constraint of $x$. $e$ is $\mathsf{MatchedMaxPriority}$-linearizable, if and only if $G$ has no cycle going through $x$.
+%\end{restatable}
+
+
+
+$\newline$
+{\noindent \bf Lemma \ref{lemma:Lin Equals Constraint for EPQ1Lar}}: Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds, let $p$ be its maximal priority and $\textit{put}(x,p),\textit{rm}(x)$ are only operations of priority $p$ in $e$. Let $G$ be the graph representing the left-right constraint of $x$. $e$ is $\mathsf{MatchedMaxPriority}$-linearizable, if and only if $G$ has no cycle going through $x$.
+
 
 \begin {proof}
 
@@ -1150,7 +1156,7 @@ With Lemma \ref{lemma:maximal in pb and gap-point make a candidate of EPQ1Equal}
 $\newline$
 {\noindent \bf Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}}: Let $e$ be a data-differentiated execution which contains only one maximal priority $p$ such that $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds.
 %Given a data-differentiated $p$-execution $e$ where $\mathsf{MatchedMaxPriority}^{=}\mathsf{\text{-}Condition}(e)$ holds.
-Then, $e$ is not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ iff $e$ contains two values $x$ and $y$ of maximal priority $p$ such that $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is strictly smaller than the index of both $\textit{call}(\textit{put},y,p)$ and $\textit{call}(\textit{rm},y)$.
+Then, $e$ is not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ iff $e$ contains two values $x$ and $y$ of maximal priority $p$ such that $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is strictly smaller than the index of $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$.
 
 
 \begin {proof}
@@ -1266,7 +1272,7 @@ Based on above results, given $a <_{\textit{pb}}^{b_1} a_1 <_{\textit{pb}} \ldot
 This completes the proof of this lemma. \qed
 \end {proof}
 
-There are many enumerations of operations of $a$, $b$ and $a_1$ that may makes $a <_{\textit{pb}}^* b$. The following lemma states that since some of them is not consistent with the requirements of gap-point, the number of potential enumerations can be further reduced into only five. 
+There are many enumerations of operations of $a$, $b$ and $a_1$ that may makes $a <_{\textit{pb}}^* b$. The following lemma states that since some of them is not consistent with the requirements of gap-point, the number of potential enumerations can be further reduced into only five.
 
 
 \begin{restatable}{lemma}{FiveEnmuerationisEnoughForEPQOneEqual}
@@ -1435,7 +1441,7 @@ Let $\mathcal{A}_{\textit{1-eq}}$ be the union of $\mathcal{A}_{\textit{l-eq}}^1
 $\mathcal{A}_{\textit{1-eq}}$ is $\mathsf{MatchedMaxPriority}^{=}$-complete.
 \end{restatable}
 
-\begin {proof} 
+\begin {proof}
 
 We need to prove that, given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\mathsf{MatchedMaxPriority}^{=}$-linearizable.
 
@@ -1477,7 +1483,7 @@ This completes the proof of this lemma. \qed
 \begin{restatable}{lemma}{EPQ2LarIsAlwaysCoRegular}
 \label{lemma:EPQ2Lar is always co-regular}
 
-Given a data-differentiated execution $e$ with only one maximal priority, if $\mathsf{Has\text{-}}\mathsf{Unmat-}$ $\mathsf{chedMaxPriority}^{>}(e)$ holds, then $e \sqsubseteq l$ for some $l$ where $\mathsf{UnmatchedMaxPriority}^{>}\mathsf{\text{-}Seq}(l,x)$ holds. 
+Given a data-differentiated execution $e$ with only one maximal priority, if $\mathsf{Has\text{-}}\mathsf{Unmat-}$ $\mathsf{chedMaxPriority}^{>}(e)$ holds, then $e \sqsubseteq l$ for some $l$ where $\mathsf{UnmatchedMaxPriority}^{>}\mathsf{\text{-}Seq}(l,x)$ holds.
 \end{restatable}
 
 \begin {proof}
@@ -1499,7 +1505,7 @@ Given a data-differentiated execution $e$ with only one priority and $\mathsf{Ha
 
 The $\textit{if}$ direction is obvious.
 
-To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,p)$ does not happen before $\textit{put}(y,p)$. We need to prove that $e$ is $\mathsf{UnmatchedMaxPriority}^{=}(e)$-linearizable. 
+To prove the $\textit{only if}$ direction, we prove its contrapositive. Assume that for each pair of $x$ and $y$ with maximal priority in $e$, if $x$ has unmatched $\textit{put}$, $y$ has matched $\textit{put}$ and $\textit{rm}$, then $\textit{put}(x,p)$ does not happen before $\textit{put}(y,p)$. We need to prove that $e$ is $\mathsf{UnmatchedMaxPriority}^{=}(e)$-linearizable.
 
 Let $x_1,\ldots,x_m$ be the set of values with priority $p$ and has unmatched $\textit{put}$ in $e$, let $y_1,\ldots,y_n$ be the set of values with priority $p$ and has matched $\textit{put}$ and $\textit{rm}$ in $e$. By assumption, we know that $\textit{call}(\textit{put},y_i,p)$ is before $\textit{ret}(\textit{put},x_j,p)$ for each $i,j$. Then we explicitly construction the linearization of $e$ by locating the linearization points of $e$ as follows:
 
@@ -1519,7 +1525,7 @@ Lemma \ref{lemma:EPQ2Equal as happen before} shows how to check non $\mathsf{Unm
 
 \begin{restatable}{lemma}{EPQ2EqualIsAlwaysCoRegular}
 \label{lemma:EPQ2Equal is always co-regular}
-Given a data-differentiated execution $e$ with only one maximal priority, if $\mathsf{Has\text{-}}\mathsf{Unmat-}$ $\mathsf{chedMaxPriority}^{=}(e)$ holds, then $e \sqsubseteq l$ for some $l$ where $\mathsf{UnmatchedMaxPriority}^{=}\mathsf{\text{-}Seq}(l,x)$ holds. 
+Given a data-differentiated execution $e$ with only one maximal priority, if $\mathsf{Has\text{-}}\mathsf{Unmat-}$ $\mathsf{chedMaxPriority}^{=}(e)$ holds, then $e \sqsubseteq l$ for some $l$ where $\mathsf{UnmatchedMaxPriority}^{=}\mathsf{\text{-}Seq}(l,x)$ holds.
 \end{restatable}
 
 \begin {proof}
@@ -1557,17 +1563,17 @@ Given a data-differentiated execution $e$ and $o = \textit{rm}(\textit{empty})$ 
 Similarly as $\textit{UVSet}$, we can prove the following two lemmas for $\textit{USet}$.
 
 \begin{restatable}{lemma}{USetHasMatchedPutandRm}
-\label{lemma:USet has matched put and rm} 
+\label{lemma:USet has matched put and rm}
 
-Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $\textit{USet}(e,o)$ contains only matched $\textit{put}$ and $\textit{rm}$. 
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $\textit{USet}(e,o)$ contains only matched $\textit{put}$ and $\textit{rm}$.
 \end{restatable}
 
 This Lemma can be similarly proved as Lemma \ref{lemma:UVSet has matched put and rm}.
 
 
 \begin{restatable}{lemma}{RmxDoesNotHappenBeforeUSetForEPQ3}
-\label{lemma:Rmx does not happen before USet for EPQ3} 
-Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $o$ does not happen before any operation in $\textit{USet}(e,o)$. 
+\label{lemma:Rmx does not happen before USet for EPQ3}
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. Let $o$ be a $\textit{rm}(\textit{empty})$ of $e$. Let $G$ be the graph representing the left-right constraint of $o$. Assume that $G$ has no cycle going through $o$. Then, $o$ does not happen before any operation in $\textit{USet}(e,o)$.
 \end{restatable}
 
 This Lemma can be similarly proved as Lemma \ref{lemma:Rmx does not happen before UVSet for EPQ1Lar}.
@@ -1577,7 +1583,7 @@ Then we can prove that getting rid of cycle though $o$ in left-right constraint 
 
 \begin{restatable}{lemma}{LINEqualsConstraintforEPQ3}
 \label{lemma:Lin Equals Constraint for EPQ3}
-Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. $e$ is not $\mathsf{EmptyRemove}$-linearizable, if and only if there exists $o = \textit{rm}(\textit{empty})$ in $e$, $G$ has a cycle going through $o$, where $G$ is the graph representing the left-right constraint of $o$. 
+Given a data-differentiated execution $e$ where $\mathsf{Has\text{-}EmptyRemove}(e)$ holds. $e$ is not $\mathsf{EmptyRemove}$-linearizable, if and only if there exists $o = \textit{rm}(\textit{empty})$ in $e$, $G$ has a cycle going through $o$, where $G$ is the graph representing the left-right constraint of $o$.
 \end{restatable}
 
 \begin {proof}
@@ -1602,7 +1608,7 @@ This completes the proof of the $\textit{only if}$ direction.
 \qed
 \end {proof}
 
-Let us begin to represent a register automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $e'$ is not $\mathsf{EmptyRemove}$-linearizable, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}($ $\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_1 = C \cup \{ \textit{call}(\textit{put},b,\textit{true}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, and $C_3 = C \cup \{ \textit{ret}(\textit{rm},b) \}$. 
+Let us begin to represent a register automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $e'$ is not $\mathsf{EmptyRemove}$-linearizable, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}($ $\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_1 = C \cup \{ \textit{call}(\textit{put},b,\textit{true}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, and $C_3 = C \cup \{ \textit{ret}(\textit{rm},b) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -1628,16 +1634,16 @@ According to the definition of left-right constraint for $o$, in a data-differen
 
 \begin{restatable}{lemma}{EPQ3IsCoRegular}
 \label{lemma:EPQ3 is co-regular}
-$\mathcal{A}_{\seqPQ}^3$ is $\mathsf{EmptyRemove}^{=}$-complete. 
+$\mathcal{A}_{\seqPQ}^3$ is $\mathsf{EmptyRemove}^{=}$-complete.
 \end{restatable}
 
-\begin {proof} 
+\begin {proof}
 
 We need to prove that, given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$ such that $e'$ is not $\mathsf{EmptyRemove}^{=}$-linearizable.
 
 By Lemma \ref{lemma:Lin Equals Constraint for EPQ3}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some values $d_1,\ldots,d_m$ in $e'$. 
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some values $d_1,\ldots,d_m$ in $e'$.
 
 
 \noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\seqPQ}^3$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Let $d_1,\ldots,d_m$ be the values in $e_2$ such that $r(d_i)=b$ for each $1 \leq i \leq m$. Let $e_3 = e_2 \vert_{ \{ o, d_1, \ldots, d_m \} }$. It is obvious that $e_3 \in \textit{proj}(e_2)$ and $\textit{last}(e_3) = \seqPQ_3$. It is easy to see that $o$ is covered by $d_1,\ldots,d_m$.
@@ -1649,6 +1655,131 @@ This completes the proof of this lemma. \qed
 
 
 
+\subsection{Proofs and Definitions in Section \ref{subsec:combine step-by-step linearizability and co-regular}}
+\label{subsec:appendix proof and definition in subsection decidability result}
 
+In this subsection, we show how to prove that the verification of linearizability of priority queue to be PSPACE-complete for a fixed number of threads, and EXPSPACE-complete for unbounded number of processes.
+
+When considering decidability and complexity, we consider only finite variables with finite data domain. In such case, the priority queue implementations can only model priority queue with bounded capacity. Then, at some time, the priority queue may become full and then put can not succeed until some item is removed. However, we assume that each method can always make progress in isolation, which means that $\textit{put}$ must return some value when the priority queue is full. Therefore, we introduce a specific value $\textit{full}$. A $\textit{put}$ method returns $\textit{full}$ indicates that the priority queue is full now. To fit our results of priority queue in former section, when checking linearizability of priority queue, we only consider executions without any $\textit{put}(\_,\_,\textit{full})$. Since does not mean we consider only executions with bounded number of operations, since an execution can contain unbounded number of pairs of put and remove operations by linearizable w.r.t pairs of put and remove operations.
+
+\noindent {\bf Vector Addition Systems with States (VASS):} A VASS \cite{conf/esop/BouajjaniEEH13} $\mathcal{A}=(Q_\mathcal{A},\rightarrow_\mathcal{A})$ contains a finite set $Q_\mathcal{A}$ of states and a finite set $\rightarrow_\mathcal{A}$ of transitions. Each transition is chosen from $Q_\mathcal{A} \times \mathbb{Z}^s \times Q_\mathcal{A}$, where $s$ is a positive integer. A vector that has a single non-zero component in $\{1,-1\}$ is called a unit vector. We assume, w.l.o.g., that all vectors of transitions are unit vectors.
+
+The operational semantics of a VASS is defined as a LTS. A configuration $(q,\vec n)$ of VASS $\mathcal{A}$ contains a state $q \in Q_\mathcal{A}$ with a vector $\vec n \in \mathbb{N}^s$. $\vec n$ can be considered as values of several counters. We use $\vec n(i)$ to denote the $i$-th component of $\vec n$. The transitions between configurations of VASS is defined as follows: $(q_1, \vec n_1) \rightarrow_{\mathcal{A}} (q_2, \vec n_2)$, if there exists vector $\vec n$, such that (1) $(q_1,\vec n,q_2) \in \rightarrow_\mathcal{A}$, (2) if $\vec n(j)=1$ for some $j$, then $\vec n_2$ is obtain from $\vec n_1$ by increasing the $i$-th component by $1$, and (3) if $\vec n(j)=-1$ for some $j$, then $\vec n_2$ is obtain from $\vec n_1$ by decreasing the $i$-th component by $1$.
+
+The state-reachability problem of VASS is to determine whether some configuration with state $q$ is reachable from a given configuration $(q_0,\vec 0)$. Here $\vec 0$ is a specific vector for which all components are $0$ and $q_0$ is the initial state of VASS.
+
+
+\noindent {\bf Reducing priority Queue into PSPACE and EXPSPACE problems:} We describe a class $\mathcal{C}$ of data-independent implementations for which linearizability w.r.t. $\seqPQ$ is decidable. The implementations in $\mathcal{C}$ allow an unbounded number of values but a bounded number of priorities. Each method manipulates a finite number of local variables which store Boolean values, or data values from $\mathbb{D}$. Methods communicate through a finite number of shared variables that also store Boolean values, or data values from $\mathbb{D}$. Data values may be assigned, but never used in program predicates (e.g., in the conditions of if-then-else and while statements) so as to ensure data independence. This class captures typical implementations, or finite-state abstractions thereof, e.g., obtained via predicate abstraction. Since the $\Gamma$-complete automata $A(\Gamma)$ uses a fixed set $D=\{a,b,a_1,d,e,\top\}$ of values, we have that $\mathcal{C}\cap A(\Gamma)\neq\emptyset$ for some $\Gamma$ iff $\mathcal{C}_D\cap A(\Gamma)\neq\emptyset$ where $\mathcal{C}_D$ is the subset of $\mathcal{C}$ that uses only values in $D$.
+
+We model the set $\mathcal{C}_D$ as the executions of a Vector Addition System with States (VASS) similarly to Bouajjani et al. \cite{conf/esop/BouajjaniEEH13}. A VASS has a finite set of states, and manipulates a finite set of counters holding non-negative values. The idea is that the states of the VASS represent the global variables of $\mathcal{C}_D$. This set is finite as we have bounded the data values. Each counter of the VASS then represents the number of threads which are at a particular control location within a method, with a certain valuation of the local variables. Here again, as the data values are bounded, there is a finite number of valuations. When a thread moves from a control location to another, or updates its local variables, we decrement, resp., increment, the counter corresponding the old, resp., the new, control location or valuation.
+
+For a fixed set of priorities $P$, the register automata $A(\Gamma)$ can be transformed to finite-state automata since the number of possible valuations of the registers is bounded. In this way, we reduce checking linearizability of priority queue into the the EXPSPACE-complete problem of checking state-reachability in a VASS. When we consider only finite number of threads, the value of counters are bounded and then this problem is PSPACE \cite{DBLP:conf/ac/Esparza96}.
+
+
+\noindent {\bf Reducing PSPACE and EXPSPACE problems into linearizability of priority queue for bounded number of threads:} We show how to reduce the state-reachability problem of VASS into checking linearizability of priority queue. Our construction is based on the reduction of state-reachability problem of counter machine and VASS into linearizability in \cite{conf/esop/BouajjaniEEH13}.
+
+There are already several linearizable lock-free implementations of priority queue \cite{DBLP:conf/ipps/SundellT03,DBLP:conf/ppopp/LiuS12}. It is not hard to modify them to fit finite variables with finite data domain and it is obvious that they are still linearizable then. Let $\textit{Imp-PQ}_{\textit{lf}}$ be one such implementations. It is safe to assume that $\textit{Imp-PQ}_{\textit{lf}}$ is given in the form of pseudo-code. We use $\textit{put}_{\textit{lf}}$ and $\textit{rm}_{\textit{lf}}$ to explicitly denote the pseudo-code of put and remove method of $\textit{Imp-PQ}_{\textit{lf}}$.
+
+A counter machine is a VASS that can additional detect if the value of some counter is $0$. In \cite{conf/esop/BouajjaniEEH13}, they construct a library $\mathcal{L}_{\mathcal{A}}$ that simulate executions of counter machine $\mathcal{A}$. This library use finite variables with finite data domain. It contains the following six methods:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] $M_{(q,\vec n,q')}$, which represents a transition resulting of $(q,\vec n,q')$.
+
+\item[-] $M_{(q,i,q')}$, which represents a transition that from state $q$ to state $q'$ while detecting the value of counter $i$ to be $0$.
+
+\item[-] $M_{q_f}$. This method returns if the simulating reaches some state with state $q_f$.
+
+\item[-] $M_{\textit{inc-i}}$, which simulates increasing counter $i$ with $1$.
+
+\item[-] $M_{\textit{dec-i}}$, which simulates decreasing counter $i$ with $1$.
+
+\item[-] $M_{\textit{zero-i}}$, which simulates testing whether the value of counter $i$ to be $0$.
+\end{itemize}
+
+The first three methods do their work with the help of the latter three methods. For example, a $M_{(q,\vec n,q')}$ method (that increases counter $j$) will activate a $M_{inc-j}$ method and a $M_{dec-j}$ method.
+
+Let $D' = \{ (q,\vec n,q') \vert q,q' \in Q_{\mathcal{A}} - \{q_f\}, \vec n \in \mathbb{Z}^s \} \cup \{ q_f \} \cup \{\textit{inc-i},\textit{dec-i} \vert 1 \leq i \leq s\}$. Let $\textit{RAs}$ be the register automata obtained as follows:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] Given $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$, $\mathsf{MatchedMaxPriority}\}$, we modify the $\Gamma$-complete automata while the original value of $\top$ is replaced by values $\top$ and all values in $D'$.
+
+\item[-] For register automata that checks FIFO of sub-executions of operations with a same priority, if the original value under consideration is $\{ b \}$ (the first three automata) or $\{a,b\}$ (the forth automaton), then we replace them with $\{ b \} \cup D'$ and $\{a,b\} \cup D'$, respectively.
+\end{itemize}
+
+Given a VASS $\mathcal{A}$, we construct a priority queue implementation $\textit{PQ}_{\mathcal{A}}$ as follows:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] A new memory location $\textit{reachQf}$ is introduced. Its initial value is set to false.
+
+\item[-] The $\textit{rm}$ method first check the value of $\textit{reachQf}$. If it is true, then it returns a random value. Otherwise, it works as $\textit{rm}_{\textit{lf}}$. The pseudo-code of $\textit{rm}$ is shown in Algorithm \ref{alg:new rm}.
+\end{itemize}
+
+
+\begin{algorithm}[t]
+%\KwIn {}
+\KwOut{A removed value}
+
+\If {$\textit{reachQf} = \textit{true}$}
+{\KwRet a random value from $D'$\;}
+\Else
+{\KwRet $\textit{rm}_{\textit{lf}}$()\;}
+
+\caption{$\textit{rm}$ of $\textit{PQ}_{\mathcal{A}}$}
+\label{alg:new rm}
+\end{algorithm}
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] The $\textit{put}$ method uses items from $D' \cup \{ a,b,a_1,d,e,\top \}$. It first uses $\textit{put}_{\textit{lf}}$ to do the work of priority queue, and then choose a role and begin to simulate transitions of $\mathcal{A}$, until $q_f$ is reached. Then, it set the flag $\textit{reachQf}$ to be $\textit{true}$. The pseudo-code of $\textit{put}$ is shown in Algorithm \ref{alg:new put}.
+\end{itemize}
+
+In \cite{conf/esop/BouajjaniEEH13}, to use a library to simulate counter machine $\mathcal{A}$, their library $\mathcal{L}_{\mathcal{A}}$ contains the following variables: (1) variable $q$ that uses value from $Q_{\mathcal{A}}$, (2) vector $\textit{req}[]$ and $\textit{ack}[]$, the index is chosen from $1$ to the number of unit vectors of length $s$, (3) $\textit{dec}[]$, where the index is chosen form $1$ to $s$.
+
+Let us explain how $\textit{put}$ method do to act according to its chosen role. We use the case of $\textit{trans}(q,\vec n,q')$ as an example while other cases can be similarly obtained. For the role $\textit{trans}(q,\vec n,q')$, it works as $M_{(q,\vec n,q')}$ in $\mathcal{L}_{\mathcal{A}}$. Or we can say, it do the following work:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] atomically do $\textit{wait}(q)$ and $\textit{signal}(\textit{req}[\vec n])$,
+\item[-] atomically do $\textit{wait}(\textit{ack}[\vec n])$ and $\textit{signal}(q')$,
+\end{itemize}
+
+Note that we want to obtain a implementation where each method can always make progress in isolation. To obtain such an implementation, we need to slightly modify the $\textit{wait}$ command as follows:
+
+\begin{itemize}
+\setlength{\itemsep}{0.5pt}
+\item[-] If a wait command find itself blocked, then it can still proceed. However, in this case the $\textit{put}$ method will return a specific value $\textit{fail}$. Moreover, when deciding linearizability, we do not consider executions with return value $\textit{fail}$.
+\end{itemize}
+
+\begin{algorithm}[t]
+\KwIn {An item $\textit{itm}$ and its priority $p$}
+\KwOut{$\textit{full}$ if the priority queue is full}
+
+$x = \textit{put}_{\textit{lf}}(\textit{itm},p)$\;
+
+random select a role from $\{ \textit{trans}(q,\vec n,q'), \textit{reach-}q_f, \textit{inc-i},\textit{dec-i} \}$\;
+
+works according to chosen role\;
+
+\If {$q_f$ is reached}
+{$\textit{reachQf} := \textit{true}$\;}
+
+\If {$x = \textit{full}$}
+{\KwRet $x$\;}
+\Else
+{\KwRet\;}
+\caption{$\textit{put}$ of $\textit{PQ}_{\mathcal{A}}$}
+\label{alg:new put}
+\end{algorithm}
+
+
+Follows the proof in \cite{conf/esop/BouajjaniEEH13}, we can prove that $(q_f,\_)$ is reachable in $\mathcal{A}$, if and only if $\textit{PQ}_{\mathcal{A}}$ is not linearizable w.r.t $\seqPQ$. In this way, we reduce the state-reachability problem of VASS into checking linearizablity of priority queue.
+
+With above discussions, we can now prove the following theorem:
+
+$\newline$
+{\noindent \bf Theorem \ref{theorem:complexity of priority queue}}: Verifying whether an implementation in $\mathcal{C}$ is linearizable w.r.t. $\seqPQ$ is PSPACE-complete for a fixed number of threads, and EXPSPACE-complete otherwise.
 
 
