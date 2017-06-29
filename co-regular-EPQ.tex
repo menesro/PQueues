@@ -315,7 +315,7 @@ The case of \figurename~\ref{fig:introduce pb order} can be formally described a
 \label{lemma:EPQ1Equal as pb order and gap-point}
 Let $e$ be a data-differentiated execution which contains only one maximal priority $p$ such that $\mathsf{Has\text{-}MatchedMaxPriority}(e)$ holds.
 %Given a data-differentiated $p$-execution $e$ where $\mathsf{MatchedMaxPriority}^{=}\mathsf{\text{-}Condition}(e)$ holds.
-Then, $e$ is not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ iff $e$ contains two values $x$ and $y$ of maximal priority $p$ such that $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is strictly smaller than the index of $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$.
+Then, $e$ is not linearizable w.r.t $\mathsf{MatchedMaxPriority}^{=}$ iff $e$ contains two values $x$ and $y$ of maximal priority $p$ such that $y <_{\textit{pb}}^* x$, {\color {red}and the rightmost gap-point of $x$ is strictly smaller than the index of $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$}.
 \end{restatable}
 
 %\begin {proof} (Sketch)
