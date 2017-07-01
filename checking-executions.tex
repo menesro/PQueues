@@ -222,7 +222,7 @@ When $o$ is a $\textit{rm}(\textit{empty})$ operation, we write $e\setminus o$ f
 %$\xrightarrow{\textit{EPQ}_1}$ $\epsilon$
 %\end{example}
 
-The following lemma states the correctness of $\textit{Check-PQ-Seq}$ (see Appendix~\ref{sec:appendix definition of seqPQ and proof of Lemma EQP rules and semantics} for the proof).
+The following lemma states the correctness of $\textit{Check-PQ-Seq}$. %(see Appendix~\ref{sec:appendix definition of seqPQ and proof of Lemma EQP rules and semantics} for the proof).
 
 \begin{restatable}{lemma}{EPQRulesAndSemantics}
 \label{lemma:EPQ rules and semantics}
@@ -278,7 +278,8 @@ $\textit{Check-PQ-Conc}(e)=\mathsf{true}$ iff $e \sqsubseteq \seqPQ$, for every 
 \end{restatable}
 
 
-Proving soundness is highly non-trivial and one of the main technical contributions of this paper (see Appendix~\ref{sec:appendix subsection proof of lemma con-check-EPQ is correct} for a complete proof). The main technical difficulty is showing that for any execution $e$, any linearization of $e\setminus x$ for some maximal priority value $x$ can be extended to a linearization of $e$ provided that $\mathsf{UnmatchedMaxPriority}$ or $\mathsf{MatchedMaxPriority}$ holds (depending on whether there are values with the same priority as $x$ in $e$ which are not removed).
+Proving soundness is highly non-trivial and one of the main technical contributions of this paper. %(see Appendix~\ref{sec:appendix subsection proof of lemma con-check-EPQ is correct} for a complete proof). 
+The main technical difficulty is showing that for any execution $e$, any linearization of $e\setminus x$ for some maximal priority value $x$ can be extended to a linearization of $e$ provided that $\mathsf{UnmatchedMaxPriority}$ or $\mathsf{MatchedMaxPriority}$ holds (depending on whether there are values with the same priority as $x$ in $e$ which are not removed).
 %
 %
 %To ensure that $\textit{check-PQ}(e) = \textit{true} \Rightarrow e \sqsubseteq \textit{PQ}$, we require $\textit{PQ}$ to satisfy the following property.
