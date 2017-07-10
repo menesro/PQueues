@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: draft.aux
+The style file: plainurl.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: violin.bib
+Warning--empty year in conf/cav/Vafeiadis10
+You've used 22 entries,
+            2849 wiz_defined-function locations,
+            832 strings with 11779 characters,
+and the built_in function-call counts, 12843 in all, are:
+= -- 1391
+> -- 432
+< -- 23
++ -- 155
+- -- 128
+* -- 766
+:= -- 1745
+add.period$ -- 91
+call.type$ -- 22
+change.case$ -- 121
+chr.to.int$ -- 0
+cite$ -- 23
+duplicate$ -- 449
+empty$ -- 1205
+format.name$ -- 128
+if$ -- 3349
+int.to.chr$ -- 0
+int.to.str$ -- 22
+missing$ -- 22
+newline$ -- 124
+num.names$ -- 60
+pop$ -- 234
+preamble$ -- 1
+purify$ -- 99
+quote$ -- 0
+skip$ -- 884
+stack$ -- 0
+substring$ -- 640
+swap$ -- 202
+text.length$ -- 23
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 88
+warning$ -- 1
+while$ -- 97
+width$ -- 24
+write$ -- 294
+(There was 1 warning)
