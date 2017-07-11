@@ -85,10 +85,10 @@ To distinguish between different $\textit{rm}(\textit{empty})$ operations while 
 %\begin{lemma}\label{lem:closure_proj}
 %$\seqPQ$ is closed under projection, i.e., $\textit{proj}(e)\subseteq \seqPQ$ for each $e\in \seqPQ$.
 %\end{lemma}
-\begin{restatable}{lemma}{EPQClosedUnderProjection}
+\begin{lemma}
 \label{lem:closure_proj}
 $\seqPQ$ is closed under projection, i.e., $\textit{proj}(e)\subseteq \seqPQ$ for each $e\in \seqPQ$.
-\end{restatable}
+\end{lemma}
 
 
 \subsection{Linearizability}\label{ssec:lin}
@@ -108,9 +108,8 @@ The following lemma states that by data-independence, it is enough to consider o
 %This is similar to that in \cite{conf/tacas/AbdullaHHJR13,DBLP:conf/icalp/BouajjaniEEH15}, where they use the notion of data-independence in \cite{conf/popl/Wolper86}.
 Section~\ref{sec:checking inclusion by recursive procedure} will focus on characterizing linearizability for data-differentiated executions. %The proof of this lemma can be found in Appendix \ref{sec:appendix in section data-independence of EPQ}.
 
-\begin{restatable}{lemma}{DataDifferentiatedisEnoughforPQ}
-\label{lemma:data differentiated is enough for PQ}
+\begin{lemma}\label{lemma:data differentiated is enough for PQ}
 A data-independent implementation $\mathcal{I}$ is linearizable w.r.t. a data-independent set $S$ of sequential executions, if and only if $\mathcal{I}_{\neq}$ is linearizable w.r.t. $S_{\neq}$.
-\end{restatable}
+\end{lemma}
 
 
