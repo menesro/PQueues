@@ -1,0 +1,179 @@
+\begin{thebibliography}{10}
+
+\bibitem{conf/tacas/AbdullaHHJR13}
+Parosh~Aziz Abdulla, Fr{\'e}d{\'e}ric Haziza, Luk{\'a}s Hol\'{\i}k, Bengt
+  Jonsson, and Ahmed Rezine.
+\newblock An integrated specification and verification technique for highly
+  concurrent data structures.
+\newblock In {\em TACAS}, pages 324--338, 2013.
+
+\bibitem{DBLP:conf/ppopp/AlistarhKLS15}
+Dan Alistarh, Justin Kopinsky, Jerry Li, and Nir Shavit.
+\newblock The spraylist: a scalable relaxed priority queue.
+\newblock In Albert Cohen and David Grove, editors, {\em Proceedings of the
+  20th {ACM} {SIGPLAN} Symposium on Principles and Practice of Parallel
+  Programming, PPoPP 2015, San Francisco, CA, USA, February 7-11, 2015}, pages
+  11--20. {ACM}, 2015.
+\newblock URL: \url{http://doi.acm.org/10.1145/2688500.2688523}, \href
+  {http://dx.doi.org/10.1145/2688500.2688523}
+  {\path{doi:10.1145/2688500.2688523}}.
+
+\bibitem{journals/iandc/AlurMP00}
+Rajeev Alur, Kenneth~L. McMillan, and Doron Peled.
+\newblock Model-checking of correctness conditions for concurrent objects.
+\newblock {\em Inf. Comput.}, 160(1-2):167--188, 2000.
+
+\bibitem{conf/esop/BouajjaniEEH13}
+Ahmed Bouajjani, Michael Emmi, Constantin Enea, and Jad Hamza.
+\newblock Verifying concurrent programs against sequential specifications.
+\newblock In {\em ESOP '13}, volume 7792 of {\em LNCS}, pages 290--309.
+  Springer, 2013.
+
+\bibitem{DBLP:conf/icalp/BouajjaniEEH15}
+Ahmed Bouajjani, Michael Emmi, Constantin Enea, and Jad Hamza.
+\newblock On reducing linearizability to state reachability.
+\newblock In Magn{\'{u}}s~M. Halld{\'{o}}rsson, Kazuo Iwama, Naoki Kobayashi,
+  and Bettina Speckmann, editors, {\em Automata, Languages, and Programming -
+  42nd International Colloquium, {ICALP} 2015, Kyoto, Japan, July 6-10, 2015,
+  Proceedings, Part {II}}, volume 9135 of {\em Lecture Notes in Computer
+  Science}, pages 95--107. Springer, 2015.
+\newblock URL: \url{http://dx.doi.org/10.1007/978-3-662-47666-6_8}, \href
+  {http://dx.doi.org/10.1007/978-3-662-47666-6_8}
+  {\path{doi:10.1007/978-3-662-47666-6_8}}.
+
+\bibitem{DBLP:conf/popl/BouajjaniEEH15}
+Ahmed Bouajjani, Michael Emmi, Constantin Enea, and Jad Hamza.
+\newblock Tractable refinement checking for concurrent objects.
+\newblock In Sriram~K. Rajamani and David Walker, editors, {\em Proceedings of
+  the 42nd Annual {ACM} {SIGPLAN-SIGACT} Symposium on Principles of Programming
+  Languages, {POPL} 2015, Mumbai, India, January 15-17, 2015}, pages 651--662.
+  {ACM}, 2015.
+\newblock URL: \url{http://doi.acm.org/10.1145/2676726.2677002}, \href
+  {http://dx.doi.org/10.1145/2676726.2677002}
+  {\path{doi:10.1145/2676726.2677002}}.
+
+\bibitem{CONCUR2017Ahmed}
+Ahmed Bouajjani, Constantin Enea, and Chao Wang.
+\newblock Checking linearizability of concurrent priority queues.
+\newblock {\em CoRR}, 2017.
+\newblock URL: \url{https://arxiv.org/abs/1707.00639}.
+
+\bibitem{DBLP:conf/wdag/CalciuMH14}
+Irina Calciu, Hammurabi Mendes, and Maurice Herlihy.
+\newblock The adaptive priority queue with elimination and combining.
+\newblock In Fabian Kuhn, editor, {\em Distributed Computing - 28th
+  International Symposium, {DISC} 2014, Austin, TX, USA, October 12-15, 2014.
+  Proceedings}, volume 8784 of {\em Lecture Notes in Computer Science}, pages
+  406--420. Springer, 2014.
+\newblock URL: \url{http://dx.doi.org/10.1007/978-3-662-45174-8_28}, \href
+  {http://dx.doi.org/10.1007/978-3-662-45174-8_28}
+  {\path{doi:10.1007/978-3-662-45174-8_28}}.
+
+\bibitem{DBLP:conf/icalp/Cerans94}
+Karlis Cerans.
+\newblock Deciding properties of integral relational automata.
+\newblock In Serge Abiteboul and Eli Shamir, editors, {\em Automata, Languages
+  and Programming, 21st International Colloquium, ICALP94, Jerusalem, Israel,
+  July 11-14, 1994, Proceedings}, volume 820 of {\em Lecture Notes in Computer
+  Science}, pages 35--46. Springer, 1994.
+\newblock URL: \url{http://dx.doi.org/10.1007/3-540-58201-0_56}, \href
+  {http://dx.doi.org/10.1007/3-540-58201-0_56}
+  {\path{doi:10.1007/3-540-58201-0_56}}.
+
+\bibitem{Dodds:2015:SCT:2676726.2676963}
+Mike Dodds, Andreas Haas, and Christoph~M. Kirsch.
+\newblock A scalable, correct time-stamped stack.
+\newblock In {\em POPL ’15}. ACM, 2015.
+
+\bibitem{DBLP:conf/ac/Esparza96}
+Javier Esparza.
+\newblock Decidability and complexity of petri net problems - an introduction.
+\newblock In {\em Lectures on Petri Nets {I:} Basic Models, Advances in Petri
+  Nets, the volumes are based on the Advanced Course on Petri Nets, held in
+  Dagstuhl, September 1996}, volume 1491 of {\em Lecture Notes in Computer
+  Science}, pages 374--428. Springer, 1996.
+
+\bibitem{journals/siamcomp/GibbonsK97}
+Phillip~B. Gibbons and Ephraim Korach.
+\newblock Testing shared memories.
+\newblock {\em SIAM J. Comput.}, 26(4):1208--1244, 1997.
+
+\bibitem{netys-lin}
+Jad Hamza.
+\newblock On the complexity of linearizability.
+\newblock In {\em NETYS '15}. Springer, 2015.
+
+\bibitem{conf/concur/HenzingerSV13}
+Thomas~A. Henzinger, Ali Sezgin, and Viktor Vafeiadis.
+\newblock Aspect-oriented linearizability proofs.
+\newblock In {\em CONCUR}, pages 242--256, 2013.
+
+\bibitem{journals/toplas/HerlihyW90}
+Maurice Herlihy and Jeannette~M. Wing.
+\newblock Linearizability: A correctness condition for concurrent objects.
+\newblock {\em ACM Trans. Program. Lang. Syst.}, 12(3):463--492, 1990.
+
+\bibitem{DBLP:journals/tcs/KaminskiF94}
+Michael Kaminski and Nissim Francez.
+\newblock Finite-memory automata.
+\newblock {\em Theor. Comput. Sci.}, 134(2):329--363, 1994.
+\newblock URL: \url{http://dx.doi.org/10.1016/0304-3975(94)90242-9}, \href
+  {http://dx.doi.org/10.1016/0304-3975(94)90242-9}
+  {\path{doi:10.1016/0304-3975(94)90242-9}}.
+
+\bibitem{DBLP:conf/opodis/LindenJ13}
+Jonatan Lind{\'{e}}n and Bengt Jonsson.
+\newblock A skiplist-based concurrent priority queue with minimal memory
+  contention.
+\newblock In Roberto Baldoni, Nicolas Nisse, and Maarten van Steen, editors,
+  {\em Principles of Distributed Systems - 17th International Conference,
+  {OPODIS} 2013, Nice, France, December 16-18, 2013. Proceedings}, volume 8304
+  of {\em Lecture Notes in Computer Science}, pages 206--220. Springer, 2013.
+\newblock URL: \url{http://dx.doi.org/10.1007/978-3-319-03850-6_15}, \href
+  {http://dx.doi.org/10.1007/978-3-319-03850-6_15}
+  {\path{doi:10.1007/978-3-319-03850-6_15}}.
+
+\bibitem{DBLP:conf/stacs/SegoufinT11}
+Luc Segoufin and Szymon Toru{\'{n}}czyk.
+\newblock Automata based verification over linearly ordered data domains.
+\newblock In Thomas Schwentick and Christoph D{\"{u}}rr, editors, {\em 28th
+  International Symposium on Theoretical Aspects of Computer Science, {STACS}
+  2011, March 10-12, 2011, Dortmund, Germany}, volume~9 of {\em LIPIcs}, pages
+  81--92. Schloss Dagstuhl - Leibniz-Zentrum fuer Informatik, 2011.
+\newblock URL: \url{http://dx.doi.org/10.4230/LIPIcs.STACS.2011.81}, \href
+  {http://dx.doi.org/10.4230/LIPIcs.STACS.2011.81}
+  {\path{doi:10.4230/LIPIcs.STACS.2011.81}}.
+
+\bibitem{DBLP:conf/ipps/ShavitL00}
+Nir Shavit and Itay Lotan.
+\newblock Skiplist-based concurrent priority queues.
+\newblock In {\em Proceedings of the 14th International Parallel {\&}
+  Distributed Processing Symposium (IPDPS'00), Cancun, Mexico, May 1-5, 2000},
+  pages 263--268. {IEEE} Computer Society, 2000.
+\newblock URL: \url{http://dx.doi.org/10.1109/IPDPS.2000.845994}, \href
+  {http://dx.doi.org/10.1109/IPDPS.2000.845994}
+  {\path{doi:10.1109/IPDPS.2000.845994}}.
+
+\bibitem{DBLP:conf/podc/ShavitZ99}
+Nir Shavit and Asaph Zemach.
+\newblock Scalable concurrent priority queue algorithms.
+\newblock In Brian~A. Coan and Jennifer~L. Welch, editors, {\em Proceedings of
+  the Eighteenth Annual {ACM} Symposium on Principles of Distributed Computing,
+  PODC, '99Atlanta, Georgia, USA, May 3-6, 1999}, pages 113--122. {ACM}, 1999.
+\newblock URL: \url{http://doi.acm.org/10.1145/301308.301339}, \href
+  {http://dx.doi.org/10.1145/301308.301339} {\path{doi:10.1145/301308.301339}}.
+
+\bibitem{conf/cav/Vafeiadis10}
+Viktor Vafeiadis.
+\newblock Automatically proving linearizability.
+\newblock In {\em CAV '10}, volume 6174 of {\em LNCS}, pages 450--464.
+
+\bibitem{conf/popl/Wolper86}
+Pierre Wolper.
+\newblock Expressing interesting properties of programs in propositional
+  temporal logic.
+\newblock In {\em POPL '86: Conference Record of the Thirteenth Annual ACM
+  Symposium on Principles of Programming Languages}, pages 184--193. ACM Press,
+  1986.
+
+\end{thebibliography}
