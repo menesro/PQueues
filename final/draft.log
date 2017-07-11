@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  11 JUL 2017 18:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  11 JUL 2017 18:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1624,12 +1624,12 @@ File: PIC_HIS_PQ1Lar-fouCase.pdf Graphic file (type pdf)
 Package pdftex.def Info: PIC_HIS_PQ1Lar-fouCase.pdf used on input line 273.
 (pdftex.def)             Requested size: 318.67207pt x 65.09007pt.
 
-<PIC_AUTO_PQ1Lar-pprr.pdf, id=298, 578.34367pt x 188.21516pt>
+<PIC_AUTO_PQ1Lar-pprr.pdf, id=298, 581.41013pt x 188.21516pt>
 File: PIC_AUTO_PQ1Lar-pprr.pdf Graphic file (type pdf)
 
 <use PIC_AUTO_PQ1Lar-pprr.pdf>
 Package pdftex.def Info: PIC_AUTO_PQ1Lar-pprr.pdf used on input line 282.
-(pdftex.def)             Requested size: 358.50227pt x 116.67496pt.
+(pdftex.def)             Requested size: 358.50227pt x 116.05461pt.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -1644,13 +1644,13 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 302.
 
 [11 <./PIC_HIS_PQ1Lar-fouCase.pdf>]
-<PIC-HIS-INTRO-PB-ORDER-EPQ.pdf, id=323, 319.57092pt x 88.00177pt>
+<PIC-HIS-INTRO-PB-ORDER-EPQ.pdf, id=323, 331.61592pt x 88.00177pt>
 File: PIC-HIS-INTRO-PB-ORDER-EPQ.pdf Graphic file (type pdf)
 
 <use PIC-HIS-INTRO-PB-ORDER-EPQ.pdf>
 Package pdftex.def Info: PIC-HIS-INTRO-PB-ORDER-EPQ.pdf used on input line 317.
 
-(pdftex.def)             Requested size: 239.00557pt x 65.81718pt.
+(pdftex.def)             Requested size: 239.00557pt x 63.42566pt.
  [12 <./PIC_AUTO_PQ1Lar-pprr.pdf> <./PIC-HIS-INTRO-PB-ORDER-EPQ.pdf>]
 <PIC-HIS-FiveEnumerations.pdf, id=356, 562.30077pt x 266.96037pt>
 File: PIC-HIS-FiveEnumerations.pdf Graphic file (type pdf)
@@ -1659,12 +1659,12 @@ File: PIC-HIS-FiveEnumerations.pdf Graphic file (type pdf)
 Package pdftex.def Info: PIC-HIS-FiveEnumerations.pdf used on input line 386.
 (pdftex.def)             Requested size: 318.67207pt x 151.29726pt.
 
-<PIC-WitnessAutomata-For1.pdf, id=362, 426.49336pt x 196.24516pt>
+<PIC-WitnessAutomata-For1.pdf, id=362, 432.43758pt x 196.24516pt>
 File: PIC-WitnessAutomata-For1.pdf Graphic file (type pdf)
 
 <use PIC-WitnessAutomata-For1.pdf>
 Package pdftex.def Info: PIC-WitnessAutomata-For1.pdf used on input line 408.
-(pdftex.def)             Requested size: 318.67207pt x 146.63849pt.
+(pdftex.def)             Requested size: 318.67207pt x 144.62622pt.
 
 Underfull \hbox (badness 3579) in paragraph at lines 410--410
 [][][][]| \T1/lmss/bx/n/9 Fig-ure 7 |\T1/lmr/m/n/9 A re-gister auto-maton cap-t
@@ -1776,7 +1776,7 @@ lic/lm/lmtt9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfont
 s/symbols/msam10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
 fonts/symbols/msbm10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public
 /amsfonts/symbols/msbm7.pfb>
-Output written on draft.pdf (17 pages, 677546 bytes).
+Output written on draft.pdf (17 pages, 677534 bytes).
 PDF statistics:
  608 PDF objects out of 1000 (max. 8388607)
  517 compressed objects within 6 object streams
