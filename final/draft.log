@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  11 JUL 2017 18:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  12 JUL 2017 11:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1664,35 +1664,9 @@ File: PIC-WitnessAutomata-For1.pdf Graphic file (type pdf)
 
 <use PIC-WitnessAutomata-For1.pdf>
 Package pdftex.def Info: PIC-WitnessAutomata-For1.pdf used on input line 408.
-(pdftex.def)             Requested size: 318.67207pt x 144.62622pt.
-
-Underfull \hbox (badness 3579) in paragraph at lines 410--410
-[][][][]| \T1/lmss/bx/n/9 Fig-ure 7 |\T1/lmr/m/n/9 A re-gister auto-maton cap-t
-ur-ing the scen-ario in Fig-ure []6[](a). We use
- []
-
-
-Underfull \hbox (badness 4229) in paragraph at lines 410--410
-\T1/lmr/m/n/9 the fol-low-ing nota-tions: $\OML/lmm/m/it/9 A[] \OT1/lmr/m/n/9 =
- \OML/lmm/m/it/9 A \OMS/lmsy/m/n/9 [ f[]\OT1/lmr/m/n/9 ([]\OML/lmm/m/it/9 ; c; 
-< r\OT1/lmr/m/n/9 )\OMS/lmsy/m/n/9 g$\T1/lmr/m/n/9 , $\OML/lmm/m/it/9 A[] \OT1/
-lmr/m/n/9 = \OML/lmm/m/it/9 A[] \OMS/lmsy/m/n/9 [ f[]\OT1/lmr/m/n/9 ([]\OML/lmm
-/m/it/9 ; b; \OT1/lmr/m/n/9 =
- []
-
-
-Underfull \hbox (badness 3179) in paragraph at lines 410--410
-\OML/lmm/m/it/9 r\OT1/lmr/m/n/9 )\OMS/lmsy/m/n/9 g$\T1/lmr/m/n/9 , $\OML/lmm/m/
-it/9 A[] \OT1/lmr/m/n/9 = \OML/lmm/m/it/9 A[] \OMS/lmsy/m/n/9 [ f[]\OT1/lmr/m/n
-/9 ([]\OML/lmm/m/it/9 ; c\OT1/lmr/m/n/9 )\OMS/lmsy/m/n/9 g$\T1/lmr/m/n/9 , $\OM
-L/lmm/m/it/9 A[] \OT1/lmr/m/n/9 = \OML/lmm/m/it/9 A \OMS/lmsy/m/n/9 [ f[]\OT1/l
-mr/m/n/9 ([]\OML/lmm/m/it/9 ; b; \OT1/lmr/m/n/9 = \OML/lmm/m/it/9 r\OT1/lmr/m/n
-/9 )\OML/lmm/m/it/9 ; []\OT1/lmr/m/n/9 ([]\OML/lmm/m/it/9 ; c\OT1/lmr/m/n/9 )\O
-MS/lmsy/m/n/9 g$\T1/lmr/m/n/9 , where $\OML/lmm/m/it/9 A \OT1/lmr/m/n/9 =
- []
-
-[13 <./PIC-HIS-FiveEnumerations.pdf>]) (./related.tex [14 <./PIC-WitnessAutomat
-a-For1.pdf>]) [15] (./draft.bbl
+(pdftex.def)             Requested size: 278.83578pt x 126.5457pt.
+ [13 <./PIC-HIS-FiveEnumerations.pdf>])
+(./related.tex [14 <./PIC-WitnessAutomata-For1.pdf>]) [15] (./draft.bbl
 LaTeX Font Info:    Calculating math sizes for size <9.5> on input line 17.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9.5> on input line 17.
@@ -1733,11 +1707,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 291.
 Here is how much of TeX's memory you used:
  25919 strings out of 493089
  499841 string characters out of 6134842
- 603499 words of memory out of 5000000
+ 603463 words of memory out of 5000000
  28655 multiletter control sequences out of 15000+600000
  314612 words of font info for 210 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,16n,80p,1612b,589s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,16n,80p,1530b,589s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
 texlive/2015/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2015/t
 exmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2015/texmf-dist/
@@ -1776,10 +1750,10 @@ lic/lm/lmtt9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfont
 s/symbols/msam10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
 fonts/symbols/msbm10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public
 /amsfonts/symbols/msbm7.pfb>
-Output written on draft.pdf (17 pages, 677534 bytes).
+Output written on draft.pdf (17 pages, 676970 bytes).
 PDF statistics:
- 608 PDF objects out of 1000 (max. 8388607)
- 517 compressed objects within 6 object streams
+ 609 PDF objects out of 1000 (max. 8388607)
+ 518 compressed objects within 6 object streams
  101 named destinations out of 1000 (max. 500000)
  176 words of extra memory for PDF output out of 10000 (max. 10000000)
 
