@@ -640,7 +640,7 @@ Before we go to investigate $\Gamma$-linearizable, we can use the result in \cit
 
 Given an execution of queue, we say that it is differentiated, if each value is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue.
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true})$, $\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $A_1 = \{ \textit{call}(\textit{put},\top,\textit{true})$, $\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top),\textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $A_2$ $= A_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$.
 
 
 \begin{figure}[htbp]
@@ -652,7 +652,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first ca
 \end{figure}
 
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true}),\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{call}(\textit{rm},b) + \textit{ret}(\textit{rm},b) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $A_1 = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top),\textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $A_2 = A_1 \cup \{ \textit{call}(\textit{rm},b), \textit{ret}(\textit{rm},b) \}$.
 
 
 \begin{figure}[htbp]
@@ -663,7 +663,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second c
   \label{fig:automata for FIFO-2}
 \end{figure}
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true}),\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_4 = C_3 \cup \{ \textit{call}(\textit{rm},b) \}$, $C_5 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_6 = C_5 \cup \{ \textit{call}(\textit{rm},b) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $A_1 = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top),\textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $A_2 = A_1 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$, $A_3 = A_2 \cup \{ \textit{ret}(\textit{rm},b) \}$, $A_4 = A_3 \cup \{ \textit{call}(\textit{rm},b) \}$, $A_5 = A_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $A_6 = A_5 \cup \{ \textit{call}(\textit{rm},b) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -673,7 +673,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third ca
   \label{fig:automata for FIFO-3}
 \end{figure}
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $C_1 = C \cup \{ \textit{call}(\textit{rm},b) \}$, and $C_2 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\textit{true}),\textit{ret}(\textit{put},d,\textit{true}), \textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $A_1 = A \cup \{ \textit{call}(\textit{rm},b) \}$, and $A_2 = A \cup \{ \textit{ret}(\textit{put},b,\textit{true}), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $A = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top),\textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -716,9 +716,9 @@ Let us prove the $\textit{if}$ direction. Assume that exists $e \in \mathcal{I}_
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If this is because case $1$, case $2$ or case $3$: $r$ maps $v_b$ into $b$ and maps all other values into $a$.
+\item[-] If this is because case $1$, case $2$ or case $3$: $r$ maps $v_b$ into $b$ and maps all other values into $\top$.
 
-\item[-] If this is because case $4$: $r$ maps $v_a$ and $v_b$ into $a$ and $b$, respectively, and maps all other values into $d$.
+\item[-] If this is because case $4$: $r$ maps $v_a$ and $v_b$ into $a$ and $b$, respectively, and maps all other values into $\top$.
 \end{itemize}
 
 Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by $\mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\textit{SinPri}}^4$. This completes the proof of this lemma. \qed
