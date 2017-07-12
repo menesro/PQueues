@@ -9,7 +9,7 @@ threads is bounded~\cite{journals/iandc/AlurMP00,netys-lin}, and
 undecidable otherwise~\cite{conf/esop/BouajjaniEEH13}. 
 
 Existing automated methods for proving linearizability of a concurrent object
-implementation are also based on reductions to safety
+ are also based on reductions to safety
 verification, e.g.,~\cite{conf/tacas/AbdullaHHJR13, conf/concur/HenzingerSV13,
 conf/cav/Vafeiadis10}. The approach in~\cite{conf/cav/Vafeiadis10} considers
 implementations where 
@@ -22,7 +22,7 @@ implementation with ghost variables simulating the ADT specification at
 linearization points. This approach is incomplete since not all implementations
 have fixed linearization points. Aspect-oriented
 proofs~\cite{conf/concur/HenzingerSV13} reduce linearizability to the
-verification of four simpler safety properties. However, this approach has only
+verification of four simpler safety properties. This approach has only
 been applied to queues, and has not produced a fully automated
 and complete proof technique. The work in~\cite{Dodds:2015:SCT:2676726.2676963} proves 
 linearizability of stack implementations with an automated proof assistant. 
