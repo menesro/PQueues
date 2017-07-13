@@ -1,40 +1,34 @@
 %!TEX root = draft.tex
 \section{Related work}\label{sec:related}
 
-The theoretical limits of checking linearizability have been investigated in previous works. 
-Checking linearizability of a single execution w.r.t. an arbitrary ADT is NP-complete~\cite{journals/siamcomp/GibbonsK97} while checking linearizability of all the executions  
-of a finite-state implementation w.r.t. an arbitrary ADT 
-specification (given as a regular language) is EXPSPACE-complete when the number of program 
+The theoretical limits of checking linearizability have been investigated in previous works.
+Checking linearizability of a single execution w.r.t. an arbitrary ADT is NP-complete~\cite{journals/siamcomp/GibbonsK97} while checking linearizability of all the executions
+of a finite-state implementation w.r.t. an arbitrary ADT
+specification (given as a regular language) is EXPSPACE-complete when the number of program
 threads is bounded~\cite{journals/iandc/AlurMP00,netys-lin}, and
-undecidable otherwise~\cite{conf/esop/BouajjaniEEH13}. 
+undecidable otherwise~\cite{conf/esop/BouajjaniEEH13}.
 
 Existing automated methods for proving linearizability of a concurrent object
-implementation are also based on reductions to safety
+ are also based on reductions to safety
 verification, e.g.,~\cite{conf/tacas/AbdullaHHJR13, conf/concur/HenzingerSV13,
 conf/cav/Vafeiadis10}. The approach in~\cite{conf/cav/Vafeiadis10} considers
-implementations where 
+implementations where
 operations' \emph{linearization points}
-are 
-% fixed to particular source-code locations.
+are
 manually specified.
 Essentially, this approach instruments the
 implementation with ghost variables simulating the ADT specification at
 linearization points. This approach is incomplete since not all implementations
 have fixed linearization points. Aspect-oriented
 proofs~\cite{conf/concur/HenzingerSV13} reduce linearizability to the
-verification of four simpler safety properties. However, this approach has only
+verification of four simpler safety properties. This approach has only
 been applied to queues, and has not produced a fully automated
-and complete proof technique. The work in~\cite{Dodds:2015:SCT:2676726.2676963} proves 
-linearizability of stack implementations with an automated proof assistant. 
-Their approach does not lead to full automation however, e.g.,~by reduction to 
+and complete proof technique. The work in~\cite{Dodds:2015:SCT:2676726.2676963} proves
+linearizability of stack implementations with an automated proof assistant.
+Their approach does not lead to full automation however, e.g.,~by reduction to
 safety verification.
 
 Our previous work~\cite{DBLP:conf/icalp/BouajjaniEEH15}
 shows that checking linearizability of finite-state implementations of concurrent queues and stacks is decidable.
 Roughly, we follow the same schema: the recursive procedure in Section~\ref{ssec:seq_exec} is similar to the inductive rules in~\cite{DBLP:conf/icalp/BouajjaniEEH15}, and its extension to concurrent executions in Section~\ref{ssec:conc_exec} corresponds to the notion of step-by-step linearizability in~\cite{DBLP:conf/icalp/BouajjaniEEH15}. Although similar in nature, defining these procedures and establishing their correctness require proof techniques which are specific to the priority queue semantics. The order in which values are removed from a priority queue is encoded in their priorities which come from an unbounded domain, and not in the happens-before order as in the case of stacks and queues. Therefore, the results we introduce in this paper cannot be inferred from those in~\cite{DBLP:conf/icalp/BouajjaniEEH15}. At a technical level, characterizing the priority queue violations requires a more expressive class of automata (with registers) than the finite-state automata in~\cite{DBLP:conf/icalp/BouajjaniEEH15}.
-
-%
-%these results require establishing key results which are specific to priority queues and which are not implied by those for stacks and queues (say that more details are given in the related work)
-%
-%\noindent The most related work of our paper is ~\cite{DBLP:conf/icalp/BouajjaniEEH15}. Compared to ~\cite{DBLP:conf/icalp/BouajjaniEEH15}, our work are specific to priority queue and thus have points not occur in queues and stacks. Due to the partial-order priorities, to prove the correctness of recursive procedure, we need to alter the positions of linearization points of incomparable items while keeps the linearization points of comparable items unchanged. {\color {blue}In the proof process we use the notion of left-right constraint, which is inspired by left-right constraint of queue \cite{Bouajjani:2015}.} For checking violations of one local property, we just need to find a value, such that at every possible time point to locate its remove operation, there is already values with smaller priorities in priority queue. For checking violations of another local property, we just need to find two values with maximal priority, such that every possible time point to locate remove operation of one value is disabled by remove operation of another value. Such phenomenons are unique for priority queue.
 
