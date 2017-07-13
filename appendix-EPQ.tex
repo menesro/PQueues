@@ -640,7 +640,7 @@ Before we go to investigate $\Gamma$-linearizable, we can use the result in \cit
 
 Given an execution of queue, we say that it is differentiated, if each value is enqueued at most once. \cite{DBLP:conf/icalp/BouajjaniEEH15} states that, given a differentiated queue execution $e$ without $\textit{deq}(\textit{empty})$, $e$ is not linearizable with respect to queue, if one of the following cases holds for some $a,b$: (1) $\textit{deq}(b) <_{hb} \textit{enq}(b)$, (2) there are no $\textit{enq}(b)$ and at least one $\textit{deq}(b)$, (3) there are one $\textit{enq}(b)$ and more than one $\textit{deq}(b)$, and (4) $\textit{enq}(a) <_{\textit{hb}} \textit{enq}(b)$, and $\textit{deq}(b) <_{\textit{hb}} \textit{deq}(a)$, or $\textit{deq}(a)$ does not exists. For each such case, we can construct a register automata for extended priority queue.
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true})$, $\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2$ $= C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first case, and it is shown in \figurename~\ref{fig:automata for FIFO-1 in appendix}. Here $A_1 = \{ \textit{call}(\textit{put},\top,\textit{true})$, $\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top),\textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},b),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $A_2$ $= A_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$.
 
 
 \begin{figure}[htbp]
@@ -652,7 +652,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^1$ for the first ca
 \end{figure}
 
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true}),\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{call}(\textit{rm},b) + \textit{ret}(\textit{rm},b) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second case, and it is shown in \figurename~\ref{fig:automata for FIFO-2}. Here $A_1 = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top),\textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $A_2 = A_1 \cup \{ \textit{call}(\textit{rm},b), \textit{ret}(\textit{rm},b) \}$.
 
 
 \begin{figure}[htbp]
@@ -663,7 +663,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^2$ for the second c
   \label{fig:automata for FIFO-2}
 \end{figure}
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $C_1 = \{ \textit{call}(\textit{put},a,\textit{true}),\textit{ret}(\textit{put},a,\textit{true}), \textit{call}(\textit{rm},a),\textit{ret}(\textit{rm},a),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_4 = C_3 \cup \{ \textit{call}(\textit{rm},b) \}$, $C_5 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $C_6 = C_5 \cup \{ \textit{call}(\textit{rm},b) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third case, and it is shown in \figurename~\ref{fig:automata for FIFO-3}. Here $A_1 = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top),\textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $A_2 = A_1 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$, $A_3 = A_2 \cup \{ \textit{ret}(\textit{rm},b) \}$, $A_4 = A_3 \cup \{ \textit{call}(\textit{rm},b) \}$, $A_5 = A_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, $A_6 = A_5 \cup \{ \textit{call}(\textit{rm},b) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -673,7 +673,7 @@ We generate register automata $\mathcal{A}_{\textit{SinPri}}^3$ for the third ca
   \label{fig:automata for FIFO-3}
 \end{figure}
 
-We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $C_1 = C \cup \{ \textit{call}(\textit{rm},b) \}$, and $C_2 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},d,\textit{true}),\textit{ret}(\textit{put},d,\textit{true}), \textit{call}(\textit{rm},d),\textit{ret}(\textit{rm},d),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$.
+We generate register automata $\mathcal{A}_{\textit{SinPri}}^4$ for the forth case, and it is shown in \figurename~\ref{fig:automata for FIFO-4}. Here $A_1 = A \cup \{ \textit{call}(\textit{rm},b) \}$, and $A_2 = A \cup \{ \textit{ret}(\textit{put},b,\textit{true}), \textit{call}(\textit{rm},a), \textit{ret}(\textit{rm},a) \}$, where $A = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top),\textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -716,9 +716,9 @@ Let us prove the $\textit{if}$ direction. Assume that exists $e \in \mathcal{I}_
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] If this is because case $1$, case $2$ or case $3$: $r$ maps $v_b$ into $b$ and maps all other values into $a$.
+\item[-] If this is because case $1$, case $2$ or case $3$: $r$ maps $v_b$ into $b$ and maps all other values into $\top$.
 
-\item[-] If this is because case $4$: $r$ maps $v_a$ and $v_b$ into $a$ and $b$, respectively, and maps all other values into $d$.
+\item[-] If this is because case $4$: $r$ maps $v_a$ and $v_b$ into $a$ and $b$, respectively, and maps all other values into $\top$.
 \end{itemize}
 
 Then it is not hard to see that $r(e) \in \mathcal{I}$ and it is accepted by $\mathcal{A}_{\textit{SinPri}}^1, \mathcal{A}_{\textit{SinPri}}^2, \mathcal{A}_{\textit{SinPri}}^3$ or $\mathcal{A}_{\textit{SinPri}}^4$. This completes the proof of this lemma. \qed
@@ -1000,9 +1000,9 @@ This completes the proof of the $\textit{if}$ direction.
 \end {proof}
 
 
-Let us begin to represent register automata that is used for capture the existence of a data-differentiated execution $e$, let $p$ be a maximal priority of $e$, and $e'$ be the projection of $e$ into values with priorities comparable with $p$. We also require that $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds and there exists a cycle going through the value with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such value to be $b$, maps values that cover it to be $a$, and maps other values into $d$. There are four possible enumeration of call and return actions of $\textit{put}(b,p)$ and $\textit{rm}(b)$. For each of them, we generate a register automaton.
+Let us begin to represent register automata that is used for capture the existence of a data-differentiated execution $e$, let $p$ be a maximal priority of $e$, and $e'$ be the projection of $e$ into values with priorities comparable with $p$. We also require that $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds and there exists a cycle going through the value with maximal priority in $e'$. By data-independence, we can obtain $e_r$ from $e$ by renaming function, which maps such value to be $b$, maps values that cover it to be $a$, and maps other values into $\top$. There are four possible enumeration of call and return actions of $\textit{put}(b,p)$ and $\textit{rm}(b)$. For each of them, we generate a register automaton.
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $C_1 = C \cup \{ \textit{ret}(\textit{rm},a) \}$, $C_2 = C \cup \{ \textit{call}(\textit{put},a,<r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{rm},a) \}$, where $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top)$, $\textit{ret}(\textit{rm},\top),$ $\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,\textit{true}) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^1$, as shown in \figurename~\ref{fig:automata APQ1Lar-1}. Here $A_1 = A \cup \{ \textit{ret}(\textit{rm},a) \}$, $A_2 = A \cup \{ \textit{call}(\textit{put},a,<r) \}$, $A_3 = A_2 \cup \{ \textit{ret}(\textit{rm},a) \}$, where $A = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top)$, $\textit{ret}(\textit{rm},\top),$ $\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty})$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^1$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1024,7 +1024,7 @@ $\mathcal{A}_{\textit{l-lar}}^1$ is used to recognize conditions in \figurename~
 \end{figure}
 
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^2$, as shown in \figurename~\ref{fig:automata APQ1Lar-2}. Here $C_1,C_2,C_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^2$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{put},b,p) \cdot \textit{call}(\textit{rm},b) \cdot \textit{ret}(\textit{put},b,\textit{true}) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^2$, as shown in \figurename~\ref{fig:automata APQ1Lar-2}. Here $A_1,A_2,A_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^2$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1046,7 +1046,7 @@ $\mathcal{A}_{\textit{l-lar}}^2$ is used to recognize conditions in \figurename~
   \label{fig:his for APQ1Lar-2}
 \end{figure}
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{rm},b) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^3$, as shown in \figurename~\ref{fig:automata APQ1Lar-3}. Here $C_1,C_2,C_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^3$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{rm},b) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{put},b,\textit{true}) \cdot \textit{ret}(\textit{rm},b)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^3$, as shown in \figurename~\ref{fig:automata APQ1Lar-3}. Here $A_1,A_2,A_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^3$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1069,7 +1069,7 @@ $\mathcal{A}_{\textit{l-lar}}^3$ is used to recognize conditions in \figurename~
 \end{figure}
 
 
-For the case when $e_r \vert_{b} = \textit{call}(\textit{rm},b) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b) \cdot \textit{ret}(\textit{put},b,p)$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^4$, as shown in \figurename~\ref{fig:automata APQ1Lar-4}. Here $C_1,C_2,C_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$, and $C_4 = C_1 \cup \{ \textit{ret}(\textit{put},b,=r) \}$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^4$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
+For the case when $e_r \vert_{b} = \textit{call}(\textit{rm},b) \cdot \textit{call}(\textit{put},b,p) \cdot \textit{ret}(\textit{rm},b) \cdot \textit{ret}(\textit{put},b,\textit{true})$, we generate register automaton $\mathcal{A}_{\textit{l-lar}}^4$, as shown in \figurename~\ref{fig:automata APQ1Lar-4}. Here $A_1,A_2,A_3$ is the same as that in $\mathcal{A}_{\textit{l-lar}}^1$, and $A_4 = A_1 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$. The differentiated branch in $\mathcal{A}_{\textit{l-lar}}^4$ comes from the positions of the first $\textit{ret}(\textit{put},a,\_)$.
 
 \begin{figure}[htbp]
   \centering
@@ -1111,7 +1111,7 @@ By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:Lin Equals Con
 
 \noindent The $\textit{only if}$ direction: Let us consider the case of $\mathcal{A}_{\textit{l-lar}}^1$. Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$. By data-independence, there exists data-differentiated execution $e \in \mathcal{I}$ and renaming function $r_1$, such that $e_1 = r_1(e)$. Assume that $r_1$ maps $d$ into $b$ and maps $f_1,\ldots,f_m$ into $a$. Let $e'$ be obtained from $e$ by projection into $\{ d, f_1,\ldots,f_m \}$. Assume that the priority of $b$ is $p$. It is easy to see that $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMaxPriority}(e')$ holds, and there is a cycle going through $d$ in $G$, where $G$ is the left-right constraint of $e'$. The case of $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ and $\mathcal{A}_{\textit{l-lar}}^4$ can be similarly proved.
 
-\noindent The $\textit{if}$ direction: Given such $e$, $e'$ and $x$. Let renaming function $r$ maps $x$ into $b$, maps values cover $x$ into $a$, and maps other values into $d$. By data-independence, $r(e) \in \mathcal{I}$. Then depending on the cases of $r(e) \vert_{b}$, we can see that $r(e)$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$, $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ or $\mathcal{A}_{\textit{l-lar}}^4$. \qed
+\noindent The $\textit{if}$ direction: Given such $e$, $e'$ and $x$. Let renaming function $r$ maps $x$ into $b$, maps values cover $x$ into $a$, and maps other values into $\top$. By data-independence, $r(e) \in \mathcal{I}$. Then depending on the cases of $r(e) \vert_{b}$, we can see that $r(e)$ is accepted by $\mathcal{A}_{\textit{l-lar}}^1$, $\mathcal{A}_{\textit{l-lar}}^2$, $\mathcal{A}_{\textit{l-lar}}^3$ or $\mathcal{A}_{\textit{l-lar}}^4$. \qed
 \end {proof}
 
 
@@ -1383,7 +1383,7 @@ According to Lemma \ref{lemma:EPQ1Equal as pb order and gap-point}, Lemma \ref{l
 Let us begin to represent several register automata that is used to capture the existence of a data-differentiated execution $e$, $e$ has a projection $e'$, $e'$ has only one maximal priority, $\mathsf{Has\text{-}MatchedMax-}$ $\mathsf{Priority}(e')$ holds, there exists values $a$ and $b$ with maximal priority in $e'$, $a <_{\textit{pb}}^* b$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,\_)$ or $\textit{call}(\textit{rm},a)$.
 
 
-An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the values that cover $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $d$, and rename the remanning values into $\top$. In this figure, $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true})$, $\textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),$ $\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_1 = C \cup \{ \textit{call}(\textit{put},d,<r) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},b,=r) \}$, $C_3 = C_2 \cup \{ \textit{call}(\textit{put},d,<r),\textit{ret}(\textit{rm},d) \}$, $C_4 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{ret}(\textit{rm},d) \}$.
+An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}, and it is constructed for the first enumeration in \figurename~\ref{fig:history enumeration 1 for PQ1Equal}. Here we rename the values that cover $\textit{call}(\textit{rm},a)$ and $\textit{ret}(\textit{rm},b)$ into $c$, and rename the remanning values into $\top$. In this figure, $A = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}(\textit{put},\top,\textit{true})$, $\textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),$ $\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $A_1 = A \cup \{ \textit{call}(\textit{put},c,<r) \}$, $A_2 = A_1 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$, $A_3 = A_2 \cup \{ \textit{ret}(\textit{rm},c) \}$, $A_4 = A \cup \{ \textit{ret}(\textit{put},b,\textit{true}), \textit{ret}(\textit{rm},c) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -1394,7 +1394,7 @@ An automaton $\mathcal{A}_{\textit{l-eq}}^1$ is given in \figurename~\ref{fig:au
 \end{figure}
 
 
-An automaton $\mathcal{A}_{\textit{l-eq}}^2$ is given in \figurename~\ref{fig:automata for second enumeration of PQ1Equal}, and it is constructed for the second enumeration in \figurename~\ref{fig:history enumeration 2 for PQ1Equal}. In \figurename~\ref{fig:automata for second enumeration of PQ1Equal}, $C_1$, $C_2$, $C_3$ and $C_4$ is same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}.
+An automaton $\mathcal{A}_{\textit{l-eq}}^2$ is given in \figurename~\ref{fig:automata for second enumeration of PQ1Equal}, and it is constructed for the second enumeration in \figurename~\ref{fig:history enumeration 2 for PQ1Equal}. In \figurename~\ref{fig:automata for second enumeration of PQ1Equal}, $A_1$, $A_2$, $A_3$ and $A_4$ is same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}.
 
 \begin{figure}[htbp]
   \centering
@@ -1421,7 +1421,7 @@ For the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1E
 \item[-] If $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},a_1)$: There are three possible positions of $\textit{call}(\textit{put},a,p)$: (1) after $\textit{call}(\textit{rm},a_1)$ and before $\textit{ret}(\textit{put},a,p)$, (2) after $\textit{call}(\textit{put},b,p)$ and before $\textit{call}(\textit{rm},a_1)$, and (3) before $\textit{call}(\textit{put},b,p)$.
 \end{itemize}
 
-Therefore, there are fourteen possible cases that satisfy the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}. For each case, we construct an finite automaton. Let $\mathcal{A}_{\textit{1-eq}}^{3}$ be the union of register automata that is constructed for above fourteen cases. For example, for the case $\textit{ca}_1$ when $\textit{call}(\textit{put},a,p)$ is before $\textit{call}(\textit{rm},a_1)$, $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$, and $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},b)$, we construct a finite automaton $\mathcal{A}_{\textit{l-eq}}^{\textit{3-1}}$ in \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}. In \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}, let $C$ and $C_1$ the same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}. Let $C_2 = C_1 \cup \{ \textit{ret}(\textit{put},a_1,=r) \}$, $C_3 = C_2 \cup \{ \textit{ret}(\textit{put},b,=r) \}$, $C_4 = C_3 \cup \{ \textit{call}(\textit{put},d,<r), \textit{ret}(\textit{rm},d) \}$, and $C_5 = C \cup \{ \textit{ret}(\textit{put},b,=r), \textit{ret}(\textit{put},a_1,=r), \textit{ret}(\textit{rm},d) \}$. Other register automata can be similarly constructed.
+Therefore, there are fourteen possible cases that satisfy the third enumeration in \figurename~\ref{fig:history enumeration 3 for PQ1Equal}. For each case, we construct an finite automaton. Let $\mathcal{A}_{\textit{1-eq}}^{3}$ be the union of register automata that is constructed for above fourteen cases. For example, for the case $\textit{ca}_1$ when $\textit{call}(\textit{put},a,p)$ is before $\textit{call}(\textit{rm},a_1)$, $\textit{call}(\textit{put},b,p)$ is after $\textit{ret}(\textit{rm},a_1)$, and $\textit{call}(\textit{put},b,p)$ is before $\textit{call}(\textit{rm},b)$, we construct a finite automaton $\mathcal{A}_{\textit{l-eq}}^{\textit{3-1}}$ in \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}. In \figurename~\ref{fig:automata for ca1 of third enumeration of Rpr2}, let $A$ and $A_1$ the same as that in \figurename~\ref{fig:automata for first enumeration of PQ1Equal}. Let $A_2 = A_1 \cup \{ \textit{ret}(\textit{put},a_1,\textit{true}) \}$, $A_3 = A_2 \cup \{ \textit{ret}(\textit{put},b,\textit{true}) \}$, $A_4 = A_3 \cup \{ \textit{ret}(\textit{rm},c) \}$, and $A_5 = A \cup \{ \textit{ret}(\textit{put},b,\textit{true}), \textit{ret}(\textit{put},a_1,\textit{true}), \textit{ret}(\textit{rm},c) \}$. Other register automata can be similarly constructed.
 
 \begin{figure}[htbp]
   \centering
@@ -1449,11 +1449,11 @@ By Lemma \ref{lemma:pri execution is enough} and Lemma \ref{lemma:EPQ1Equal as p
 
 \noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\textit{1-eq}} \cap \mathcal{I} \neq \emptyset$ if and only if there exists $e \in \mathcal{I}$ and $e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds, $x$ is the value with maximal priority in $e'$, $e'$ has only one maximal priority, $a$ and $b$ are two values with maximal priority $p$ in $e'$, $a <_{\textit{pb}}^* b$ in $e'$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e'$.
 
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\mathcal{A}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\mathcal{A}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the values that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the values that are renamed into $d$ by $r$.
+\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by some register automata in $\mathcal{A}_{\textit{1-eq}}$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by some register automata in  $\mathcal{A}_{\textit{1-eq}}$, let $x$, $y$ and $z$ (if exists) be the values that are renamed into $b$, $a$ and $a_1$ (if exists) by $r$, respectively, and let $d_1,\ldots,d_m$ be the values that are renamed into $c$ by $r$.
 
 let $e'' = e_2 \vert_{ \{ x,y,z,d_1,\ldots,d_m \} }$. It is obvious that $e'' \in \textit{proj}(e_2)$, $e''$ has only one maximal priority, and $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e'')$ holds. According to our construction of automata in $\textit{Auts}_{\textit{1-eq}}$, it is not hard to see that $x$ and $y$ has maximal priority in $h_2$, $y <_{\textit{pb}}^* x$, and the rightmost gap-point of $x$ is before $\textit{call}(\textit{put},y,p)$ or $\textit{call}(\textit{rm},y)$ in $e''$.
 
-\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds $e'$ has only one maximal priority, $a'$ and $b'$ are two values with maximal priority $p$ in $e'$, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',p)$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the values $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $d$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b$, we rename $a'_1$ into $a_1$, and (4) rename the other values into $\top$. It is easy to see that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e_1)$ holds, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
+\noindent The $\textit{if}$ direction: Assume that there exists $e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, such that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e')$ holds $e'$ has only one maximal priority, $a'$ and $b'$ are two values with maximal priority $p$ in $e'$, $a' <_{\textit{pb}}^* b'$ in $e'$, and the rightmost gap-point of $b'$ is before $\textit{call}(\textit{put},a',p)$ or $\textit{call}(\textit{rm},a')$ in $e'$. By data-independence, we can obtain execution $e_1$ as follows: (1) rename $a'$ and $b'$ into $a$ and $b$, respectively, (2) for the values $d_1,\ldots,d_m$ that constitute the rightmost gap of $b'$, we rename them into $c$, (3) if $a' <_{\textit{pb}}^A a'_1 <_{\textit{pb}}^B b'$, we rename $a'_1$ into $a_1$, and (4) rename the other values into $\top$. It is easy to see that $\mathsf{Has\text{-}MatchedMaxPriority}^{=}(e_1)$ holds, $a$ and $b$ has maximal priority in $e_1$, $a <_{\textit{pb}}^* b$ in $e_1$, and the rightmost gap-point of $b$ is before $\textit{call}(\textit{put},a,p)$ or $\textit{call}(\textit{rm},a)$ in $e_1$. By Lemma \ref{lemma:five enumeration is enough for EPQ1Equal}, there are five possible enumeration of operations of $a$, $b$, $a_1$ (if exists). Then
 
 
 \begin{itemize}
@@ -1608,7 +1608,7 @@ This completes the proof of the $\textit{only if}$ direction.
 \qed
 \end {proof}
 
-Let us begin to represent a register automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $e'$ is not $\mathsf{EmptyRemove}$-linearizable, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $C = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}($ $\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $C_1 = C \cup \{ \textit{call}(\textit{put},b,\textit{true}) \}$, $C_2 = C_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, and $C_3 = C \cup \{ \textit{ret}(\textit{rm},b) \}$.
+Let us begin to represent a register automaton that is used for capture the case that, in a sub-execution $e'$ of an execution $e$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $e'$ is not $\mathsf{EmptyRemove}$-linearizable, and the reason is that there is a cycle going through some $\textit{rm}(\textit{empty})$ $o$ in the left-right constraint of $o$. The automaton is $\mathcal{A}_{\seqPQ}^3$, which is given in \figurename~\ref{fig:automata for PQ3}. In \figurename~\ref{fig:automata for PQ3}, let $A = \{ \textit{call}(\textit{put},\top,\textit{true}),\textit{ret}($ $\textit{put},\top,\textit{true}), \textit{call}(\textit{rm},\top), \textit{ret}(\textit{rm},\top),\textit{call}(\textit{rm},\textit{empty}),\textit{ret}(\textit{rm},\textit{empty}) \}$, $A_1 = A \cup \{ \textit{call}(\textit{put},b,\textit{true}) \}$, $C_2 = A_1 \cup \{ \textit{ret}(\textit{rm},b) \}$, and $A_3 = A \cup \{ \textit{ret}(\textit{rm},b) \}$.
 
 \begin{figure}[htbp]
   \centering
@@ -1643,12 +1643,11 @@ We need to prove that, given a data-independent implementation $\mathcal{I}$. $\
 
 By Lemma \ref{lemma:Lin Equals Constraint for EPQ3}, we need to prove the following fact:
 
-\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$ if and only if $\exists e \in \mathcal{I}_{\neq},e' \in \textit{proj}(e)$, $\mathsf{Has\text{-}EmptyRemove}(e')$ holds, $o = \textit{rm}(\textit{empty})$ is in $e'$, and $o$ is covered by some values $d_1,\ldots,d_m$ in $e'$.
+\noindent {\bf $\textit{fact}_1$}: Given a data-independent implementation $\mathcal{I}$. $\mathcal{A}_{\seqPQ}^3 \cap \mathcal{I} \neq \emptyset$, if and only if there exists $o = \textit{rm}(\textit{empty})$ in $e \in \mathcal{I}$, $G$ has a cycle going through $o$, where $G$ is the graph representing the left-right constraint of $o$.
 
+\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\seqPQ}^3$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Since $e_1$ is accepted by $\mathcal{A}_{\seqPQ}^3$, there exists an operation $o=\textit{rm}(\textit{empty})$ in $e_1$ and $e_2$, and let $d_1,\ldots,d_m$ be the values that are renamed into $b$ by $r$. Let $e'' = e_2 \vert_{ \{ o,d_1,\ldots,d_m \} }$. It is not hard to see that $G$ has a cycle going through $o$, where $G$ is the graph representing the left-right constraint of $o$. 
 
-\noindent The $\textit{only if}$ direction: Assume that $e_1 \in \mathcal{I}$ is accepted by $\mathcal{A}_{\seqPQ}^3$. By data-independence, there exists data-differentiated execution $e_2 \in \mathcal{I}$ and a renaming function $r$, such that $e_1=r(e_2)$. Let $d_1,\ldots,d_m$ be the values in $e_2$ such that $r(d_i)=b$ for each $1 \leq i \leq m$. Let $e_3 = e_2 \vert_{ \{ o, d_1, \ldots, d_m \} }$. It is obvious that $e_3 \in \textit{proj}(e_2)$ and $\textit{last}(e_3) = \seqPQ_3$. It is easy to see that $o$ is covered by $d_1,\ldots,d_m$.
-
-\noindent The $\textit{if}$ direction: Assume that there exists such $e$, $e'$, $o$ and $d_1,\ldots,d_m$. Then, let $e_1$ be obtained from $e$ by renaming $d_1,\ldots,d_m$ into $b$ and renaming other values into $\top$. By data-independence, $e_1 \in \mathcal{I}$. It is easy to see that $e_1$ is accepted by $\mathcal{A}_{\seqPQ}^3$.
+\noindent The $\textit{if}$ direction: Given such $e$ and $o$. By data-independence, there exists data-differentiated execution $e_1 \in \mathcal{I}$ and a renaming function $r_1$, such that $e=r_1(e_1)$. It is not hard to see that in $e_1$, $o$ is covered by values $d_1,\ldots,d_m$. Let renaming function $r_2$ be a renaming function which maps $d_1,\ldots,d_m$ into $b$ and all other values into $\top$. Then it is easy to see that $r_2(e_1) \in \mathcal{I}$ is accepted by $\mathcal{A}_{\seqPQ}^3$. 
 
 This completes the proof of this lemma. \qed
 \end {proof}
@@ -1660,7 +1659,7 @@ This completes the proof of this lemma. \qed
 
 In this subsection, we show how to prove that the verification of linearizability of priority queue to be PSPACE-complete for a fixed number of threads, and EXPSPACE-complete for unbounded number of processes.
 
-When considering decidability and complexity, we consider only finite variables with finite data domain. In such case, the priority queue implementations can only model priority queue with bounded capacity. Then, at some time, the priority queue may become full and then put can not succeed until some item is removed. However, we assume that each method can always make progress in isolation, which means that $\textit{put}$ must return some value when the priority queue is full. Therefore, we introduce a specific value $\textit{full}$. A $\textit{put}$ method returns $\textit{full}$ indicates that the priority queue is full now. To fit our results of priority queue in former section, when checking linearizability of priority queue, we only consider executions without any $\textit{put}(\_,\_,\textit{full})$. Since does not mean we consider only executions with bounded number of operations, since an execution can contain unbounded number of pairs of put and remove operations by linearizable w.r.t pairs of put and remove operations.
+When considering decidability and complexity, we consider only finite variables with finite data domain. In such case, it seems that the priority queue implementations can only model priority queue with bounded capacity. Then, at some time, the priority queue may become full and then put can not succeed until some item is removed. However, we assume that each method can always make progress in isolation, which means that $\textit{put}$ must return some value when the priority queue is full. Therefore, we introduce a specific value $\textit{full}$. A $\textit{put}$ method returns $\textit{full}$ indicates that the priority queue is full now. To fit our results of priority queue in former section, when checking linearizability of priority queue, we only consider executions without any $\textit{put}(\_,\_,\textit{full})$. This does not mean we consider only executions with bounded number of operations, since an execution can contain unbounded number of pairs of put and remove operations by linearizable w.r.t pairs of put and remove operations.
 
 \noindent {\bf Vector Addition Systems with States (VASS):} A VASS \cite{conf/esop/BouajjaniEEH13} $\mathcal{A}=(Q_\mathcal{A},\rightarrow_\mathcal{A})$ contains a finite set $Q_\mathcal{A}$ of states and a finite set $\rightarrow_\mathcal{A}$ of transitions. Each transition is chosen from $Q_\mathcal{A} \times \mathbb{Z}^s \times Q_\mathcal{A}$, where $s$ is a positive integer. A vector that has a single non-zero component in $\{1,-1\}$ is called a unit vector. We assume, w.l.o.g., that all vectors of transitions are unit vectors.
 
@@ -1669,16 +1668,23 @@ The operational semantics of a VASS is defined as a LTS. A configuration $(q,\ve
 The state-reachability problem of VASS is to determine whether some configuration with state $q$ is reachable from a given configuration $(q_0,\vec 0)$. Here $\vec 0$ is a specific vector for which all components are $0$ and $q_0$ is the initial state of VASS.
 
 
-\noindent {\bf Reducing priority Queue into PSPACE and EXPSPACE problems:} We describe a class $\mathcal{C}$ of data-independent implementations for which linearizability w.r.t. $\seqPQ$ is decidable. The implementations in $\mathcal{C}$ allow an unbounded number of values but a bounded number of priorities. Each method manipulates a finite number of local variables which store Boolean values, or data values from $\mathbb{D}$. Methods communicate through a finite number of shared variables that also store Boolean values, or data values from $\mathbb{D}$. Data values may be assigned, but never used in program predicates (e.g., in the conditions of if-then-else and while statements) so as to ensure data independence. This class captures typical implementations, or finite-state abstractions thereof, e.g., obtained via predicate abstraction. Since the $\Gamma$-complete automata $A(\Gamma)$ uses a fixed set $D=\{a,b,a_1,d,e,\top\}$ of values, we have that $\mathcal{C}\cap A(\Gamma)\neq\emptyset$ for some $\Gamma$ iff $\mathcal{C}_D\cap A(\Gamma)\neq\emptyset$ where $\mathcal{C}_D$ is the subset of $\mathcal{C}$ that uses only values in $D$.
+\noindent {\bf Reducing Linearizability Problem of Priority Queue into State-Reachability Problem of VASS:} We describe a class $\mathcal{C}$ of data-independent implementations for which linearizability w.r.t. $\seqPQ$ is decidable. The implementations in $\mathcal{C}$ allow an unbounded number of values but a bounded number of priorities. Each method has a finite set of local variables storing Boolean values or values from $\mathbb{D}$. Methods communicate through a finite number of shared variables interpreted also as Booleans or values from $\mathbb{D}$. To ensure data independence, values in $\mathbb{D}$ may be assigned, but never used in Boolean expressions (e.g., of if-then-else statements). This class captures typical implementations, or finite-state abstractions thereof, e.g., obtained via predicate abstraction. The $\Gamma$-complete automata we define use a fixed set $D=\{a,b,c,a_1,\top\}$ of values ($a_1$ is needed to deal with the second item in Lemma~\ref{lemma:ob order has bounded length}). Therefore, for any $\Gamma$, $\mathcal{C}\cap A(\Gamma)\neq\emptyset$ iff $\mathcal{C}_D\cap A(\Gamma)\neq\emptyset$, where $\mathcal{C}_D$ is the subset of $\mathcal{C}$ that uses only values in $D$.
 
-We model the set $\mathcal{C}_D$ as the executions of a Vector Addition System with States (VASS) similarly to Bouajjani et al. \cite{conf/esop/BouajjaniEEH13}. A VASS has a finite set of states, and manipulates a finite set of counters holding non-negative values. The idea is that the states of the VASS represent the global variables of $\mathcal{C}_D$. This set is finite as we have bounded the data values. Each counter of the VASS then represents the number of threads which are at a particular control location within a method, with a certain valuation of the local variables. Here again, as the data values are bounded, there is a finite number of valuations. When a thread moves from a control location to another, or updates its local variables, we decrement, resp., increment, the counter corresponding the old, resp., the new, control location or valuation.
+The set of executions $\mathcal{C}_D$ can be represented by a Vector Addition System with States (VASS). Since the set of values and priorities is bounded, each method invocation can be represented by a finite-state automaton (see~\cite{conf/esop/BouajjaniEEH13}). For a fixed set of priorities $P\subseteq \mathbb{P}$, the register automata $A(\Gamma)$ can be transformed to finite-state automata (the number of valuations of the registers is bounded). Thus, checking linearizability of an implementation in $\mathcal{C}$ is PSPACE when the number of threads is bounded, and EXPSPACE, otherwise. 
 
-For a fixed set of priorities $P$, the register automata $A(\Gamma)$ can be transformed to finite-state automata since the number of possible valuations of the registers is bounded. In this way, we reduce checking linearizability of priority queue into the the EXPSPACE-complete problem of checking state-reachability in a VASS. When we consider only finite number of threads, the value of counters are bounded and then this problem is PSPACE \cite{DBLP:conf/ac/Esparza96}.
+%The set of executions $\mathcal{C}_D$ can be represented by a Vector Addition System with States (VASS). Since the set of values and priorities is bounded, each method invocation can be represented by a finite-state automaton (see~\cite{conf/esop/BouajjaniEEH13}). For a fixed set of priorities $P\subseteq \mathbb{P}$, the register automata $A(\Gamma)$ can be transformed to finite-state automata (the number of valuations of the registers is bounded). A VASS has a finite set of states, and manipulates a finite set of counters holding non-negative values. The idea is that the states of the VASS is a product of the valuation of global variables of $\mathcal{C}_D$ and state of $A(\Gamma)$. This set is finite. Each counter of the VASS then represents the number of threads which are at a particular control location within a method, with a certain valuation of the local variables. Here again, as the data values are bounded, there is a finite number of valuations. When a thread moves from a control location to another, we decrement, resp., increment, the counter corresponding the old, resp., the new control location. In this way, we model $\mathcal{C}_D$ as VASS. Thus, checking linearizability of an implementation in $\mathcal{C}$ is PSPACE when the number of threads is bounded, and EXPSPACE, otherwise.
 
 
-\noindent {\bf Reducing PSPACE and EXPSPACE problems into linearizability of priority queue for bounded number of threads:} We show how to reduce the state-reachability problem of VASS into checking linearizability of priority queue. Our construction is based on the reduction of state-reachability problem of counter machine and VASS into linearizability in \cite{conf/esop/BouajjaniEEH13}.
+%We model the set $\mathcal{C}_D$ as the executions of a Vector Addition System with States (VASS) similarly to Bouajjani et al. \cite{conf/esop/BouajjaniEEH13}. A VASS has a finite set of states, and manipulates a finite set of counters holding non-negative values. The idea is that the states of the VASS represent the global variables of $\mathcal{C}_D$. This set is finite as we have bounded the data values. Each counter of the VASS then represents the number of threads which are at a particular control location within a method, with a certain valuation of the local variables. Here again, as the data values are bounded, there is a finite number of valuations. When a thread moves from a control location to another, or updates its local variables, we decrement, resp., increment, the counter corresponding the old, resp., the new, control location or valuation.
 
-There are already several linearizable lock-free implementations of priority queue \cite{DBLP:conf/ipps/SundellT03,DBLP:conf/ppopp/LiuS12}. It is not hard to modify them to fit finite variables with finite data domain and it is obvious that they are still linearizable then. Let $\textit{Imp-PQ}_{\textit{lf}}$ be one such implementations. It is safe to assume that $\textit{Imp-PQ}_{\textit{lf}}$ is given in the form of pseudo-code. We use $\textit{put}_{\textit{lf}}$ and $\textit{rm}_{\textit{lf}}$ to explicitly denote the pseudo-code of put and remove method of $\textit{Imp-PQ}_{\textit{lf}}$.
+%For a fixed set of priorities $P$, the register automata $A(\Gamma)$ can be transformed to finite-state automata since the number of possible valuations of the registers is bounded. In this way, we reduce checking linearizability of priority queue into the the EXPSPACE-complete problem of checking state-reachability in a VASS. When we consider only finite number of threads, the value of counters are bounded and then this problem is PSPACE \cite{DBLP:conf/ac/Esparza96}.
+
+
+\noindent {\bf Reducing State-Reachability Problem of VASS into Linearizability Problem of Priority Queue:} We show how to reduce the state-reachability problem of VASS into checking linearizability of priority queue. Our construction is based on the reduction of state-reachability problem of counter machine and VASS into linearizability problem in \cite{conf/esop/BouajjaniEEH13}.
+
+%There are already several linearizable lock-free implementations of priority queue \cite{DBLP:conf/ipps/SundellT03,DBLP:conf/ppopp/LiuS12}. It is not hard to modify them to fit finite variables with finite data domain and it is obvious that they are still linearizable then. Let $\textit{Imp-PQ}_{\textit{lf}}$ be one such implementations. It is safe to assume that $\textit{Imp-PQ}_{\textit{lf}}$ is given in the form of pseudo-code. We use $\textit{put}_{\textit{lf}}$ and $\textit{rm}_{\textit{lf}}$ to explicitly denote the pseudo-code of put and remove method of $\textit{Imp-PQ}_{\textit{lf}}$. 
+
+Let $\textit{Imp-PQ}_{\textit{lf}}$ be a correct priority queue implementation where (1) each method execute in a sequentially way (can be achieved by using lock and unlock) and (2) uses finite variables with finite data domain. It is quite easy to construct $\textit{Imp-PQ}_{\textit{lf}}$ and we omit its detailed definition here. By condition (1) we know that each method does not to wait for other method to complete its execution. It is safe to assume that $\textit{Imp-PQ}_{\textit{lf}}$ is given in the form of pseudo-code. We use $\textit{put}_{\textit{lf}}$ and $\textit{rm}_{\textit{lf}}$ to explicitly denote the pseudo-code of put and remove method of $\textit{Imp-PQ}_{\textit{lf}}$.
 
 A counter machine is a VASS that can additional detect if the value of some counter is $0$. In \cite{conf/esop/BouajjaniEEH13}, they construct a library $\mathcal{L}_{\mathcal{A}}$ that simulate executions of counter machine $\mathcal{A}$. This library use finite variables with finite data domain. It contains the following six methods:
 
@@ -1694,19 +1700,19 @@ A counter machine is a VASS that can additional detect if the value of some coun
 
 \item[-] $M_{\textit{dec-i}}$, which simulates decreasing counter $i$ with $1$.
 
-\item[-] $M_{\textit{zero-i}}$, which simulates testing whether the value of counter $i$ to be $0$.
+\item[-] $M_{\textit{zero-i}}$, which simulates testing whether the value of counter $i$ to be $0$. 
 \end{itemize}
 
 The first three methods do their work with the help of the latter three methods. For example, a $M_{(q,\vec n,q')}$ method (that increases counter $j$) will activate a $M_{inc-j}$ method and a $M_{dec-j}$ method.
 
-Let $D' = \{ (q,\vec n,q') \vert q,q' \in Q_{\mathcal{A}} - \{q_f\}, \vec n \in \mathbb{Z}^s \} \cup \{ q_f \} \cup \{\textit{inc-i},\textit{dec-i} \vert 1 \leq i \leq s\}$. Let $\textit{RAs}$ be the register automata obtained as follows:
+%Let $D' = \{ (q,\vec n,q') \vert q,q' \in Q_{\mathcal{A}} - \{q_f\}, \vec n \in \mathbb{Z}^s \} \cup \{ q_f \} \cup \{\textit{inc-i},\textit{dec-i} \vert 1 \leq i \leq s\}$. Let $\textit{RAs}$ be the register automata obtained as follows:
 
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] Given $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$, $\mathsf{MatchedMaxPriority}\}$, we modify the $\Gamma$-complete automata while the original value of $\top$ is replaced by values $\top$ and all values in $D'$.
+%\begin{itemize}
+%\setlength{\itemsep}{0.5pt}
+%\item[-] Given $\Gamma\in \{\mathsf{EmptyRemove}$, $\mathsf{UnmatchedMaxPriority}$, $\mathsf{MatchedMaxPriority}\}$, we modify the $\Gamma$-complete automata while the original value of $\top$ is replaced by values $\top$ and all values in $D'$.
 
-\item[-] For register automata that checks FIFO of sub-executions of operations with a same priority, if the original value under consideration is $\{ b \}$ (the first three automata) or $\{a,b\}$ (the forth automaton), then we replace them with $\{ b \} \cup D'$ and $\{a,b\} \cup D'$, respectively.
-\end{itemize}
+%\item[-] For register automata that checks FIFO of sub-executions of operations with a same priority, if the original value under consideration is $\{ b \}$ (the first three automata) or $\{a,b\}$ (the forth automaton), then we replace them with $\{ b \} \cup D'$ and $\{a,b\} \cup D'$, respectively.
+%\end{itemize}
 
 Given a VASS $\mathcal{A}$, we construct a priority queue implementation $\textit{PQ}_{\mathcal{A}}$ as follows:
 
@@ -1733,25 +1739,39 @@ Given a VASS $\mathcal{A}$, we construct a priority queue implementation $\texti
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
-\item[-] The $\textit{put}$ method uses items from $D' \cup \{ a,b,a_1,d,e,\top \}$. It first uses $\textit{put}_{\textit{lf}}$ to do the work of priority queue, and then choose a role and begin to simulate transitions of $\mathcal{A}$, until $q_f$ is reached. Then, it set the flag $\textit{reachQf}$ to be $\textit{true}$. The pseudo-code of $\textit{put}$ is shown in Algorithm \ref{alg:new put}.
+\item[-] The $\textit{put}$ method first uses $\textit{put}_{\textit{lf}}$ to do the work of priority queue, and then choose a role in $\{ \textit{trans}(q,\vec n,q'), \textit{reach-}q_f, \textit{inc-i},\textit{dec-i} \}$ and work according to it. If $q_f$ is reached, it then set the flag $\textit{reachQf}$ to be $\textit{true}$. The pseudo-code of $\textit{put}$ is shown in Algorithm \ref{alg:new put}.
 \end{itemize}
 
-In \cite{conf/esop/BouajjaniEEH13}, to use a library to simulate counter machine $\mathcal{A}$, their library $\mathcal{L}_{\mathcal{A}}$ contains the following variables: (1) variable $q$ that uses value from $Q_{\mathcal{A}}$, (2) vector $\textit{req}[]$ and $\textit{ack}[]$, the index is chosen from $1$ to the number of unit vectors of length $s$, (3) $\textit{dec}[]$, where the index is chosen form $1$ to $s$.
+%\begin{itemize}
+%\setlength{\itemsep}{0.5pt}
+%\item[-] The $\textit{put}$ method uses items from $D' \cup \{ a,b,a_1,d,e,\top \}$. It first uses $\textit{put}_{\textit{lf}}$ to do the work of priority queue, and then choose a role and begin to simulate transitions of $\mathcal{A}$, until $q_f$ is reached. Then, it set the flag $\textit{reachQf}$ to be $\textit{true}$. The pseudo-code of $\textit{put}$ is shown in Algorithm \ref{alg:new put}.
+%\end{itemize} 
 
-Let us explain how $\textit{put}$ method do to act according to its chosen role. We use the case of $\textit{trans}(q,\vec n,q')$ as an example while other cases can be similarly obtained. For the role $\textit{trans}(q,\vec n,q')$, it works as $M_{(q,\vec n,q')}$ in $\mathcal{L}_{\mathcal{A}}$. Or we can say, it do the following work:
-
-\begin{itemize}
-\setlength{\itemsep}{0.5pt}
-\item[-] atomically do $\textit{wait}(q)$ and $\textit{signal}(\textit{req}[\vec n])$,
-\item[-] atomically do $\textit{wait}(\textit{ack}[\vec n])$ and $\textit{signal}(q')$,
-\end{itemize}
-
-Note that we want to obtain a implementation where each method can always make progress in isolation. To obtain such an implementation, we need to slightly modify the $\textit{wait}$ command as follows:
+\cite{conf/esop/BouajjaniEEH13} uses wait and signal command. To obtain an implementation where each method can always make progress in isolation, we need to slightly modify the $\textit{wait}$ command as follows:
 
 \begin{itemize}
 \setlength{\itemsep}{0.5pt}
 \item[-] If a wait command find itself blocked, then it can still proceed. However, in this case the $\textit{put}$ method will return a specific value $\textit{fail}$. Moreover, when deciding linearizability, we do not consider executions with return value $\textit{fail}$.
 \end{itemize}
+
+
+
+%In \cite{conf/esop/BouajjaniEEH13}, to use a library to simulate counter machine $\mathcal{A}$, their library $\mathcal{L}_{\mathcal{A}}$ contains the following variables: (1) variable $q$ that uses value from $Q_{\mathcal{A}}$, (2) vector $\textit{req}[]$ and $\textit{ack}[]$, the index is chosen from $1$ to the number of unit vectors of length $s$, (3) $\textit{dec}[]$, where the index is chosen form $1$ to $s$.
+
+%Let us explain how $\textit{put}$ method do to act according to its chosen role. We use the case of $\textit{trans}(q,\vec n,q')$ as an example while other cases can be similarly obtained. For the role $\textit{trans}(q,\vec n,q')$, it works as $M_{(q,\vec n,q')}$ in $\mathcal{L}_{\mathcal{A}}$. Or we can say, it do the following work:
+
+%\begin{itemize}
+%\setlength{\itemsep}{0.5pt}
+%\item[-] atomically do $\textit{wait}(q)$ and $\textit{signal}(\textit{req}[\vec n])$,
+%\item[-] atomically do $\textit{wait}(\textit{ack}[\vec n])$ and $\textit{signal}(q')$,
+%\end{itemize}
+
+%Note that we want to obtain a implementation where each method can always make progress in isolation. To obtain such an implementation, we need to slightly modify the $\textit{wait}$ command as follows:
+
+%\begin{itemize}
+%\setlength{\itemsep}{0.5pt}
+%\item[-] If a wait command find itself blocked, then it can still proceed. However, in this case the $\textit{put}$ method will return a specific value $\textit{fail}$. Moreover, when deciding linearizability, we do not consider executions with return value $\textit{fail}$.
+%\end{itemize}
 
 \begin{algorithm}[t]
 \KwIn {An item $\textit{itm}$ and its priority $p$}
